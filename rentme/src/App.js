@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom';
 import Login from './components/Login';
 import ManagerLogin from './components/ManagerLogin';
 import ManagerDash from './components/ManagerDash';
+import TenantDashboard from './components/tenant/TenantDashboard';
 
 import './App.css';
 
@@ -14,6 +15,7 @@ class App extends Component {
       <Route exact path="/" component={Login} />
       <Route path="/manager-login" component={ManagerLogin} />
       <Route path="/manager-dash" component={ManagerDash} />
+      <Route path="/tenant-dash" component={TenantDashboard} />
       </>
     )
   }
