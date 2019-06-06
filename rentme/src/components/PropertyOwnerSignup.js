@@ -58,14 +58,19 @@ export default class PropertyOwnerSignup extends Component {
             />
             <Button
               type="submit"
-              fullWidth
+              size="medium"
               variant="contained"
               color="primary"
               href="/"
             >
               Sign Up
             </Button>
-            <Button variant="contained" color="secondary" href="/">
+            <Button
+              variant="contained"
+              color="secondary"
+              size="medium"
+              href="/"
+            >
               Cancel
             </Button>
           </form>
