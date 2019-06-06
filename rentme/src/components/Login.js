@@ -7,7 +7,7 @@ const Login = props => {
         <>
 
             <Link to="/tenant-dash"><button>Login as a Renter</button></Link>
-            <button>Login as a Property Owner</button>
+            <Link to="/property-dash"><button>Login as a Property Owner</button></Link>
             <Link to="/manager-login">Login as a Manager</Link>
 
         </>
