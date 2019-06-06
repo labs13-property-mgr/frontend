@@ -4,13 +4,11 @@
 
 🚫 Each student has a required minimum number of meaningful PRs each week per the rubric. Contributing to docs does NOT count as a PR to meet your weekly requirements.
 
-# 1️⃣ Title of project goes here
+# 1️⃣ Rent Me
 
-1️⃣ You can find the deployed project at [🚫URL NAME GOES HERE](🚫copy and paste URL here).
+1️⃣ You can find the deployed project at https://rentmeapp.netlify.com/
 
 ## 4️⃣ Contributors
-
-🚫Add contributor info below, make sure add images and edit the social links for each member. Add to or delete these place-holders as needed
 
 |                                                     [Jeffrey Lapp](https://github.com/)                                                     |                                                       [Student 2](https://github.com/)                                                        |                                             [Student 3](https://github.com/tca88)                                             |                                                       [Student 4](https://github.com/)                                                        |                                                      [Student 5](https://github.com/)                                                       |
 | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
@@ -33,6 +31,7 @@
 
 ## Project Overview
 
+<<<<<<< HEAD
 1️⃣ [Trello Board](🚫add link to trello board
 
 🚫 more info on using badges rello Board](🚫add link to trello board h
@@ -43,13 +42,15 @@
 
 1️⃣ [UX Design file](🚫add link to product canvas here)
 
-1️⃣ [place lorem ips](🚫add link to design files here) - 🚫 delete if not applicable
+# 1️⃣ [place lorem ips](🚫add link to design files here) - 🚫 delete if not applicable
 
-🚫 Replace lorem ipsum with a description of your project
+1️⃣ [Trello Board](https://trello.com/b/FQwrDOFc/labs13-property-mgr)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+1️⃣ [Product Canvas](https://docs.google.com/document/d/1vVGmHY_DgbCgMnyIzMXY9F13mI1jxfVlHGeotF2x5dY/edit#)
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+> > > > > > > I added two more slots for developers in the readme. I entered my own information into the read me as well as uploading my image, and also adding a image folder for our developer photos in the rentme file called developer-photos.
+
+RentME aims to reduce communication friction between landlord and tenant. Its mission of transparency for both users is represented through its core features, such as giving them clear visibility and access to important property documents, and up-to-date progress on renter requests. Finally, an app that’s a painless and seamless one-stop shop for both renters and owners.
 
 ### 4️⃣ Key Features
 
@@ -74,7 +75,7 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
 
 🚫List the rest of the front end features and libraries in the same format as the framework above.
 
-#### Front end deployed to `🚫insert service here`
+#### Front end deployed to https://rentmeapp.netlify.com/
 
 #### [� back e](🚫link to back end repo here) built using:
 
