@@ -32,6 +32,7 @@
 ## Project Overview
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 1️⃣ [Trello Board](🚫add link to trello board
 
 🚫 more info on using badges rello Board](🚫add link to trello board h
@@ -48,7 +49,13 @@
 
 1️⃣ [Product Canvas](https://docs.google.com/document/d/1vVGmHY_DgbCgMnyIzMXY9F13mI1jxfVlHGeotF2x5dY/edit#)
 
-> > > > > > > I added two more slots for developers in the readme. I entered my own information into the read me as well as uploading my image, and also adding a image folder for our developer photos in the rentme file called developer-photos.
+> > > > > > > # I added two more slots for developers in the readme. I entered my own information into the read me as well as uploading my image, and also adding a image folder for our developer photos in the rentme file called developer-photos.
+> > > > > > >
+> > > > > > > 1️⃣ [Trello Board](https://trello.com/b/FQwrDOFc/labs13-property-mgr)
+
+1️⃣ [Product Canvas](https://docs.google.com/document/d/1vVGmHY_DgbCgMnyIzMXY9F13mI1jxfVlHGeotF2x5dY/edit#)
+
+> > > > > > > 72ddf3b14496da1e009215259812ff37bcfe3385
 
 RentME aims to reduce communication friction between landlord and tenant. Its mission of transparency for both users is represented through its core features, such as giving them clear visibility and access to important property documents, and up-to-date progress on renter requests. Finally, an app that’s a painless and seamless one-stop shop for both renters and owners.
 
