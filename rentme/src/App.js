@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import React, { Component } from "react";
+import { Route } from "react-router-dom";
 
 import Login from './components/Login';
 import ManagerLogin from './components/ManagerLogin';
@@ -18,7 +18,7 @@ class App extends Component {
       <Route path="/issue-report" component={IssueForm} />
       <Route path="/view-receipts" component={RentReceipts} />
       </>
-    )
+    );
   }
 }
 
