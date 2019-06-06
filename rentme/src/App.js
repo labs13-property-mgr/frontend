@@ -4,11 +4,13 @@ import { Route } from "react-router-dom";
 import Login from "./components/Login";
 import ManagerLogin from "./components/ManagerLogin";
 import { ManagerCard, ManagerDash } from "./components/propertyOwner/manager";
+
 import { PropertyDash, PropertyCard, addManagerForm, VendorAddressBk, TenantAddressBk } from "./components/propertyOwner";
 import TenantDashboard from "./components/tenant/TenantDashboard";
 import PropertyOwnerSignup from "./components/PropertyOwnerSignup.js";
 import RenterSignup from "./components/RenterSignup.js";
 import "./App.css";
+
 
 class App extends Component {
   render() {
