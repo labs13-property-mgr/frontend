@@ -13,7 +13,9 @@ const Login = props => {
         </p>
       </div>
       <div>
-        <button>Login as a Property Owner</button>
+        <Link to="/property-dash">
+            <button>Login as a Property Owner</button>
+        </Link>
         <p>
           Don't have an account? <Link to="/owner-signup">Signup</Link>
         </p>
