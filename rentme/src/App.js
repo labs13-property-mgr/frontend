@@ -12,8 +12,8 @@ class App extends Component {
     return (
       <>
       <Route exact path="/" component={Login} />
-      <Route path="manager-login" component={ManagerLogin} />
-      <Route path="manager-dash" component={ManagerDash} />
+      <Route path="/manager-login" component={ManagerLogin} />
+      <Route path="/manager-dash" component={ManagerDash} />
       </>
     )
   }
