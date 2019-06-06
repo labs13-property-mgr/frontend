@@ -24,20 +24,26 @@
 🚫 4️⃣ Optional examples of using images with links for your tech stack, make sure to change these to fit your project
 
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
+
 ![React](https://img.shields.io/badge/react-v16.7.0--alpha.2-blue.svg)
+
 ![Typescript](https://img.shields.io/npm/types/typescript.svg?style=flat)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/b5c4db1c-b10d-42c3-b157-3746edd9e81d/deploy-status)](netlify link goes in these parenthesis)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-
 🚫 more info on using badges [here](https://github.com/badges/shields)
 
 ## Project Overview
 
-1️⃣ [Trello Board](🚫add link to trello board here)
+1️⃣ [Trello Board](🚫add link to trello board
 
-1️⃣ [Product Canvas](🚫add link to product canvas here)
+🚫 more info on using badges rello Board](🚫add link to trello board h
 
-1️⃣ [UX Design files](🚫add link to design files here) - 🚫 delete if not applicable
+## Project Overview
+
+1️⃣ [Product Canv](🚫add link to trello board here)
+
+1️⃣ [UX Design file](🚫add link to product canvas here)
+
+1️⃣ [place lorem ips](🚫add link to design files here) - 🚫 delete if not applicable
 
 🚫 Replace lorem ipsum with a description of your project
 
@@ -70,7 +76,7 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
 
 #### Front end deployed to `🚫insert service here`
 
-#### [Back end](🚫link to back end repo here) built using:
+#### [� back e](🚫link to back end repo here) built using:
 
 #### 🚫 back end framework goes here
 
@@ -133,10 +139,16 @@ In order for the app to function correctly, the user must set up their own envir
 
 🚫For all content - images, icons, etc, use this table to document permission of use. Remove the two placeholders and add you content to this table
 
-| Image Filename | Source / Creator | License                                                                      |
-| -------------- | ---------------- | ---------------------------------------------------------------------------- |
-| doodles.png    | Nicole Bennett   | [Creative Commons](https://www.toptal.com/designers/subtlepatterns/doodles/) |
-| rings.svg      | Sam Herbert      | [MIT](https://github.com/SamHerbert/SVG-Loaders)                             |
+| Image Filename | Source / Creator | License                  |
+| -------------- | ---------------- | ------------------------ |
+| doodles.png    | Nicole Bennett   | used for testing and why |
+
+# 4️⃣ Installation Instructions
+
+🚫explain ho |
+| rings.svg | Sam Herbert | sed for testing and why
+
+# 4️⃣ Installation In |
 
 # 4️⃣ Testing
 
@@ -159,7 +171,8 @@ In order for the app to function correctly, the user must set up their own envir
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
 
-Please note we have a [code of conduct](./CODE_OF_CONDUCT.md). Please follow it in all your interactions with the project.
+Please note we have a
+\*\*If you are having an issue with the. Please follow it in all your interactions with the project.
 
 ## Issue/Bug Request
 
@@ -190,7 +203,7 @@ Remember that this project is licensed under the MIT license, and by submitting 
 
 ### Attribution
 
-These contribution guidelines have been adapted from [this good-Contributing.md-template](https://gist.github.com/PurpleBooth/b24679402957c63ec426).
+These contribution guidelines have been adapted from nk to your backend readme here\*) for details on the backend of our project..
 
 ## Documentation
 
