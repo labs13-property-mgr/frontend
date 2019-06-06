@@ -28,6 +28,7 @@ class App extends Component {
         <Route path="/renter-signup" component={RenterSignup} />
         <Route path="/add-manager" component={addManagerForm} />
         <Route path="/manager-profile" component={ManagerCard} />
+        
       </>
     );
   }
