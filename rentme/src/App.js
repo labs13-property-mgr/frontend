@@ -18,6 +18,7 @@ class App extends Component {
         <Route path="/manager-login" component={ManagerLogin} />
         <Route path="/manager-dash" component={ManagerDash} />
         <Route path="/tenant-dash" component={TenantDashboard} />
+        <Route path="/property-dash" component={PropertyDash} />
         <Route path="/owner-signup" component={PropertyOwnerSignup} />
         <Route path="/renter-signup" component={RenterSignup} />
         <Route path="/add-manager" component={AddManagerForm} />
