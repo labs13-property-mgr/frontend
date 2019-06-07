@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7fbe657acfb290f0c9b534b2b6ac1903f5b6b648
 import React from "react";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
@@ -67,3 +71,7 @@ const Login = props => {
 };
 
 export default Login;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7fbe657acfb290f0c9b534b2b6ac1903f5b6b648

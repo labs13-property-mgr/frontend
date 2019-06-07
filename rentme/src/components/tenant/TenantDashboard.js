@@ -40,3 +40,7 @@ const TenantDashboard = props => {
 };
 
 export default TenantDashboard;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7fbe657acfb290f0c9b534b2b6ac1903f5b6b648

@@ -13,15 +13,23 @@ import "./App.css";
 
 
 class App extends Component {
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 7fbe657acfb290f0c9b534b2b6ac1903f5b6b648
   logOut = e => {
     e.preventDefault();
     localStorage.removeItem("token");
     console.log(window.location.href)
     this.props.history.push("/");
   };
+<<<<<<< HEAD
 
 
+=======
+  
+>>>>>>> 7fbe657acfb290f0c9b534b2b6ac1903f5b6b648
   render() {
     return (
       <>

@@ -34,7 +34,14 @@
     ]
   },
   "devDependencies": {
+<<<<<<< HEAD
     "react-test-renderer": "^16.8.6",
     "react-testing-library": "^8.0.1"
+=======
+
+    "react-test-renderer": "^16.8.6",
+    "react-testing-library": "^8.0.1"
+
+>>>>>>> 7fbe657acfb290f0c9b534b2b6ac1903f5b6b648
   }
 }
