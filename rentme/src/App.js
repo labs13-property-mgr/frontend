@@ -4,11 +4,13 @@ import { Route } from "react-router-dom";
 import Login from "./components/Login";
 import ManagerLogin from "./components/ManagerLogin";
 import { ManagerCard, ManagerDash } from "./components/propertyOwner/manager";
+
 import { PropertyDash, PropertyCard, addManagerForm, VendorAddressBk, TenantAddressBk } from "./components/propertyOwner";
-import TenantDashboard from "./components/tenant/TenantDashboard";
+import {TenantDashboard, RentReceipts, IssueForm} from "./components/tenant";
 import PropertyOwnerSignup from "./components/PropertyOwnerSignup.js";
 import RenterSignup from "./components/RenterSignup.js";
 import "./App.css";
+
 
 class App extends Component {
   render() {
@@ -26,6 +28,8 @@ class App extends Component {
         <Route path="/renter-signup" component={RenterSignup} />
         <Route path="/add-manager" component={addManagerForm} />
         <Route path="/manager-profile" component={ManagerCard} />
+        <Route path="/view-receipts" component={RentReceipts} />
+        <Route path="/issue-report" component={IssueForm} />
       </>
     );
   }
