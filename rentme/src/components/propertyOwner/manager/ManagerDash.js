@@ -1,13 +1,11 @@
-import React from 'react';
+import React from "react";
 
 const ManagerDash = props => {
-    return (
-        <>
+  return (
+    <>
+      <h1>Manager Dash</h1>
+    </>
+  );
+};
 
-           <h3>Manager Dash</h3>
-
-        </>
-    )
-}
-
-export default ManagerDash
+export default ManagerDash;
