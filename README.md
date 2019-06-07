@@ -36,13 +36,7 @@
 
 1️⃣ [Trello Board](https://trello.com/b/FQwrDOFc/labs13-property-mgr)
 
-🚫 more info on using badges rello Board]
-
-1️⃣ [Product Canv](https://docs.google.com/document/d/1vVGmHY_DgbCgMnyIzMXY9F13mI1jxfVlHGeotF2x5dY/edit#)
-
-1️⃣ [UX Design file](🚫add link to product canvas here)
-
-1️⃣ [place lorem ips](🚫add link to design files here) - 🚫 delete if not applicable
+1️⃣ [Product Canvas](https://docs.google.com/document/d/1vVGmHY_DgbCgMnyIzMXY9F13mI1jxfVlHGeotF2x5dY/edit#)
 
 RentME aims to reduce communication friction between landlord and tenant. Its mission of transparency for both users is represented through its core features, such as giving them clear visibility and access to important property documents, and up-to-date progress on renter requests. Finally, an app that’s a painless and seamless one-stop shop for both renters and owners.
 
