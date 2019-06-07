@@ -1,14 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-class PropertyDash extends React.Component {
-    state = {
-        property: {
-            name: '',
-            address: ''
-        }
-    }
+const PropertyDash = props => {
+   let [ property, setProperty ] = useState(null)
+
 
     // logOut = e => {
     //     e.preventDefault();
@@ -16,22 +12,19 @@ class PropertyDash extends React.Component {
     //     this.props.history.push("/login");
     // };
 
-    componentDidMount() {
+    useEffect(() => {
         axios
             .get('https://rent-me-app.herokuapp.com/api/properties')
             .then(res => {
-                this.setState(() => ({ properties: res.data}))
+                setProperty(res.data[0])
             })
-            .catch(err => {
-                console.error('Server Error', err);
-            })
-    }
+            .catch(err => console.log("Crap!", err))
+    }, [])
 
-    render() {
-        return (
-            <>
+    return (
+        <>
             
-                <h2>Property Owner Dashboard</h2>
+            <h2>Property Owner Dashboard</h2>
 
                 <Link to="vendor-addbook">Vendor Address Book</Link>
                 <Link to="tenant-addbook">Tenant Address Book</Link>
@@ -39,19 +32,11 @@ class PropertyDash extends React.Component {
                     <button>Add a Manager</button>
                     {/* this button should be a plus icon */}
                 </Link>
-
-                <div>
-                    {this.state.properties.map(property => (
-                            <div>
-                              <h4>{property.property_name}</h4>
-                              <p>{property.address}</p>
-                            </div>
-                        ))}
-                </div>
-
+                <h4>Properties:</h4>
+                <p>Name: { property && property.property_name }</p>
+                <p>Address: { property && property.address }</p>
             </>
         );
-    }
 }
 
 
