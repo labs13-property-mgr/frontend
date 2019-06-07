@@ -11,11 +11,13 @@
 ## 4️⃣ Contributors
 
 
-|                                                     [Jeffrey Lapp](https://github.com/)                                                     |                                                       [Joshua Kaddu](https://github.com/jkaddu)                                                        |                                             [Trishna Amin](https://github.com/tca88)                                             |                                                       [Cori Peck](https://github.com/cori-peck)                                                        |                                                      [Ethan Baugher](https://github.com/baugher90)                                                       |                                                      [Brandon Saravia](https://github.com/BrandonSaravia)                                                       |                                                      [Larry Simiyu](https://github.com/LarrySimiyu)                                                       |
-| :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/) | [<img src="./rentme/developer_photos/Joshua.jpg" width = "200" />](https://github.com/jkaddu) | [<img src="https://pbs.twimg.com/profile_images/427522704208433152/CDN_XCm4.jpeg" width = "200" />](https://github.com/tca88) | [<img src="./rentme/developer_photos/Cori.jpg" width = "200" />](https://github.com/cori-peck) | [<img src="./rentme/developer_photos/Ethan.png" width = "200" />](https://github.com/baugher90) | [<img src="./rentme/developer_photos/Brandon.jpg" width = "200" />](https://github.com/BrandonSaravia) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/LarrySimiyu) |
-|                                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                                |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/jkaddu)                             |                      [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/tca88)                       |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/cori-peck)                           |                           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/baugher90)                            |                           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/BrandonSaravia)                            |                           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/LarrySimiyu)                            |
-|                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/joshua-kaddu-336567129/)                 |  [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/trishnaamin)  |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/coripeck/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/ethan-baugher/)                |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/brandon-saravia-24b59b182/)                |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/larrysimiyu/)                |
+
+|                                                     [Jeffrey Lapp](https://github.com/lappjeff)                                                     |                                                       [Student 2](https://github.com/)                                                        |                                             [Student 3](https://github.com/tca88)                                             |                                                       [Student 4](https://github.com/)                                                        |                                                      [Student 5](https://github.com/)                                                       |
+| :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
+| [<img src="https://imgur.com/a/Bys6tv3" width = "200" />](https://github.com/lappjeff) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/) | [<img src="https://pbs.twimg.com/profile_images/427522704208433152/CDN_XCm4.jpeg" width = "200" />](https://github.com/tca88) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/) |
+|                                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                                |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/honda0306)                             |                      [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/tca88)                       |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/NandoTheessen)                           |                           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/wvandolah)                            |
+|                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/jeffrey-lapp-622298181/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |  [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/trishnaamin)  |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |
+
 
 <br>
 <br>
@@ -28,7 +30,9 @@
 
 ![Typescript](https://img.shields.io/npm/types/typescript.svg?style=flat)
 
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/b5c4db1c-b10d-42c3-b157-3746edd9e81d/deploy-status)](https://rentmeapp.netlify.com/)
+
 
 🚫 more info on using badges [here](https://github.com/badges/shields)
 
@@ -36,13 +40,8 @@
 
 1️⃣ [Trello Board](https://trello.com/b/FQwrDOFc/labs13-property-mgr)
 
-🚫 more info on using badges rello Board]
+1️⃣ [Product Canvas](https://docs.google.com/document/d/1vVGmHY_DgbCgMnyIzMXY9F13mI1jxfVlHGeotF2x5dY/edit#)
 
-1️⃣ [Product Canv](https://docs.google.com/document/d/1vVGmHY_DgbCgMnyIzMXY9F13mI1jxfVlHGeotF2x5dY/edit#)
-
-1️⃣ [UX Design file](🚫add link to product canvas here)
-
-1️⃣ [place lorem ips](🚫add link to design files here) - 🚫 delete if not applicable
 
 RentME aims to reduce communication friction between landlord and tenant. Its mission of transparency for both users is represented through its core features, such as giving them clear visibility and access to important property documents, and up-to-date progress on renter requests. Finally, an app that’s a painless and seamless one-stop shop for both renters and owners.
 
@@ -71,7 +70,9 @@ RentME aims to reduce communication friction between landlord and tenant. Its mi
 
 #### Front end deployed to https://rentmeapp.netlify.com/
 
+
 #### [� back end](🚫link to back end repo here) built using:
+
 
 #### 🚫 back end framework goes here
 
