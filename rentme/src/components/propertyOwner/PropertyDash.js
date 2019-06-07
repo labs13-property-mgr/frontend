@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 const PropertyDash = props => {
-  let [property, setProperty] = useState(null)
+  let [property, setProperty] = useState(null);
 
   // logOut = e => {
   //     e.preventDefault();
@@ -13,12 +13,12 @@ const PropertyDash = props => {
 
   useEffect(() => {
     axios
-      .get('https://rent-me-app.herokuapp.com/api/properties')
+      .get("https://rent-me-app.herokuapp.com/api/properties")
       .then(res => {
-        setProperty(res.data[0])
+        setProperty(res.data[0]);
       })
-      .catch(err => console.log('Crap!', err))
-  }, [])
+      .catch(err => console.log("Crap!", err));
+  }, []);
 
   return (
     <>
@@ -34,7 +34,7 @@ const PropertyDash = props => {
       <p>Name: {property && property.property_name}</p>
       <p>Address: {property && property.address}</p>
     </>
-  )
-}
+  );
+};
 
-export default PropertyDash
+export default PropertyDash;
