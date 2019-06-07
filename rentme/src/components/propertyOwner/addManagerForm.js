@@ -79,6 +79,7 @@ export default class AddManagerForm extends Component {
               id="password"
               autoComplete="current-password"
             />
+            <Link to="/property-dash">
             <Button
               type="submit"
               fullWidth
@@ -86,11 +87,14 @@ export default class AddManagerForm extends Component {
               color="primary"
               href="#"
             >
-              Sign Up
+              Add Manager
             </Button>
-            <Button variant="contained" color="secondary" href="#">
-              Cancel
-            </Button>
+            </Link>
+            <Link to="/property-dash">
+              <Button variant="contained" color="secondary" href="#">
+                Cancel
+              </Button>
+            </Link>  
           </form>
         </div>
       </div>

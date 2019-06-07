@@ -44,7 +44,7 @@ const Login = props => {
           size="medium"
           variant="contained"
           color="primary"
-          href="/"
+          href="/property-dash"
         >
           Login as a Property Owner
         </Button>
@@ -66,4 +66,4 @@ const Login = props => {
   );
 };
 
-export default Login
+export default Login;
