@@ -8,7 +8,7 @@ import { ManagerCard, ManagerDash } from "./components/propertyOwner/manager";
 import { PropertyDash, PropertyCard, addManagerForm, VendorAddressBk, TenantAddressBk } from "./components/propertyOwner";
 import {TenantDashboard, RentReceipts, IssueForm} from "./components/tenant";
 import PropertyOwnerSignup from "./components/PropertyOwnerSignup.js";
-import RenterSignup from "./components/RenterSignup.js";
+import RenterSignUp from "./components/RenterSignUp";
 import Account from "./components/Account";
 import PasswordForget from "./components/PasswordForget";
 import "./App.css";
@@ -20,10 +20,12 @@ const App = () => (
   <Router>
       <>
 
+        {/* <NavBar /> coming */}
+
         <hr />
 
         <Route exact path={ROUTES.LOGIN} component={Login} />
-        <Route exact path={ROUTES.RENTER_SIGNUP} component={RenterSignup} />
+        <Route exact path={ROUTES.RENTER_SIGNUP} component={RenterSignUp} />
         <Route exact path={ROUTES.PASSWORD_FORGET} component={PasswordForget} />
         <Route exact path={ROUTES.ACCOUNT} component={Account} />
 
