@@ -1,5 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import { compose } from "recompose";
+
+import { withFirebase } from "../Firebase";
+import * as ROUTES from "../../constants/routes";
+//import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -12,32 +17,93 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Login = props => {
-  const classes = useStyles();
+const Login = () => (
+  <>
+    <RenterLoginForm />
+  </>
+)
 
-  return (
-    <>
-      <div>
+
+const INITIAL_STATE = {
+  email: '',
+  password: '',
+  error: null,
+}
+
+class RenterLoginFormBase extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state={ ...INITIAL_STATE } 
+  }
+
+  onSubmit = e => {
+    const { email, password }=this.state
+
+    this.props.withFirebase
+      .doSignInWithEmailAndPassword(email, password)
+      .then(() => {
+        this.setState({ ...INITIAL_STATE })
+        this.props.history.push(ROUTES.TENANT_DASHBOARD)
+      })
+      .catch(error => {
+        this.setState({ error })
+      })
+
+    e.preventDefault()
+  }
+
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value })
+  }
+
+  render() {
+    const {email, password, error } = this.state;
+    const isInvalid = password === '' || email === ''
+
+    return (
+      <form onSubmit={this.onSubmit}>
+        <input
+          type="text"
+          name="email"
+          placeholder="Email Address"
+          value={email}
+          onChange={this.onChange}
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={password}
+          onChange={this.onChange}
+        />
         <Button
+          disabled={isInvalid}
           type="submit"
           size="medium"
           variant="contained"
           color="primary"
-          href="/tenant-dash"
-        >
-          Login as a Renter
-        </Button>
+        >Login as a Renter</Button>
+
+        {error && <p>{error.message}</p>}
+
         <p>
           Don't have an account?{" "}
           <Button
             color="secondary"
-            className={classes.button}
             href="/renter-signup"
           >
             Signup
           </Button>
-        </p>
-      </div>
+          </p>
+
+      </form>
+    )
+  }
+}
+
+  /*return (
+    <>
       <div>
         <Button
           type="submit"
@@ -65,5 +131,13 @@ const Login = props => {
     </>
   );
 };
+*/
+
+const RenterLoginForm = compose(
+  withRouter,
+  withFirebase
+)(RenterLoginFormBase)
 
 export default Login;
+
+export { RenterLoginForm }

@@ -40,7 +40,7 @@ class RenterSignUpFormBase extends Component {
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         this.setState({ ...INITIAL_STATE })
-        this.props.history.push(ROUTES.LOGIN)
+        this.props.history.push(ROUTES.TENANT_DASHBOARD)
       })
       .catch(error => {
         this.setState({ error })
