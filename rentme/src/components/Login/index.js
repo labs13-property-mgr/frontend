@@ -6,19 +6,20 @@ import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 //import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
+//import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(theme => ({
+/*const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(1)
   },
   input: {
     display: "none"
   }
-}));
+}));*/
 
 const Login = () => (
   <>
+    <SignInGoogle />
     <RenterLoginForm />
   </>
 )
@@ -102,6 +103,41 @@ class RenterLoginFormBase extends Component {
   }
 }
 
+
+class SignInGoogleBase extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = { error: null }
+  }
+
+  onSubmit = e => {
+    this.props.firebase
+      .doSignInWithGoogle()
+      .then(socialAuthUser => {
+        this.setState({ error: null })
+        this.props.history.push(ROUTES.TENANT_DASHBOARD)
+      })
+      .catch(error => {
+        this.setState({ error })
+      })
+
+    e.preventDefault()
+  }
+
+  render() {
+    const { error } = this.state
+
+    return (
+      <form onSubmit={this.onSubmit}>
+        <button type="submit">Sign In With Google</button>
+
+        {error && <p>{error.message}</p>}
+      </form>
+    )
+  }
+}
+
   /*return (
     <>
       <div>
@@ -138,6 +174,11 @@ const RenterLoginForm = compose(
   withFirebase
 )(RenterLoginFormBase)
 
+const SignInGoogle = compose(
+  withRouter,
+  withFirebase
+)(SignInGoogleBase)
+
 export default Login;
 
-export { RenterLoginForm }
+export { RenterLoginForm, SignInGoogle }
