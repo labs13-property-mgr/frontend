@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
+import GoogleButton from "react-google-button";
 
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
@@ -130,7 +131,7 @@ class SignInGoogleBase extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        <button type="submit">Sign In With Google</button>
+        <button type="submit" ><GoogleButton onClick={() => { console.log('Google button clicked') }} /></button>
 
         {error && <p>{error.message}</p>}
       </form>
