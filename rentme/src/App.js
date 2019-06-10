@@ -6,11 +6,12 @@ import ManagerLogin from "./components/ManagerLogin";
 import { ManagerCard, ManagerDash } from "./components/propertyOwner/manager";
 
 import { PropertyDash, PropertyCard, addManagerForm, VendorAddressBk, TenantAddressBk } from "./components/propertyOwner";
-import {TenantDashboard, RentReceipts, IssueForm} from "./components/tenant";
+import { RentReceipts, IssueForm} from "./components/tenant";
 import PropertyOwnerSignup from "./components/PropertyOwnerSignup.js";
 import RenterSignUp from "./components/RenterSignUp";
 import Account from "./components/Account";
 import PasswordForget from "./components/PasswordForget";
+import TenantDashboard from "./components/tenant/TenantDashboard";
 import "./App.css";
 
 import * as ROUTES from './constants/routes';
@@ -29,9 +30,11 @@ const App = () => (
         <Route exact path={ROUTES.PASSWORD_FORGET} component={PasswordForget} />
         <Route exact path={ROUTES.ACCOUNT} component={Account} />
 
+        <Route exact path={ROUTES.TENANT_DASHBOARD} component={TenantDashboard} />
+
         <Route path="/manager-login" component={ManagerLogin} />
         <Route path="/manager-dash" component={ManagerDash} />
-        <Route path="/tenant-dash" component={TenantDashboard} />
+        {/* <Route path="/tenant-dash" component={TenantDashboard} /> */}
         <Route path="/property-dash" component={PropertyDash} />
         <Route path="/property-card" component={PropertyCard} />
         <Route path="/vendor-addbook" component={VendorAddressBk} />

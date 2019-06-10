@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import { compose } from 'recompose';
 
-import * as ROUTES from '../constants/routes';
+import { withFirebase } from '../Firebase';
+import * as ROUTES from '../../constants/routes';
 
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+//import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Button from "@material-ui/core/Button";
 
 
@@ -16,68 +18,90 @@ const RenterSignUp = () => (
 )
 
 
-class RenterSignUpForm extends Component {
+const INITIAL_STATE = {
+  username: '',
+  email: '',
+  passwordOne: '',
+  passwordTwo: '',
+  error: null,
+}
+
+class RenterSignUpFormBase extends Component {
   constructor(props) {
     super(props)
+
+    this.state = { ...INITIAL_STATE }
   }
 
   onSubmit = e => {
+    const { email, passwordOne } = this.state;
 
+    this.props.firebase
+      .doCreateUserWithEmailAndPassword(email, passwordOne)
+      .then(authUser => {
+        this.setState({ ...INITIAL_STATE })
+        this.props.history.push(ROUTES.LOGIN)
+      })
+      .catch(error => {
+        this.setState({ error })
+      })
+
+    e.preventDefault()
   }
 
   onChange = e => {
-
+    this.setState({ [e.target.name]: e.target.value })
   }
 
   render() {
+    const {
+      email,
+      username,
+      passwordOne,
+      passwordTwo,
+      error,
+    } = this.state;
+
+    const isInvalid =
+      email === '' ||
+      username === '' ||
+      passwordOne !== passwordTwo ||
+      passwordOne === ''
+      
+
     return (
       <>
         <form onSubmit={this.onSubmit}>
-          <TextField
-            variant="outlined"
-            required
-            fullWidth
-            id="full-name"
-            label="Full Name"
-            name="full-name"
-            autoComplete="full-name"
-            margin="normal"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            required
-            fullWidth
-            id="username"
-            label="Username"
+          <input
+            type="text"
+            placeholder="Username"
             name="username"
-            autoComplete="username"
-            margin="username"
-            autoFocus
+            value={username}
+            onChange={this.onChange}
           />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
+          <input
+            type="text"
+            placeholder="Email Address"
+            name="email"
+            value={email}
+            onChange={this.onChange}
+          />
+          <input
             type="password"
-            id="password"
-            autoComplete="current-password"
+            placeholder="Password"
+            name="passwordOne"
+            value={passwordOne}
+            onChange={this.onChange}
+          />
+         <input
+            type="password"
+            placeholder="Confirm Password"
+            name="passwordTwo"
+            value={passwordTwo}
+            onChange={this.onChange}
           />
           <Button
+            disabled={isInvalid}
             type="submit"
             fullWidth
             variant="contained"
@@ -89,6 +113,8 @@ class RenterSignUpForm extends Component {
           <Button variant="contained" color="secondary" href="/">
             Cancel
           </Button>
+
+          { error && <p>{error.message}</p> }
         </form>
       </>
     );
@@ -101,6 +127,8 @@ const RenterSignUpLink = () => (
     Don't have an account? <Link to={ROUTES.RENTER_SIGNUP}>Sign Up</Link>
   </p>
 )
+
+const RenterSignUpForm = compose( withRouter, withFirebase )(RenterSignUpFormBase)
 
 export default RenterSignUp
 
