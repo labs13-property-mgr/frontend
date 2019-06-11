@@ -1,36 +1,34 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { compose } from 'recompose';
+import { compose } from "recompose";
 
-import { withFirebase } from '../Firebase';
-import * as ROUTES from '../../constants/routes';
+import { withFirebase } from "../Firebase";
+import * as ROUTES from "../../constants/routes";
 
-//import TextField from "@material-ui/core/TextField";
-//import FormControlLabel from "@material-ui/core/FormControlLabel";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Button from "@material-ui/core/Button";
-
 
 const PropertyOwnerSignUp = () => (
   <>
     <h4>Sign Up as a Property Owner</h4>
     <OwnerSignUpForm />
   </>
-)
-
+);
 
 const INITIAL_STATE = {
-  username: '',
-  email: '',
-  passwordOne: '',
-  passwordTwo: '',
-  error: null,
-}
+  username: "",
+  email: "",
+  passwordOne: "",
+  passwordTwo: "",
+  error: null
+};
 
 class OwnerSignUpFormBase extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.state = { ...INITIAL_STATE }
+    this.state = { ...INITIAL_STATE };
   }
 
   onSubmit = e => {
@@ -39,41 +37,86 @@ class OwnerSignUpFormBase extends Component {
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
-        this.setState({ ...INITIAL_STATE })
-        console.log('new user')
-        this.props.history.push(ROUTES.OWNER_DASHBOARD)
+        this.setState({ ...INITIAL_STATE });
+        console.log("new user");
+        this.props.history.push(ROUTES.OWNER_DASHBOARD);
       })
       .catch(error => {
-        this.setState({ error })
-      })
+        this.setState({ error });
+      });
 
-    e.preventDefault()
-  }
+    e.preventDefault();
+  };
 
   onChange = e => {
-    this.setState({ [e.target.name]: e.target.value })
-  }
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   render() {
-    const {
-      email,
-      username,
-      passwordOne,
-      passwordTwo,
-      error,
-    } = this.state;
+    const { email, username, passwordOne, passwordTwo, error } = this.state;
 
     const isInvalid =
-      email === '' ||
-      username === '' ||
+      email === "" ||
+      username === "" ||
       passwordOne !== passwordTwo ||
-      passwordOne === ''
-      
+      passwordOne === "";
 
     return (
       <>
         <form onSubmit={this.onSubmit}>
-          <input
+          <TextField
+            variant="outlined"
+            type="text"
+            required
+            fullWidth
+            id="username"
+            label="Username"
+            name="username"
+            margin="normal"
+            value={username}
+            onChange={this.onChange}
+            autoFocus
+          />
+          <TextField
+            variant="outlined"
+            type="text"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            margin="normal"
+            value={email}
+            onChange={this.onChange}
+            autoFocus
+          />
+          <TextField
+            variant="outlined"
+            type="password"
+            required
+            fullWidth
+            id="password"
+            label="Password"
+            name="passwordOne"
+            margin="normal"
+            value={passwordOne}
+            onChange={this.onChange}
+            autoFocus
+          />
+          <TextField
+            variant="outlined"
+            type="password"
+            required
+            fullWidth
+            id="confirm-password"
+            label="Confirm Password"
+            name="passwordTwo"
+            margin="normal"
+            value={passwordTwo}
+            onChange={this.onChange}
+            autoFocus
+          />
+          {/* <input
             type="text"
             placeholder="Username"
             name="username"
@@ -100,7 +143,7 @@ class OwnerSignUpFormBase extends Component {
             name="passwordTwo"
             value={passwordTwo}
             onChange={this.onChange}
-          />
+          /> */}
           <Button
             disabled={isInvalid}
             type="submit"
@@ -115,22 +158,24 @@ class OwnerSignUpFormBase extends Component {
             Cancel
           </Button>
 
-          { error && <p>{error.message}</p> }
+          {error && <p>{error.message}</p>}
         </form>
       </>
     );
   }
 }
 
-
 const OwnerSignUpLink = () => (
   <p>
     Don't have an account? <Link to={ROUTES.OWNER_SIGNUP}>Sign Up</Link>
   </p>
-)
+);
 
-const OwnerSignUpForm = compose( withRouter, withFirebase )(OwnerSignUpFormBase)
+const OwnerSignUpForm = compose(
+  withRouter,
+  withFirebase
+)(OwnerSignUpFormBase);
 
-export default PropertyOwnerSignUp
+export default PropertyOwnerSignUp;
 
-export { OwnerSignUpForm, OwnerSignUpLink }
+export { OwnerSignUpForm, OwnerSignUpLink };
