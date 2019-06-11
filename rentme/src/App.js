@@ -34,9 +34,10 @@ const App = () => (
         <Route exact path={ROUTES.TENANT_DASHBOARD} component={TenantDashboard} />
         <Route exact path={ROUTES.OWNER_DASHBOARD} component={PropertyDash} />
 
+        <Route exact path={ROUTES.PROPERTY_CARD} component={PropertyCard} />
+
         <Route path="/manager-login" component={ManagerLogin} />
         <Route path="/manager-dash" component={ManagerDash} />
-        <Route path="/property-card" component={PropertyCard} />
         <Route path="/vendor-addbook" component={VendorAddressBk} />
         <Route path="/tenant-addbook" component={TenantAddressBk} />
         <Route path="/add-manager" component={addManagerForm} />
