@@ -40,9 +40,11 @@ const App = () => (
         <Route path="/vendor-addbook" component={VendorAddressBk} />
         <Route path="/tenant-addbook" component={TenantAddressBk} />
         <Route path="/add-manager" component={addManagerForm} />
-        <Route path="/manager-profile" component={ManagerCard} />
+        <Route path="/manager-profile/:id" component={ManagerCard} />
         <Route path="/view-receipts" component={RentReceipts} />
         <Route path="/issue-report" component={IssueForm} />
+        <Route path="/property-card/:id" component={PropertyCard} />
+        <Route path="/add-tenant" component={AddTenantForm} />
       </>
 
     </Router>

@@ -11,7 +11,7 @@ const PropertyCard = props => {
         size="medium"
         variant="contained"
         color="primary"
-        href="/tenant-form"
+        href="/add-tenant"
       >
         Add a Tenant
       </Button>
