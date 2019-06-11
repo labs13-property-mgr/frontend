@@ -24,7 +24,10 @@ const Login = () => (
     <SignInGoogle />
     <SignInFacebook />
     <RenterLoginForm />
+    &nbsp;
+    <hr />
     <OwnerSignInGoogle />
+    <OwnerSignInFacebook />
     <OwnerLoginForm />
   </>
 )
@@ -285,36 +288,41 @@ class OwnerSignInGoogleBase extends Component {
   }
 }
 
-  /*return (
-    <>
-      <div>
-        <Button
-          type="submit"
-          size="medium"
-          variant="contained"
-          color="primary"
-          href="/property-dash"
-        >
-          Login as a Property Owner
-        </Button>
-        <p>
-          Don't have an account?{" "}
-          <Button
-            color="secondary"
-            className={classes.button}
-            href="/owner-signup"
-          >
-            Signup
-          </Button>
-        </p>
-      </div>
-      <Button color="primary" className={classes.button} href="/manager-login">
-        Login as a Manager
-      </Button>
-    </>
-  );
-};
-*/
+
+class OwnerSignInFacebookBase extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = { error: null}
+  }
+
+  onSubmit = e => {
+    this.props.firebase
+      .doSignInWithFacebook()
+      .then(socialAuthUser => {
+        this.setState({ error: null })
+        this.props.history.push(ROUTES.OWNER_DASHBOARD)
+      })
+      .catch(error => {
+        this.setState({ error })
+      })
+
+    e.preventDefault()
+  }
+
+  render() {
+    const { error } = this.state
+
+    return (
+      <form onSubmit={this.onSubmit}>
+        <button type="submit" ><FacebookLoginButton onClick={() => console.log("Facebook button clicked")}><span>Sign In with Facebook</span></FacebookLoginButton></button>
+
+        {error && <p>{error.message}</p>}
+      </form>
+    )
+  }
+}
+
 
 const RenterLoginForm = compose(
   withRouter,
@@ -341,6 +349,11 @@ const OwnerSignInGoogle = compose(
   withFirebase,
 )(OwnerSignInGoogleBase)
 
+const OwnerSignInFacebook = compose(
+  withRouter,
+  withFirebase,
+)(OwnerSignInFacebookBase)
+
 export default Login;
 
-export { RenterLoginForm, SignInGoogle, SignInFacebook, OwnerLoginForm }
+export { RenterLoginForm, SignInGoogle, SignInFacebook, OwnerLoginForm, OwnerSignInGoogle, OwnerSignInFacebook }

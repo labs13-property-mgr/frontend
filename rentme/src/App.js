@@ -7,7 +7,7 @@ import { ManagerCard, ManagerDash } from "./components/propertyOwner/manager";
 
 import { PropertyDash, PropertyCard, addManagerForm, VendorAddressBk, TenantAddressBk } from "./components/propertyOwner";
 import { RentReceipts, IssueForm} from "./components/tenant";
-import PropertyOwnerSignup from "./components/PropertyOwnerSignup.js";
+import PropertyOwnerSignup from "./components/PropertyOwnerSignup";
 import RenterSignUp from "./components/RenterSignUp";
 import Account from "./components/Account";
 import PasswordForget from "./components/PasswordForget";
