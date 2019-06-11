@@ -65,16 +65,6 @@ const PropertyDash = props => {
       .catch(err => console.log("Crap!", err));
   }, []);
 
-  // useEffect(() => {
-  //   axios
-  //     .get("https://rent-me-app.herokuapp.com/api/users")
-  //     .then(res => {
-  //       setManagers(res.data.filter(d => d.role === "tenant"));
-  //       console.log(res);
-  //     })
-  //     .catch(err => console.log("Crap!", err));
-  // }, []);
-
   return (
     <>
       <Container>

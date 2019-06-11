@@ -15,12 +15,11 @@ import {
 import { TenantDashboard, RentReceipts, IssueForm } from "./components/tenant";
 import PropertyOwnerSignup from "./components/PropertyOwnerSignup.js";
 import RenterSignup from "./components/RenterSignup.js";
-import MenuAppBar from "./components/Navbar"
+import MenuAppBar from "./components/Navbar";
 import "./App.css";
 import AddTenantForm from "./components/propertyOwner/addTenantForm.js";
 
 class App extends Component {
-  
   logOut = e => {
     e.preventDefault();
     localStorage.removeItem("token");
@@ -36,7 +35,6 @@ class App extends Component {
         <Route path="/manager-dash" component={ManagerDash} />
         <Route path="/tenant-dash" component={TenantDashboard} />
         <Route path="/property-dash" component={PropertyDash} />
-        {/* <Route path="/property-card" component={PropertyCard} /> */}
         <Route path="/vendor-addbook" component={VendorAddressBk} />
         <Route path="/tenant-addbook" component={TenantAddressBk} />
         <Route path="/owner-signup" component={PropertyOwnerSignup} />
