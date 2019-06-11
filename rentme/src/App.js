@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Login from "./components/Login";
 import ManagerLogin from "./components/ManagerLogin";
 import { ManagerCard, ManagerDash } from "./components/propertyOwner/manager";
-import { PropertyDash, PropertyCard, addManagerForm, VendorAddressBK, TenantAddressBk, addTenantForm } from "./components/propertyOwner";
+import { PropertyDash, PropertyCard, addManagerForm, VendorAddressBK, TenantAddressBk, AddTenantForm } from "./components/propertyOwner";
 import { RentReceipts, IssueForm} from "./components/tenant";
 import PropertyOwnerSignup from "./components/PropertyOwnerSignup";
 import RenterSignUp from "./components/RenterSignUp";
@@ -37,7 +37,7 @@ const App = () => (
 
         {/* Property Owner Routes */}
         <Route exact path={ROUTES.PROPERTY_CARD} component={PropertyCard} />
-        <Route exact path={ROUTES.ADD_TENANT} component={addTenantForm} />
+        <Route exact path={ROUTES.ADD_TENANT} component={AddTenantForm} />
         <Route exact path={ROUTES.TENANT_ADDRESSBK} component={TenantAddressBk} />
         <Route exact path={ROUTES.VENDOR_ADDRESSBK} component={VendorAddressBK} />
 
