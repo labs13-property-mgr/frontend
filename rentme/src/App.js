@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Login from "./components/Login";
 import ManagerLogin from "./components/ManagerLogin";
 import { ManagerCard, ManagerDash } from "./components/propertyOwner/manager";
-
 import { PropertyDash, PropertyCard, addManagerForm, VendorAddressBK, TenantAddressBk, addTenantForm } from "./components/propertyOwner";
 import { RentReceipts, IssueForm} from "./components/tenant";
 import PropertyOwnerSignup from "./components/PropertyOwnerSignup";
