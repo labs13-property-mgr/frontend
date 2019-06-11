@@ -5,7 +5,7 @@ import Login from "./components/Login";
 import ManagerLogin from "./components/ManagerLogin";
 import { ManagerCard, ManagerDash } from "./components/propertyOwner/manager";
 
-import { PropertyDash, PropertyCard, addManagerForm, VendorAddressBk, TenantAddressBk } from "./components/propertyOwner";
+import { PropertyDash, PropertyCard, addManagerForm, VendorAddressBk, TenantAddressBk, addTenantForm } from "./components/propertyOwner";
 import { RentReceipts, IssueForm} from "./components/tenant";
 import PropertyOwnerSignup from "./components/PropertyOwnerSignup";
 import RenterSignUp from "./components/RenterSignUp";
@@ -44,7 +44,7 @@ const App = () => (
         <Route path="/view-receipts" component={RentReceipts} />
         <Route path="/issue-report" component={IssueForm} />
         <Route path="/property-card/:id" component={PropertyCard} />
-        <Route path="/add-tenant" component={AddTenantForm} />
+        <Route path="/add-tenant" component={addTenantForm} />
       </>
 
     </Router>
