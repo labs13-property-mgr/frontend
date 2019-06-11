@@ -1,16 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import App from './App';
-import { BrowserRouter as Router, withRouter } from 'react-router-dom';
+import Firebase, { FirebaseContext } from './components/Firebase';
 
-
-const AppWithRouter = withRouter(App);
 
 ReactDOM.render(
-    <Router>
-        <AppWithRouter />
-    </Router>,
+    <FirebaseContext.Provider value={ new Firebase() }>
+        <App />
+    </FirebaseContext.Provider>,
     document.getElementById('root')
 );
+
+//ensures Firebase is only instantiated once
 
 
