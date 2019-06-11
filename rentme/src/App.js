@@ -42,7 +42,6 @@ const App = () => (
 
       <Route path="/manager-login" component={ManagerLogin} />
       <Route path="/manager-dash" component={ManagerDash} />
-      <Route path="/tenant-dash" component={TenantDashboard} />
       <Route path="/property-dash" component={PropertyDash} />
       <Route path="/property-card" component={PropertyCard} />
       <Route path="/vendor-addbook" component={VendorAddressBk} />
