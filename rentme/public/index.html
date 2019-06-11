@@ -13,6 +13,10 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
     />
     <meta name="theme-color" content="#000000" />
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="	
+    65866499819-4sjjukd4uckpacab79esco72sdcv4i51.apps.googleusercontent.com">
+    
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -30,6 +34,29 @@
     <title>React App</title>
   </head>
   <body>
+    
+<script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '{515804038955647}',
+        cookie     : true,
+        xfbml      : true,
+        version    : '{v3.3}'
+      });
+        
+      FB.AppEvents.logPageView();   
+        
+    };
+  
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
@@ -42,5 +69,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    
   </body>
 </html>

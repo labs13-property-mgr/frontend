@@ -1,0 +1,46 @@
+.step {
+  color: black;
+  display: block;
+}
+
+.step.in-progress {
+  color: #3f51b5;
+}
+
+.step.completed {
+  display: none;
+}
+
+.step-text {
+  color: grey;
+  height: 20%;
+  font-size: 0.85rem;
+}
+
+.step-text.in-progress {
+  color: #3f51b5;
+  height: 20%;
+}
+
+.step-text.completed {
+  display: none;
+}
+
+.check {
+  display: none;
+}
+
+.check.completed {
+  display: block;
+  color: green;
+}
+
+.check-text {
+  display: none;
+}
+
+.check-text.completed {
+  display: block;
+  color: green;
+  font-size: 0.85rem;
+}
