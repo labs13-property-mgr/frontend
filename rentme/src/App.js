@@ -9,13 +9,22 @@ import { PropertyDash, PropertyCard, addManagerForm, VendorAddressBk, TenantAddr
 import {TenantDashboard, RentReceipts, IssueForm} from "./components/tenant";
 import PropertyOwnerSignup from "./components/PropertyOwnerSignup.js";
 import RenterSignup from "./components/RenterSignup.js";
+import MenuAppBar from "./components/Navbar"
 import "./App.css";
 
 
 class App extends Component {
+  
+  logOut = e => {
+    e.preventDefault();
+    localStorage.removeItem("token");
+    this.props.history.push("/");
+  };
+
   render() {
     return (
       <>
+        <MenuAppBar logOut={this.logOut} />
         <Route exact path="/" component={Login} />
         <Route path="/manager-login" component={ManagerLogin} />
         <Route path="/manager-dash" component={ManagerDash} />
