@@ -21,6 +21,7 @@ import Button from "@material-ui/core/Button";
 const Login = () => (
   <>
     <SignInGoogle />
+    <SignInFacebook />
     <RenterLoginForm />
   </>
 )
@@ -139,6 +140,41 @@ class SignInGoogleBase extends Component {
   }
 }
 
+
+class SignInFacebookBase extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = { error: null}
+  }
+
+  onSubmit = e => {
+    this.props.firebase
+      .doSignInWithFacebook()
+      .then(socialAuthUser => {
+        this.setState({ error: null })
+        this.props.history.push(ROUTES.TENANT_DASHBOARD)
+      })
+      .catch(error => {
+        this.setState({ error })
+      })
+
+    e.preventDefault()
+  }
+
+  render() {
+    const { error } = this.state
+
+    return (
+      <form onSubmit={this.onSubmit}>
+        <button type="submit">Sign In with Facebook</button>
+
+        {error && <p>{error.message}</p>}
+      </form>
+    )
+  }
+}
+
   /*return (
     <>
       <div>
@@ -172,7 +208,7 @@ class SignInGoogleBase extends Component {
 
 const RenterLoginForm = compose(
   withRouter,
-  withFirebase
+  withFirebase,
 )(RenterLoginFormBase)
 
 const SignInGoogle = compose(
@@ -180,6 +216,11 @@ const SignInGoogle = compose(
   withFirebase
 )(SignInGoogleBase)
 
+const SignInFacebook = compose(
+  withRouter,
+  withFirebase,
+)(SignInFacebookBase)
+
 export default Login;
 
-export { RenterLoginForm, SignInGoogle }
+export { RenterLoginForm, SignInGoogle, SignInFacebook }

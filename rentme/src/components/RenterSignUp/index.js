@@ -34,12 +34,13 @@ class RenterSignUpFormBase extends Component {
   }
 
   onSubmit = e => {
-    const { email, passwordOne } = this.state;
+    const { username, email, passwordOne } = this.state;
 
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
         this.setState({ ...INITIAL_STATE })
+        console.log('new user')
         this.props.history.push(ROUTES.TENANT_DASHBOARD)
       })
       .catch(error => {

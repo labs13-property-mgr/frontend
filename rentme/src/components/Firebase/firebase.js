@@ -17,6 +17,7 @@ class Firebase {
         this.auth = app.auth()
 
         this.googleProvider = new app.auth.GoogleAuthProvider()
+        this.facebookProvider = new app.auth.FacebookAuthProvider()
     }
 
     // Auth API
@@ -29,6 +30,9 @@ class Firebase {
 
     doSignInWithGoogle = () =>                                          // Google Login Function
         this.auth.signInWithPopup(this.googleProvider)
+
+    doSignInWithFacebook = () =>                                        // Facebook Login Function
+        this.auth.signInWithPopup(this.facebookProvider)
 
     doSignOut = () => this.auth.signOut()                               // Sign Out Function
 
