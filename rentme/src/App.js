@@ -27,19 +27,18 @@ const App = () => (
 
         <Route exact path={ROUTES.LOGIN} component={Login} />
         <Route exact path={ROUTES.RENTER_SIGNUP} component={RenterSignUp} />
+        <Route exact path={ROUTES.OWNER_SIGNUP} component={PropertyOwnerSignup} />
         <Route exact path={ROUTES.PASSWORD_FORGET} component={PasswordForget} />
         <Route exact path={ROUTES.ACCOUNT} component={Account} />
 
         <Route exact path={ROUTES.TENANT_DASHBOARD} component={TenantDashboard} />
+        <Route exact path={ROUTES.OWNER_DASHBOARD} component={PropertyDash} />
 
         <Route path="/manager-login" component={ManagerLogin} />
         <Route path="/manager-dash" component={ManagerDash} />
-        {/* <Route path="/tenant-dash" component={TenantDashboard} /> */}
-        <Route path="/property-dash" component={PropertyDash} />
         <Route path="/property-card" component={PropertyCard} />
         <Route path="/vendor-addbook" component={VendorAddressBk} />
         <Route path="/tenant-addbook" component={TenantAddressBk} />
-        <Route path="/owner-signup" component={PropertyOwnerSignup} />
         <Route path="/add-manager" component={addManagerForm} />
         <Route path="/manager-profile" component={ManagerCard} />
         <Route path="/view-receipts" component={RentReceipts} />

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
 import GoogleButton from "react-google-button";
+import { FacebookLoginButton } from "react-social-login-buttons";
 
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
@@ -23,6 +24,8 @@ const Login = () => (
     <SignInGoogle />
     <SignInFacebook />
     <RenterLoginForm />
+    <OwnerSignInGoogle />
+    <OwnerLoginForm />
   </>
 )
 
@@ -167,7 +170,114 @@ class SignInFacebookBase extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        <button type="submit">Sign In with Facebook</button>
+        <button type="submit" ><FacebookLoginButton onClick={() => console.log("Facebook button clicked")}><span>Sign In with Facebook</span></FacebookLoginButton></button>
+
+        {error && <p>{error.message}</p>}
+      </form>
+    )
+  }
+}
+
+
+class OwnerLoginFormBase extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state={ ...INITIAL_STATE } 
+  }
+
+  onSubmit = e => {
+    const { email, password }=this.state
+
+    this.props.withFirebase
+      .doSignInWithEmailAndPassword(email, password)
+      .then(() => {
+        this.setState({ ...INITIAL_STATE })
+        this.props.history.push(ROUTES.TENANT_DASHBOARD)
+      })
+      .catch(error => {
+        this.setState({ error })
+      })
+
+    e.preventDefault()
+  }
+
+  onChange = e => {
+    this.setState({ [e.target.name]: e.target.value })
+  }
+
+  render() {
+    const {email, password, error } = this.state;
+    const isInvalid = password === '' || email === ''
+
+    return (
+      <form onSubmit={this.onSubmit}>
+        <input
+          type="text"
+          name="email"
+          placeholder="Email Address"
+          value={email}
+          onChange={this.onChange}
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={password}
+          onChange={this.onChange}
+        />
+        <Button
+          disabled={isInvalid}
+          type="submit"
+          size="medium"
+          variant="contained"
+          color="primary"
+        >Login as a Property Owner</Button>
+
+        {error && <p>{error.message}</p>}
+
+        <p>
+          Don't have an account?{" "}
+          <Button
+            color="secondary"
+            href="/owner-signup"
+          >
+            Signup
+          </Button>
+          </p>
+
+      </form>
+    )
+  }
+}
+
+class OwnerSignInGoogleBase extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = { error: null }
+  }
+
+  onSubmit = e => {
+    this.props.firebase
+      .doSignInWithGoogle()
+      .then(socialAuthUser => {
+        this.setState({ error: null })
+        this.props.history.push(ROUTES.OWNER_DASHBOARD)
+      })
+      .catch(error => {
+        this.setState({ error })
+      })
+
+    e.preventDefault()
+  }
+
+  render() {
+    const { error } = this.state
+
+    return (
+      <form onSubmit={this.onSubmit}>
+        <button type="submit" ><GoogleButton onClick={() => { console.log('Google button clicked') }} /></button>
 
         {error && <p>{error.message}</p>}
       </form>
@@ -221,6 +331,16 @@ const SignInFacebook = compose(
   withFirebase,
 )(SignInFacebookBase)
 
+const OwnerLoginForm = compose(
+  withRouter,
+  withFirebase,
+)(OwnerLoginFormBase)
+
+const OwnerSignInGoogle = compose(
+  withRouter,
+  withFirebase,
+)(OwnerSignInGoogleBase)
+
 export default Login;
 
-export { RenterLoginForm, SignInGoogle, SignInFacebook }
+export { RenterLoginForm, SignInGoogle, SignInFacebook, OwnerLoginForm }
