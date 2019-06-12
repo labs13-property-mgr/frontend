@@ -7,6 +7,7 @@ import { FacebookLoginButton } from "react-social-login-buttons";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 import Button from "@material-ui/core/Button";
+import { ForgotPasswordLink } from "../PasswordForget";
 //import { makeStyles } from "@material-ui/core/styles";
 
 /*const useStyles = makeStyles(theme => ({
@@ -94,6 +95,8 @@ class RenterLoginFormBase extends Component {
         >Login as a Renter</Button>
 
         {error && <p>{error.message}</p>}
+
+        <ForgotPasswordLink />
 
         <p>
           Don't have an account?{" "}
@@ -237,6 +240,8 @@ class OwnerLoginFormBase extends Component {
         >Login as a Property Owner</Button>
 
         {error && <p>{error.message}</p>}
+
+        <ForgotPasswordLink />
 
         <p>
           Don't have an account?{" "}
