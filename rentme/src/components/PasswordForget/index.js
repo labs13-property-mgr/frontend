@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import { withFirebase } from '../Firebase';
+
+
 const PasswordForget = () => (
     <>
         <h4>Password Forget</h4>
@@ -13,7 +16,7 @@ const INITIAL_STATE = {
     error: null,
 }
 
-class PasswordForgetForm extends Component {
+class PasswordForgetFormBase extends Component {
     constructor(props) {
         super(props)
 
@@ -62,3 +65,7 @@ class PasswordForgetForm extends Component {
 }
 
 export default PasswordForget
+
+const PasswordForgetForm = withFirebase(PasswordForgetFormBase)
+
+export { PasswordForgetForm }
