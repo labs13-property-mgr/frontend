@@ -198,7 +198,7 @@ class OwnerLoginFormBase extends Component {
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
         this.setState({ ...INITIAL_STATE })
-        this.props.history.push(ROUTES.TENANT_DASHBOARD)
+        this.props.history.push(ROUTES.OWNER_DASHBOARD)
       })
       .catch(error => {
         this.setState({ error })
