@@ -15,4 +15,4 @@ export const TENANT_ADDRESSBK = "/tenant-addbook";
 export const VENDOR_ADDRESSBK = "/vendor-addbook";
 
 export const RENT_RECEIPTS = "/view-receipts";
-export const ISSUE_FORM = "/issue-report";
+export const ADD_ISSUE_FORM = "/add-work-request";
