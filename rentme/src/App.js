@@ -32,8 +32,6 @@ const App = () => (
     <>
       <MenuAppBar />
 
-      <hr />
-
       {/* Authentication/Account Related */}
       <Route exact path={ROUTES.LOGIN} component={Login} />
       <Route exact path={ROUTES.RENTER_SIGNUP} component={RenterSignUp} />
