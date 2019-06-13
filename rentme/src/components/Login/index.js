@@ -49,7 +49,7 @@ class RenterLoginFormBase extends Component {
   onSubmit = e => {
     const { email, password }=this.state
 
-    this.props.withFirebase
+    this.props.firebase
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
         this.setState({ ...INITIAL_STATE })
@@ -194,11 +194,12 @@ class OwnerLoginFormBase extends Component {
   onSubmit = e => {
     const { email, password }=this.state
 
-    this.props.withFirebase
+    this.props.firebase
       .doSignInWithEmailAndPassword(email, password)
       .then(() => {
         this.setState({ ...INITIAL_STATE })
-        this.props.history.push(ROUTES.TENANT_DASHBOARD)
+        this.props.history.push(ROUTES.OWNER_DASHBOARD)
+        console.log("right here")
       })
       .catch(error => {
         this.setState({ error })

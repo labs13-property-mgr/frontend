@@ -150,7 +150,6 @@ class RenterSignUpFormBase extends Component {
             fullWidth
             variant="contained"
             color="primary"
-            href="/"
           >
             Sign Up
           </Button>
