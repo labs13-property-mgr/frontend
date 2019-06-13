@@ -17,6 +17,11 @@ import Container from "@material-ui/core/Container";
 import "./login.css";
 
 const styles = {
+  container: {
+    position: "relative",
+    zIndex: "1",
+    width: "100%"
+  },
   halfSide: {
     display: "flex",
     flexDirection: "column",
@@ -46,39 +51,41 @@ const styles = {
 };
 
 const Login = props => (
-  <Container>
+  <div className="login-container">
     <div className="main-container" />
-    <div className={props.classes.loginLayout}>
-      <Grid className={props.classes.halfSide} item md={6}>
-        <Paper className={props.classes.paper}>
-          <div className={props.classes.socialLogins}>
-            <SignInGoogle />
-            <SignInFacebook />
-            <p>or</p>
-          </div>
-          <hr />
-          <div className={props.classes.emailPassword}>
-            <p>Login via Email & Password</p>
-            <RenterLoginForm />
-          </div>
-        </Paper>
-      </Grid>
-      <Grid className={props.classes.halfSide} item md={6}>
-        <Paper className={props.classes.paper}>
-          <div className={props.classes.socialLogins}>
-            <OwnerSignInGoogle />
-            <OwnerSignInFacebook />
-            <p>or</p>
-          </div>
-          <hr />
-          <div className={props.classes.emailPassword}>
-            <p>Login via Email & Password</p>
-            <OwnerLoginForm />
-          </div>
-        </Paper>
-      </Grid>
-    </div>
-  </Container>
+    <Container className={props.classes.container}>
+      <div className={props.classes.loginLayout}>
+        <Grid className={props.classes.halfSide} item md={6}>
+          <Paper className={props.classes.paper}>
+            <div className={props.classes.socialLogins}>
+              <SignInGoogle />
+              <SignInFacebook />
+              <p>or</p>
+            </div>
+            <hr />
+            <div className={props.classes.emailPassword}>
+              <p>Login via Email & Password</p>
+              <RenterLoginForm />
+            </div>
+          </Paper>
+        </Grid>
+        <Grid className={props.classes.halfSide} item md={6}>
+          <Paper className={props.classes.paper}>
+            <div className={props.classes.socialLogins}>
+              <OwnerSignInGoogle />
+              <OwnerSignInFacebook />
+              <p>or</p>
+            </div>
+            <hr />
+            <div className={props.classes.emailPassword}>
+              <p>Login via Email & Password</p>
+              <OwnerLoginForm />
+            </div>
+          </Paper>
+        </Grid>
+      </div>
+    </Container>
+  </div>
 );
 
 const INITIAL_STATE = {
