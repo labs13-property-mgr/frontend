@@ -980,3 +980,7 @@ a {
     grid-row-end: 6;
   }
 }
+
+#simple-menu[aria-hidden="true"] {
+  visibility: hidden;
+}
