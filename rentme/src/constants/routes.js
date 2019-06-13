@@ -8,7 +8,9 @@ export const TENANT_DASHBOARD = "/tenant-dash";
 export const OWNER_DASHBOARD = "/owner-dash";
 
 export const PROPERTY_CARD = "/property-card/:id";
+export const TENANT_CARD = "/tenant-card/:id";
 export const ADD_TENANT = "/add-tenant";
+export const ADD_PROPERTY = "/add-property";
 export const TENANT_ADDRESSBK = "/tenant-addbook";
 export const VENDOR_ADDRESSBK = "/vendor-addbook";
 

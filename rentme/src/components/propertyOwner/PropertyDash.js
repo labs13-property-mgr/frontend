@@ -26,20 +26,20 @@ const useStyles = makeStyles({
   },
   addLayout: {
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
     alignItems: "center"
   },
   addIcon: {
     color: "lightgrey",
     "&:hover": {
       color: "darkblue"
-    }
+    },
+    marginRight: "1rem"
   }
 });
 
 const PropertyDash = props => {
   const [properties, setProperties] = useState([]);
-  const [managers, setManagers] = useState([]);
   const classes = useStyles();
 
   // logOut = e => {
@@ -54,13 +54,6 @@ const PropertyDash = props => {
       .then(res => {
         setProperties(res.data);
         // console.log(res.data);
-      })
-      .catch(err => console.log("Crap!", err));
-    axios
-      .get("https://rent-me-app.herokuapp.com/api/users")
-      .then(res => {
-        setManagers(res.data.filter(d => d.role === "tenant"));
-        console.log(res);
       })
       .catch(err => console.log("Crap!", err));
   }, []);
@@ -95,6 +88,16 @@ const PropertyDash = props => {
               </CardContent>
             </Card>
             <Box mt={4}>
+              <div className={classes.addLayout}>
+                <Link to="/add-property">
+                  <Icon className={classes.addIcon} fontSize="large">
+                    add_circle
+                  </Icon>
+                </Link>
+                <h3>Add Property</h3>
+              </div>
+            </Box>
+            {/* <Box mt={4}>
               <Card>
                 <CardContent>
                   <div className={classes.addLayout}>
@@ -123,7 +126,7 @@ const PropertyDash = props => {
                   </MenuList>
                 </CardContent>
               </Card>
-            </Box>
+            </Box> */}
           </Grid>
           <Grid item xs={12} md={9} className={classes.test}>
             {" "}
