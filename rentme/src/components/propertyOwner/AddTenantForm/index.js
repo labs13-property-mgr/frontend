@@ -11,6 +11,7 @@ export default class AddTenantForm extends Component {
     this.state = {
       tenants: [],
       tenant: {
+        ["name"]: "",
         ["Spouse Name"]: "",
         ["additional adult name"]: "",
         ["number in household"]: "",

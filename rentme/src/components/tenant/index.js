@@ -1,5 +1,5 @@
 //import TenantDashboard from './TenantDashboard'
-import IssueForm from './IssueForm'
-import RentReceipts from './RentReceipts'
+import AddIssueForm from "./AddIssueForm";
+import RentReceipts from "./RentReceipts";
 
-export { IssueForm, RentReceipts }
+export { AddIssueForm, RentReceipts };

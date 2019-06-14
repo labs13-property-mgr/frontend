@@ -14,7 +14,7 @@ import {
   TenantAddressBk,
   AddTenantForm
 } from "./components/propertyOwner";
-import { RentReceipts, IssueForm } from "./components/tenant";
+import { RentReceipts } from "./components/tenant";
 import PropertyOwnerSignup from "./components/PropertyOwnerSignup";
 import RenterSignUp from "./components/RenterSignUp";
 import Account from "./components/Account";
@@ -22,6 +22,7 @@ import PasswordForget from "./components/PasswordForget";
 import TenantDashboard from "./components/tenant/TenantDashboard";
 import TenantCard from "./components/propertyOwner/TenantCard";
 import AddPropertyForm from "./components/propertyOwner/AddPropertyForm";
+import AddIssueForm from "./components/tenant/AddIssueForm";
 import "./App.css";
 
 import * as ROUTES from "./constants/routes";
@@ -30,8 +31,6 @@ const App = () => (
   <Router>
     <>
       <MenuAppBar />
-
-      <hr />
 
       {/* Authentication/Account Related */}
       <Route exact path={ROUTES.LOGIN} component={Login} />
@@ -53,7 +52,7 @@ const App = () => (
 
       {/* Tenant Routes */}
       <Route exact path={ROUTES.RENT_RECEIPTS} component={RentReceipts} />
-      <Route exact path={ROUTES.ISSUE_FORM} component={IssueForm} />
+      <Route exact path={ROUTES.ADD_ISSUE_FORM} component={AddIssueForm} />
       <Route exact path={ROUTES.TENANT_CARD} component={TenantCard} />
 
       {/* Hold for Stretch */}
