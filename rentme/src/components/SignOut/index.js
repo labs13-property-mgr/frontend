@@ -1,9 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const SignOut = () => (
+import { withFirebase } from '../Firebase';
+
+const SignOut = ({ firebase }) => (
     <>
-        <h4>Sign Out</h4>
+        <Link to="/" replace><p onClick={firebase.doSignOut}>Sign Out</p></Link>
     </>
 )
 
-export default SignOut
+export default withFirebase(SignOut)
