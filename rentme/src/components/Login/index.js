@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
 import GoogleButton from "react-google-button";
@@ -8,33 +8,41 @@ import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 import Button from "@material-ui/core/Button";
 import { ForgotPasswordLink } from "../PasswordForget";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { withStyles, createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
+import AppBar from "@material-ui/core/AppBar";
 import "./login.css";
 
 const styles = {
   container: {
     position: "relative",
-    zIndex: "1",
-    width: "100%"
+    zIndex: "1"
   },
   halfSide: {
     display: "flex",
     flexDirection: "column",
-    margin: "1rem",
-    boxShadow: "2px 2px 8px rgba(67, 67, 67, 0.4)"
+    justifyContent: "center",
+    alignContent: "center",
+    margin: "0 auto"
   },
   paper: {
     padding: "2.5rem"
   },
   loginLayout: {
     display: "flex",
-    flexDirection: "row",
-    marginTop: "3rem"
+    flexDirection: "column",
+    marginTop: "1rem",
+    margin: "0 auto",
+    justifyContent: "center",
+    alignItems: "center"
   },
   socialLogins: {
     display: "flex",
@@ -47,46 +55,115 @@ const styles = {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center"
+  },
+  test: {
+    // border: "1px solid black"
+  },
+  appBar: {
+    width: "50%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "0 auto",
+    marginTop: "2rem",
+    backgroundColor: "white",
+    boxShadow: "none"
+  },
+  tabs: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    backgroundColor: "white",
+    border: "none",
+    boxShadow: "none"
+  },
+  tab: {
+    fontSize: "1.2rem",
+    fontWeight: "bold"
   }
 };
 
-const Login = props => (
-  <div className="login-container">
-    <div className="main-container" />
-    <Container className={props.classes.container}>
-      <div className={props.classes.loginLayout}>
-        <Grid className={props.classes.halfSide} item md={6}>
-          <Paper className={props.classes.paper}>
-            <div className={props.classes.socialLogins}>
-              <SignInGoogle />
-              <SignInFacebook />
-              <p>or</p>
-            </div>
-            <hr />
-            <div className={props.classes.emailPassword}>
-              <p>Login via Email & Password</p>
-              <RenterLoginForm />
-            </div>
-          </Paper>
+const theme = createMuiTheme({
+  palette: {
+    primary: { 500: "#3F51B5" },
+    secondary: {
+      main: "#008c3a",
+      light: "#33a361"
+    }
+  }
+});
+
+const Login = props => {
+  const [tab, setTabs] = React.useState(0);
+
+  function handleChange(event, newTab) {
+    setTabs(newTab);
+  }
+  return (
+    <div className="login-container">
+      <div className="main-container" />
+      <Container className={props.classes.container}>
+        <Grid container>
+          <ThemeProvider theme={theme}>
+            <AppBar position="static" className={props.classes.appBar}>
+              <Tabs
+                value={tab}
+                onChange={handleChange}
+                className={props.classes.tabs}
+                indicatorColor="secondary"
+                textColor="secondary"
+                centered
+              >
+                <Tab className={props.classes.tab} label="Renters" />
+                <Tab className={props.classes.tab} label="Owners" />
+              </Tabs>
+            </AppBar>
+          </ThemeProvider>
         </Grid>
-        <Grid className={props.classes.halfSide} item md={6}>
-          <Paper className={props.classes.paper}>
-            <div className={props.classes.socialLogins}>
-              <OwnerSignInGoogle />
-              <OwnerSignInFacebook />
-              <p>or</p>
-            </div>
-            <hr />
-            <div className={props.classes.emailPassword}>
-              <p>Login via Email & Password</p>
-              <OwnerLoginForm />
-            </div>
-          </Paper>
-        </Grid>
-      </div>
-    </Container>
-  </div>
-);
+        <div className={props.classes.loginLayout}>
+          <Grid container spacing={2}>
+            {tab === 0 && (
+              <>
+                <Grid className={props.classes.halfSide} item md={5}>
+                  <Paper className={props.classes.paper}>
+                    <div className={props.classes.socialLogins}>
+                      <SignInGoogle />
+                      <SignInFacebook />
+                      <p>or</p>
+                    </div>
+                    <hr />
+                    <div className={props.classes.emailPassword}>
+                      <p>Login via Email & Password</p>
+                      <RenterLoginForm />
+                    </div>
+                  </Paper>
+                </Grid>
+              </>
+            )}
+            {tab === 1 && (
+              <>
+                <Grid className={props.classes.halfSide} item md={5}>
+                  <Paper className={props.classes.paper}>
+                    <div className={props.classes.socialLogins}>
+                      <OwnerSignInGoogle />
+                      <OwnerSignInFacebook />
+                      <p>or</p>
+                    </div>
+                    <hr />
+                    <div className={props.classes.emailPassword}>
+                      <p>Login via Email & Password</p>
+                      <OwnerLoginForm />
+                    </div>
+                  </Paper>
+                </Grid>
+              </>
+            )}
+          </Grid>
+        </div>
+      </Container>
+    </div>
+  );
+};
 
 const INITIAL_STATE = {
   email: "",
@@ -196,9 +273,11 @@ class RenterLoginFormBase extends Component {
           </div>
           <div>
             Don't have an account?{" "}
-            <Button color="secondary" href="/renter-signup">
-              Signup
-            </Button>
+            <ThemeProvider theme={theme}>
+              <Button color="secondary" href="/renter-signup">
+                Signup
+              </Button>
+            </ThemeProvider>
           </div>
         </div>
       </form>
@@ -415,9 +494,11 @@ class OwnerLoginFormBase extends Component {
           </div>
           <div>
             Don't have an account?{" "}
-            <Button color="secondary" href="/owner-signup">
-              Signup
-            </Button>
+            <ThemeProvider theme={theme}>
+              <Button color="secondary" href="/owner-signup">
+                Signup
+              </Button>
+            </ThemeProvider>
           </div>
         </div>
       </form>
