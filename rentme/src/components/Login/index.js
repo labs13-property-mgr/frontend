@@ -24,12 +24,14 @@ import "./login.css";
 const styles = {
   container: {
     position: "relative",
-    zIndex: "1",
-    width: "100%"
+    zIndex: "1"
   },
   halfSide: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    justifyContent: "center",
+    alignContent: "center",
+    margin: "0 auto"
   },
   paper: {
     padding: "2.5rem"
@@ -40,7 +42,7 @@ const styles = {
     marginTop: "1rem",
     margin: "0 auto",
     justifyContent: "center",
-    width: "50%"
+    alignItems: "center"
   },
   socialLogins: {
     display: "flex",
@@ -122,7 +124,7 @@ const Login = props => {
           <Grid container spacing={2}>
             {tab === 0 && (
               <>
-                <Grid className={props.classes.halfSide} item md={12}>
+                <Grid className={props.classes.halfSide} item md={5}>
                   <Paper className={props.classes.paper}>
                     <div className={props.classes.socialLogins}>
                       <SignInGoogle />
@@ -140,7 +142,7 @@ const Login = props => {
             )}
             {tab === 1 && (
               <>
-                <Grid className={props.classes.halfSide} item md={12}>
+                <Grid className={props.classes.halfSide} item md={5}>
                   <Paper className={props.classes.paper}>
                     <div className={props.classes.socialLogins}>
                       <OwnerSignInGoogle />
