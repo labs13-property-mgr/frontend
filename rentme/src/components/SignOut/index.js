@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { withFirebase } from '../Firebase';
 
 const SignOut = ({ firebase }) => (
     <>
-        <p onClick={firebase.doSignOut}>Sign Out</p>
+        <Link to="/" replace><p onClick={firebase.doSignOut}>Sign Out</p></Link>
     </>
 )
 
