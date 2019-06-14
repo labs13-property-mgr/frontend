@@ -150,7 +150,7 @@ const TenantDashboard = props => {
                 <h4>Tasks & Maintenance</h4>
                 <MenuList>
                   <MenuItem>
-                    <Link to="/issue-report" className={classes.links}>
+                    <Link to="/add-work-request" className={classes.links}>
                       Submit an Issue/Work Request
                     </Link>
                   </MenuItem>

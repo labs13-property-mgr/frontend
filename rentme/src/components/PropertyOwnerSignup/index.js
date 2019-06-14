@@ -4,16 +4,18 @@ import { compose } from "recompose";
 
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
+import { withStyles } from "@material-ui/styles";
+import Container from "@material-ui/core/Container";
 
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Button from "@material-ui/core/Button";
 
-const PropertyOwnerSignUp = () => (
-  <>
+const PropertyOwnerSignUp = props => (
+  <Container className={props.classes.pageContainer}>
     <h4>Sign Up as a Property Owner</h4>
     <OwnerSignUpForm />
-  </>
+  </Container>
 );
 
 const INITIAL_STATE = {
@@ -22,6 +24,12 @@ const INITIAL_STATE = {
   passwordOne: "",
   passwordTwo: "",
   error: null
+};
+
+const styles = {
+  pageContainer: {
+    textAlign: "center"
+  }
 };
 
 class OwnerSignUpFormBase extends Component {
@@ -61,62 +69,82 @@ class OwnerSignUpFormBase extends Component {
       passwordOne !== passwordTwo ||
       passwordOne === "";
 
+    const formContainer = {
+      display: "flex",
+      flexDirection: "column",
+      width: "80%",
+      padding: "2rem"
+    };
+
+    const buttons = {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "flex-start",
+      width: "100%",
+      marginTop: "1rem"
+    };
+
+    const button = {
+      marginRight: "1rem"
+    };
+
     return (
       <>
         <form onSubmit={this.onSubmit}>
-          <TextField
-            variant="outlined"
-            type="text"
-            required
-            fullWidth
-            id="username"
-            label="Username"
-            name="username"
-            margin="normal"
-            value={username}
-            onChange={this.onChange}
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            type="text"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            margin="normal"
-            value={email}
-            onChange={this.onChange}
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            type="password"
-            required
-            fullWidth
-            id="password"
-            label="Password"
-            name="passwordOne"
-            margin="normal"
-            value={passwordOne}
-            onChange={this.onChange}
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            type="password"
-            required
-            fullWidth
-            id="confirm-password"
-            label="Confirm Password"
-            name="passwordTwo"
-            margin="normal"
-            value={passwordTwo}
-            onChange={this.onChange}
-            autoFocus
-          />
-          {/* <input
+          <Container style={formContainer}>
+            <TextField
+              variant="outlined"
+              type="text"
+              required
+              fullWidth
+              id="username"
+              label="Username"
+              name="username"
+              margin="normal"
+              value={username}
+              onChange={this.onChange}
+              autoFocus
+            />
+            <TextField
+              variant="outlined"
+              type="text"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              margin="normal"
+              value={email}
+              onChange={this.onChange}
+              autoFocus
+            />
+            <TextField
+              variant="outlined"
+              type="password"
+              required
+              fullWidth
+              id="password"
+              label="Password"
+              name="passwordOne"
+              margin="normal"
+              value={passwordOne}
+              onChange={this.onChange}
+              autoFocus
+            />
+            <TextField
+              variant="outlined"
+              type="password"
+              required
+              fullWidth
+              id="confirm-password"
+              label="Confirm Password"
+              name="passwordTwo"
+              margin="normal"
+              value={passwordTwo}
+              onChange={this.onChange}
+              autoFocus
+            />
+            {/* <input
             type="text"
             placeholder="Username"
             name="username"
@@ -144,20 +172,28 @@ class OwnerSignUpFormBase extends Component {
             value={passwordTwo}
             onChange={this.onChange}
           /> */}
-          <Button
-            disabled={isInvalid}
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-          >
-            Sign Up
-          </Button>
-          <Button variant="contained" color="secondary" href="/">
-            Cancel
-          </Button>
-
-          {error && <p>{error.message}</p>}
+            <div style={buttons}>
+              <Button
+                disabled={isInvalid}
+                type="submit"
+                size="large"
+                variant="contained"
+                color="primary"
+                style={button}
+              >
+                Sign Up
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                href="/"
+                size="large"
+              >
+                Cancel
+              </Button>
+            </div>
+            {error && <p>{error.message}</p>}
+          </Container>
         </form>
       </>
     );
@@ -175,6 +211,6 @@ const OwnerSignUpForm = compose(
   withFirebase
 )(OwnerSignUpFormBase);
 
-export default PropertyOwnerSignUp;
+export default withStyles(styles)(PropertyOwnerSignUp);
 
 export { OwnerSignUpForm, OwnerSignUpLink };
