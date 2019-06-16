@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const PasswordChange = () => (
-    <>
-        <h4>Password Change</h4>
-    </>
-)
+class PasswordChangeForm extends Component {
 
-export default PasswordChange
+    render() {
+        return (
+            <>
+                <form>
+                    <input 
+                        name="passwordOne"
+                        type="password"
+                        placeholder="New Password"
+                    />
+                    <input 
+                        name="passwordTwo"
+                        type="password"
+                        placeholder="Confirm New Password"
+                    />
+                    <button>
+                        Reset My Password
+                    </button>
+                </form>
+            </>
+        )
+    }
+}
+
+export default PasswordChangeForm
