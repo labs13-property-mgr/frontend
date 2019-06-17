@@ -102,7 +102,7 @@ export default class AddPropertyForm extends Component {
             <Button type="submit" fullWidth variant="contained" color="primary">
               Add Property
             </Button>
-            <Link to="/">
+            <Link to="/owner-dash">
               <Button variant="contained" color="secondary">
                 Cancel
               </Button>
