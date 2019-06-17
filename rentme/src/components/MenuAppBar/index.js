@@ -107,8 +107,8 @@ export default function MenuAppBar(props) {
 }
 */
 
-const MenuAppBar = ({ authUser }) => (
-<><AuthUserContext.Consumer>{authUser ? <MenuAppBarAuth /> : <MenuAppBarNonAuth />}</AuthUserContext.Consumer></>
+const MenuAppBar = () => (
+<><AuthUserContext.Consumer>{authUser => authUser ? <MenuAppBarAuth /> : <MenuAppBarNonAuth />}</AuthUserContext.Consumer></>
 )
 
 const MenuAppBarAuth = () => (
