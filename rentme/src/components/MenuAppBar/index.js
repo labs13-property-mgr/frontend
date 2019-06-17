@@ -13,6 +13,7 @@ import Logo from "../logo.png";
 
 import SignOut from '../SignOut';
 import * as ROUTES from "../../constants/routes";
+import { AuthUserContext } from "../Session";
 
 /*const useStyles = makeStyles(theme => ({
   root: {
@@ -107,7 +108,7 @@ export default function MenuAppBar(props) {
 */
 
 const MenuAppBar = ({ authUser }) => (
-<>{authUser ? <MenuAppBarAuth /> : <MenuAppBarNonAuth />}</>
+<><AuthUserContext.Consumer>{authUser ? <MenuAppBarAuth /> : <MenuAppBarNonAuth />}</AuthUserContext.Consumer></>
 )
 
 const MenuAppBarAuth = () => (
