@@ -1,5 +1,6 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
+/*import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -8,11 +9,12 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Logo from "../logo.png";
-import "./nav.css";
+*/import "./nav.css";
 
 import SignOut from '../SignOut';
+import * as ROUTES from "../../constants/routes";
 
-const useStyles = makeStyles(theme => ({
+/*const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
   },
@@ -57,7 +59,7 @@ export default function MenuAppBar(props) {
             <Typography variant="h6" className={classes.title}>
               RentMe
             </Typography>
-            {auth && (
+             {auth && ( 
               <div>
                 <IconButton
                   aria-label="Account of current user"
@@ -95,10 +97,36 @@ export default function MenuAppBar(props) {
                   )}
                 </Menu>
               </div>
-            )}
+             )}
           </div>
         </Toolbar>
       </AppBar>
     </div>
   );
 }
+*/
+
+const MenuAppBar = ({ authUser }) => (
+<>{authUser ? <MenuAppBarAuth /> : <MenuAppBarNonAuth />}</>
+)
+
+const MenuAppBarAuth = () => (
+  <ul>
+    <li>
+      <Link to={ROUTES.ACCOUNT}>Account</Link>
+    </li>
+    <li>
+      <SignOut />
+    </li>
+  </ul>
+)
+
+const MenuAppBarNonAuth = () => (
+  <ul>
+    <li>
+      <Link to={ROUTES.LOGIN}>Log In</Link>
+    </li>
+  </ul>
+)
+
+export default MenuAppBar
