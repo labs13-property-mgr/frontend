@@ -19,6 +19,7 @@ export default class AddPropertyForm extends Component {
 
   componentDidMount() {
     const endpoint = "https://rent-me-app.herokuapp.com/api/properties";
+
     axios
       .get(endpoint)
       .then(res => {
@@ -69,7 +70,7 @@ export default class AddPropertyForm extends Component {
   render() {
     if (!this.state.property) return <h3>Loading data...</h3>;
     return (
-      <div>
+      <div style={{textAlign: "center", margin: "0 auto", width: "40%"}}>
         <h1>Add a New Property</h1>
         <div>
           <form onSubmit={this.onSubmitAddProperty}>
@@ -99,14 +100,16 @@ export default class AddPropertyForm extends Component {
               onChange={this.handleChange}
               value={this.state.property.address}
             />
-            <Button type="submit" fullWidth variant="contained" color="primary">
-              Add Property
-            </Button>
-            <Link to="/owner-dash">
-              <Button variant="contained" color="secondary">
-                Cancel
+            <div style={{display: "flex", justifyContent: "space-around", width: "80%", margin: "1rem auto"}}>
+              <Button style={{width: "27%"}}type="submit" variant="contained" color="primary">
+                Add
               </Button>
-            </Link>
+              <Link to="/owner-dash">
+                <Button variant="contained" color="secondary">
+                  Cancel
+                </Button>
+              </Link>
+            </div>
           </form>
         </div>
       </div>
