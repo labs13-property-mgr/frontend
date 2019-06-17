@@ -31,7 +31,8 @@ const styles = {
     flexDirection: "column",
     justifyContent: "center",
     alignContent: "center",
-    margin: "0 auto"
+    margin: "0 auto",
+    width: "100%"
   },
   paper: {
     padding: "2.5rem"
@@ -60,7 +61,7 @@ const styles = {
     // border: "1px solid black"
   },
   appBar: {
-    width: "50%",
+    width: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -375,13 +376,24 @@ class SignInFacebookBase extends Component {
       }
     };
 
+    const buttonText = {
+      fontSize: "16px",
+      textAlign: "center"
+    };
+
+    const fbButton = {
+      width: "220px",
+      textAlign: "center"
+    };
+
     return (
       <form onSubmit={this.onSubmit}>
         <button type="submit" style={buttonStyle} type="submit">
           <FacebookLoginButton
+            style={fbButton}
             onClick={() => console.log("Facebook button clicked")}
           >
-            <span>Sign In with Facebook</span>
+            <span style={buttonText}>Sign In with Facebook</span>
           </FacebookLoginButton>
         </button>
 
@@ -595,13 +607,24 @@ class OwnerSignInFacebookBase extends Component {
       }
     };
 
+    const buttonText = {
+      fontSize: "16px",
+      textAlign: "center"
+    };
+
+    const fbButton = {
+      width: "220px",
+      textAlign: "center"
+    };
+
     return (
       <form onSubmit={this.onSubmit}>
         <button type="submit" style={buttonStyle}>
           <FacebookLoginButton
+            style={fbButton}
             onClick={() => console.log("Facebook button clicked")}
           >
-            <span>Sign In with Facebook</span>
+            <span style={buttonText}>Sign In with Facebook</span>
           </FacebookLoginButton>
         </button>
 
