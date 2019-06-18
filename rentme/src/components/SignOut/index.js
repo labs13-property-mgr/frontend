@@ -6,9 +6,11 @@ import * as ROUTES from "../../constants/routes";
 import "./signout.css";
 
 const SignOut = ({ firebase }) => (
-    <>
-        <Link to={ROUTES.LOGIN} replace className="signout-text"><p onClick={firebase.doSignOut}>Sign Out</p></Link>
-    </>
-)
+  <>
+    <Link to={ROUTES.LOGIN} replace className="signout-text">
+      <p onClick={firebase.doSignOut}>Sign Out</p>
+    </Link>
+  </>
+);
 
 export default withFirebase(SignOut);
