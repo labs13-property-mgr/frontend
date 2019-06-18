@@ -55,6 +55,12 @@ const TenantDashboard = props => {
         setProperty(res.data[0]);
       })
       .catch(err => console.log("Crap!", err));
+    axios
+      .get("https://rent-me-app.herokuapp.com/api/service")
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => console.log(err))
 
     const steps = [
       {
@@ -86,7 +92,7 @@ const TenantDashboard = props => {
 
   return (
     <>
-      <d container className={classes.mainContainer}>
+      <div className={classes.mainContainer}>
         <AppBar position="sticky" className={classes.subAppBar}>
           <Toolbar>
             <IconButton
@@ -161,7 +167,7 @@ const TenantDashboard = props => {
           </div>
         </main>
         {/* </Container> */}
-      </d>
+      </div>
     </>
   );
 };
