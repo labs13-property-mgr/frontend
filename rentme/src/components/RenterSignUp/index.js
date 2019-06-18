@@ -71,20 +71,20 @@ class RenterSignUpFormBase extends Component {
     const formContainer = {
       display: "flex",
       flexDirection: "column",
-      width: "80%",
+      width: "50%",
       padding: "2rem"
     };
 
     const buttons = {
       display: "flex",
       flexDirection: "row",
-      justifyContent: "flex-start",
-      width: "100%",
-      marginTop: "1rem"
+      justifyContent: "space-around",
+      width: "75%",
+      margin: "1rem auto"
     };
 
     const button = {
-      marginRight: "1rem"
+      width: "40%"
     };
 
     return (
@@ -183,6 +183,7 @@ class RenterSignUpFormBase extends Component {
                 color="secondary"
                 size="large"
                 href="/"
+                style={button}
               >
                 Cancel
               </Button>

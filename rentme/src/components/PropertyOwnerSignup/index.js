@@ -69,23 +69,23 @@ class OwnerSignUpFormBase extends Component {
       passwordOne !== passwordTwo ||
       passwordOne === "";
 
-    const formContainer = {
-      display: "flex",
-      flexDirection: "column",
-      width: "80%",
-      padding: "2rem"
-    };
+      const formContainer = {
+        display: "flex",
+        flexDirection: "column",
+        width: "50%",
+        padding: "2rem"
+      };
 
-    const buttons = {
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "flex-start",
-      width: "100%",
-      marginTop: "1rem"
-    };
+      const buttons = {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        width: "75%",
+        margin: "1rem auto"
+      };
 
     const button = {
-      marginRight: "1rem"
+      width: "40%"
     };
 
     return (
@@ -188,6 +188,7 @@ class OwnerSignUpFormBase extends Component {
                 color="secondary"
                 href="/"
                 size="large"
+                style={button}
               >
                 Cancel
               </Button>
