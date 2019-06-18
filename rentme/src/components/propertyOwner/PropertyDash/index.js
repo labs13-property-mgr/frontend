@@ -17,10 +17,41 @@ import Hidden from "@material-ui/core/Hidden";
 import IconButton from "@material-ui/core/IconButton";
 import Toolbar from "@material-ui/core/Toolbar";
 import MenuIcon from "@material-ui/icons/Menu";
+import TablePagination from "@material-ui/core/TablePagination";
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
+  headerPlusSearch: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+
+  dashboardSearch: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center"
+  },
+
+  searchInput: {
+    border: "none",
+    borderBottom: "1px solid black",
+    fontSize: "1.2rem",
+    "&:focus": {
+      outline: "none"
+    }
+  },
+
+  hide: {
+    opacity: 0,
+    pointerEvents: "none"
+  },
+  paginationWrapper: {
+    display: "flex",
+    justifyContent: "flex-end"
+  },
   mainContainer: {
     display: "block"
   },
@@ -28,14 +59,7 @@ const useStyles = makeStyles(theme => ({
   test: {
     // border: "1px solid black"
   },
-
-  // sideMenu: {
-  //   position: "fixed",
-  //   border: "1px solid black",
-  //   height: "100%"
-  // },
   propertyCards: {
-    // marginTop: "3rem",
     marginTop: "3rem"
   },
   dashboard: {
@@ -126,9 +150,28 @@ const PropertyDash = props => {
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = useState(false);
   const theme = useTheme();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [page, setPage] = useState(0);
+  const [cardsPerPage, setCardsPerPage] = useState(6);
 
   function handleDrawerToggle() {
     setMobileOpen(!mobileOpen);
+  }
+
+  function handleKeyDown(e) {
+    setSearchQuery(e.target.value);
+  }
+
+  function doesMatchSearchQuery(property) {
+    if (searchQuery === "") {
+      return true;
+    }
+    const expression = new RegExp(searchQuery, "i");
+    return (
+      searchQuery === "" ||
+      property.property_name.match(expression) ||
+      property.address.match(expression)
+    );
   }
 
   const drawer = (
@@ -162,10 +205,19 @@ const PropertyDash = props => {
       .get("https://rent-me-app.herokuapp.com/api/properties")
       .then(res => {
         setProperties(res.data);
-        // console.log(res.data);
+        console.log(res.data);
       })
       .catch(err => console.log("Crap!", err));
   }, []);
+
+  function handleChangePage(event, newPage) {
+    console.log(newPage);
+    setPage(newPage);
+  }
+
+  function handleChangeRowsPerPage(event) {
+    setCardsPerPage(+event.target.value);
+  }
 
   return (
     <>
@@ -220,33 +272,66 @@ const PropertyDash = props => {
 
         <main className={classes.content}>
           <div className={classes.dashboard}>
-            {" "}
             <h1>Property Owner Dashboard</h1>
             {/*Dashboard content */} {/* list of owner's properties */}
-            <h2>Properties</h2>
+            <div className={classes.headerPlusSearch}>
+              <h2>Properties</h2>
+              <div className={classes.dashboardSearch}>
+                <Icon fontSize="medium">search</Icon>
+                <input
+                  className={classes.searchInput}
+                  type="search"
+                  placeholder="Search"
+                  onChange={handleKeyDown}
+                />
+              </div>
+            </div>
             <Grid container className={classes.propertyCards} spacing={4}>
-              {properties.map(property => {
-                return (
-                  <Grid
-                    item
-                    xs={12}
-                    md={6}
-                    lg={4}
-                    key={property && property.id}
-                  >
-                    <Link to={`/property-card/${property.id}`}>
-                      <Card className={classes.cardStyle}>
-                        <CardContent>
-                          <p>Name: {property && property.property_name}</p>
-                          <p>Address: {property && property.address}</p>
-                        </CardContent>
-                      </Card>
-                    </Link>
-                  </Grid>
-                );
-              })}
+              {properties
+                .slice(
+                  searchQuery ? 0 : page * cardsPerPage,
+                  searchQuery
+                    ? properties.length
+                    : page * cardsPerPage + cardsPerPage
+                )
+                .map(property => {
+                  return (
+                    doesMatchSearchQuery(property) && (
+                      <Grid
+                        item
+                        xs={12}
+                        md={6}
+                        lg={4}
+                        key={property && property.id}
+                      >
+                        <Link to={`/property-card/${property.id}`}>
+                          <Card className={classes.cardStyle}>
+                            <CardContent>
+                              <p>Name: {property && property.property_name}</p>
+                              <p>Address: {property && property.address}</p>
+                            </CardContent>
+                          </Card>
+                        </Link>
+                      </Grid>
+                    )
+                  );
+                })}
             </Grid>
           </div>
+          <TablePagination
+            className={searchQuery ? classes.hide : classes.paginationWrapper}
+            count={properties.length}
+            rowsPerPage={cardsPerPage}
+            rowsPerPageOptions={[]}
+            page={page}
+            backIconButtonProps={{
+              "aria-label": "Previous Page"
+            }}
+            nextIconButtonProps={{
+              "aria-label": "Next Page"
+            }}
+            onChangePage={handleChangePage}
+          />
         </main>
         {/* </Container> */}
       </d>
