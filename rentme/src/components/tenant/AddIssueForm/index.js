@@ -36,11 +36,13 @@ class AddIssueForm extends Component {
       issue: {
         id: "",
         date_created: "",
+        request_name: "",
+        status: "",
+        request_description: "",
         notes: "",
         contractor: "",
         apointment: "",
         followup: "",
-        recieved: false,
         resolved_tenant: false,
         resolved_owner: false
       }
