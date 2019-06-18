@@ -19,6 +19,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import MenuIcon from "@material-ui/icons/Menu";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import TrackerBar from './TrackerBar'
+import CustomDrawer from './Drawer'
+
 import "./tenantDashboard.css";
 
 const drawerWidth = 240;
@@ -153,7 +155,7 @@ const TenantDashboard = props => {
   const [tenant, setTenant] = useState(null);
   const [property, setProperty] = useState(null);
   const [progressWidth, setProgressWidth] = useState(0);
-  const [currentStep, setCurrentStep] = useState(null);
+  const [currentStep, setCurrentStep] = useState(1);
 
   const { container } = props;
   const classes = useStyles();
@@ -164,37 +166,6 @@ const TenantDashboard = props => {
     setMobileOpen(!mobileOpen);
   }
 
-  const drawer = (
-    <div>
-      <div className={classes.toolbar} />
-      <div>
-        <h2 className={classes.resourcesHeader}>Resources/Links</h2>
-        <h3 className={classes.resourcesHeader}>Leasing Documents</h3>
-        <List>
-          <ListItemLink className={classes.menuItem} href="/view-receipts">
-            <Icon fontSize="medium">folder</Icon>
-            <p className={classes.menuText}>Rent Receipts</p>
-          </ListItemLink>
-          <ListItemLink className={classes.menuItem} href="/view-receipts">
-            <Icon fontSize="medium">folder</Icon>
-            <p className={classes.menuText}>Lease Application</p>
-          </ListItemLink>
-          <ListItemLink className={classes.menuItem} href="/view-receipts">
-            <Icon fontSize="medium">folder</Icon>
-            <p className={classes.menuText}>Lease Agreement Contract</p>
-          </ListItemLink>
-        </List>
-        <Divider />
-        <h3 className={classes.resourcesHeader}>Maintenance & Requests</h3>
-        <List>
-          <ListItemLink className={classes.menuItem} href="/add-work-request">
-            <Icon fontSize="medium">build</Icon>
-            <p className={classes.menuText}>Submit an Issue/Work Request</p>
-          </ListItemLink>
-        </List>
-      </div>
-    </div>
-  );
 
   useEffect(() => {
     axios
@@ -231,6 +202,7 @@ const TenantDashboard = props => {
     ];
 
     setCurrentStep(steps[0].number);
+
   }, []);
 
   const onButtonClick = event => {
@@ -271,7 +243,7 @@ const TenantDashboard = props => {
                 keepMounted: true // Better open performance on mobile.
               }}
             >
-              {drawer}
+              <CustomDrawer classes={classes} ListItemLink={ListItemLink} />
             </Drawer>
           </Hidden>
           <Hidden xsDown implementation="css">
@@ -282,7 +254,7 @@ const TenantDashboard = props => {
               variant="permanent"
               open
             >
-              {drawer}
+              <CustomDrawer classes={classes} ListItemLink={ListItemLink}/>
             </Drawer>
           </Hidden>
         </nav>
