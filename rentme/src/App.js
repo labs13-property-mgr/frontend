@@ -43,10 +43,6 @@ const App = () => (
       <Route exact path={ROUTES.RENTER_SIGNUP} component={RenterSignUp} />
       <Route exact path={ROUTES.OWNER_SIGNUP} component={PropertyOwnerSignup} />
       <Route exact path={ROUTES.PASSWORD_FORGET} component={PasswordForget} />
-<<<<<<< HEAD
-      <Route exact path={ROUTES.PASSWORD_CHANGE} component={PasswordChange} />
-=======
->>>>>>> 7fd708a57536619494e3855901846cf7a0ffb34a
       <Route exact path={ROUTES.ACCOUNT} component={Account} />
 
       {/* Dashboard Views */}
