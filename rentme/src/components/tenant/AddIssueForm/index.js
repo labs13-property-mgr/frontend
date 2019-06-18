@@ -63,11 +63,12 @@ class AddIssueForm extends Component {
       });
   }
 
-  addIssue = newIssue => {
+  addIssue = (newIssue, e) => {
     return axios
       .post("https://rent-me-app.herokuapp.com/api/service", newIssue)
       .then(res => {
         const issues = res.data;
+        console.log(issues)
         return issues;
       })
       .catch(err => {
@@ -109,9 +110,9 @@ class AddIssueForm extends Component {
               className={this.props.classes.textField}
               // variant="filled"
               required
-              id="name"
+              id="request_name"
               label="Request Name"
-              name="name"
+              name="request_name"
               helperText="Please provide a short summary name for your request"
               margin="normal"
               autoFocus
@@ -123,10 +124,10 @@ class AddIssueForm extends Component {
               className={this.props.classes.textField}
               required
               fullWidth
-              id="description"
+              id="request_description"
               label="Brief Description"
               helperText="Please describe the issue"
-              name="description"
+              name="request_description"
               margin="normal"
               autoFocus
               onChange={this.handleChange}
