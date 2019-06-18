@@ -41,7 +41,7 @@ class AddIssueForm extends Component {
         request_description: "",
         notes: "",
         contractor: "",
-        apointment: "",
+        appointment: "",
         followup: "",
         resolved_tenant: false,
         resolved_owner: false
@@ -68,7 +68,7 @@ class AddIssueForm extends Component {
       .post("https://rent-me-app.herokuapp.com/api/service", newIssue)
       .then(res => {
         const issues = res.data;
-        console.log(issues)
+        console.log("From post request", issues)
         return issues;
       })
       .catch(err => {
@@ -88,9 +88,14 @@ class AddIssueForm extends Component {
 
   onSubmitAddIssue = e => {
     e.preventDefault();
+    const today = new Date()
     const issue = {
-      ...this.state.issue
+      ...this.state.issue,
+      date_created: today.toLocaleString("en-US"),
+      status: "open"
+
     };
+    console.log("From onSubmitAddIssue", issue)
     this.addIssue(issue).then(issues => {
       this.setState({
         issues: issues
