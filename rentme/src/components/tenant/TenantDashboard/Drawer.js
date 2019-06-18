@@ -14,15 +14,15 @@ const Drawer = props => {
         <h3 className={classes.resourcesHeader}>Leasing Documents</h3>
         <List>
           <ListItemLink className={classes.menuItem} href="/view-receipts">
-            <Icon fontSize="medium">folder</Icon>
+            <Icon>folder</Icon>
             <p className={classes.menuText}>Rent Receipts</p>
           </ListItemLink>
           <ListItemLink className={classes.menuItem} href="/view-receipts">
-            <Icon fontSize="medium">folder</Icon>
+            <Icon>folder</Icon>
             <p className={classes.menuText}>Lease Application</p>
           </ListItemLink>
           <ListItemLink className={classes.menuItem} href="/view-receipts">
-            <Icon fontSize="medium">folder</Icon>
+            <Icon>folder</Icon>
             <p className={classes.menuText}>Lease Agreement Contract</p>
           </ListItemLink>
         </List>
@@ -30,7 +30,7 @@ const Drawer = props => {
         <h3 className={classes.resourcesHeader}>Maintenance & Requests</h3>
         <List>
           <ListItemLink className={classes.menuItem} href="/add-work-request">
-            <Icon fontSize="medium">build</Icon>
+            <Icon>build</Icon>
             <p className={classes.menuText}>Submit an Issue/Work Request</p>
           </ListItemLink>
         </List>
