@@ -15,6 +15,8 @@ import Box from "@material-ui/core/Box";
 export default class TenantCard extends Component {
   state = {
     tenants: [],
+    properties: [],
+    property: {},
     activeTenant: {},
     tenant: {}
   };
@@ -28,6 +30,22 @@ export default class TenantCard extends Component {
           tenants: res.data,
           tenant: res.data.find(
             tenant => `${tenant.id}` === this.props.match.params.id
+          )
+        });
+      })
+      .catch(error => {
+        console.error("USERS ERROR", error);
+      });
+    axios
+      .get("https://rent-me-app.herokuapp.com/api/properties")
+      .then(res => {
+        const tenantsData = this.state.tenant;
+        const properties = res.data;
+        console.log(tenantsData);
+        this.setState({
+          properties: properties,
+          property: properties.find(
+            property => property.id === tenantsData["property_id"]
           )
         });
       })
@@ -71,7 +89,7 @@ export default class TenantCard extends Component {
     return (
       <div>
         <Container>
-          <h1>{this.state.tenant["name"]}'s Profile</h1>
+          <h1>{this.state.tenant["First_name"]}'s Profile</h1>
           <div>
             <h2>Personal & Contact Information</h2>
             <Grid container>
@@ -86,6 +104,14 @@ export default class TenantCard extends Component {
                 <p>
                   Emergency Contact: {this.state.tenant["emergency contact"]}
                 </p>
+                {this.state.property && (
+                  <>
+                    <p>Property Name: {this.state.property.property_name}</p>
+                    <Link to={`/property-card/${this.state.property.id}`}>
+                      Property Details
+                    </Link>
+                  </>
+                )}
               </Grid>
             </Grid>
           </div>

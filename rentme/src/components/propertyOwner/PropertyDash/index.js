@@ -195,6 +195,10 @@ const PropertyDash = props => {
             <Icon fontSize="medium">add_location</Icon>
             <p className={classes.menuText}>Add Property</p>
           </ListItemLink>
+          <ListItemLink className={classes.menuItem} href="/add-tenant">
+            <Icon fontSize="medium">group_add</Icon>
+            <p className={classes.menuText}>Add Tenants</p>
+          </ListItemLink>
         </List>
       </div>
     </div>
