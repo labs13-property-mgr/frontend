@@ -20,7 +20,7 @@ import RenterSignUp from "./components/RenterSignUp";
 import Account from "./components/Account";
 import PasswordForget from "./components/PasswordForget";
 import PasswordChange from "./components/PasswordChange";
-import TenantDashboard from "./components/tenant/TenantDashboard";
+import { TenantDashWithFirebase } from "./components/tenant/TenantDashboard";
 import TenantCard from "./components/propertyOwner/TenantCard";
 import AddPropertyForm from "./components/propertyOwner/AddPropertyForm";
 import EditPropertyForm from "./components/propertyOwner/EditPropertyForm/index.js";
@@ -36,7 +36,7 @@ const App = () => (
   <Router>
     <>
       <MenuAppBar />
-  
+
       {/* Authentication/Account Related */}
       <Route exact path={ROUTES.LOGIN} component={Login} />
       <Route exact path={ROUTES.RENTER_SIGNUP} component={RenterSignUp} />
@@ -44,11 +44,11 @@ const App = () => (
       <Route exact path={ROUTES.PASSWORD_FORGET} component={PasswordForget} />
       <Route exact path ={ROUTES.PASSWORD_CHANGE} component={PasswordChange} />
       <Route exact path={ROUTES.ACCOUNT} component={Account} />
-  
+
       {/* Dashboard Views */}
-      <Route exact path={ROUTES.TENANT_DASHBOARD} component={TenantDashboard} />
+      <Route exact path={ROUTES.TENANT_DASHBOARD} component={TenantDashWithFirebase} />
       <Route exact path={ROUTES.OWNER_DASHBOARD} component={PropertyDash} />
-  
+
       {/* Property Owner Routes */}
       <Route exact path={ROUTES.PROPERTY_CARD} component={PropertyCard} />
       <Route exact path={ROUTES.ADD_TENANT} component={AddTenantForm} />
@@ -57,12 +57,12 @@ const App = () => (
       <Route exact path={ROUTES.EDIT_PROPERTY} component={EditPropertyForm} />
       <Route exact path={ROUTES.TENANT_ADDRESSBK} component={TenantAddressBk} />
       <Route exact path={ROUTES.VENDOR_ADDRESSBK} component={VendorAddressBK} />
-  
+
       {/* Tenant Routes */}
       <Route exact path={ROUTES.RENT_RECEIPTS} component={RentReceipts} />
       <Route exact path={ROUTES.ADD_ISSUE_FORM} component={AddIssueForm} />
       <Route exact path={ROUTES.TENANT_CARD} component={TenantCard} />
-  
+
       {/* Hold for Stretch */}
       <Route path="/manager-login" component={ManagerLogin} />
       <Route path="/manager-dash" component={ManagerDash} />
