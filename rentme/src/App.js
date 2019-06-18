@@ -19,7 +19,6 @@ import PropertyOwnerSignup from "./components/PropertyOwnerSignup";
 import RenterSignUp from "./components/RenterSignUp";
 import Account from "./components/Account";
 import PasswordForget from "./components/PasswordForget";
-import PasswordChange from "./components/PasswordChange";
 import TenantDashboard from "./components/tenant/TenantDashboard";
 import TenantCard from "./components/propertyOwner/TenantCard";
 import AddPropertyForm from "./components/propertyOwner/AddPropertyForm";
@@ -42,7 +41,6 @@ const App = () => (
       <Route exact path={ROUTES.RENTER_SIGNUP} component={RenterSignUp} />
       <Route exact path={ROUTES.OWNER_SIGNUP} component={PropertyOwnerSignup} />
       <Route exact path={ROUTES.PASSWORD_FORGET} component={PasswordForget} />
-      <Route exact path ={ROUTES.PASSWORD_CHANGE} component={PasswordChange} />
       <Route exact path={ROUTES.ACCOUNT} component={Account} />
   
       {/* Dashboard Views */}
