@@ -17,7 +17,8 @@ export default class AddTenantForm extends Component {
         ["number in household"]: "",
         ["child name"]: "",
         ["contact info"]: "",
-        ["emergency contact"]: ""
+        ["emergency contact"]: "",
+        active_tenant: false
       }
     };
   }
@@ -106,17 +107,15 @@ export default class AddTenantForm extends Component {
             />
             <TextField
               variant="outlined"
-              margin="normal"
-              required
               fullWidth
-              id="number in household"
-              label="number in household"
-              name="number in household"
-              autoComplete="number in household"
-              type="number"
+              id="additional adult Name"
+              label="Additional Adult Name"
+              name="Additional Adult Name"
+              autoComplete="Additional Adult Name"
+              margin="normal"
               autoFocus
               onChange={this.handleChange}
-              value={this.state.tenant["number in household"]}
+              value={this.state.tenant["additional adult name"]}
             />
             <TextField
               variant="outlined"
@@ -129,6 +128,20 @@ export default class AddTenantForm extends Component {
               autoFocus
               onChange={this.handleChange}
               value={this.state.tenant["child name"]}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="number in household"
+              label="number in household"
+              name="number in household"
+              autoComplete="number in household"
+              type="number"
+              autoFocus
+              onChange={this.handleChange}
+              value={this.state.tenant["number in household"]}
             />
             <TextField
               variant="outlined"

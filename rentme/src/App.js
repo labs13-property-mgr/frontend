@@ -22,6 +22,8 @@ import PasswordForget from "./components/PasswordForget";
 import TenantDashboard from "./components/tenant/TenantDashboard";
 import TenantCard from "./components/propertyOwner/TenantCard";
 import AddPropertyForm from "./components/propertyOwner/AddPropertyForm";
+import EditPropertyForm from "./components/propertyOwner/EditPropertyForm/index.js";
+import EditTenantForm from "./components/propertyOwner/EditTenantForm/index.js";
 import AddIssueForm from "./components/tenant/AddIssueForm";
 import "./App.css";
 
@@ -46,7 +48,9 @@ const App = () => (
       {/* Property Owner Routes */}
       <Route exact path={ROUTES.PROPERTY_CARD} component={PropertyCard} />
       <Route exact path={ROUTES.ADD_TENANT} component={AddTenantForm} />
+      <Route exact path={ROUTES.EDIT_TENANT} component={EditTenantForm} />
       <Route exact path={ROUTES.ADD_PROPERTY} component={AddPropertyForm} />
+      <Route exact path={ROUTES.EDIT_PROPERTY} component={EditPropertyForm} />
       <Route exact path={ROUTES.TENANT_ADDRESSBK} component={TenantAddressBk} />
       <Route exact path={ROUTES.VENDOR_ADDRESSBK} component={VendorAddressBK} />
 

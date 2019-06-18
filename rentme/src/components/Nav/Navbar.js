@@ -10,11 +10,13 @@ import Menu from "@material-ui/core/Menu";
 import Logo from "../logo.png";
 import "./nav.css";
 
-import SignOut from '../SignOut';
+import SignOut from "../SignOut";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    zIndex: 9999,
+    position: "relative"
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -90,7 +92,9 @@ export default function MenuAppBar(props) {
                   ) : (
                     <div>
                       <MenuItem onClick={handleClose}>My account</MenuItem>
-                      <MenuItem><SignOut /></MenuItem>
+                      <MenuItem>
+                        <SignOut />
+                      </MenuItem>
                     </div>
                   )}
                 </Menu>
