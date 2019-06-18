@@ -18,7 +18,7 @@ const TrackerBar = props => {
     value={progressWidth}
     />
     <div className={classes.progressContent}>
-    <Grid md={12} className={classes.progressIcons}>
+    <Grid className={classes.progressIcons}>
     {" "}
     {/*Icon Layout */}
     <>
@@ -128,7 +128,7 @@ const TrackerBar = props => {
     </div>
     </>
     </Grid>
-    <Grid md={12} className={classes.progressText}>
+    <Grid className={classes.progressText}>
     {" "}
     {/*Progress Step text layout */}
     <>
