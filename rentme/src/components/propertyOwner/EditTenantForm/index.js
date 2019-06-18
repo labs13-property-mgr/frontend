@@ -221,7 +221,7 @@ export default class EditTenantForm extends Component {
               ))}
             </TextField>
             <Button type="submit" fullWidth variant="contained" color="primary">
-              Update Tenant
+              Update
             </Button>
             <Link to="/tenant-addbook">
               <Button variant="contained" color="secondary">

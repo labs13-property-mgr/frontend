@@ -156,7 +156,7 @@ export default class EditVendorForm extends Component {
                 variant="contained"
                 color="primary"
               >
-                Add
+                Update
               </Button>
               <Link to="/owner-dash">
                 <Button variant="contained" color="secondary">
