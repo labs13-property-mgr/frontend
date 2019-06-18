@@ -34,17 +34,19 @@ class AddIssueForm extends Component {
     this.state = {
       issues: [],
       issue: {
-        id: "",
         date_created: "",
         request_name: "",
         status: "",
-        request_description: "",
         notes: "",
+        request_description: "",
         contractor: "",
         appointment: "",
         followup: "",
         resolved_tenant: false,
-        resolved_owner: false
+        resolved_owner: false,
+        property_id: null,
+        tenant_id: null,
+        received: false
       }
     };
   }
