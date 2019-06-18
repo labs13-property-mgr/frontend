@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -12,44 +12,88 @@ import CardContent from "@material-ui/core/CardContent";
 import Icon from "@material-ui/core/Icon";
 import Box from "@material-ui/core/Box";
 
-const TenantCard = props => {
-  const [tenant, setTenant] = useState(null);
+export default class TenantCard extends Component {
+  state = {
+    tenants: [],
+    activeTenant: {},
+    tenant: {}
+  };
 
-  useEffect(() => {
+  componentDidMount() {
+    const endpoint = "https://rent-me-app.herokuapp.com/api/tenant";
     axios
-      .get("https://rent-me-app.herokuapp.com/api/users")
+      .get(endpoint)
       .then(res => {
-        setTenant(
-          res.data
-            .filter(tenant => tenant.role === "tenant")
-            .find(tenant => `${tenant.id}` === props.match.params.id)
-        );
-        // console.log(res.data);
+        this.setState({
+          tenants: res.data,
+          tenant: res.data.find(
+            tenant => `${tenant.id}` === this.props.match.params.id
+          )
+        });
       })
-      .catch(err => console.log("Crap!", err));
-  }, []);
+      .catch(error => {
+        console.error("USERS ERROR", error);
+      });
+  }
 
-  return (
-    <div>
-      <Container>
-        <h1>{tenant && tenant.First_name}'s Profile</h1>
-        <div>
-          <h2>Personal & Contact Information</h2>
-          <Grid container>
-            <Grid item md={6}>
-              <p>
-                Name: {tenant && tenant.First_name} {tenant && tenant.Last_name}
-              </p>
-              <p>Email: {tenant && tenant.email}</p>
-              <p>Phone: {tenant && tenant.address}</p>
-              <p>Address: {tenant && tenant.address}</p>
+  deleteTenants = id => {
+    return axios
+      .delete(`https://rent-me-app.herokuapp.com/api/tenant/${id}`)
+      .then(res => {
+        const tenants = res.data;
+        this.setState({ tenants });
+
+        this.props.history.push("/tenant-addbook");
+        // console.log(res);
+        // redirect
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  setActiveTenant = tenant => {
+    this.setState({ activeTenant: tenant });
+  };
+
+  updateTenant = e => {
+    e.preventDefault();
+    this.setActiveTenant(this.state.tenant);
+    this.props.history.push(`/edit-tenant/${this.state.tenant.id}`);
+  };
+
+  deleteTenant = e => {
+    e.preventDefault();
+    this.deleteTenants(this.state.tenant.id);
+  };
+
+  render() {
+    return (
+      <div>
+        <Container>
+          <h1>{this.state.tenant["name"]}'s Profile</h1>
+          <div>
+            <h2>Personal & Contact Information</h2>
+            <Grid container>
+              <Grid item md={6}>
+                <p>Name: {this.state.tenant["name"]}</p>
+                <p>Spouse's Name: {this.state.tenant["Spouse Name"]}</p>
+                <p>
+                  Number in Household:{" "}
+                  {this.state.tenant["number in household"]}
+                </p>
+                <p>Contact Info: {this.state.tenant["contact info"]}</p>
+                <p>
+                  Emergency Contact: {this.state.tenant["emergency contact"]}
+                </p>
+              </Grid>
             </Grid>
-          </Grid>
-        </div>
-      </Container>
-      <hr />
-    </div>
-  );
-};
-
-export default TenantCard;
+          </div>
+          <Button onClick={this.updateTenant}>Edit Tenant</Button>
+          <Button onClick={this.deleteTenant}>Delete Tenant</Button>
+        </Container>
+        <hr />
+      </div>
+    );
+  }
+}
