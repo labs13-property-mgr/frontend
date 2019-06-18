@@ -3,10 +3,16 @@ img.logo {
   margin-top: -0.6rem;
 }
 
+.logo-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .header-content {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
 }
