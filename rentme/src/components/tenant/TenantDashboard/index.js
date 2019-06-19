@@ -29,8 +29,6 @@ function ListItemLink(props) {
 const TenantDashboard = props => {
   const [tenant, setTenant] = useState(null);
   const [property, setProperty] = useState(null);
-  const [progressWidth, setProgressWidth] = useState(0);
-  const [currentStep, setCurrentStep] = useState(1);
   const [ requests, setRequests ] = useState(null)
   const { container } = props;
 
@@ -66,33 +64,7 @@ const TenantDashboard = props => {
       })
       .catch(err => console.log(err))
 
-    const steps = [
-      {
-        number: 1,
-        completed: false
-      },
-      {
-        number: 2,
-        completed: false
-      },
-      {
-        number: 3,
-        completed: false
-      },
-      {
-        number: 4,
-        completed: false
-      }
-    ];
-
-    setCurrentStep(steps[0].number);
-
   }, []);
-
-  const onButtonClick = event => {
-    setCurrentStep(currentStep + 1);
-    setProgressWidth(currentStep * 25);
-  };
 
   return (
     <>
@@ -163,9 +135,6 @@ const TenantDashboard = props => {
               return (
                 <TrackerBar
                 classes={classes}
-                progressWidth={progressWidth}
-                currentStep={currentStep}
-                onButtonClick={onButtonClick}
                 request={request}
                 />
               )
