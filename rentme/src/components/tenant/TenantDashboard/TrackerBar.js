@@ -124,12 +124,12 @@ const TrackerBar = props => {
                   : ""
               }`}
             >
-              <p>Sending Work Request...</p>
+              <p>Request Sent</p>
             </div>
             <div
               className={`check-text${progressWidth > 0 ? " completed" : ""}`}
             >
-              <p>Work Request Received</p>
+              <p>Request Received</p>
             </div>
           </>
           <>
@@ -144,7 +144,7 @@ const TrackerBar = props => {
                   : ""
               }`}
             >
-              <p>Contacting Vendor...</p>
+              <p>Contacting Vendor</p>
             </div>
             <div
               className={`check-text${progressWidth > 25 ? " completed" : ""}`}
@@ -164,7 +164,7 @@ const TrackerBar = props => {
                   : ""
               }`}
             >
-              <p>Scheduling appointment...</p>
+              <p>Scheduling appointment</p>
             </div>
             <div
               className={`check-text${progressWidth > 50 ? " completed" : ""}`}
@@ -184,7 +184,7 @@ const TrackerBar = props => {
                   : ""
               }`}
             >
-              <p>Fix in progress...</p>
+              <p>Fix in progress</p>
             </div>
             <div
               className={`check-text${progressWidth > 75 ? " completed" : ""}`}
