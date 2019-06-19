@@ -4,13 +4,15 @@ import { Link } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Button from "@material-ui/core/Button";
+import MenuItem from "@material-ui/core/MenuItem";
 
 export default class EditTenantForm extends Component {
   constructor() {
     super();
     this.state = {
       tenants: [],
-      activeTenant: {}
+      activeTenant: {},
+      properties: []
     };
   }
 
@@ -30,15 +32,26 @@ export default class EditTenantForm extends Component {
       .catch(error => {
         console.error("USERS ERROR", error);
       });
+    axios
+      .get("https://rent-me-app.herokuapp.com/api/properties")
+      .then(res => {
+        this.setState({
+          properties: res.data
+        });
+        console.log(res.data);
+      })
+      .catch(error => {
+        console.error("USERS ERROR", error);
+      });
   }
 
   updateTenant = updatedTenant => {
     console.log("New Data", updatedTenant);
-    axios
-      .put(
-        `https://rent-me-app.herokuapp.com/api/tenant/${updatedTenant.id}`,
-        updatedTenant
-      )
+    axios({
+      method: "put",
+      url: `https://rent-me-app.herokuapp.com/api/tenant/${updatedTenant.id}`,
+      data: updatedTenant
+    })
       .then(res => {
         const tenants = res.data;
         this.setState({
@@ -80,15 +93,50 @@ export default class EditTenantForm extends Component {
             <TextField
               variant="outlined"
               required
-              fullWidth
-              id="name"
-              label="Name"
-              name="name"
-              autoComplete="name"
+              id="First_name"
+              label="First Name"
+              name="First_name"
+              autoComplete="First_name"
               margin="normal"
               autoFocus
               onChange={this.handleChange}
-              value={this.state.activeTenant["name"]}
+              value={this.state.activeTenant["First_name"]}
+            />
+            <TextField
+              variant="outlined"
+              required
+              id="Last_name"
+              label="Last Name"
+              name="Last_name"
+              autoComplete="Last_name"
+              margin="normal"
+              autoFocus
+              onChange={this.handleChange}
+              value={this.state.activeTenant["Last_name"]}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              id="phone"
+              label="Phone"
+              name="phone"
+              autoComplete="phone"
+              autoFocus
+              onChange={this.handleChange}
+              value={this.state.activeTenant["phone"]}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              id="email"
+              label="Email"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              onChange={this.handleChange}
+              value={this.state.activeTenant["email"]}
             />
             <TextField
               variant="outlined"
@@ -107,9 +155,9 @@ export default class EditTenantForm extends Component {
               variant="outlined"
               fullWidth
               id="additional adult Name"
-              label="additional adult name"
-              name="additional adult name"
-              autoComplete="additional adult name"
+              label="Additional Adult Name"
+              name="Additional Adult Name"
+              autoComplete="Additional Adult Name"
               margin="normal"
               autoFocus
               onChange={this.handleChange}
@@ -137,23 +185,8 @@ export default class EditTenantForm extends Component {
               name="number in household"
               autoComplete="number in household"
               type="number"
-              autoFocus
               onChange={this.handleChange}
               value={this.state.activeTenant["number in household"]}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="contact info"
-              label="contact info"
-              name="contact info"
-              autoComplete="contact info"
-              type="number"
-              autoFocus
-              onChange={this.handleChange}
-              value={this.state.activeTenant["contact info"]}
             />
             <TextField
               variant="outlined"
@@ -169,8 +202,26 @@ export default class EditTenantForm extends Component {
               onChange={this.handleChange}
               value={this.state.activeTenant["emergency contact"]}
             />
+            <TextField
+              fullWidth
+              id="property_id"
+              name="property_id"
+              select
+              label="Select"
+              value={this.state.activeTenant["property_id"]}
+              onChange={this.handleChange}
+              helperText="Please select your currency"
+              margin="normal"
+              variant="outlined"
+            >
+              {this.state.properties.map(property => (
+                <MenuItem key={property.id} value={property.id}>
+                  {property.property_name}
+                </MenuItem>
+              ))}
+            </TextField>
             <Button type="submit" fullWidth variant="contained" color="primary">
-              Update Tenant
+              Update
             </Button>
             <Link to="/tenant-addbook">
               <Button variant="contained" color="secondary">

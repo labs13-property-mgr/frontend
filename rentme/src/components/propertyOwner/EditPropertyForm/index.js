@@ -105,7 +105,7 @@ export default class EditPropertyForm extends Component {
               value={this.state.activeProperty.address}
             />
             <Button type="submit" fullWidth variant="contained" color="primary">
-              Update Property
+              Update
             </Button>
             <Link to="/owner-dash">
               <Button variant="contained" color="secondary">

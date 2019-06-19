@@ -12,7 +12,14 @@ import {
   addManagerForm,
   VendorAddressBK,
   TenantAddressBk,
-  AddTenantForm
+  AddTenantForm,
+  TenantCard,
+  EditTenantForm,
+  AddPropertyForm,
+  EditPropertyForm,
+  AddVendorForm,
+  EditVendorForm,
+  VendorCard
 } from "./components/propertyOwner";
 import { RentReceipts } from "./components/tenant";
 import PropertyOwnerSignup from "./components/PropertyOwnerSignup";
@@ -25,12 +32,12 @@ import TenantCard from "./components/propertyOwner/TenantCard";
 import AddPropertyForm from "./components/propertyOwner/AddPropertyForm";
 import EditPropertyForm from "./components/propertyOwner/EditPropertyForm/index.js";
 import EditTenantForm from "./components/propertyOwner/EditTenantForm/index.js";
+import TenantDashboard from "./components/tenant/TenantDashboard";
 import AddIssueForm from "./components/tenant/AddIssueForm";
 import "./App.css";
 
 import * as ROUTES from "./constants/routes";
-import { withAuthentication } from "./components/Session"
-
+import { withAuthentication } from "./components/Session";
 
 const App = () => (
   <Router>
@@ -54,6 +61,9 @@ const App = () => (
       <Route exact path={ROUTES.EDIT_TENANT} component={EditTenantForm} />
       <Route exact path={ROUTES.ADD_PROPERTY} component={AddPropertyForm} />
       <Route exact path={ROUTES.EDIT_PROPERTY} component={EditPropertyForm} />
+      <Route exact path={ROUTES.VENDOR_CARD} component={VendorCard} />
+      <Route exact path={ROUTES.ADD_VENDOR} component={AddVendorForm} />
+      <Route exact path={ROUTES.EDIT_VENDOR} component={EditVendorForm} />
       <Route exact path={ROUTES.TENANT_ADDRESSBK} component={TenantAddressBk} />
       <Route exact path={ROUTES.VENDOR_ADDRESSBK} component={VendorAddressBK} />
 
@@ -69,6 +79,6 @@ const App = () => (
       <Route path="/manager-profile/:id" component={ManagerCard} />
     </>
   </Router>
-)
+);
 
 export default withAuthentication(App);
