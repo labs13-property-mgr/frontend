@@ -5,7 +5,7 @@ import Login from "./components/Login";
 import ManagerLogin from "./components/ManagerLogin";
 import { ManagerCard, ManagerDash } from "./components/propertyOwner/manager";
 
-import MenuAppBar from "./components/Nav/Navbar";
+import MenuAppBar from "./components/MenuAppBar";
 import {
   PropertyDash,
   PropertyCard,
@@ -42,7 +42,6 @@ const App = () => (
       <Route exact path={ROUTES.RENTER_SIGNUP} component={RenterSignUp} />
       <Route exact path={ROUTES.OWNER_SIGNUP} component={PropertyOwnerSignup} />
       <Route exact path={ROUTES.PASSWORD_FORGET} component={PasswordForget} />
-      <Route exact path ={ROUTES.PASSWORD_CHANGE} component={PasswordChange} />
       <Route exact path={ROUTES.ACCOUNT} component={Account} />
 
       {/* Dashboard Views */}
