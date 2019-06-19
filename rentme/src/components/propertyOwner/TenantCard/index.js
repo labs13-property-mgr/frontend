@@ -94,7 +94,7 @@ export default class TenantCard extends Component {
             <h2>Personal & Contact Information</h2>
             <Grid container>
               <Grid item md={6}>
-                <p>Name: {this.state.tenant["name"]}</p>
+                <p>Name: {this.state.tenant["First_name"]}</p>
                 <p>Spouse's Name: {this.state.tenant["Spouse Name"]}</p>
                 <p>
                   Number in Household:{" "}

@@ -71,7 +71,7 @@ export default class VendorCard extends Component {
     return (
       <div>
         <Container>
-          <h1>{this.state.vendor.company_name}'s' Profile</h1>
+          <h1>{this.state.vendor.company_name}'s Profile</h1>
           <div>
             <h2>Details & Contact Information</h2>
             <Grid container>
