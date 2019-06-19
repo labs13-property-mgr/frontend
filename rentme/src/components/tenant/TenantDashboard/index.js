@@ -136,6 +136,7 @@ const TenantDashboard = props => {
                 <TrackerBar
                 classes={classes}
                 request={request}
+                key={request.id}
                 />
               )
             }) : <p>No requests</p>}
