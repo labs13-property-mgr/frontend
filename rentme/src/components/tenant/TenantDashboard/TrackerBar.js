@@ -37,11 +37,14 @@ const TrackerBar = props => {
               }`}
             >
               <Icon className={classes.icon}>home</Icon>
-            </div>
-            <div className={`check${progressWidth > 0 ? " completed" : ""}`}>
+          </div>
+
+            {/**<div className={`check${progressWidth > 0 ? " completed" : ""}`}>
               <Icon className={classes.icon}>check_circle</Icon>
-            </div>
+            </div>**/}
+            <CheckProgress progressWidth={progressWidth} checkAgainst={0}/>
           </>
+
           <>
             {" "}
             {/*Step 2  */}
@@ -56,9 +59,8 @@ const TrackerBar = props => {
             >
               <Icon className={classes.icon}>assignment_ind</Icon>
             </div>
-            <div className={`check${progressWidth > 25 ? " completed" : ""}`}>
-              <Icon className={classes.icon}>check_circle</Icon>
-            </div>
+            <CheckProgress progressWidth={progressWidth} checkAgainst={25}/>
+
           </>
           <>
             {" "}
@@ -74,9 +76,8 @@ const TrackerBar = props => {
             >
               <Icon className={classes.icon}>calendar_today</Icon>
             </div>
-            <div className={`check${progressWidth > 50 ? " completed" : ""}`}>
-              <Icon className={classes.icon}>check_circle</Icon>
-            </div>
+            <CheckProgress progressWidth={progressWidth} checkAgainst={50}/>
+
           </>
           <>
             {" "}
@@ -95,6 +96,8 @@ const TrackerBar = props => {
             <div className={`check${progressWidth > 75 ? " completed" : ""}`}>
               <Icon className={classes.icon}>check_circle</Icon>
             </div>
+            <CheckProgress progressWidth={progressWidth} checkAgainst={75}/>
+
           </>
           <>
             {" "}
@@ -102,11 +105,8 @@ const TrackerBar = props => {
             <div className={`step${progressWidth === 100 ? " completed" : ""}`}>
               <Icon className={classes.icon}>done_all</Icon>
             </div>
-            <div
-              className={`check${progressWidth === 100 ? " completed" : ""}`}
-            >
-              <Icon className={classes.icon}>check_circle</Icon>
-            </div>
+
+
           </>
         </Grid>
         <Grid className={classes.progressText}>
