@@ -1,12 +1,16 @@
 import React from 'react';
 import PasswordChangeForm from '../PasswordChange';
-import { withAuthorization } from "../Session"
+import { withAuthorization, AuthUserContext } from "../Session"
 
 const Account = () => (
-    <>
-        <h4>Account</h4>
-        <PasswordChangeForm />
-    </>
+    <AuthUserContext.Consumer>
+        {authUser => (
+                <>
+                <h4>Account: </h4><p>{authUser.email}</p>
+                <PasswordChangeForm />
+            </>
+        )}
+    </AuthUserContext.Consumer>
 )
 
 const condition = authUser => !!authUser
