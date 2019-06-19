@@ -10,7 +10,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 
-import OwnerUserMenu from "../../SideMenu";
+import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
 
 const drawerWidth = 240;
 

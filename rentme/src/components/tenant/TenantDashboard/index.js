@@ -16,9 +16,9 @@ import IconButton from "@material-ui/core/IconButton";
 import Toolbar from "@material-ui/core/Toolbar";
 import MenuIcon from "@material-ui/icons/Menu";
 //Built component imports
-import TrackerBar from './TrackerBar'
-import CustomDrawer from './Drawer'
-import { useStyles } from './helpers'
+import TrackerBar from "./TrackerBar";
+import { useStyles } from "./helpers";
+import TenantUserMenu from "../../SideMenu/TenantUserMenu";
 
 import "./tenantDashboard.css";
 
@@ -27,7 +27,7 @@ function ListItemLink(props) {
 }
 
 const TenantDashboard = props => {
-  console.log(props.firebase.auth.currentUser)
+  console.log(props.firebase.auth.currentUser);
   const [tenant, setTenant] = useState(null);
   const [property, setProperty] = useState(null);
   const [progressWidth, setProgressWidth] = useState(0);
@@ -41,7 +41,6 @@ const TenantDashboard = props => {
   function handleDrawerToggle() {
     setMobileOpen(!mobileOpen);
   }
-
 
   useEffect(() => {
     axios
@@ -59,9 +58,9 @@ const TenantDashboard = props => {
     axios
       .get("https://rent-me-app.herokuapp.com/api/service")
       .then(res => {
-        console.log("Get from Dashboard", res)
+        console.log("Get from Dashboard", res);
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
 
     const steps = [
       {
@@ -83,7 +82,6 @@ const TenantDashboard = props => {
     ];
 
     setCurrentStep(steps[0].number);
-
   }, []);
 
   const onButtonClick = event => {
@@ -92,87 +90,33 @@ const TenantDashboard = props => {
   };
 
   return (
-    <>
-      <div className={classes.mainContainer}>
-        <AppBar position="sticky" className={classes.subAppBar}>
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              className={classes.menuButton}
-            >
-              <MenuIcon />
-            </IconButton>
-            <h1>Tenant Dashboard</h1>
-          </Toolbar>
-        </AppBar>
-
-        <nav className={classes.drawer} aria-label="Mailbox folders">
-          <Hidden smUp implementation="css">
-            <Drawer
-              container={container}
-              variant="temporary"
-              anchor={theme.direction === "rtl" ? "right" : "left"}
-              open={mobileOpen}
-              onClose={handleDrawerToggle}
-              classes={{
-                paper: classes.drawerPaper
-              }}
-              ModalProps={{
-                keepMounted: true // Better open performance on mobile.
-              }}
-            >
-              <CustomDrawer classes={classes} ListItemLink={ListItemLink} />
-            </Drawer>
-          </Hidden>
-          <Hidden xsDown implementation="css">
-            <Drawer
-              classes={{
-                paper: classes.drawerPaper
-              }}
-              variant="permanent"
-              open
-            >
-              <CustomDrawer classes={classes} ListItemLink={ListItemLink}/>
-            </Drawer>
-          </Hidden>
-        </nav>
-
-        {/* <Container className={classes.mainContainer}> */}
-
-        <main className={classes.content}>
-          <div className={classes.dashboard}>
-            {" "}
-            <h1>Tenant Dashboard</h1>
-            {/*Dashboard content */} {/* list of owner's properties */}
-            <h2>Property Information</h2>
-            <Grid container spacing={4}>
-              <Grid item xs={12} md={6} lg={4}>
-                <Card>
-                  <CardContent>
-                    <p>Name: {property && property.property_name}</p>
-                    <p>Address: {property && property.address}</p>
-                  </CardContent>
-                </Card>
-              </Grid>
+    <div className={classes.mainContainer}>
+      <TenantUserMenu />
+      <main className={classes.content}>
+        <div className={classes.dashboard}>
+          <h1>Tenant Dashboard</h1>
+          {/*Dashboard content */} {/* list of owner's properties */}
+          <h2>Property Information</h2>
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={6} lg={4}>
+              <Card>
+                <CardContent>
+                  <p>Name: {property && property.property_name}</p>
+                  <p>Address: {property && property.address}</p>
+                </CardContent>
+              </Card>
             </Grid>
-
-            <TrackerBar
-              classes={classes}
-              progressWidth={progressWidth}
-              currentStep={currentStep}
-              onButtonClick={onButtonClick}
-            />
-          </div>
-        </main>
-        {/* </Container> */}
-      </div>
-    </>
+          </Grid>
+          <TrackerBar
+            classes={classes}
+            progressWidth={progressWidth}
+            currentStep={currentStep}
+            onButtonClick={onButtonClick}
+          />
+        </div>
+      </main>
+    </div>
   );
 };
 
-export const TenantDashWithFirebase = compose(
-  withFirebase
-)(TenantDashboard);
+export const TenantDashWithFirebase = compose(withFirebase)(TenantDashboard);

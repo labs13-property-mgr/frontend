@@ -12,7 +12,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Icon from "@material-ui/core/Icon";
 import Box from "@material-ui/core/Box";
 import { withStyles } from "@material-ui/core/styles";
-import OwnerUserMenu from "../../SideMenu";
+import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
 
 const drawerWidth = 240;
 

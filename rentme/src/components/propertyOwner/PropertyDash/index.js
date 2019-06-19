@@ -8,7 +8,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Icon from "@material-ui/core/Icon";
 import TablePagination from "@material-ui/core/TablePagination";
-import OwnerUserMenu from "../../SideMenu";
+import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
 import Input from "@material-ui/core/Input";
 
 const drawerWidth = 240;
