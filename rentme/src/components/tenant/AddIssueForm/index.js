@@ -34,17 +34,19 @@ class AddIssueForm extends Component {
     this.state = {
       issues: [],
       issue: {
-        id: "",
         date_created: "",
         request_name: "",
         status: "",
-        request_description: "",
         notes: "",
+        request_description: "",
         contractor: "",
-        apointment: "",
+        appointment: "",
         followup: "",
         resolved_tenant: false,
-        resolved_owner: false
+        resolved_owner: false,
+        property_id: null,
+        tenant_id: null,
+        received: false
       }
     };
   }
@@ -63,11 +65,12 @@ class AddIssueForm extends Component {
       });
   }
 
-  addIssue = newIssue => {
+  addIssue = (newIssue, e) => {
     return axios
       .post("https://rent-me-app.herokuapp.com/api/service", newIssue)
       .then(res => {
         const issues = res.data;
+        console.log("From post request", issues)
         return issues;
       })
       .catch(err => {
@@ -87,9 +90,16 @@ class AddIssueForm extends Component {
 
   onSubmitAddIssue = e => {
     e.preventDefault();
+    const today = new Date()
     const issue = {
-      ...this.state.issue
+      ...this.state.issue,
+      date_created: today.toLocaleString("en-US"),
+      status: "open",
+      tenant_id: 1
+
     };
+    console.log("From onSubmitAddIssue", issue)
+    console.log(this.addIssue)
     this.addIssue(issue).then(issues => {
       this.setState({
         issues: issues
@@ -109,9 +119,9 @@ class AddIssueForm extends Component {
               className={this.props.classes.textField}
               // variant="filled"
               required
-              id="name"
+              id="request_name"
               label="Request Name"
-              name="name"
+              name="request_name"
               helperText="Please provide a short summary name for your request"
               margin="normal"
               autoFocus
@@ -123,10 +133,10 @@ class AddIssueForm extends Component {
               className={this.props.classes.textField}
               required
               fullWidth
-              id="description"
+              id="request_description"
               label="Brief Description"
               helperText="Please describe the issue"
-              name="description"
+              name="request_description"
               margin="normal"
               autoFocus
               onChange={this.handleChange}

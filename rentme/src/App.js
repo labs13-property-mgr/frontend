@@ -26,6 +26,12 @@ import PropertyOwnerSignup from "./components/PropertyOwnerSignup";
 import RenterSignUp from "./components/RenterSignUp";
 import Account from "./components/Account";
 import PasswordForget from "./components/PasswordForget";
+import PasswordChange from "./components/PasswordChange";
+import { TenantDashWithFirebase } from "./components/tenant/TenantDashboard";
+import TenantCard from "./components/propertyOwner/TenantCard";
+import AddPropertyForm from "./components/propertyOwner/AddPropertyForm";
+import EditPropertyForm from "./components/propertyOwner/EditPropertyForm/index.js";
+import EditTenantForm from "./components/propertyOwner/EditTenantForm/index.js";
 import TenantDashboard from "./components/tenant/TenantDashboard";
 import AddIssueForm from "./components/tenant/AddIssueForm";
 import "./App.css";
@@ -46,7 +52,7 @@ const App = () => (
       <Route exact path={ROUTES.ACCOUNT} component={Account} />
 
       {/* Dashboard Views */}
-      <Route exact path={ROUTES.TENANT_DASHBOARD} component={TenantDashboard} />
+      <Route exact path={ROUTES.TENANT_DASHBOARD} component={TenantDashWithFirebase} />
       <Route exact path={ROUTES.OWNER_DASHBOARD} component={PropertyDash} />
 
       {/* Property Owner Routes */}
