@@ -1,5 +1,6 @@
 import React from 'react';
 import PasswordChangeForm from '../PasswordChange';
+import { withAuthorization } from "../Session"
 
 const Account = () => (
     <>
@@ -8,4 +9,6 @@ const Account = () => (
     </>
 )
 
-export default Account
+const condition = authUser => !!authUser
+
+export default withAuthorization(condition)(Account);

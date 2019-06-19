@@ -12,7 +12,9 @@ import CardContent from "@material-ui/core/CardContent";
 import Icon from "@material-ui/core/Icon";
 import Box from "@material-ui/core/Box";
 
-export default class VendorCard extends Component {
+import { withAuthorization } from "../../Session";
+
+class VendorCard extends Component {
   state = {
     vendors: [],
     activeVendor: {},
@@ -94,3 +96,7 @@ export default class VendorCard extends Component {
     );
   }
 }
+
+const condition = authUser => !!authUser
+
+export default withAuthorization(condition)(VendorCard)

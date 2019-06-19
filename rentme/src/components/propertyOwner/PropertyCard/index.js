@@ -4,6 +4,8 @@ import Button from "@material-ui/core/Button";
 import Tooltip from "@material-ui/core/Tooltip";
 import axios from "axios";
 
+import { withAuthorization } from "../../Session";
+
 class PropertyCard extends Component {
   state = {
     selectedFile: null,
@@ -123,4 +125,6 @@ class PropertyCard extends Component {
   }
 }
 
-export default PropertyCard;
+const condition = authUser => !!authUser
+
+export default withAuthorization(condition)(PropertyCard);
