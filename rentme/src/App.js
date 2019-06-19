@@ -13,7 +13,6 @@ import {
   VendorAddressBK,
   TenantAddressBk,
   AddTenantForm,
-  TenantCard,
   EditTenantForm,
   AddPropertyForm,
   EditPropertyForm,
