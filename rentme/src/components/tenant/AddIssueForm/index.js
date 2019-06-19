@@ -94,10 +94,12 @@ class AddIssueForm extends Component {
     const issue = {
       ...this.state.issue,
       date_created: today.toLocaleString("en-US"),
-      status: "open"
+      status: "open",
+      tenant_id: 1
 
     };
     console.log("From onSubmitAddIssue", issue)
+    console.log(this.addIssue)
     this.addIssue(issue).then(issues => {
       this.setState({
         issues: issues

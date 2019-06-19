@@ -2,6 +2,7 @@ import React from 'react'
 import List from "@material-ui/core/List";
 import Icon from "@material-ui/core/Icon";
 import Divider from "@material-ui/core/Divider";
+import { withRouter } from "react-router"
 
 const Drawer = props => {
   let { classes, ListItemLink } = props
@@ -39,4 +40,4 @@ const Drawer = props => {
   )
 }
 
-export default Drawer
+export default withRouter(Drawer)
