@@ -5,7 +5,7 @@ import { compose } from "recompose";
 import * as ROUTES from "../../constants/routes";
 import { withFirebase } from "../Firebase";
 
-const withAuthorization = () => Component => {
+const withAuthorization = condition => Component => {
     class WithAuthorization extends React.Component {
 
         componentDidMount() {

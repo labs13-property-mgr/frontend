@@ -19,6 +19,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import MenuIcon from "@material-ui/icons/Menu";
 import TablePagination from "@material-ui/core/TablePagination";
 
+import { withAuthorization } from "../../Session";
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -343,4 +345,6 @@ const PropertyDash = props => {
   );
 };
 
-export default PropertyDash;
+const condition = authUser => !!authUser;
+
+export default withAuthorization(condition)(PropertyDash);
