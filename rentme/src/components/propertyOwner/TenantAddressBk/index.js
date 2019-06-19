@@ -8,12 +8,29 @@ import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
 import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "@material-ui/styles";
+import { Link } from "react-router-dom";
 
 const styles = {
+  tablePageContainer: {
+    margin: "2rem"
+  },
   optionsIcon: {
     color: "grey",
     "&:hover": {
-      color: "#3F51B5"
+      color: "#008c3a"
+    }
+  },
+  headerLayout: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "95%"
+  },
+  addIcon: {
+    color: "black",
+    "&:hover": {
+      color: "#008c3a"
     }
   }
 };
@@ -27,13 +44,12 @@ class TenantAddressBk extends Component {
   };
 
   componentDidMount() {
-    const endpoint = "https://rent-me-app.herokuapp.com/api/users";
+    const endpoint = "https://rent-me-app.herokuapp.com/api/tenant";
     axios
       .get(endpoint)
       .then(res => {
-        const tenantsData = res.data.filter(d => d.role === "tenant");
         this.setState({
-          tenants: tenantsData
+          tenants: res.data
         });
       })
       .catch(err => console.log("Crap!", err));
@@ -45,7 +61,9 @@ class TenantAddressBk extends Component {
         name: "id",
         label: "Id",
         options: {
-          display: false
+          display: false,
+          filter: false,
+          sort: false
         }
       },
       {
@@ -98,7 +116,7 @@ class TenantAddressBk extends Component {
                   props.history.push(`/tenant-card/${tableMeta.rowData[0]}`);
                 }}
               > */}
-                <Tooltip title="View options" placement="right-start">
+                <Tooltip title="View options" placement="left-start">
                   <Icon
                     className={this.props.classes.optionsIcon}
                     fontSize="large"
@@ -151,9 +169,22 @@ class TenantAddressBk extends Component {
       ];
     });
 
+    // const IconLink = props => {
+    //   return <Icon component="a" {...props} />;
+    // };
+
     return (
-      <div>
-        <h1>Tenant Address Book</h1>
+      <div className={this.props.classes.tablePageContainer}>
+        <div className={this.props.classes.headerLayout}>
+          <h1>Tenant Address Book</h1>
+          <Tooltip title="Add a new tenant" placement="left">
+            <Link to="/add-tenant">
+              <Icon className={this.props.classes.addIcon} fontSize="large">
+                person_add
+              </Icon>
+            </Link>
+          </Tooltip>
+        </div>
         <MUIDataTable data={data} columns={columns} options={options} />
         <Menu
           anchorEl={this.state.anchorEl}
@@ -196,7 +227,7 @@ class TenantAddressBk extends Component {
             <MenuItem
               onClick={e => {
                 this.props.history.push(
-                  `/tenant-card/${this.state.currentRow[0]}`
+                  `/edit-tenant/${this.state.currentRow[0]}`
                 );
               }}
             >
@@ -210,142 +241,3 @@ class TenantAddressBk extends Component {
 }
 
 export default withStyles(styles)(TenantAddressBk);
-
-// const TenantAddressBk = props => {
-//   const [tenants, setTenants] = useState([]);
-//   const [anchorEl, setAnchorEl] = React.useState(null);
-//   const [rando, setRando] = React.useState(null);
-
-//   function handleClick(event) {
-//     setRando("Neil");
-//     setAnchorEl(event.currentTarget);
-//   }
-
-//   function handleClose() {
-//     setAnchorEl(null);
-//   }
-
-//   const columns = [
-//     {
-//       name: "id",
-//       label: "Id",
-//       options: {
-//         display: false
-//       }
-//     },
-//     {
-//       name: "name",
-//       label: "name",
-//       options: {
-//         filter: true,
-//         sort: true
-//       }
-//     },
-//     {
-//       name: "phone",
-//       label: "Phone",
-//       options: {
-//         filter: true,
-//         sort: true
-//       }
-//     },
-//     {
-//       name: "email",
-//       label: "Email",
-//       options: {
-//         filter: true,
-//         sort: true
-//       }
-//     },
-//     {
-//       name: "address",
-//       label: "Address",
-//       options: {
-//         filter: true,
-//         sort: false
-//       }
-//     },
-//     {
-//       name: "",
-//       options: {
-//         filter: true,
-//         sort: false,
-//         empty: true,
-//         customBodyRender: (value, tableMeta, updateValue) => {
-//           return (
-//             <div>
-//               {/* <Button
-//                 aria-controls="simple-menu"
-//                 aria-haspopup="true"
-//                 onClick={handleClick}
-//                 // onClick={() => {
-//                 //   props.history.push(`/tenant-card/${tableMeta.rowData[0]}`);
-//                 // }}
-//               > */}
-//               <Button
-//                 aria-controls="simple-menu"
-//                 aria-haspopup="true"
-//                 onClick={() => setRando("Neil")}
-//               >
-//                 View Details
-//               </Button>
-//               <Menu
-//                 id="simple-menu"
-//                 anchorEl={anchorEl}
-//                 keepMounted
-//                 open={Boolean(anchorEl)}
-//                 onClose={handleClose}
-//               >
-//                 <MenuItem>Profile</MenuItem>
-//                 <MenuItem>My account</MenuItem>
-//                 <MenuItem onClick={handleClose}>Logout</MenuItem>
-//               </Menu>
-//             </div>
-//           );
-//         }
-//       }
-//     }
-//   ];
-
-//   const options = {
-//     filterType: "dropdown",
-//     responsive: "stacked",
-//     fixedHeader: true,
-//     print: false,
-//     selectableRows: false,
-//     download: false,
-//     viewColumns: false
-//   };
-
-//   //   const options = {
-//   //     filtering: true
-//   //   };
-
-//   const data = tenants.map(tenant => {
-//     return [
-//       tenant.id,
-//       `${tenant.First_name} ${tenant.Last_name}`,
-//       tenant.phone,
-//       tenant.email,
-//       tenant.address
-//     ];
-//   });
-
-//   useEffect(() => {
-//     axios
-//       .get("https://rent-me-app.herokuapp.com/api/users")
-//       .then(res => {
-//         setTenants(res.data.filter(d => d.role === "tenant"));
-//       })
-//       .catch(err => console.log("Crap!", err));
-//   }, []);
-
-//   return (
-//     <div>
-//       <h1>Tenant Address Book</h1>
-//       <MUIDataTable data={data} columns={columns} options={options} />
-//     </div>
-//   );
-// };
-
-// export default TenantAddressBk;
