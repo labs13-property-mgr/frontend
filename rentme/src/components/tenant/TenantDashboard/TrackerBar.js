@@ -16,6 +16,32 @@ const TrackerBar = props => {
 
   };
 
+  useEffect(() => {
+    // if(request.resolved_tenant && request.resolved_owner) setCurrentStep(5)
+
+    switch(request.status.toLowerCase()) {
+      case "open":
+        console.log("test open")
+        break;
+        // triggerBarChange(1)
+      case "received":
+        console.log("test received")
+        break;
+      case "vendor contacted":
+        console.log("test vendor contacted")
+        break;
+      case "scheduled":
+        console.log("test scheduled")
+        break;
+      case "fixing":
+        console.log("test fixing")
+        break;
+      default:
+        return null
+        break;
+    }
+  }, [])
+
   let { classes, request } = props;
 
   console.log(request)
