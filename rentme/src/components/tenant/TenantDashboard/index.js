@@ -118,7 +118,7 @@ const TenantDashboard = props => {
         <main className={classes.content}>
           <div className={classes.dashboard}>
             <h1>Tenant Dashboard</h1>
-            // Dashboard content */ /* list of owner's properties
+            {/** Dashboard content list of owner's properties **/}
             <h2>Property Information</h2>
             <Grid container spacing={4}>
               <Grid item xs={12} md={6} lg={4}>
