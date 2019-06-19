@@ -2,30 +2,19 @@ import React, { useState, useEffect } from "react";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
-
+import { CheckProgress } from './helpers'
 const TrackerBar = props => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [progressWidth, setProgressWidth] = useState(0);
 
-  const steps = [
-    {
-      number: 1,
-      completed: false
-    },
-    {
-      number: 2,
-      completed: false
-    },
-    {
-      number: 3,
-      completed: false
-    },
-    {
-      number: 4,
-      completed: false
-    }
-  ];
+  const onButtonClick = event => {
+    setCurrentStep(currentStep + 1);
+    setProgressWidth(currentStep * 25);
+  };
 
-  let { classes, progressWidth, onButtonClick, request } = props;
+  let { classes, request } = props;
+
+  console.log(request)
 
   return (
     <div className={props.classes.progressBarSection}>
