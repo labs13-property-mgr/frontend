@@ -5,13 +5,12 @@ import Icon from "@material-ui/core/Icon";
 
 const TrackerBar = props => {
 
-  let { classes, progressWidth, currentStep, onButtonClick } = props
+  let { classes, progressWidth, currentStep, onButtonClick, request } = props
 
   return (
     <div className={props.classes.progressBarSection}>
-    <h3>Active Service/Work Requests</h3>{" "}
-    {/*ACTIVE SERVICE REQUEST SECTION */}
-    <h4>Name:</h4>
+
+    <h4>Name: {request.request_name}</h4>
     <LinearProgress
     className={classes.progressBar}
     variant="determinate"
