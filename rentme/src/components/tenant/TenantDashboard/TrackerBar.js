@@ -19,11 +19,9 @@ const TrackerBar = props => {
     />
     <div className={classes.progressContent}>
     <Grid className={classes.progressIcons}>
-    {" "}
-    {/*Icon Layout */}
     <>
-    {" "}
-    {/*Step 1 - Beginning of tracker, no updated from owner/manager */}
+
+    // Step 1 - Beginning of tracker, no updated from owner/manager
     <div
     className={`step${
       progressWidth === 0
