@@ -1,23 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
 import Button from "@material-ui/core/Button";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Icon from "@material-ui/core/Icon";
-import Box from "@material-ui/core/Box";
-import AppBar from "@material-ui/core/AppBar";
-import Divider from "@material-ui/core/Divider";
-import Drawer from "@material-ui/core/Drawer";
-import Hidden from "@material-ui/core/Hidden";
-import IconButton from "@material-ui/core/IconButton";
-import Toolbar from "@material-ui/core/Toolbar";
-import MenuIcon from "@material-ui/icons/Menu";
 import TablePagination from "@material-ui/core/TablePagination";
+import OwnerUserMenu from "../../SideMenu";
+import Input from "@material-ui/core/Input";
 
 const drawerWidth = 240;
 
@@ -38,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   searchInput: {
     border: "none",
     borderBottom: "1px solid black",
-    fontSize: "1.2rem",
+    fontSize: "1rem",
     "&:focus": {
       outline: "none"
     }
@@ -80,57 +72,6 @@ const useStyles = makeStyles(theme => ({
       color: "#008c3a"
     }
   },
-
-  menuItem: {
-    textDecoration: "none",
-    color: "black",
-    "&:hover": {
-      color: "white",
-      backgroundColor: "#008c3a"
-    },
-    display: "flex",
-    alignItems: "center"
-  },
-
-  menuText: {
-    marginLeft: "1rem"
-  },
-
-  addressBooks: {
-    width: "100%"
-  },
-
-  resourcesHeader: {
-    paddingLeft: "1rem",
-    paddingRight: "1rem",
-    paddingTop: "1rem",
-    color: "grey"
-  },
-  drawer: {
-    [theme.breakpoints.up("sm")]: {
-      width: drawerWidth
-    },
-    top: "0"
-  },
-  subAppBar: {
-    [theme.breakpoints.up("sm")]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-      display: "none"
-    },
-    backgroundColor: "#008c3a"
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up("sm")]: {
-      display: "none"
-    }
-  },
-  toolbar: theme.mixins.toolbar,
-  drawerPaper: {
-    width: drawerWidth,
-    backgroundColor: ""
-  },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
@@ -140,23 +81,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function ListItemLink(props) {
-  return <ListItem component="a" {...props} />;
-}
-
 const PropertyDash = props => {
   const { container } = props;
   const [properties, setProperties] = useState([]);
   const classes = useStyles();
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const theme = useTheme();
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(0);
   const [cardsPerPage, setCardsPerPage] = useState(6);
-
-  function handleDrawerToggle() {
-    setMobileOpen(!mobileOpen);
-  }
 
   function handleKeyDown(e) {
     setSearchQuery(e.target.value);
@@ -173,36 +104,6 @@ const PropertyDash = props => {
       property.address.match(expression)
     );
   }
-
-  const drawer = (
-    <div>
-      <div className={classes.toolbar} />
-      <div>
-        <h2 className={classes.resourcesHeader}>Resources/Links</h2>
-        <List>
-          <ListItemLink className={classes.menuItem} href="/vendor-addbook">
-            <Icon fontSize="medium">contacts</Icon>
-            <p className={classes.menuText}>Vendor Address Book</p>
-          </ListItemLink>
-          <ListItemLink className={classes.menuItem} href="/tenant-addbook">
-            <Icon fontSize="medium">contacts</Icon>
-            <p className={classes.menuText}>Tenant Address Book</p>
-          </ListItemLink>
-        </List>
-        <Divider />
-        <List>
-          <ListItemLink className={classes.menuItem} href="/add-property">
-            <Icon fontSize="medium">add_location</Icon>
-            <p className={classes.menuText}>Add Property</p>
-          </ListItemLink>
-          <ListItemLink className={classes.menuItem} href="/add-tenant">
-            <Icon fontSize="medium">group_add</Icon>
-            <p className={classes.menuText}>Add Tenants</p>
-          </ListItemLink>
-        </List>
-      </div>
-    </div>
-  );
 
   useEffect(() => {
     axios
@@ -225,55 +126,8 @@ const PropertyDash = props => {
 
   return (
     <>
-      <d container className={classes.mainContainer}>
-        <AppBar position="sticky" className={classes.subAppBar}>
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              className={classes.menuButton}
-            >
-              <MenuIcon />
-            </IconButton>
-            <h1>Property Owner Dashboard</h1>
-          </Toolbar>
-        </AppBar>
-
-        <nav className={classes.drawer} aria-label="Mailbox folders">
-          <Hidden smUp implementation="css">
-            <Drawer
-              container={container}
-              variant="temporary"
-              anchor={theme.direction === "rtl" ? "right" : "left"}
-              open={mobileOpen}
-              onClose={handleDrawerToggle}
-              classes={{
-                paper: classes.drawerPaper
-              }}
-              ModalProps={{
-                keepMounted: true // Better open performance on mobile.
-              }}
-            >
-              {drawer}
-            </Drawer>
-          </Hidden>
-          <Hidden xsDown implementation="css">
-            <Drawer
-              classes={{
-                paper: classes.drawerPaper
-              }}
-              variant="permanent"
-              open
-            >
-              {drawer}
-            </Drawer>
-          </Hidden>
-        </nav>
-
-        {/* <Container className={classes.mainContainer}> */}
-
+      <div className={classes.mainContainer}>
+        <OwnerUserMenu />
         <main className={classes.content}>
           <div className={classes.dashboard}>
             <h1>Property Owner Dashboard</h1>
@@ -282,10 +136,11 @@ const PropertyDash = props => {
               <h2>Properties</h2>
               <div className={classes.dashboardSearch}>
                 <Icon fontSize="medium">search</Icon>
-                <input
+                <Input
                   className={classes.searchInput}
-                  type="search"
+                  inputTypeSearch
                   placeholder="Search"
+                  variant="outlined"
                   onChange={handleKeyDown}
                 />
               </div>
@@ -338,7 +193,7 @@ const PropertyDash = props => {
           />
         </main>
         {/* </Container> */}
-      </d>
+      </div>
     </>
   );
 };

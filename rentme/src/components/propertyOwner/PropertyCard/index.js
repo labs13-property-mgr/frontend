@@ -3,6 +3,36 @@ import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Tooltip from "@material-ui/core/Tooltip";
 import axios from "axios";
+import { withStyles } from "@material-ui/core/styles";
+import OwnerUserMenu from "../../SideMenu";
+import Icon from "@material-ui/core/Icon";
+
+const drawerWidth = 240;
+
+const styles = theme => ({
+  mainContainer: {
+    display: "block"
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    [theme.breakpoints.up("sm")]: {
+      paddingLeft: drawerWidth
+    }
+  },
+
+  dashboard: {
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: "1.5rem"
+    }
+  },
+  backButton: {
+    "&:hover": {
+      color: "#008c3a",
+      backgroundColor: "transparent"
+    }
+  }
+});
 
 class PropertyCard extends Component {
   state = {
@@ -84,43 +114,59 @@ class PropertyCard extends Component {
     );
   };
 
+  goBack = e => {
+    this.props.history.goBack();
+  };
+
   render() {
     return (
-      <>
-        <h1>Property Card</h1>
-        <div>
-          <h2>{this.state.property.property_name}</h2>
-          <p>{this.state.property.address}</p>
-          <Button onClick={this.updateProperty}>Edit Property</Button>
-          <Button onClick={this.deleteProperty}>Delete Property</Button>
-        </div>
+      <div className={this.props.classes.mainContainer}>
+        <OwnerUserMenu />
+        <main className={this.props.classes.content}>
+          <div className={this.props.classes.dashboard}>
+            <Button
+              onClick={this.goBack}
+              className={this.props.classes.backButton}
+            >
+              <Icon fontSize="small">arrow_back_ios</Icon>
+              BACK
+            </Button>
+            <h1>Property Card</h1>
+            <div>
+              <h2>{this.state.property.property_name}</h2>
+              <p>{this.state.property.address}</p>
+              <Button onClick={this.updateProperty}>Edit Property</Button>
+              <Button onClick={this.deleteProperty}>Delete Property</Button>
+            </div>
 
-        <div>
-          {this.selectedFile === null ? (
-            <img src="./" />
-          ) : (
-            <img src={this.selectedFile} />
-          )}
+            <div>
+              {this.selectedFile === null ? (
+                <img src="./" />
+              ) : (
+                <img src={this.selectedFile} />
+              )}
 
-          <input type="file" onChange={this.handleImageChange} />
+              <input type="file" onChange={this.handleImageChange} />
 
-          <Tooltip title="Add Property Photo" placement="top">
-            <button onClick={this.handleUploadPicture}>Upload</button>
-          </Tooltip>
-        </div>
+              <Tooltip title="Add Property Photo" placement="top">
+                <button onClick={this.handleUploadPicture}>Upload</button>
+              </Tooltip>
+            </div>
 
-        <Button
-          type="submit"
-          size="medium"
-          variant="contained"
-          color="primary"
-          href="/add-tenant"
-        >
-          Add a Tenant
-        </Button>
-      </>
+            <Button
+              type="submit"
+              size="medium"
+              variant="contained"
+              color="primary"
+              href="/add-tenant"
+            >
+              Add a Tenant
+            </Button>
+          </div>
+        </main>
+      </div>
     );
   }
 }
 
-export default PropertyCard;
+export default withStyles(styles)(PropertyCard);
