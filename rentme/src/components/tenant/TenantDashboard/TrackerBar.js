@@ -8,8 +8,12 @@ const TrackerBar = props => {
   const [progressWidth, setProgressWidth] = useState(0);
 
   const onButtonClick = event => {
+
+    if(currentStep === 5) return null
+
     setCurrentStep(currentStep + 1);
     setProgressWidth(currentStep * 25);
+
   };
 
   let { classes, request } = props;
