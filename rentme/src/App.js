@@ -66,7 +66,6 @@ const App = () => (
       {/* Tenant Routes */}
       <Route exact path={ROUTES.RENT_RECEIPTS} component={RentReceipts} />
       <Route exact path={ROUTES.ADD_ISSUE_FORM} component={AddIssueForm} />
-      <Route exact path={ROUTES.TENANT_CARD} component={TenantCard} />
 
       {/* Hold for Stretch */}
       <Route path="/manager-login" component={ManagerLogin} />

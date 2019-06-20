@@ -27,13 +27,11 @@ function ListItemLink(props) {
 }
 
 const TenantDashboard = props => {
-  console.log(props.firebase.auth.currentUser)
   const [tenant, setTenant] = useState(null);
   const [property, setProperty] = useState(null);
-  const [progressWidth, setProgressWidth] = useState(0);
-  const [currentStep, setCurrentStep] = useState(1);
-
+  const [ requests, setRequests ] = useState(null)
   const { container } = props;
+
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = useState(false);
   const theme = useTheme();
@@ -44,52 +42,29 @@ const TenantDashboard = props => {
 
 
   useEffect(() => {
+
     axios
       .get("https://rent-me-app.herokuapp.com/api/users")
       .then(res => {
         setTenant(res.data[0]);
       })
       .catch(err => console.log("Crap!", err));
+
     axios
       .get("https://rent-me-app.herokuapp.com/api/properties")
       .then(res => {
         setProperty(res.data[0]);
       })
       .catch(err => console.log("Crap!", err));
+
     axios
       .get("https://rent-me-app.herokuapp.com/api/service")
       .then(res => {
-        console.log("Get from Dashboard", res)
+        setRequests(res.data)
       })
       .catch(err => console.log(err))
 
-    const steps = [
-      {
-        number: 1,
-        completed: false
-      },
-      {
-        number: 2,
-        completed: false
-      },
-      {
-        number: 3,
-        completed: false
-      },
-      {
-        number: 4,
-        completed: false
-      }
-    ];
-
-    setCurrentStep(steps[0].number);
-
   }, []);
-
-  const onButtonClick = event => {
-    setCurrentStep(currentStep + 1);
-    setProgressWidth(currentStep * 25);
-  };
 
   return (
     <>
@@ -140,13 +115,10 @@ const TenantDashboard = props => {
           </Hidden>
         </nav>
 
-        {/* <Container className={classes.mainContainer}> */}
-
         <main className={classes.content}>
           <div className={classes.dashboard}>
-            {" "}
             <h1>Tenant Dashboard</h1>
-            {/*Dashboard content */} {/* list of owner's properties */}
+            {/** Dashboard content list of owner's properties **/}
             <h2>Property Information</h2>
             <Grid container spacing={4}>
               <Grid item xs={12} md={6} lg={4}>
@@ -159,15 +131,17 @@ const TenantDashboard = props => {
               </Grid>
             </Grid>
 
-            <TrackerBar
-              classes={classes}
-              progressWidth={progressWidth}
-              currentStep={currentStep}
-              onButtonClick={onButtonClick}
-            />
+            {requests ? requests.map(request => {
+              return (
+                <TrackerBar
+                classes={classes}
+                request={request}
+                key={request.id}
+                />
+              )
+            }) : <p>No requests</p>}
           </div>
         </main>
-        {/* </Container> */}
       </div>
     </>
   );
