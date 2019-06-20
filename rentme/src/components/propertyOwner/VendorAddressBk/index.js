@@ -7,13 +7,34 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
 import Tooltip from "@material-ui/core/Tooltip";
-import { withStyles } from "@material-ui/styles";
+import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import { compose } from "recompose";
 
 import { withAuthorization } from "../../Session";
 
-const styles = {
+import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
+
+const drawerWidth = 240;
+
+const styles = theme => ({
+  mainContainer: {
+    display: "block"
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    [theme.breakpoints.up("sm")]: {
+      paddingLeft: drawerWidth
+    }
+  },
+
+  dashboard: {
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: "1.5rem"
+    }
+  },
+
   tablePageContainer: {
     margin: "2rem"
   },
@@ -35,8 +56,14 @@ const styles = {
     "&:hover": {
       color: "#008c3a"
     }
+  },
+  backButton: {
+    "&:hover": {
+      color: "#008c3a",
+      backgroundColor: "transparent"
+    }
   }
-};
+});
 
 class VendorAddressBk extends Component {
   state = {
@@ -57,6 +84,10 @@ class VendorAddressBk extends Component {
       })
       .catch(err => console.log("Crap!", err));
   }
+
+  goBack = e => {
+    this.props.history.goBack();
+  };
 
   render() {
     const columns = [
@@ -154,58 +185,75 @@ class VendorAddressBk extends Component {
     });
 
     return (
-      <div className={this.props.classes.tablePageContainer}>
-        <div className={this.props.classes.headerLayout}>
-          <h1>Vendor Address Book</h1>
-          <Tooltip title="Add a new vendor" placement="left">
-            <Link to="/add-vendor">
-              <Icon className={this.props.classes.addIcon} fontSize="large">
-                person_add
-              </Icon>
-            </Link>
-          </Tooltip>
-        </div>
-        <MUIDataTable data={data} columns={columns} options={options} />
-        <Menu
-          anchorEl={this.state.anchorEl}
-          keepMounted
-          open={this.state.anchorEl ? true : null}
-          onClose={e => {
-            this.setState({
-              anchorEl: null
-            });
-          }}
-          getContentAnchorEl={null}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left"
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "left"
-          }}
-        >
-          <div>
-            <MenuItem
-              onClick={e => {
-                this.props.history.push(
-                  `/vendor-card/${this.state.currentRow[0]}`
-                );
-              }}
-            >
-              Full Profile
-            </MenuItem>
-            <MenuItem
-              onClick={e => {
-                this.props.history.push(
-                  `/edit-vendor/${this.state.currentRow[0]}`
-                );
-              }}
-            >
-              Edit Vendor Information
-            </MenuItem>
+      <div className={this.props.classes.mainContainer}>
+        <OwnerUserMenu />
+        <main className={this.props.classes.content}>
+          <div className={this.props.classes.dashboard}>
+            <div className={this.props.classes.tablePageContainer}>
+              <Button
+                onClick={this.goBack}
+                className={this.props.classes.backButton}
+              >
+                <Icon fontSize="small">arrow_back_ios</Icon>
+                BACK
+              </Button>
+              <div className={this.props.classes.headerLayout}>
+                <h1>Vendor Address Book</h1>
+                <Tooltip title="Add a new vendor" placement="left">
+                  <Link to="/add-vendor">
+                    <Icon
+                      className={this.props.classes.addIcon}
+                      fontSize="large"
+                    >
+                      person_add
+                    </Icon>
+                  </Link>
+                </Tooltip>
+              </div>
+              <MUIDataTable data={data} columns={columns} options={options} />
+              <Menu
+                anchorEl={this.state.anchorEl}
+                keepMounted
+                open={this.state.anchorEl ? true : null}
+                onClose={e => {
+                  this.setState({
+                    anchorEl: null
+                  });
+                }}
+                getContentAnchorEl={null}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left"
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left"
+                }}
+              >
+                <div>
+                  <MenuItem
+                    onClick={e => {
+                      this.props.history.push(
+                        `/vendor-card/${this.state.currentRow[0]}`
+                      );
+                    }}
+                  >
+                    Full Profile
+                  </MenuItem>
+                  <MenuItem
+                    onClick={e => {
+                      this.props.history.push(
+                        `/edit-vendor/${this.state.currentRow[0]}`
+                      );
+                    }}
+                  >
+                    Edit Vendor Information
+                  </MenuItem>
+                </div>
+              </Menu>
+            </div>
           </div>
-        </Menu>
+        </main>
       </div>
     );
   }
