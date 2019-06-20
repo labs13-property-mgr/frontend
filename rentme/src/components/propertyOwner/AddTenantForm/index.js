@@ -10,6 +10,7 @@ import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
 import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
 import { withAuthorization } from "../../Session";
+import { compose } from "recompose";
 
 const drawerWidth = 240;
 

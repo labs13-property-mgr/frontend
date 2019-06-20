@@ -27,13 +27,10 @@ function ListItemLink(props) {
 }
 
 const TenantDashboard = props => {
-<<<<<<< HEAD
   console.log(props.firebase.auth.currentUser);
-=======
->>>>>>> 2c39416b81b695563b56fb0230cd0017f9ea4546
   const [tenant, setTenant] = useState(null);
   const [property, setProperty] = useState(null);
-  const [ requests, setRequests ] = useState(null)
+  const [requests, setRequests] = useState(null);
   const { container } = props;
 
   const classes = useStyles();
@@ -45,7 +42,6 @@ const TenantDashboard = props => {
   }
 
   useEffect(() => {
-
     axios
       .get("https://rent-me-app.herokuapp.com/api/users")
       .then(res => {
@@ -63,47 +59,19 @@ const TenantDashboard = props => {
     axios
       .get("https://rent-me-app.herokuapp.com/api/service")
       .then(res => {
-<<<<<<< HEAD
         console.log("Get from Dashboard", res);
-=======
-        setRequests(res.data)
->>>>>>> 2c39416b81b695563b56fb0230cd0017f9ea4546
+        setRequests(res.data);
       })
       .catch(err => console.log(err));
-
-<<<<<<< HEAD
-    const steps = [
-      {
-        number: 1,
-        completed: false
-      },
-      {
-        number: 2,
-        completed: false
-      },
-      {
-        number: 3,
-        completed: false
-      },
-      {
-        number: 4,
-        completed: false
-      }
-    ];
-
-    setCurrentStep(steps[0].number);
-=======
->>>>>>> 2c39416b81b695563b56fb0230cd0017f9ea4546
   }, []);
 
   return (
-<<<<<<< HEAD
     <div className={classes.mainContainer}>
       <TenantUserMenu />
       <main className={classes.content}>
         <div className={classes.dashboard}>
           <h1>Tenant Dashboard</h1>
-          {/*Dashboard content */} {/* list of owner's properties */}
+          {/** Dashboard content list of owner's properties **/}
           <h2>Property Information</h2>
           <Grid container spacing={4}>
             <Grid item xs={12} md={6} lg={4}>
@@ -115,94 +83,23 @@ const TenantDashboard = props => {
               </Card>
             </Grid>
           </Grid>
-          <TrackerBar
-            classes={classes}
-            progressWidth={progressWidth}
-            currentStep={currentStep}
-            onButtonClick={onButtonClick}
-          />
+
+          {requests ? (
+            requests.map(request => {
+              return (
+                <TrackerBar
+                  classes={classes}
+                  request={request}
+                  key={request.id}
+                />
+              );
+            })
+          ) : (
+            <p>No requests</p>
+          )}
         </div>
       </main>
     </div>
-=======
-    <>
-      <div className={classes.mainContainer}>
-        <AppBar position="sticky" className={classes.subAppBar}>
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              className={classes.menuButton}
-            >
-              <MenuIcon />
-            </IconButton>
-            <h1>Tenant Dashboard</h1>
-          </Toolbar>
-        </AppBar>
-
-        <nav className={classes.drawer} aria-label="Mailbox folders">
-          <Hidden smUp implementation="css">
-            <Drawer
-              container={container}
-              variant="temporary"
-              anchor={theme.direction === "rtl" ? "right" : "left"}
-              open={mobileOpen}
-              onClose={handleDrawerToggle}
-              classes={{
-                paper: classes.drawerPaper
-              }}
-              ModalProps={{
-                keepMounted: true // Better open performance on mobile.
-              }}
-            >
-              <CustomDrawer classes={classes} ListItemLink={ListItemLink} />
-            </Drawer>
-          </Hidden>
-          <Hidden xsDown implementation="css">
-            <Drawer
-              classes={{
-                paper: classes.drawerPaper
-              }}
-              variant="permanent"
-              open
-            >
-              <CustomDrawer classes={classes} ListItemLink={ListItemLink}/>
-            </Drawer>
-          </Hidden>
-        </nav>
-
-        <main className={classes.content}>
-          <div className={classes.dashboard}>
-            <h1>Tenant Dashboard</h1>
-            {/** Dashboard content list of owner's properties **/}
-            <h2>Property Information</h2>
-            <Grid container spacing={4}>
-              <Grid item xs={12} md={6} lg={4}>
-                <Card>
-                  <CardContent>
-                    <p>Name: {property && property.property_name}</p>
-                    <p>Address: {property && property.address}</p>
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
-
-            {requests ? requests.map(request => {
-              return (
-                <TrackerBar
-                classes={classes}
-                request={request}
-                key={request.id}
-                />
-              )
-            }) : <p>No requests</p>}
-          </div>
-        </main>
-      </div>
-    </>
->>>>>>> 2c39416b81b695563b56fb0230cd0017f9ea4546
   );
 };
 

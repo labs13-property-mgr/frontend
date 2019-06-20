@@ -6,6 +6,8 @@ import axios from "axios";
 import { withStyles } from "@material-ui/core/styles";
 import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
 import Icon from "@material-ui/core/Icon";
+import { compose } from "recompose";
+import { withAuthorization } from "../../Session";
 
 const drawerWidth = 240;
 
@@ -33,8 +35,6 @@ const styles = theme => ({
     }
   }
 });
-
-import { withAuthorization } from "../../Session";
 
 class PropertyCard extends Component {
   state = {
@@ -171,10 +171,9 @@ class PropertyCard extends Component {
   }
 }
 
-<<<<<<< HEAD
-export default withStyles(styles)(PropertyCard);
-=======
-const condition = authUser => !!authUser
+const condition = authUser => !!authUser;
 
-export default withAuthorization(condition)(PropertyCard);
->>>>>>> 2c39416b81b695563b56fb0230cd0017f9ea4546
+export default compose(
+  withStyles(styles),
+  withAuthorization(condition)
+)(PropertyCard);

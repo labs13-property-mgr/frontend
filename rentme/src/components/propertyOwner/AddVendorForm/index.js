@@ -9,8 +9,9 @@ import Paper from "@material-ui/core/Paper";
 import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
 import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
+import { withAuthorization } from "../../Session";
+import { compose } from "recompose";
 
-<<<<<<< HEAD
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -79,9 +80,6 @@ const styles = theme => ({
     }
   }
 });
-=======
-import { withAuthorization } from "../../Session";
->>>>>>> 2c39416b81b695563b56fb0230cd0017f9ea4546
 
 class AddVendorForm extends Component {
   constructor() {
@@ -278,10 +276,9 @@ class AddVendorForm extends Component {
   }
 }
 
-<<<<<<< HEAD
-export default withStyles(styles)(AddVendorForm);
-=======
-const condition = authUser => !!authUser
+const condition = authUser => !!authUser;
 
-export default withAuthorization(condition)(AddVendorForm)
->>>>>>> 2c39416b81b695563b56fb0230cd0017f9ea4546
+export default compose(
+  withStyles(styles),
+  withAuthorization(condition)
+)(AddVendorForm);
