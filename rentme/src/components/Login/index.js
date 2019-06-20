@@ -20,11 +20,105 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
 import "./login.css";
+import Background from "../img/login-background-image.png";
+import "typeface-roboto";
 
-const styles = {
+const styles = theme => ({
+  pageContainer: {
+    position: "relative",
+    width: "100%",
+    minHeight: "100vh",
+    display: "flex",
+    flexDirection: "row",
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column-reverse",
+      minHeight: 0
+    }
+  },
+
+  introSection: {
+    width: "50%",
+    // boxShadow: "10px 10px 25px -8px rgba(15,15,15,1)",
+    position: "relative",
+    zIndex: 0,
+    overflowY: "hidden",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      height: "100%",
+      position: "relative"
+    }
+  },
+
+  textBackground: {
+    height: "100%",
+    backgroundColor: "#008c3a",
+    clipPath: "polygon(100% 0, 0 0, 0 100%, 31% 100%, 100% 50%)",
+    position: "absolute",
+    top: "0",
+    left: "0",
+    width: "100%",
+    zIndex: -1,
+    opacity: 0.6,
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      height: "100%",
+      clipPath: "polygon(0 100%, 100% 100%, 100% 0, 0 0)"
+    }
+  },
+
+  textBackgroundTwo: {
+    height: "100%",
+    backgroundColor: "#3f51b5;",
+    clipPath: "polygon(0 49%, 100% 85%, 100% 100%, 0% 100%);",
+    position: "absolute",
+    top: "0",
+    left: "0",
+    width: "100%",
+    zIndex: -1,
+    opacity: 0.6,
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      height: "100%"
+    }
+  },
+
+  introCopy: {
+    position: "relative",
+    zIndex: 1,
+    paddingTop: "4rem",
+    padding: "2rem",
+    height: "100%"
+  },
+
+  copy: {
+    fontSize: "2.5rem",
+    marginBottom: "3rem",
+    color: "white",
+    textAlign: "center",
+    lineHeight: 1,
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      height: "100%",
+      position: "relative",
+      zIndex: 1,
+      marginBottom: "1.5rem"
+    }
+  },
+  loginSignupSection: {
+    width: "100%",
+    minHeight: "100vh",
+    minHeight: "100%",
+    backgroundImage: `url(${Background})`,
+    backgroundSize: "cover",
+    overflow: "hidden"
+  },
   container: {
     position: "relative",
-    zIndex: "1"
+    zIndex: "1",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginTop: "2rem"
   },
   halfSide: {
     display: "flex",
@@ -35,15 +129,15 @@ const styles = {
     width: "100%"
   },
   paper: {
-    padding: "2.5rem"
+    padding: "2.5rem",
+    borderRadius: "0",
+    boxShadow: "box-shadow: 10px 10px 25px -8px rgba(15,15,15,1)"
   },
   loginLayout: {
     display: "flex",
     flexDirection: "column",
-    marginTop: "1rem",
     margin: "0 auto",
-    justifyContent: "center",
-    alignItems: "center"
+    width: "100%"
   },
   socialLogins: {
     display: "flex",
@@ -61,7 +155,7 @@ const styles = {
     // border: "1px solid black"
   },
   appBar: {
-    width: "100%",
+    marginBottom: "-.5rem",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -76,13 +170,14 @@ const styles = {
     justifyContent: "center",
     backgroundColor: "white",
     border: "none",
-    boxShadow: "none"
+    boxShadow: "none",
+    paddingTop: "2rem"
   },
   tab: {
     fontSize: "1.2rem",
     fontWeight: "bold"
   }
-};
+});
 
 const theme = createMuiTheme({
   palette: {
@@ -101,67 +196,89 @@ const Login = props => {
     setTabs(newTab);
   }
   return (
-    <div className="login-container">
-      <div className="main-container" />
-      <Container className={props.classes.container}>
-        <Grid container>
-          <ThemeProvider theme={theme}>
-            <AppBar position="static" className={props.classes.appBar}>
-              <Tabs
-                value={tab}
-                onChange={handleChange}
-                className={props.classes.tabs}
-                indicatorColor="secondary"
-                textColor="secondary"
-                centered
-              >
-                <Tab className={props.classes.tab} label="Renters" />
-                <Tab className={props.classes.tab} label="Owners" />
-              </Tabs>
-            </AppBar>
-          </ThemeProvider>
-        </Grid>
-        <div className={props.classes.loginLayout}>
-          <Grid container spacing={2}>
-            {tab === 0 && (
-              <>
-                <Grid className={props.classes.halfSide} item md={5}>
-                  <Paper className={props.classes.paper}>
-                    <div className={props.classes.socialLogins}>
-                      <SignInGoogle />
-                      <SignInFacebook />
-                      <p>or</p>
-                    </div>
-                    <hr />
-                    <div className={props.classes.emailPassword}>
-                      <p>Login via Email & Password</p>
-                      <RenterLoginForm />
-                    </div>
-                  </Paper>
-                </Grid>
-              </>
-            )}
-            {tab === 1 && (
-              <>
-                <Grid className={props.classes.halfSide} item md={5}>
-                  <Paper className={props.classes.paper}>
-                    <div className={props.classes.socialLogins}>
-                      <OwnerSignInGoogle />
-                      <OwnerSignInFacebook />
-                      <p>or</p>
-                    </div>
-                    <hr />
-                    <div className={props.classes.emailPassword}>
-                      <p>Login via Email & Password</p>
-                      <OwnerLoginForm />
-                    </div>
-                  </Paper>
-                </Grid>
-              </>
-            )}
-          </Grid>
+    <div className={props.classes.pageContainer}>
+      <div className={props.classes.introSection}>
+        <div className={props.classes.introCopy}>
+          {/* <h2 className={props.classes.copy}>
+            Seamless communication between owners and renters.
+          </h2> */}
+          <Typography className={props.classes.copy} variant="h2">
+            Seamless <strong>communication.</strong>
+          </Typography>
+          <Typography className={props.classes.copy} variant="h2">
+            Seamless <strong>property management.</strong>
+          </Typography>
+          <Typography className={props.classes.copy} variant="h2">
+            Seamless <strong>document tracking.</strong>
+          </Typography>
+          {/* <Typography className={props.classes.copy} variant="h2">
+            Made for <strong>Renters and Owners</strong>
+          </Typography> */}
+          <div className={props.classes.textBackground} />
+          <div className={props.classes.textBackgroundTwo} />
         </div>
-      </Container>
+      </div>
+      <main className={props.classes.loginSignupSection}>
+        <Container className={props.classes.container}>
+          <Grid container item lg={8}>
+            <ThemeProvider theme={theme}>
+              <AppBar position="static" className={props.classes.appBar}>
+                <Tabs
+                  value={tab}
+                  onChange={handleChange}
+                  className={props.classes.tabs}
+                  indicatorColor="secondary"
+                  textColor="secondary"
+                  centered
+                >
+                  <Tab className={props.classes.tab} label="Renters" />
+                  <Tab className={props.classes.tab} label="Owners" />
+                </Tabs>
+              </AppBar>
+            </ThemeProvider>
+          </Grid>
+          <div className={props.classes.loginLayout}>
+            <Grid container>
+              {tab === 0 && (
+                <>
+                  <Grid className={props.classes.halfSide} item lg={8}>
+                    <Paper className={props.classes.paper}>
+                      <div className={props.classes.socialLogins}>
+                        <SignInGoogle />
+                        <SignInFacebook />
+                        <p>or</p>
+                      </div>
+                      <hr />
+                      <div className={props.classes.emailPassword}>
+                        <p>Login via Email & Password</p>
+                        <RenterLoginForm />
+                      </div>
+                    </Paper>
+                  </Grid>
+                </>
+              )}
+              {tab === 1 && (
+                <>
+                  <Grid className={props.classes.halfSide} item lg={8}>
+                    <Paper className={props.classes.paper}>
+                      <div className={props.classes.socialLogins}>
+                        <OwnerSignInGoogle />
+                        <OwnerSignInFacebook />
+                        <p>or</p>
+                      </div>
+                      <hr />
+                      <div className={props.classes.emailPassword}>
+                        <p>Login via Email & Password</p>
+                        <OwnerLoginForm />
+                      </div>
+                    </Paper>
+                  </Grid>
+                </>
+              )}
+            </Grid>
+          </div>
+        </Container>
+      </main>
     </div>
   );
 };
