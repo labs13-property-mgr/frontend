@@ -4,15 +4,13 @@ import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
 import { CheckProgress } from './helpers'
 const TrackerBar = props => {
-  const [currentStep, setCurrentStep] = useState(null);
-  const [progressWidth, setProgressWidth] = useState(0);
+  const [currentStep, setCurrentStep] = useState(0);
+  const [progressWidth, setProgressWidth] = useState(null);
 
   const triggerBarChange = step => {
 
-    if(currentStep === 5) return null
-
     setCurrentStep(step);
-    setProgressWidth(currentStep * 25);
+    setProgressWidth(step * 20);
 
   };
 
@@ -24,20 +22,16 @@ const TrackerBar = props => {
         triggerBarChange(1)
         break;
       case "received":
-        console.log("test received")
-        triggerBarChange(2)
+        triggerBarChange(1)
         break;
       case "vendor contacted":
-        console.log("test vendor contacted")
-        triggerBarChange(3)
+        triggerBarChange(2)
         break;
       case "scheduled":
-        console.log("test scheduled")
-        triggerBarChange(4)
+        triggerBarChange(3)
         break;
       case "fixing":
-        console.log("test fixing")
-        triggerBarChange(5)
+        triggerBarChange(4)
         break;
       default:
         return null
@@ -47,16 +41,16 @@ const TrackerBar = props => {
 
   let { classes, request } = props;
 
-  console.log(request)
-
   return (
     <div className={props.classes.progressBarSection}>
       <h4>Name: {request.request_name}</h4>
+
       <LinearProgress
         className={classes.progressBar}
         variant="determinate"
         value={progressWidth}
       />
+
       <div className={classes.progressContent}>
         <Grid className={classes.progressIcons}>
           <>
