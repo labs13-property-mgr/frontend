@@ -4,14 +4,14 @@ import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
 import { CheckProgress } from './helpers'
 const TrackerBar = props => {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(null);
   const [progressWidth, setProgressWidth] = useState(0);
 
-  const onButtonClick = event => {
+  const triggerBarChange = step => {
 
     if(currentStep === 5) return null
 
-    setCurrentStep(currentStep + 1);
+    setCurrentStep(step);
     setProgressWidth(currentStep * 25);
 
   };
@@ -21,20 +21,23 @@ const TrackerBar = props => {
 
     switch(request.status.toLowerCase()) {
       case "open":
-        console.log("test open")
+        triggerBarChange(1)
         break;
-        // triggerBarChange(1)
       case "received":
         console.log("test received")
+        triggerBarChange(2)
         break;
       case "vendor contacted":
         console.log("test vendor contacted")
+        triggerBarChange(3)
         break;
       case "scheduled":
         console.log("test scheduled")
+        triggerBarChange(4)
         break;
       case "fixing":
         console.log("test fixing")
+        triggerBarChange(5)
         break;
       default:
         return null
@@ -243,7 +246,7 @@ const TrackerBar = props => {
         </Grid>
       </div>
       <br />
-      <button onClick={onButtonClick} />
+      <button onClick={() => triggerBarChange(currentStep + 1)} />
       Current step: {currentStep}
     </div>
   );
