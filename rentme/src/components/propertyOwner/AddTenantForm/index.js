@@ -6,7 +6,9 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
 
-export default class AddTenantForm extends Component {
+import { withAuthorization } from "../../Session";
+
+class AddTenantForm extends Component {
   constructor() {
     super();
     this.state = {
@@ -241,3 +243,7 @@ export default class AddTenantForm extends Component {
     );
   }
 }
+
+const condition = authUser => !!authUser
+
+export default withAuthorization(condition)(AddTenantForm)

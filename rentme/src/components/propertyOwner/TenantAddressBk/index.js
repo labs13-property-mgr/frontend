@@ -10,6 +10,9 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
 
+import { withAuthorization } from "../../Session";
+import { compose } from "recompose";
+
 const styles = {
   tablePageContainer: {
     margin: "2rem"
@@ -240,4 +243,10 @@ class TenantAddressBk extends Component {
   }
 }
 
-export default withStyles(styles)(TenantAddressBk);
+
+const condition = authUser => !!authUser
+
+export default compose(
+  withStyles(styles),
+  withAuthorization(condition),
+)(TenantAddressBk);

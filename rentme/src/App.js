@@ -18,7 +18,8 @@ import {
   EditPropertyForm,
   AddVendorForm,
   EditVendorForm,
-  VendorCard
+  VendorCard,
+  TenantCard
 } from "./components/propertyOwner";
 import { RentReceipts } from "./components/tenant";
 import PropertyOwnerSignup from "./components/PropertyOwnerSignup";
