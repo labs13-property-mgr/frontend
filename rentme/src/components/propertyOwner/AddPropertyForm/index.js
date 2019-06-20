@@ -5,7 +5,9 @@ import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Button from "@material-ui/core/Button";
 
-export default class AddPropertyForm extends Component {
+import { withAuthorization } from "../../Session";
+
+class AddPropertyForm extends Component {
   constructor() {
     super();
     this.state = {
@@ -116,3 +118,7 @@ export default class AddPropertyForm extends Component {
     );
   }
 }
+
+const condition = authUser => !!authUser
+
+export default withAuthorization(condition)(AddPropertyForm)

@@ -11,8 +11,9 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Icon from "@material-ui/core/Icon";
 import Box from "@material-ui/core/Box";
+import { withAuthorization } from "../../Session";
 
-export default class TenantCard extends Component {
+class TenantCard extends Component {
   state = {
     tenants: [],
     properties: [],
@@ -123,3 +124,7 @@ export default class TenantCard extends Component {
     );
   }
 }
+
+const condition = authUser => !!authUser
+
+export default withAuthorization(condition)(TenantCard)
