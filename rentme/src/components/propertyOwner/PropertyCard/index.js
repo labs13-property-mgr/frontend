@@ -34,6 +34,8 @@ const styles = theme => ({
   }
 });
 
+import { withAuthorization } from "../../Session";
+
 class PropertyCard extends Component {
   state = {
     selectedFile: null,
@@ -169,4 +171,10 @@ class PropertyCard extends Component {
   }
 }
 
+<<<<<<< HEAD
 export default withStyles(styles)(PropertyCard);
+=======
+const condition = authUser => !!authUser
+
+export default withAuthorization(condition)(PropertyCard);
+>>>>>>> 2c39416b81b695563b56fb0230cd0017f9ea4546

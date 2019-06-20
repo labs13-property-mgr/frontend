@@ -1,4 +1,7 @@
+import React from 'react'
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+
+import Icon from "@material-ui/core/Icon";
 
 const drawerWidth = 240;
 
@@ -59,3 +62,14 @@ export const useStyles = makeStyles(theme => ({
     fontSize: "2rem"
   }
 }));
+
+
+export const CheckProgress = props => {
+  const classes = useStyles()
+  const {checkAgainst, progressWidth } = props
+  return (
+    <div className={`check${progressWidth > checkAgainst || progressWidth === 100 ? " completed" : ""}`}>
+      <Icon className={classes.icon}>check_circle</Icon>
+    </div>
+  )
+}

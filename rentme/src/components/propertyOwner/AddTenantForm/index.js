@@ -9,6 +9,7 @@ import Paper from "@material-ui/core/Paper";
 import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
 import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
+import { withAuthorization } from "../../Session";
 
 const drawerWidth = 240;
 
@@ -371,4 +372,9 @@ class AddTenantForm extends Component {
   }
 }
 
-export default withStyles(styles)(AddTenantForm);
+const condition = authUser => !!authUser;
+
+export default compose(
+  withStyles(styles),
+  withAuthorization(condition)
+)(AddTenantForm);

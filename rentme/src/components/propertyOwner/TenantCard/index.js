@@ -11,6 +11,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Icon from "@material-ui/core/Icon";
 import Box from "@material-ui/core/Box";
+<<<<<<< HEAD
 import { withStyles } from "@material-ui/core/styles";
 import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
 
@@ -52,6 +53,18 @@ class TenantCard extends Component {
       tenant: {}
     };
   }
+=======
+import { withAuthorization } from "../../Session";
+
+class TenantCard extends Component {
+  state = {
+    tenants: [],
+    properties: [],
+    property: {},
+    activeTenant: {},
+    tenant: {}
+  };
+>>>>>>> 2c39416b81b695563b56fb0230cd0017f9ea4546
 
   componentDidMount() {
     const endpoint = "https://rent-me-app.herokuapp.com/api/tenant";
@@ -201,4 +214,10 @@ class TenantCard extends Component {
   }
 }
 
+<<<<<<< HEAD
 export default withStyles(styles)(TenantCard);
+=======
+const condition = authUser => !!authUser
+
+export default withAuthorization(condition)(TenantCard)
+>>>>>>> 2c39416b81b695563b56fb0230cd0017f9ea4546

@@ -10,6 +10,7 @@ import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
 import Icon from "@material-ui/core/Icon";
 import Grid from "@material-ui/core/Grid";
 
+<<<<<<< HEAD
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -78,6 +79,9 @@ const styles = theme => ({
     }
   }
 });
+=======
+import { withAuthorization } from "../../Session";
+>>>>>>> 2c39416b81b695563b56fb0230cd0017f9ea4546
 
 class AddPropertyForm extends Component {
   constructor() {
@@ -230,4 +234,10 @@ class AddPropertyForm extends Component {
   }
 }
 
+<<<<<<< HEAD
 export default withStyles(styles)(AddPropertyForm);
+=======
+const condition = authUser => !!authUser
+
+export default withAuthorization(condition)(AddPropertyForm)
+>>>>>>> 2c39416b81b695563b56fb0230cd0017f9ea4546

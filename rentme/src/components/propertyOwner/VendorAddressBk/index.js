@@ -9,6 +9,9 @@ import Icon from "@material-ui/core/Icon";
 import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+import { compose } from "recompose";
+
+import { withAuthorization } from "../../Session";
 
 import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
 
@@ -256,4 +259,10 @@ class VendorAddressBk extends Component {
   }
 }
 
-export default withStyles(styles)(VendorAddressBk);
+const condition = authUser => !!authUser
+
+export default compose(
+  withStyles(styles),
+  withAuthorization(condition),
+)(VendorAddressBk);
+

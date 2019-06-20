@@ -11,6 +11,7 @@ import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
 import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
 
+<<<<<<< HEAD
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -79,6 +80,9 @@ const styles = theme => ({
     }
   }
 });
+=======
+import { withAuthorization } from "../../Session";
+>>>>>>> 2c39416b81b695563b56fb0230cd0017f9ea4546
 
 class EditTenantForm extends Component {
   constructor() {
@@ -352,4 +356,10 @@ class EditTenantForm extends Component {
   }
 }
 
+<<<<<<< HEAD
 export default withStyles(styles)(EditTenantForm);
+=======
+const condition = authUser => !!authUser
+
+export default withAuthorization(condition)(EditTenantForm)
+>>>>>>> 2c39416b81b695563b56fb0230cd0017f9ea4546

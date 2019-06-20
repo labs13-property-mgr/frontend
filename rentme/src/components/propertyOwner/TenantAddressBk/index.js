@@ -10,6 +10,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 
+<<<<<<< HEAD
 import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
 
 const drawerWidth = 240;
@@ -32,6 +33,12 @@ const styles = theme => ({
     }
   },
 
+=======
+import { withAuthorization } from "../../Session";
+import { compose } from "recompose";
+
+const styles = {
+>>>>>>> 2c39416b81b695563b56fb0230cd0017f9ea4546
   tablePageContainer: {
     margin: "2rem"
   },
@@ -265,4 +272,10 @@ class TenantAddressBk extends Component {
   }
 }
 
-export default withStyles(styles)(TenantAddressBk);
+
+const condition = authUser => !!authUser
+
+export default compose(
+  withStyles(styles),
+  withAuthorization(condition),
+)(TenantAddressBk);

@@ -11,6 +11,8 @@ import TablePagination from "@material-ui/core/TablePagination";
 import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
 import Input from "@material-ui/core/Input";
 
+import { withAuthorization } from "../../Session";
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -198,4 +200,6 @@ const PropertyDash = props => {
   );
 };
 
-export default PropertyDash;
+const condition = authUser => !!authUser;
+
+export default withAuthorization(condition)(PropertyDash);
