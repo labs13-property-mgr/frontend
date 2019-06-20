@@ -11,8 +11,37 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Icon from "@material-ui/core/Icon";
 import Box from "@material-ui/core/Box";
-
+import { withStyles } from "@material-ui/core/styles";
+import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
 import { withAuthorization } from "../../Session";
+import { compose } from "recompose";
+
+const drawerWidth = 240;
+
+const styles = theme => ({
+  mainContainer: {
+    display: "block"
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    [theme.breakpoints.up("sm")]: {
+      paddingLeft: drawerWidth
+    }
+  },
+
+  dashboard: {
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: "1.5rem"
+    }
+  },
+  backButton: {
+    "&:hover": {
+      color: "#008c3a",
+      backgroundColor: "transparent"
+    }
+  }
+});
 
 class VendorCard extends Component {
   state = {
@@ -69,34 +98,53 @@ class VendorCard extends Component {
     this.deleteVendors(this.state.vendor.id);
   };
 
+  goBack = e => {
+    this.props.history.goBack();
+  };
+
   render() {
     return (
-      <div>
-        <Container>
-          <h1>{this.state.vendor.company_name}'s Profile</h1>
-          <div>
-            <h2>Details & Contact Information</h2>
-            <Grid container>
-              <Grid item md={6}>
-                <p>
-                  Contractor Name: {this.state.vendor.first_name}{" "}
-                  {this.state.vendor.last_name}
-                </p>
-                <p>Email: {this.state.vendor.email}</p>
-                <p>Phone Number: {this.state.vendor.phone}</p>
-                <p>Address: {this.state.vendor.address}</p>
-              </Grid>
-            </Grid>
+      <div className={this.props.classes.mainContainer}>
+        <OwnerUserMenu />
+        <main className={this.props.classes.content}>
+          <div className={this.props.classes.dashboard}>
+            <Button
+              onClick={this.goBack}
+              className={this.props.classes.backButton}
+            >
+              <Icon fontSize="small">arrow_back_ios</Icon>
+              BACK
+            </Button>
+            <Container>
+              <h1>{this.state.vendor.company_name}'s Profile</h1>
+              <div>
+                <h2>Details & Contact Information</h2>
+                <Grid container>
+                  <Grid item md={6}>
+                    <p>
+                      Contractor Name: {this.state.vendor.first_name}{" "}
+                      {this.state.vendor.last_name}
+                    </p>
+                    <p>Email: {this.state.vendor.email}</p>
+                    <p>Phone Number: {this.state.vendor.phone}</p>
+                    <p>Address: {this.state.vendor.address}</p>
+                  </Grid>
+                </Grid>
+              </div>
+              <Button onClick={this.updateVendor}>Edit Vendor</Button>
+              <Button onClick={this.deleteVendor}>Delete Vendor</Button>
+            </Container>
+            <hr />
           </div>
-          <Button onClick={this.updateVendor}>Edit Vendor</Button>
-          <Button onClick={this.deleteVendor}>Delete Vendor</Button>
-        </Container>
-        <hr />
+        </main>
       </div>
     );
   }
 }
 
-const condition = authUser => !!authUser
+const condition = authUser => !!authUser;
 
-export default withAuthorization(condition)(VendorCard)
+export default compose(
+  withStyles(styles),
+  withAuthorization(condition)
+)(VendorCard);

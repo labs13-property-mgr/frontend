@@ -11,16 +11,49 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Icon from "@material-ui/core/Icon";
 import Box from "@material-ui/core/Box";
+import { withStyles } from "@material-ui/core/styles";
+import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
 import { withAuthorization } from "../../Session";
+import { compose } from "recompose";
+
+const drawerWidth = 240;
+
+const styles = theme => ({
+  mainContainer: {
+    display: "block"
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    [theme.breakpoints.up("sm")]: {
+      paddingLeft: drawerWidth
+    }
+  },
+
+  dashboard: {
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: "1.5rem"
+    }
+  },
+  backButton: {
+    "&:hover": {
+      color: "#008c3a",
+      backgroundColor: "transparent"
+    }
+  }
+});
 
 class TenantCard extends Component {
-  state = {
-    tenants: [],
-    properties: [],
-    property: {},
-    activeTenant: {},
-    tenant: {}
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      tenants: [],
+      properties: [],
+      property: {},
+      activeTenant: {},
+      tenant: {}
+    };
+  }
 
   componentDidMount() {
     const endpoint = "https://rent-me-app.herokuapp.com/api/tenant";
@@ -86,45 +119,93 @@ class TenantCard extends Component {
     this.deleteTenants(this.state.tenant.id);
   };
 
+  goBack = e => {
+    this.props.history.goBack();
+  };
+
   render() {
     return (
-      <div>
-        <Container>
-          <h1>{this.state.tenant["First_name"]}'s Profile</h1>
-          <div>
-            <h2>Personal & Contact Information</h2>
-            <Grid container>
-              <Grid item md={6}>
-                <p>Name: {this.state.tenant["First_name"]}</p>
-                <p>Spouse's Name: {this.state.tenant["Spouse Name"]}</p>
-                <p>
-                  Number in Household:{" "}
-                  {this.state.tenant["number in household"]}
-                </p>
-                <p>Contact Info: {this.state.tenant["contact info"]}</p>
-                <p>
-                  Emergency Contact: {this.state.tenant["emergency contact"]}
-                </p>
-                {this.state.property && (
-                  <>
-                    <p>Property Name: {this.state.property.property_name}</p>
-                    <Link to={`/property-card/${this.state.property.id}`}>
-                      Property Details
-                    </Link>
-                  </>
-                )}
-              </Grid>
-            </Grid>
+      <div className={this.props.classes.mainContainer}>
+        <OwnerUserMenu />
+        <main className={this.props.classes.content}>
+          <div className={this.props.classes.dashboard}>
+            <Button
+              onClick={this.goBack}
+              className={this.props.classes.backButton}
+            >
+              <Icon fontSize="small">arrow_back_ios</Icon>
+              BACK
+            </Button>
+            <Container>
+              <h1>{this.state.tenant["firstName"]}'s Profile</h1>
+              <div>
+                <h2>Personal & Contact Information</h2>
+                <Grid container>
+                  <Grid item md={6}>
+                    <p>
+                      Full Name: {this.state.tenant["firstName"]}{" "}
+                      {this.state.tenant["lastName"]}
+                    </p>
+                    <p>
+                      Spouse's Name:
+                      {` ${
+                        this.state.tenant["Spouse Name"] === ""
+                          ? "N/A"
+                          : `${this.state.tenant["Spouse Name"]}`
+                      }`}
+                    </p>
+                    <p>
+                      Number in Household:
+                      {` ${
+                        this.state.tenant["number in household"] === ""
+                          ? "N/A"
+                          : `${this.state.tenant["number in household"]}`
+                      }`}
+                    </p>
+                    <p>
+                      Contact Info:
+                      {` ${
+                        this.state.tenant["phone"] === ""
+                          ? "N/A"
+                          : `${this.state.tenant["phone"]}`
+                      }`}
+                    </p>
+                    <p>
+                      Emergency Contact:{" "}
+                      {this.state.tenant["emergency contact"]}
+                    </p>
+                    {this.state.property && (
+                      <>
+                        <p>
+                          Property Name:
+                          {` ${
+                            this.state.property.property_name === ""
+                              ? "N/A"
+                              : `${this.state.property.property_name}`
+                          }`}{" "}
+                        </p>
+                        <Link to={`/property-card/${this.state.property.id}`}>
+                          Property Details
+                        </Link>
+                      </>
+                    )}
+                  </Grid>
+                </Grid>
+              </div>
+              <Button onClick={this.updateTenant}>Edit Tenant</Button>
+              <Button onClick={this.deleteTenant}>Delete Tenant</Button>
+            </Container>
+            <hr />
           </div>
-          <Button onClick={this.updateTenant}>Edit Tenant</Button>
-          <Button onClick={this.deleteTenant}>Delete Tenant</Button>
-        </Container>
-        <hr />
+        </main>
       </div>
     );
   }
 }
 
-const condition = authUser => !!authUser
+const condition = authUser => !!authUser;
 
-export default withAuthorization(condition)(TenantCard)
+export default compose(
+  withStyles(styles),
+  withAuthorization(condition)
+)(TenantCard);

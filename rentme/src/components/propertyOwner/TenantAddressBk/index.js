@@ -7,13 +7,33 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
 import Tooltip from "@material-ui/core/Tooltip";
-import { withStyles } from "@material-ui/styles";
+import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
-
 import { withAuthorization } from "../../Session";
 import { compose } from "recompose";
 
-const styles = {
+import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
+
+const drawerWidth = 240;
+
+const styles = theme => ({
+  mainContainer: {
+    display: "block"
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    [theme.breakpoints.up("sm")]: {
+      paddingLeft: drawerWidth
+    }
+  },
+
+  dashboard: {
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: "1.5rem"
+    }
+  },
+
   tablePageContainer: {
     margin: "2rem"
   },
@@ -35,8 +55,14 @@ const styles = {
     "&:hover": {
       color: "#008c3a"
     }
+  },
+  backButton: {
+    "&:hover": {
+      color: "#008c3a",
+      backgroundColor: "transparent"
+    }
   }
-};
+});
 
 class TenantAddressBk extends Component {
   state = {
@@ -57,6 +83,10 @@ class TenantAddressBk extends Component {
       })
       .catch(err => console.log("Crap!", err));
   }
+
+  goBack = e => {
+    this.props.history.goBack();
+  };
 
   render() {
     const columns = [
@@ -111,14 +141,6 @@ class TenantAddressBk extends Component {
           customBodyRender: (value, tableMeta, updateValue) => {
             return (
               <div>
-                {/* <Button
-                aria-controls="simple-menu"
-                aria-haspopup="true"
-                onClick={handleClick}
-                onClick={() => {
-                  props.history.push(`/tenant-card/${tableMeta.rowData[0]}`);
-                }}
-              > */}
                 <Tooltip title="View options" placement="left-start">
                   <Icon
                     className={this.props.classes.optionsIcon}
@@ -134,17 +156,6 @@ class TenantAddressBk extends Component {
                     more_horiz
                   </Icon>
                 </Tooltip>
-                {/* <Button
-                  aria-haspopup={Boolean(this.state.anchorEl)}
-                  onClick={e => {
-                    this.setState({
-                      currentRow: tableMeta.rowData,
-                      anchorEl: e.currentTarget
-                    });
-                  }}
-                >
-                  View Details
-                </Button> */}
               </div>
             );
           }
@@ -165,88 +176,100 @@ class TenantAddressBk extends Component {
     const data = this.state.tenants.map(tenant => {
       return [
         tenant.id,
-        `${tenant.First_name} ${tenant.Last_name}`,
+        `${tenant.firstName} ${tenant.lastName}`,
         tenant.phone,
         tenant.email,
         tenant.address
       ];
     });
 
-    // const IconLink = props => {
-    //   return <Icon component="a" {...props} />;
-    // };
-
     return (
-      <div className={this.props.classes.tablePageContainer}>
-        <div className={this.props.classes.headerLayout}>
-          <h1>Tenant Address Book</h1>
-          <Tooltip title="Add a new tenant" placement="left">
-            <Link to="/add-tenant">
-              <Icon className={this.props.classes.addIcon} fontSize="large">
-                person_add
-              </Icon>
-            </Link>
-          </Tooltip>
-        </div>
-        <MUIDataTable data={data} columns={columns} options={options} />
-        <Menu
-          anchorEl={this.state.anchorEl}
-          keepMounted
-          open={this.state.anchorEl ? true : null}
-          onClose={e => {
-            this.setState({
-              anchorEl: null
-            });
-          }}
-          getContentAnchorEl={null}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left"
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "left"
-          }}
-        >
-          <div>
-            <MenuItem
-              onClick={e => {
-                this.props.history.push(
-                  `/tenant-card/${this.state.currentRow[0]}`
-                );
-              }}
-            >
-              Full Profile
-            </MenuItem>
-            <MenuItem
-              onClick={e => {
-                this.props.history.push(
-                  `/tenant-card/${this.state.currentRow[0]}`
-                );
-              }}
-            >
-              Leasing Documents
-            </MenuItem>
-            <MenuItem
-              onClick={e => {
-                this.props.history.push(
-                  `/edit-tenant/${this.state.currentRow[0]}`
-                );
-              }}
-            >
-              Edit Information
-            </MenuItem>
+      <div className={this.props.classes.mainContainer}>
+        <OwnerUserMenu />
+        <main className={this.props.classes.content}>
+          <div className={this.props.classes.dashboard}>
+            <div className={this.props.classes.tablePageContainer}>
+              <Button
+                onClick={this.goBack}
+                className={this.props.classes.backButton}
+              >
+                <Icon fontSize="small">arrow_back_ios</Icon>
+                BACK
+              </Button>
+              <div className={this.props.classes.headerLayout}>
+                <h1>Tenant Address Book</h1>
+                <Tooltip title="Add a new tenant" placement="left">
+                  <Link to="/add-tenant">
+                    <Icon
+                      className={this.props.classes.addIcon}
+                      fontSize="large"
+                    >
+                      person_add
+                    </Icon>
+                  </Link>
+                </Tooltip>
+              </div>
+              <MUIDataTable data={data} columns={columns} options={options} />
+              <Menu
+                anchorEl={this.state.anchorEl}
+                keepMounted
+                open={this.state.anchorEl ? true : null}
+                onClose={e => {
+                  this.setState({
+                    anchorEl: null
+                  });
+                }}
+                getContentAnchorEl={null}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left"
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left"
+                }}
+              >
+                <div>
+                  <MenuItem
+                    onClick={e => {
+                      this.props.history.push(
+                        `/tenant-card/${this.state.currentRow[0]}`
+                      );
+                    }}
+                  >
+                    Full Profile
+                  </MenuItem>
+                  <MenuItem
+                    onClick={e => {
+                      this.props.history.push(
+                        `/tenant-card/${this.state.currentRow[0]}`
+                      );
+                    }}
+                  >
+                    Leasing Documents
+                  </MenuItem>
+                  <MenuItem
+                    onClick={e => {
+                      this.props.history.push(
+                        `/edit-tenant/${this.state.currentRow[0]}`
+                      );
+                    }}
+                  >
+                    Edit Information
+                  </MenuItem>
+                </div>
+              </Menu>
+            </div>
           </div>
-        </Menu>
+        </main>
       </div>
     );
   }
 }
 
-
-const condition = authUser => !!authUser
+const condition = authUser => !!authUser;
 
 export default compose(
   withStyles(styles),
-  withAuthorization(condition),
+  withAuthorization(condition)
 )(TenantAddressBk);
