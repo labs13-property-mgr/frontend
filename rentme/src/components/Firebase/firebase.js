@@ -1,5 +1,6 @@
 import app from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/database';
 
 const config = {
     apiKey: process.env.REACT_APP_API_KEY,
@@ -16,6 +17,7 @@ class Firebase {
         app.initializeApp(config)
 
         this.auth = app.auth()
+        this.db = app.database()
 
         this.googleProvider = new app.auth.GoogleAuthProvider()
         this.facebookProvider = new app.auth.FacebookAuthProvider()
@@ -41,6 +43,37 @@ class Firebase {
     
     doPasswordUpdate = password =>                                      // Change Password Function
         this.auth.currentUser.updatePassword(password)
+
+
+
+    onAuthUserListener = (next, fallback) =>
+        this.auth.onAuthStateChanged(authUser => {
+            if (authUser) {
+                this.user(authUser.uid)
+                .once('value')
+                .then(snapshot => {
+                    const dbUser = snapshot.val();
+
+                if (!dbUser.roles) {
+                    dbUser.roles = {}
+                }
+
+                authUser = {
+                    uid: authUser.uid,
+                    email: authUser.email,
+                    ...dbUser,
+                }
+
+                next(authUser)
+                })
+            } else {
+                fallback()
+            }
+        })
+
+    // User API
+        
+    user = uid => this.db.ref(`users/${uid}`);
 }
 
 export default Firebase

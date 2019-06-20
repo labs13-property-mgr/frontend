@@ -20,6 +20,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import TablePagination from "@material-ui/core/TablePagination";
 
 import { withAuthorization } from "../../Session";
+import * as ROLES from "../../../constants/roles";
 
 const drawerWidth = 240;
 
@@ -345,6 +346,7 @@ const PropertyDash = props => {
   );
 };
 
-const condition = authUser => !!authUser;
+const condition = authUser => 
+  authUser && !!authUser.roles[ROLES.OWNER];
 
 export default withAuthorization(condition)(PropertyDash);

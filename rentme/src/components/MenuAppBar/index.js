@@ -13,6 +13,7 @@ import "./nav.css";
 
 import SignOut from "../SignOut";
 import * as ROUTES from "../../constants/routes";
+import * as ROLES from "../../constants/roles";
 import { AuthUserContext } from "../Session";
 import { withStyles } from "@material-ui/styles";
 
@@ -42,12 +43,12 @@ const useStyles = makeStyles({
 const MenuAppBar = () => (
   <>
     <AuthUserContext.Consumer>
-      {authUser => (authUser ? <MenuAppBarAuth /> : <MenuAppBarNonAuth />)}
+      {authUser => (authUser ? <MenuAppBarAuth authUser={authUser} /> : <MenuAppBarNonAuth />)}
     </AuthUserContext.Consumer>
   </>
 );
 
-const MenuAppBarAuth = props => {
+const MenuAppBarAuth = ({ authUser }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
 
