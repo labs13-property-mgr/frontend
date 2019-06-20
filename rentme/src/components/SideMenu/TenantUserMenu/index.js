@@ -154,6 +154,10 @@ const TenantUserMenu = props => {
       <div>
         <h3 className={classes.resourcesHeader}>Leasing Documents</h3>
         <List>
+          <ListItemLink className={classes.menuItem} href="/tenant-dash">
+            <Icon fontSize="medium">home</Icon>
+            <p className={classes.menuText}>Dashboard</p>
+          </ListItemLink>
           <ListItemLink className={classes.menuItem} href="/view-receipts">
             <Icon>folder</Icon>
             <p className={classes.menuText}>Rent Receipts</p>

@@ -138,10 +138,33 @@ class AddTenantForm extends Component {
       });
   };
 
+  setActiveTenant = e => {};
+
+  // handleChange = e => {
+  //   // e.persist();
+  //   console.log(this.state.tenant);
+  //   if (e.target.name === "property_id" && e.target.value !== null) {
+  //     this.setState({
+  //       tenant: {
+  //         ...this.state.tenant,
+  //         [e.target.name]: e.target.value,
+  //         active_tenant: true
+  //       }
+  //     });
+  //   } else {
+  //     this.setState({
+  //       tenant: {
+  //         ...this.state.tenant,
+  //         [e.target.name]: e.target.value
+  //       }
+  //     });
+  //   }
+  //   console.log(e.target.name);
+  //   console.log(e.target.value);
+  // };
+
   handleChange = e => {
     e.persist();
-    console.log(e.target.name);
-    console.log(e.target.value);
     this.setState({
       tenant: {
         ...this.state.tenant,
@@ -218,7 +241,7 @@ class AddTenantForm extends Component {
                       margin="normal"
                       required
                       id="phone"
-                      label="Phone"
+                      label="Phone Number"
                       name="phone"
                       autoComplete="phone"
                       autoFocus
@@ -240,7 +263,7 @@ class AddTenantForm extends Component {
                     <TextField
                       variant="outlined"
                       id="Spouse Name"
-                      label="Spouse Name"
+                      label="Spouse's Name"
                       name="Spouse Name"
                       autoComplete="Spouse Name"
                       margin="normal"
@@ -251,7 +274,7 @@ class AddTenantForm extends Component {
                     <TextField
                       variant="outlined"
                       id="additional adult Name"
-                      label="Additional Adult Name"
+                      label="Additional Tenant Name"
                       name="Additional Adult Name"
                       autoComplete="Additional Adult Name"
                       margin="normal"
@@ -262,7 +285,7 @@ class AddTenantForm extends Component {
                     <TextField
                       variant="outlined"
                       id="child name"
-                      label="child name"
+                      label="Child Name"
                       name="child name"
                       autoComplete="child name"
                       margin="normal"
@@ -274,7 +297,7 @@ class AddTenantForm extends Component {
                       variant="outlined"
                       margin="normal"
                       id="number in household"
-                      label="number in household"
+                      label="Number of tenants in household"
                       name="number in household"
                       autoComplete="number in household"
                       type="number"
@@ -286,7 +309,7 @@ class AddTenantForm extends Component {
                       margin="normal"
                       required
                       id="emergency contact"
-                      label="emergency contact"
+                      label="Emergency Contact Number"
                       name="emergency contact"
                       autoComplete="emergency contact"
                       type="number"
@@ -298,10 +321,10 @@ class AddTenantForm extends Component {
                       id="property_id"
                       name="property_id"
                       select
-                      label="Select"
+                      label="Property associated with tenant"
                       value={this.state.tenant["property_id"]}
                       onChange={this.handleChange}
-                      helperText="Add your tenant to a property"
+                      helperText="Select which property from your list of properties to tie the tenant to."
                       margin="normal"
                       variant="outlined"
                     >
