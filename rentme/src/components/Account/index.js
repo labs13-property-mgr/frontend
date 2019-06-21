@@ -140,6 +140,70 @@ const SocialLoginToggle = ({
     </button>
 )
 
+
+
+class DefaultLoginToggle extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = { passwordOne: '', passwordTwo: '' }
+    }
+
+    onSubmit = e => {
+        e.preventDefault();
+
+        this.props.onLink(this.state.passwordOne)
+        this.setState({ passwordOne: '', passwordTwo: '' })
+    }
+
+    onChange = e => {
+        this.setState({ [e.target.name]: e.target.value })
+    }
+
+    render() {
+        const {
+            oneLeft,
+            isEnabled,
+            signInMethod,
+            onUnlink,
+        } = this.props;
+
+        const { passwordOne, passwordTwo } = this.state
+
+        const isInvalid = passwordOne !== passwordTwo || passwordOne === ''
+
+        return isEnabled ? (
+            <button
+                type="button"
+                onClick={() => onUnlink(signInMethod.id)}
+                disabled={oneLeft}
+            >
+                Deactivate {signInMethod.id}
+            </button>
+        ) : (
+            <form onSubmit={this.onSubmit}>
+                <input
+                    name="passwordOne"
+                    value={passwordOne}
+                    onChange={this.onChange}
+                    type="password"
+                    placeholder="New Password"
+                />
+                <input
+                    name="passwordTwo"
+                    value={passwordTwo}
+                    onChange={this.onChange}
+                    type="password"
+                    placeholder="Confirm New Password"
+                />
+                <button disabled={isInvalid} type="submit">
+                    Link {signInMethod.id}
+                </button>
+            </form>
+        )
+    }
+}
+
 const LoginManagement = withFirebase(LoginManagementBase)
 
 const condition = authUser => !!authUser
