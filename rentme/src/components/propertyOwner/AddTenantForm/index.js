@@ -90,8 +90,8 @@ class AddTenantForm extends Component {
       tenants: [],
       tenant: {
         ["property_id"]: "",
-        ["firstName"]: "",
-        ["lastName"]: "",
+        ["First_name"]: "",
+        ["Last_name"]: "",
         ["phone"]: "",
         ["email"]: "",
         ["Spouse Name"]: "",
@@ -118,7 +118,7 @@ class AddTenantForm extends Component {
         console.error("USERS ERROR", error);
       });
     axios
-      .get("https://rent-me-app.herokuapp.com/api/properties")
+      .get("https://rent-me-app.herokuapp.com/api/property")
       .then(res => {
         this.setState({
           properties: res.data
@@ -219,26 +219,26 @@ class AddTenantForm extends Component {
                     <TextField
                       variant="outlined"
                       required
-                      id="firstName"
+                      id="First_name"
                       label="First Name"
-                      name="firstName"
-                      autoComplete="firstName"
+                      name="First_name"
+                      autoComplete="First_name"
                       margin="normal"
                       autoFocus
                       onChange={this.handleChange}
-                      value={this.state.tenant["firstName"]}
+                      value={this.state.tenant["First_name"]}
                     />
                     <TextField
                       variant="outlined"
                       required
-                      id="lastName"
+                      id="Last_name"
                       label="Last Name"
-                      name="lastName"
-                      autoComplete="lastName"
+                      name="Last_name"
+                      autoComplete="Last_name"
                       margin="normal"
                       autoFocus
                       onChange={this.handleChange}
-                      value={this.state.tenant["lastName"]}
+                      value={this.state.tenant["Last_name"]}
                     />
                     <TextField
                       variant="outlined"
@@ -311,7 +311,6 @@ class AddTenantForm extends Component {
                     <TextField
                       variant="outlined"
                       margin="normal"
-                      required
                       id="emergency contact"
                       label="Emergency Contact Number"
                       name="emergency contact"
@@ -325,6 +324,7 @@ class AddTenantForm extends Component {
                       id="property_id"
                       name="property_id"
                       select
+                      required
                       label="Property associated with tenant"
                       value={this.state.tenant["property_id"]}
                       onChange={this.handleChange}

@@ -92,7 +92,8 @@ const TenantDashboard = props => {
   );
 };
 
-const condition = authUser =>
-  authUser && !!authUser.roles[ROLES.TENANT];
+const condition = authUser => authUser && !!authUser.roles[ROLES.TENANT];
 
-export const TenantDashWithFirebase = withAuthorization(condition)(TenantDashboard);
+export const TenantDashWithFirebase = withAuthorization(condition)(
+  TenantDashboard
+);

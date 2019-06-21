@@ -9,7 +9,7 @@ import Paper from "@material-ui/core/Paper";
 import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
 import Icon from "@material-ui/core/Icon";
 import Grid from "@material-ui/core/Grid";
-import { withAuthorization } from "../../Session";
+import { withAuthorization, AuthUserContext } from "../../Session";
 import { compose } from "recompose";
 
 import * as ROLES from "../../../constants/roles";
@@ -91,12 +91,13 @@ class AddPropertyForm extends Component {
       property: {
         property_name: "",
         address: ""
-      }
+      },
+      user: ""
     };
   }
 
   componentDidMount() {
-    const endpoint = "https://rent-me-app.herokuapp.com/api/properties";
+    const endpoint = "https://rent-me-app.herokuapp.com/api/property";
 
     axios
       .get(endpoint)
@@ -104,15 +105,36 @@ class AddPropertyForm extends Component {
         this.setState({
           properties: res.data
         });
+        // console.log("Properties", res.data);
       })
       .catch(error => {
         console.error("USERS ERROR", error);
       });
+    // axios
+    //   .get("https://rent-me-app.herokuapp.com/api/user")
+    //   .then(res => {
+    //     // const tenantsData = this.state.tenant;
+    //     const authUserData = JSON.parse(localStorage.getItem("authUser"));
+    //     const authUserUID = JSON.stringify(authUserData.uid);
+    //     const users = res.data;
+    //     const user = users.find(user => `${user.uid}` === authUserUID);
+    //     console.log("UID", users);
+    //     this.setState({
+    //       users: users
+    //       // user: users.find(user => user.uid === authUserUID)
+    //     });
+    //   })
+    //   .catch(error => {
+    //     console.error("USERS ERROR", error);
+    //   });
+    // const authUserData = JSON.parse(localStorage.getItem("authUser"));
+    // const authUserUID = authUserData.uid;
+    // console.log("AuthUser", authUserUID);
   }
 
   addProperty = newProperty => {
     return axios
-      .post("https://rent-me-app.herokuapp.com/api/properties", newProperty)
+      .post("https://rent-me-app.herokuapp.com/api/property", newProperty)
       .then(res => {
         const properties = res.data;
         return properties;
@@ -141,6 +163,7 @@ class AddPropertyForm extends Component {
       this.setState({
         properties: properties
       });
+      console.log(this.state.property);
       return this.props.history.push("/owner-dash");
     });
   };
