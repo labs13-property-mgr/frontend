@@ -93,7 +93,7 @@ class EditPropertyForm extends Component {
   }
 
   componentDidMount() {
-    const endpoint = "https://rent-me-app.herokuapp.com/api/properties";
+    const endpoint = "https://rent-me-app.herokuapp.com/api/property";
     axios
       .get(endpoint)
       .then(res => {
@@ -114,9 +114,7 @@ class EditPropertyForm extends Component {
     console.log(updatedProperty);
     axios
       .put(
-        `https://rent-me-app.herokuapp.com/api/properties/${
-          updatedProperty.id
-        }`,
+        `https://rent-me-app.herokuapp.com/api/property/${updatedProperty.id}`,
         updatedProperty
       )
       .then(res => {

@@ -47,7 +47,7 @@ class PropertyCard extends Component {
   };
 
   componentDidMount() {
-    const endpoint = "https://rent-me-app.herokuapp.com/api/properties";
+    const endpoint = "https://rent-me-app.herokuapp.com/api/property";
     axios
       .get(endpoint)
       .then(res => {
@@ -65,7 +65,7 @@ class PropertyCard extends Component {
 
   deleteProperties = id => {
     return axios
-      .delete(`https://rent-me-app.herokuapp.com/api/properties/${id}`)
+      .delete(`https://rent-me-app.herokuapp.com/api/property/${id}`)
       .then(res => {
         const properties = res.data;
         this.setState({ properties });

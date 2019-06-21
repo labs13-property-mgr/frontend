@@ -10,10 +10,6 @@ import TenantUserMenu from "../../SideMenu/TenantUserMenu";
 import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
 
-import { withAuthorization } from "../../Session";
-import * as ROLES from "../../../constants/roles";
-import { compose } from "recompose";
-
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -91,16 +87,16 @@ class AddIssueForm extends Component {
       issue: {
         date_created: "",
         request_name: "",
+        request_description: "",
         status: "",
         notes: "",
-        request_description: "",
-        contractor: "",
         appointment: "",
         followup: "",
         resolved_tenant: false,
         resolved_owner: false,
         property_id: null,
         tenant_id: null,
+        owner_id: null,
         received: false
       }
     };
@@ -128,7 +124,7 @@ class AddIssueForm extends Component {
         return issues;
       })
       .catch(err => {
-        return err.json()
+        console.log(err)
       });
   };
 
@@ -149,7 +145,7 @@ class AddIssueForm extends Component {
       ...this.state.issue,
       date_created: today.toLocaleString("en-US"),
       status: "open",
-      tenant_id: 1
+      tenant_id: 1,
     };
 
     this.addIssue(issue).then(issues => {
@@ -247,9 +243,4 @@ class AddIssueForm extends Component {
   }
 }
 
-const condition = authUser => authUser && !!authUser.roles[ROLES.TENANT];
-
-export default compose(
-  withStyles(styles),
-  withAuthorization(condition),
-)(AddIssueForm);
+export default withStyles(styles)(AddIssueForm);
