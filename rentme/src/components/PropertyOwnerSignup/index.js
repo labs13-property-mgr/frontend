@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { compose } from "recompose";
+import axios from "axios";
 
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
@@ -41,13 +42,41 @@ class OwnerSignUpFormBase extends Component {
     this.state = { ...INITIAL_STATE };
   }
 
-  onSubmit = e => {
-    const { username, email, passwordOne, isOwner } = this.state;
-    const roles = {};
+  addOwner = user => {
+    return axios
+      .post("https://rent-me-app.herokuapp.com/api/user", user)
+      .then(res => {
+        const user = (res.data, user);
+        console.log("new owner added", user)
+      })
+      .catch(err => {
+        console.log("Well, Shite", err);
+      });
+  };
 
-    if (isOwner) {
-      roles[ROLES.OWNER] = ROLES.OWNER
-    }
+  //onSubmit = e => {
+    //const { username, email, passwordOne, isOwner } = this.state;
+    //const roles = {};
+
+    //if (isOwner) {
+      //roles[ROLES.OWNER] = ROLES.OWNER
+    //}
+
+    onSubmitAddOwner = e => {
+      e.preventDefault();
+      const { username, email, passwordOne, isOwner } = this.state;
+      const roles = {};
+      const user = this.state.user;
+  
+      if (isOwner) {
+        roles[ROLES.OWNER] = ROLES.OWNER
+      }
+      console.log("Right here, right here!", user)
+      this.addOwner(user).then(user => {
+        this.setState({
+          user: user
+        });
+      });
 
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
@@ -111,7 +140,7 @@ class OwnerSignUpFormBase extends Component {
 
     return (
       <>
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={this.onSubmitAddOwner}>
           <Container style={formContainer}>
             <TextField
               variant="outlined"
