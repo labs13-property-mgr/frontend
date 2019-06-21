@@ -12,6 +12,7 @@ import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
 import Input from "@material-ui/core/Input";
 
 import { withAuthorization } from "../../Session";
+import * as ROLES from "../../../constants/roles";
 
 const drawerWidth = 240;
 
@@ -200,6 +201,7 @@ const PropertyDash = props => {
   );
 };
 
-const condition = authUser => !!authUser;
+const condition = authUser => 
+  authUser && !!authUser.roles[ROLES.OWNER];
 
 export default withAuthorization(condition)(PropertyDash);

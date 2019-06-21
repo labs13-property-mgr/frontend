@@ -4,9 +4,10 @@ import { compose } from "recompose";
 
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
+import * as ROLES from "../../constants/roles";
+
 import { withStyles } from "@material-ui/styles";
 import Container from "@material-ui/core/Container";
-
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
@@ -22,6 +23,7 @@ const INITIAL_STATE = {
   email: "",
   passwordOne: "",
   passwordTwo: "",
+  isTenant: false,
   error: null
 };
 
@@ -39,11 +41,25 @@ class RenterSignUpFormBase extends Component {
   }
 
   onSubmit = e => {
-    const { username, email, passwordOne } = this.state;
+    const { username, email, passwordOne, isTenant } = this.state;
+    const roles = {};
+
+    if (isTenant) {
+      roles[ROLES.TENANT] = ROLES.TENANT
+    }
 
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
+        return this.props.firebase
+        .user(authUser.user.uid)
+        .set({
+          username,
+          email,
+          roles,
+        })
+      })
+      .then(() => {
         this.setState({ ...INITIAL_STATE });
         console.log("new user");
         this.props.history.push(ROUTES.TENANT_DASHBOARD);
@@ -59,14 +75,19 @@ class RenterSignUpFormBase extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  onChangeCheckbox = e => {
+    this.setState({ [e.target.name]: e.target.checked })
+  }
+
   render() {
-    const { email, username, passwordOne, passwordTwo, error } = this.state;
+    const { email, username, passwordOne, passwordTwo, isTenant, error } = this.state;
 
     const isInvalid =
       email === "" ||
       username === "" ||
       passwordOne !== passwordTwo ||
-      passwordOne === "";
+      passwordOne === "" ||
+      isTenant === false;
 
     const formContainer = {
       display: "flex",
@@ -167,6 +188,17 @@ class RenterSignUpFormBase extends Component {
             value={passwordTwo}
             onChange={this.onChange}
           /> */}
+
+          <label>
+            I confirm I am signing up as a Tenant:
+            <input
+              name="isTenant"
+              type="checkbox"
+              checked={isTenant}
+              onChange={this.onChangeCheckbox}
+              />
+          </label>
+          
             <div style={buttons}>
               <Button
                 disabled={isInvalid}

@@ -4,9 +4,10 @@ import { compose } from "recompose";
 
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
+import * as ROLES from "../../constants/roles";
+
 import { withStyles } from "@material-ui/styles";
 import Container from "@material-ui/core/Container";
-
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Button from "@material-ui/core/Button";
@@ -23,6 +24,7 @@ const INITIAL_STATE = {
   email: "",
   passwordOne: "",
   passwordTwo: "",
+  isOwner: false,
   error: null
 };
 
@@ -40,11 +42,25 @@ class OwnerSignUpFormBase extends Component {
   }
 
   onSubmit = e => {
-    const { username, email, passwordOne } = this.state;
+    const { username, email, passwordOne, isOwner } = this.state;
+    const roles = {};
+
+    if (isOwner) {
+      roles[ROLES.OWNER] = ROLES.OWNER
+    }
 
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
+        return this.props.firebase                  // creates user in firebase database
+        .user(authUser.user.uid)
+        .set({
+          username,
+          email,
+          roles,
+        })
+      })
+      .then(() => {
         this.setState({ ...INITIAL_STATE });
         console.log("new user");
         this.props.history.push(ROUTES.OWNER_DASHBOARD);
@@ -60,14 +76,19 @@ class OwnerSignUpFormBase extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  onChangeCheckbox = e => {
+    this.setState({ [e.target.name]: e.target.checked })
+  }
+
   render() {
-    const { email, username, passwordOne, passwordTwo, error } = this.state;
+    const { email, username, passwordOne, passwordTwo, isOwner, error } = this.state;
 
     const isInvalid =
       email === "" ||
       username === "" ||
       passwordOne !== passwordTwo ||
-      passwordOne === "";
+      passwordOne === "" ||
+      isOwner === false;
 
       const formContainer = {
         display: "flex",
@@ -172,6 +193,17 @@ class OwnerSignUpFormBase extends Component {
             value={passwordTwo}
             onChange={this.onChange}
           /> */}
+
+          <label>
+            I confirm I am signing up as a Property Owner:
+            <input
+              name="isOwner"
+              type="checkbox"
+              checked={isOwner}
+              onChange={this.onChangeCheckbox}
+              />
+          </label>
+
             <div style={buttons}>
               <Button
                 disabled={isInvalid}

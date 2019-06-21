@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { compose } from "recompose";
 
 import { withAuthorization } from "../../Session";
+import * as ROLES from "../../../constants/roles";
 
 import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
 
@@ -259,7 +260,7 @@ class VendorAddressBk extends Component {
   }
 }
 
-const condition = authUser => !!authUser
+const condition = authUser => authUser && !!authUser.roles[ROLES.OWNER];
 
 export default compose(
   withStyles(styles),
