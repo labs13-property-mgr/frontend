@@ -9,12 +9,6 @@ import { useTheme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import AppBar from "@material-ui/core/AppBar";
-import Drawer from "@material-ui/core/Drawer";
-import Hidden from "@material-ui/core/Hidden";
-import IconButton from "@material-ui/core/IconButton";
-import Toolbar from "@material-ui/core/Toolbar";
-import MenuIcon from "@material-ui/icons/Menu";
 //Built component imports
 import TrackerBar from "./TrackerBar";
 import { useStyles } from "./helpers";
@@ -27,7 +21,6 @@ function ListItemLink(props) {
 }
 
 const TenantDashboard = props => {
-  console.log(props.firebase.auth.currentUser);
   const [tenant, setTenant] = useState(null);
   const [property, setProperty] = useState(null);
   const [requests, setRequests] = useState(null);
