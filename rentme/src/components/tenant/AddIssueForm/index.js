@@ -79,28 +79,6 @@ const styles = theme => ({
   }
 });
 
-// const styles = {
-//   formContainer: {
-//     display: "flex",
-//     flexDirection: "column",
-//     margin: "0 auto"
-//   },
-//   textField: {
-//     backgroundColor: "white"
-//   },
-
-//   buttonLayout: {
-//     display: "flex",
-//     flexWrap: "wrap",
-//     flexDirection: "row",
-//     justifyContent: "flex-start",
-//     marginTop: "2rem"
-//   },
-//   buttonDistance: {
-//     marginRight: "1rem"
-//   }
-// };
-
 class AddIssueForm extends Component {
   constructor() {
     super();
@@ -143,11 +121,10 @@ class AddIssueForm extends Component {
       .post("https://rent-me-app.herokuapp.com/api/service", newIssue)
       .then(res => {
         const issues = res.data;
-        console.log("From post request", issues);
         return issues;
       })
       .catch(err => {
-        console.log(err);
+        return err.json()
       });
   };
 
@@ -170,8 +147,7 @@ class AddIssueForm extends Component {
       status: "open",
       tenant_id: 1
     };
-    console.log("From onSubmitAddIssue", issue);
-    console.log(this.addIssue);
+
     this.addIssue(issue).then(issues => {
       this.setState({
         issues: issues
@@ -217,7 +193,6 @@ class AddIssueForm extends Component {
                       margin="normal"
                       autoFocus
                       onChange={this.handleChange}
-                      // value={this.state.issue.name}
                     />
                     <TextField
                       variant="outlined"
@@ -230,7 +205,6 @@ class AddIssueForm extends Component {
                       margin="normal"
                       autoFocus
                       onChange={this.handleChange}
-                      // value={this.state.issue.description}
                     />
                     <div className={this.props.classes.buttons}>
                       <Grid item xs={12} md={5}>
