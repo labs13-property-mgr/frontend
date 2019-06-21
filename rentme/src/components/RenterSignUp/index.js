@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { compose } from "recompose";
+import axios from "axios";
 
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
@@ -40,35 +41,35 @@ class RenterSignUpFormBase extends Component {
     this.state = { ...INITIAL_STATE };
   }
 
-  onSubmit = e => {
+  onSubmitAddTenant = async e => {
+    e.preventDefault();
+  
     const { username, email, passwordOne, isTenant } = this.state;
     const roles = {};
-
+  
     if (isTenant) {
-      roles[ROLES.TENANT] = ROLES.TENANT
+      roles[ROLES.TENANT] = ROLES.TENANT;
     }
+  
+    const authUser = await this.props.firebase.doCreateUserWithEmailAndPassword(
+      email,
+      passwordOne
+    );
+  
+    await this.props.firebase.user(authUser.user.uid).set({
+      username,
+      email,
+      roles
+    });
+  
+    const response = await axios.post('https://rent-me-app.herokuapp.com/api/user', {
+      uid: authUser.user.uid,
+      email,
+      role: ROLES.OWNER
+    });
 
-    this.props.firebase
-      .doCreateUserWithEmailAndPassword(email, passwordOne)
-      .then(authUser => {
-        return this.props.firebase
-        .user(authUser.user.uid)
-        .set({
-          username,
-          email,
-          roles,
-        })
-      })
-      .then(() => {
-        this.setState({ ...INITIAL_STATE });
-        console.log("new user");
-        this.props.history.push(ROUTES.TENANT_DASHBOARD);
-      })
-      .catch(error => {
-        this.setState({ error });
-      });
-
-    e.preventDefault();
+    console.log(response);
+    return this.props.history.push(ROUTES.TENANT_DASHBOARD);
   };
 
   onChange = e => {
@@ -110,7 +111,7 @@ class RenterSignUpFormBase extends Component {
 
     return (
       <>
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={this.onSubmitAddTenant}>
           <Container style={formContainer}>
             <TextField
               variant="outlined"

@@ -42,64 +42,37 @@ class OwnerSignUpFormBase extends Component {
     this.state = { ...INITIAL_STATE };
   }
 
-  addOwner = user => {
-    return axios
-      .post("https://rent-me-app.herokuapp.com/api/user", user)
-      .then(res => {
-        const user = (res.data, user);
-        console.log("new owner added", user)
-      })
-      .catch(err => {
-        console.log("Well, Shite", err);
-      });
-  };
+onSubmitAddOwner = async e => {
+  e.preventDefault();
 
-  //onSubmit = e => {
-    //const { username, email, passwordOne, isOwner } = this.state;
-    //const roles = {};
+  const { username, email, passwordOne, isOwner } = this.state;
+  const roles = {};
 
-    //if (isOwner) {
-      //roles[ROLES.OWNER] = ROLES.OWNER
-    //}
+  if (isOwner) {
+    roles[ROLES.OWNER] = ROLES.OWNER;
+  }
 
-    onSubmitAddOwner = e => {
-      e.preventDefault();
-      const { username, email, passwordOne, isOwner } = this.state;
-      const roles = {};
-      const user = this.state.user;
-  
-      if (isOwner) {
-        roles[ROLES.OWNER] = ROLES.OWNER
-      }
-      console.log("Right here, right here!", user)
-      this.addOwner(user).then(user => {
-        this.setState({
-          user: user
-        });
-      });
+  const authUser = await this.props.firebase.doCreateUserWithEmailAndPassword(
+    email,
+    passwordOne
+  );
 
-    this.props.firebase
-      .doCreateUserWithEmailAndPassword(email, passwordOne)
-      .then(authUser => {
-        return this.props.firebase                  // creates user in firebase database
-        .user(authUser.user.uid)
-        .set({
-          username,
-          email,
-          roles,
-        })
-      })
-      .then(() => {
-        this.setState({ ...INITIAL_STATE });
-        console.log("new user");
-        this.props.history.push(ROUTES.OWNER_DASHBOARD);
-      })
-      .catch(error => {
-        this.setState({ error });
-      });
+  await this.props.firebase.user(authUser.user.uid).set({
+    username,
+    email,
+    roles
+  });
 
-    e.preventDefault();
-  };
+  const response = await axios.post('https://rent-me-app.herokuapp.com/api/user', {
+    uid: authUser.user.uid,
+    email,
+    role: ROLES.OWNER
+  });
+
+  console.log(response);
+  return this.props.history.push(ROUTES.OWNER_DASHBOARD);
+};
+
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
