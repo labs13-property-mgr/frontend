@@ -188,6 +188,11 @@ const theme = createMuiTheme({
   }
 });
 
+const ERROR_CODE_ACCOUNT_EXISTS = 'Account exists with different crentials'
+
+const ERROR_MSG_ACCOUNT_EXISTS = `An account with an e-mail address to this social account already exists.
+ Please login from this account instead and associate your social accounts on your Account Page`
+
 const Login = props => {
   const [tab, setTabs] = React.useState(0);
 
@@ -417,6 +422,9 @@ class SignInGoogleBase extends Component {
         this.props.history.push(ROUTES.TENANT_DASHBOARD);
       })
       .catch(error => {
+        if (error.code === ERROR_CODE_ACCOUNT_EXISTS){
+          error.message = ERROR_MSG_ACCOUNT_EXISTS;
+        }
         this.setState({ error });
       });
 
@@ -470,6 +478,9 @@ class SignInFacebookBase extends Component {
         this.props.history.push(ROUTES.TENANT_DASHBOARD);
       })
       .catch(error => {
+        if (error.code === ERROR_CODE_ACCOUNT_EXISTS){
+          error.message = ERROR_MSG_ACCOUNT_EXISTS;
+        }
         this.setState({ error });
       });
 
@@ -649,6 +660,9 @@ class OwnerSignInGoogleBase extends Component {
         this.props.history.push(ROUTES.OWNER_DASHBOARD);
       })
       .catch(error => {
+        if (error.code === ERROR_CODE_ACCOUNT_EXISTS){
+          error.message = ERROR_MSG_ACCOUNT_EXISTS;
+        }
         this.setState({ error });
       });
 
@@ -701,6 +715,9 @@ class OwnerSignInFacebookBase extends Component {
         this.props.history.push(ROUTES.OWNER_DASHBOARD);
       })
       .catch(error => {
+        if (error.code === ERROR_CODE_ACCOUNT_EXISTS){
+          error.message = ERROR_MSG_ACCOUNT_EXISTS;
+        }
         this.setState({ error });
       });
 
