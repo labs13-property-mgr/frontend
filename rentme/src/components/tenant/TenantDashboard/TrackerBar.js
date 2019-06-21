@@ -2,42 +2,36 @@ import React, { useState, useEffect } from "react";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
-import { CheckProgress } from './helpers'
+import { CheckProgress, isGreaterOrIsEqual } from './helpers'
 const TrackerBar = props => {
   const [currentStep, setCurrentStep] = useState(null);
-  const [progressWidth, setProgressWidth] = useState(0);
+  const [progressWidth, setProgressWidth] = useState(null);
 
   const triggerBarChange = step => {
 
-    if(currentStep === 5) return null
+    if(currentStep >= 4 ) return null
 
     setCurrentStep(step);
-    setProgressWidth(currentStep * 25);
+    setProgressWidth(step * 25);
 
   };
 
   useEffect(() => {
     // if(request.resolved_tenant && request.resolved_owner) setCurrentStep(5)
 
+
     switch(request.status.toLowerCase()) {
       case "open":
-        triggerBarChange(1)
-        break;
-      case "received":
-        console.log("test received")
-        triggerBarChange(2)
+        triggerBarChange(0)
         break;
       case "vendor contacted":
-        console.log("test vendor contacted")
-        triggerBarChange(3)
+        triggerBarChange(1)
         break;
       case "scheduled":
-        console.log("test scheduled")
-        triggerBarChange(4)
+        triggerBarChange(2)
         break;
       case "fixing":
-        console.log("test fixing")
-        triggerBarChange(5)
+        triggerBarChange(3)
         break;
       default:
         return null
@@ -47,34 +41,24 @@ const TrackerBar = props => {
 
   let { classes, request } = props;
 
-  console.log(request)
-
   return (
     <div className={props.classes.progressBarSection}>
       <h4>Name: {request.request_name}</h4>
+
       <LinearProgress
         className={classes.progressBar}
         variant="determinate"
         value={progressWidth}
       />
+
       <div className={classes.progressContent}>
         <Grid className={classes.progressIcons}>
           <>
             <div
-              className={`step${
-                progressWidth === 0
-                  ? " in-progress"
-                  : progressWidth > 0
-                  ? " completed"
-                  : ""
-              }`}
+              className={isGreaterOrIsEqual(progressWidth, 0)}
             >
               <Icon className={classes.icon}>home</Icon>
           </div>
-
-            {/**<div className={`check${progressWidth > 0 ? " completed" : ""}`}>
-              <Icon className={classes.icon}>check_circle</Icon>
-            </div>**/}
             <CheckProgress progressWidth={progressWidth} checkAgainst={0}/>
           </>
 
@@ -82,13 +66,7 @@ const TrackerBar = props => {
             {" "}
             {/*Step 2  */}
             <div
-              className={`step${
-                progressWidth === 25
-                  ? " in-progress"
-                  : progressWidth > 25
-                  ? " completed"
-                  : ""
-              }`}
+              className={isGreaterOrIsEqual(progressWidth, 25)}
             >
               <Icon className={classes.icon}>assignment_ind</Icon>
             </div>
@@ -99,13 +77,7 @@ const TrackerBar = props => {
             {" "}
             {/*Step 3 */}
             <div
-              className={`step${
-                progressWidth === 50
-                  ? " in-progress"
-                  : progressWidth > 50
-                  ? " completed"
-                  : ""
-              }`}
+              className={isGreaterOrIsEqual(progressWidth, 50)}
             >
               <Icon className={classes.icon}>calendar_today</Icon>
             </div>
@@ -116,13 +88,7 @@ const TrackerBar = props => {
             {" "}
             {/*Step 4 */}
             <div
-              className={`step${
-                progressWidth === 75
-                  ? " in-progress"
-                  : progressWidth > 75
-                  ? " completed"
-                  : ""
-              }`}
+              className={isGreaterOrIsEqual(progressWidth, 75)}
             >
               <Icon className={classes.icon}>build</Icon>
             </div>
@@ -149,33 +115,18 @@ const TrackerBar = props => {
             {" "}
             {/*Step 1 - Beginning of tracker, no updated from owner/manager */}
             <div
-              className={`step-text${
-                progressWidth === 0
-                  ? " in-progress"
-                  : progressWidth > 0
-                  ? " completed"
-                  : ""
-              }`}
+            className={isGreaterOrIsEqual(progressWidth, 0, "step-text")}
+
             >
-              <p>Request Sent</p>
+              <p>{request.received ? "Request received" : "Request sent"}</p>
             </div>
-            <div
-              className={`check-text${progressWidth > 0 ? " completed" : ""}`}
-            >
-              <p>Request Received</p>
-            </div>
+
           </>
           <>
             {" "}
             {/*Step 2 */}
             <div
-              className={`step-text${
-                progressWidth === 25
-                  ? " in-progress"
-                  : progressWidth > 25
-                  ? " completed"
-                  : ""
-              }`}
+              className={isGreaterOrIsEqual(progressWidth, 25, "step-text")}
             >
               <p>Contacting Vendor</p>
             </div>
@@ -189,13 +140,7 @@ const TrackerBar = props => {
             {" "}
             {/*Step 3 */}
             <div
-              className={`step-text${
-                progressWidth === 50
-                  ? " in-progress"
-                  : progressWidth > 50
-                  ? " completed"
-                  : ""
-              }`}
+              className={isGreaterOrIsEqual(progressWidth, 50, "step-text")}
             >
               <p>Scheduling appointment</p>
             </div>
@@ -209,13 +154,8 @@ const TrackerBar = props => {
             {" "}
             {/*Step 4 */}
             <div
-              className={`step-text${
-                progressWidth === 75
-                  ? " in-progress"
-                  : progressWidth > 75
-                  ? " completed"
-                  : ""
-              }`}
+            className={isGreaterOrIsEqual(progressWidth, 75, "step-text")}
+
             >
               <p>Fix in progress</p>
             </div>

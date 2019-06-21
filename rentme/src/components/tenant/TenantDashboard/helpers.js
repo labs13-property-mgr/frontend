@@ -66,10 +66,21 @@ export const useStyles = makeStyles(theme => ({
 
 export const CheckProgress = props => {
   const classes = useStyles()
-  const {checkAgainst, progressWidth } = props
+  const {checkAgainst, progressWidth, type } = props
   return (
-    <div className={`check${progressWidth > checkAgainst || progressWidth === 100 ? " completed" : ""}`}>
+    <div className={`${type ? "check-text" : "check"}${progressWidth > checkAgainst || progressWidth === 100 ? " completed" : ""}`}>
       <Icon className={classes.icon}>check_circle</Icon>
     </div>
   )
+}
+
+export const isGreaterOrIsEqual = (num1, num2, varText) => {
+
+  if(num1 > num2) {
+    return `${varText ? varText : "step"} completed`
+  } else if(num1 === num2) {
+    return `${varText} in-progress`
+  } else {
+    return varText
+  }
 }
