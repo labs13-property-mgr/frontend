@@ -13,6 +13,8 @@ import Icon from "@material-ui/core/Icon";
 import { withAuthorization } from "../../Session";
 import { compose } from "recompose";
 
+import * as ROLES from "../../../constants/roles";
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -273,7 +275,7 @@ class EditVendorForm extends Component {
   }
 }
 
-const condition = authUser => !!authUser;
+const condition = authUser => authUser && !!authUser.roles[ROLES.OWNER];
 
 export default compose(
   withStyles(styles),

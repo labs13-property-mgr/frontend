@@ -12,6 +12,8 @@ import { Link } from "react-router-dom";
 import { withAuthorization } from "../../Session";
 import { compose } from "recompose";
 
+import * as ROLES from "../../../constants/roles";
+
 import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
 
 const drawerWidth = 240;
@@ -267,7 +269,7 @@ class TenantAddressBk extends Component {
   }
 }
 
-const condition = authUser => !!authUser;
+const condition = authUser => authUser && !!authUser.roles[ROLES.OWNER];
 
 export default compose(
   withStyles(styles),

@@ -9,6 +9,8 @@ import Icon from "@material-ui/core/Icon";
 import { compose } from "recompose";
 import { withAuthorization } from "../../Session";
 
+import * as ROLES from "../../../constants/roles";
+
 const drawerWidth = 240;
 
 const styles = theme => ({
