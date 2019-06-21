@@ -16,10 +16,6 @@ import TenantUserMenu from "../../SideMenu/TenantUserMenu";
 
 import "./tenantDashboard.css";
 
-function ListItemLink(props) {
-  return <ListItem component="a" {...props} />;
-}
-
 const TenantDashboard = props => {
   const [tenant, setTenant] = useState(null);
   const [property, setProperty] = useState(null);
