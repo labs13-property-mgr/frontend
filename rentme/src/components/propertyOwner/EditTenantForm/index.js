@@ -111,7 +111,7 @@ class EditTenantForm extends Component {
         console.error("USERS ERROR", error);
       });
     axios
-      .get("https://rent-me-app.herokuapp.com/api/properties")
+      .get("https://rent-me-app.herokuapp.com/api/property")
       .then(res => {
         this.setState({
           properties: res.data

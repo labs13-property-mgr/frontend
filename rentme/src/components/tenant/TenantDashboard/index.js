@@ -36,14 +36,14 @@ const TenantDashboard = props => {
 
   useEffect(() => {
     axios
-      .get("https://rent-me-app.herokuapp.com/api/users")
+      .get("https://rent-me-app.herokuapp.com/api/user")
       .then(res => {
         setTenant(res.data[0]);
       })
       .catch(err => console.log("Crap!", err));
 
     axios
-      .get("https://rent-me-app.herokuapp.com/api/properties")
+      .get("https://rent-me-app.herokuapp.com/api/property")
       .then(res => {
         setProperty(res.data[0]);
       })
@@ -96,7 +96,8 @@ const TenantDashboard = props => {
   );
 };
 
-const condition = authUser =>
-  authUser && !!authUser.roles[ROLES.TENANT];
+const condition = authUser => authUser && !!authUser.roles[ROLES.TENANT];
 
-export const TenantDashWithFirebase = withAuthorization(condition)(TenantDashboard);
+export const TenantDashWithFirebase = withAuthorization(condition)(
+  TenantDashboard
+);
