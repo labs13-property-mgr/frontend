@@ -3,6 +3,9 @@ import PasswordChangeForm from '../PasswordChange';
 import { withAuthorization, AuthUserContext } from "../Session";
 import { withFirebase } from "../Firebase";
 
+import Button from "@material-ui/core/Button";
+import Icon from "@material-ui/core/Icon";
+
 
 const LOG_IN_METHODS = [
     {
@@ -25,7 +28,7 @@ const Account = () => (
                 <>
                 <h4>Account: </h4><p>{authUser.email}</p>
                 <PasswordChangeForm />
-                <LoginManagement />
+                <LoginManagement authUser={authUser} />
             </>
         )}
     </AuthUserContext.Consumer>
@@ -70,8 +73,16 @@ class LoginManagementBase extends Component {
         .catch(error => this.setState({ error }))
     }
 
-    onDefaultLoginLink = () => {
+    onDefaultLoginLink = password => {
+        const credential = this.props.firebase.emailAuthProvider.credential(
+            this.props.authUser.email,
+            password,
+        )
 
+        this.props.firebase.auth.currentUser
+        .linkAndRetrieveDataWithCredential(credential)
+        .then(this.fetchSignInMethods)
+        .catch(error => this.setState({ error }))
     }
 
     render() {
