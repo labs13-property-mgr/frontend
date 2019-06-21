@@ -16,10 +16,6 @@ import TenantUserMenu from "../../SideMenu/TenantUserMenu";
 
 import "./tenantDashboard.css";
 
-function ListItemLink(props) {
-  return <ListItem component="a" {...props} />;
-}
-
 const TenantDashboard = props => {
   const [tenant, setTenant] = useState(null);
   const [property, setProperty] = useState(null);
@@ -36,14 +32,14 @@ const TenantDashboard = props => {
 
   useEffect(() => {
     axios
-      .get("https://rent-me-app.herokuapp.com/api/users")
+      .get("https://rent-me-app.herokuapp.com/api/user")
       .then(res => {
         setTenant(res.data[0]);
       })
       .catch(err => console.log("Crap!", err));
 
     axios
-      .get("https://rent-me-app.herokuapp.com/api/properties")
+      .get("https://rent-me-app.herokuapp.com/api/property")
       .then(res => {
         setProperty(res.data[0]);
       })
