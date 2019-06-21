@@ -2,6 +2,8 @@ import React from 'react';
 import PasswordChangeForm from '../PasswordChange';
 import { withAuthorization, AuthUserContext } from "../Session"
 
+import LoginManagement from "../LoginManagement";
+
 
 const LOG_IN_METHODS = [
     {
