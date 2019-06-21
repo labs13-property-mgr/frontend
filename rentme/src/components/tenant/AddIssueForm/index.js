@@ -10,6 +10,10 @@ import TenantUserMenu from "../../SideMenu/TenantUserMenu";
 import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
 
+import { withAuthorization } from "../../Session";
+import * as ROLES from "../../../constants/roles";
+import { compose } from "recompose";
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -269,4 +273,9 @@ class AddIssueForm extends Component {
   }
 }
 
-export default withStyles(styles)(AddIssueForm);
+const condition = authUser => authUser && !!authUser.roles[ROLES.TENANT];
+
+export default compose(
+  withStyles(styles),
+  withAuthorization(condition),
+)(AddIssueForm);

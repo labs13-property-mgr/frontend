@@ -4,6 +4,10 @@ import TenantUserMenu from "../../SideMenu/TenantUserMenu";
 import Icon from "@material-ui/core/Icon";
 import Button from "@material-ui/core/Button";
 
+import { withAuthorization } from "../../Session";
+import * as ROLES from "../../../constants/roles";
+import { compose } from "recompose";
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -64,4 +68,9 @@ class RentReceipts extends Component {
   }
 }
 
-export default withStyles(styles)(RentReceipts);
+const condition = authUser => authUser && !!authUser.roles[ROLES.TENANT];
+
+export default compose(
+  withStyles(styles),
+  withAuthorization(condition),
+)(RentReceipts);

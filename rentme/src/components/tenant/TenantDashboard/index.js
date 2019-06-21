@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { withFirebase } from "../../Firebase";
-import { compose } from "recompose";
+import { withAuthorization } from "../../Session";
+import * as ROLES from "../../../constants/roles";
 
 //Material UI imports
 import ListItem from "@material-ui/core/ListItem";
@@ -103,4 +103,7 @@ const TenantDashboard = props => {
   );
 };
 
-export const TenantDashWithFirebase = compose(withFirebase)(TenantDashboard);
+const condition = authUser =>
+  authUser && !!authUser.roles[ROLES.TENANT];
+
+export const TenantDashWithFirebase = withAuthorization(condition)(TenantDashboard);
