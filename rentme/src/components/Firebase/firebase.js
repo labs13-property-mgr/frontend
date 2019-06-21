@@ -47,7 +47,7 @@ class Firebase {
 
 
     onAuthUserListener = (next, fallback) =>
-        this.auth.onAuthStateChanged(authUser => {
+        this.auth.onAuthStateChanged(authUser => {              //adds a new user only once to Auth
             if (authUser) {
                 this.user(authUser.uid)
                 .once('value')
@@ -58,7 +58,7 @@ class Firebase {
                     dbUser.roles = {}
                 }
 
-                authUser = {
+                authUser = {                                    // merges auth and db user by matching uid & email
                     uid: authUser.uid,
                     email: authUser.email,
                     ...dbUser,
