@@ -87,16 +87,16 @@ class AddIssueForm extends Component {
       issue: {
         date_created: "",
         request_name: "",
+        request_description: "",
         status: "",
         notes: "",
-        request_description: "",
-        contractor: "",
         appointment: "",
         followup: "",
         resolved_tenant: false,
         resolved_owner: false,
         property_id: null,
         tenant_id: null,
+        owner_id: null,
         received: false
       }
     };
@@ -124,7 +124,7 @@ class AddIssueForm extends Component {
         return issues;
       })
       .catch(err => {
-        return console.log(err)
+        console.log(err)
       });
   };
 
