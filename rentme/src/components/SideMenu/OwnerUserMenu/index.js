@@ -176,6 +176,10 @@ const OwnerUserMenu = props => {
             <Icon fontSize="medium">group_add</Icon>
             <p className={classes.menuText}>Add Tenants</p>
           </ListItemLink>
+          <ListItemLink className={classes.menuItem} href="/add-vendor">
+            <Icon fontSize="medium">group_add</Icon>
+            <p className={classes.menuText}>Add Vendors/Service Providers</p>
+          </ListItemLink>
         </List>
       </div>
     </div>
