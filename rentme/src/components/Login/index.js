@@ -6,6 +6,7 @@ import { FacebookLoginButton } from "react-social-login-buttons";
 
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
+import * as ROLES from "../../constants/roles";
 import Button from "@material-ui/core/Button";
 import { ForgotPasswordLink } from "../PasswordForget";
 import { withStyles, createMuiTheme } from "@material-ui/core/styles";
@@ -290,6 +291,8 @@ const Login = props => {
 const INITIAL_STATE = {
   email: "",
   password: "",
+  isTenant: "",
+  isOwner: "",
   error: null
 };
 
@@ -415,8 +418,20 @@ class SignInGoogleBase extends Component {
   }
 
   onSubmit = e => {
+    const {  isTenant } = this.state;
+    const roles = {};
+
+    roles[ROLES.TENANT] = ROLES.TENANT
+    
     this.props.firebase
       .doSignInWithGoogle()
+      .then(authUser => {
+        return this.props.firebase               
+        .user(authUser.user.uid)
+        .set({
+          roles,
+        })
+      })
       .then(socialAuthUser => {
         this.setState({ error: null });
         this.props.history.push(ROUTES.TENANT_DASHBOARD);
@@ -471,8 +486,20 @@ class SignInFacebookBase extends Component {
   }
 
   onSubmit = e => {
+    const {  isTenant } = this.state;
+    const roles = {};
+
+    roles[ROLES.TENANT] = ROLES.TENANT
+
     this.props.firebase
       .doSignInWithFacebook()
+      .then(authUser => {
+        return this.props.firebase               
+        .user(authUser.user.uid)
+        .set({
+          roles,
+        })
+      })
       .then(socialAuthUser => {
         this.setState({ error: null });
         this.props.history.push(ROUTES.TENANT_DASHBOARD);
@@ -653,8 +680,21 @@ class OwnerSignInGoogleBase extends Component {
   }
 
   onSubmit = e => {
+    const {  email, isOwner } = this.state;
+    const roles = {};
+
+    roles[ROLES.OWNER] = ROLES.OWNER
+
     this.props.firebase
       .doSignInWithGoogle()
+      .then(authUser => {
+        return this.props.firebase               
+        .user(authUser.user.uid)
+        .set({
+          email,
+          roles,
+        })
+      })
       .then(socialAuthUser => {
         this.setState({ error: null });
         this.props.history.push(ROUTES.OWNER_DASHBOARD);
@@ -708,8 +748,20 @@ class OwnerSignInFacebookBase extends Component {
   }
 
   onSubmit = e => {
+    const {  isOwner } = this.state;
+    const roles = {};
+
+    roles[ROLES.OWNER] = ROLES.OWNER
+
     this.props.firebase
       .doSignInWithFacebook()
+      .then(authUser => {
+        return this.props.firebase               
+        .user(authUser.user.uid)
+        .set({
+          roles,
+        })
+      })
       .then(socialAuthUser => {
         this.setState({ error: null });
         this.props.history.push(ROUTES.OWNER_DASHBOARD);
