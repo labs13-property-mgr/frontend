@@ -680,7 +680,7 @@ class OwnerSignInGoogleBase extends Component {
   }
 
   onSubmit = e => {
-    const {  email, isOwner } = this.state;
+    const {  isOwner } = this.state;
     const roles = {};
 
     roles[ROLES.OWNER] = ROLES.OWNER
@@ -691,7 +691,6 @@ class OwnerSignInGoogleBase extends Component {
         return this.props.firebase               
         .user(authUser.user.uid)
         .set({
-          email,
           roles,
         })
       })
