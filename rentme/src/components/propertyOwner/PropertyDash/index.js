@@ -119,7 +119,7 @@ const PropertyDash = props => {
       )
       .then(res => {
         setProperties(res.data);
-        console.log(res.data);
+        // console.log(res.data);
 
         // console.log(res.data);
         // console.log(props);

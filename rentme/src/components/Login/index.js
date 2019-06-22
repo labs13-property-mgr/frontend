@@ -189,10 +189,10 @@ const theme = createMuiTheme({
   }
 });
 
-const ERROR_CODE_ACCOUNT_EXISTS = 'Account exists with different crentials'
+const ERROR_CODE_ACCOUNT_EXISTS = "Account exists with different crentials";
 
 const ERROR_MSG_ACCOUNT_EXISTS = `An account with an e-mail address to this social account already exists.
- Please login from this account instead and associate your social accounts on your Account Page`
+ Please login from this account instead and associate your social accounts on your Account Page`;
 
 const Login = props => {
   const [tab, setTabs] = React.useState(0);
@@ -418,26 +418,24 @@ class SignInGoogleBase extends Component {
   }
 
   onSubmit = e => {
-    const {  isTenant } = this.state;
+    const { isTenant } = this.state;
     const roles = {};
 
-    roles[ROLES.TENANT] = ROLES.TENANT
-    
+    roles[ROLES.TENANT] = ROLES.TENANT;
+
     this.props.firebase
       .doSignInWithGoogle()
       .then(authUser => {
-        return this.props.firebase               
-        .user(authUser.user.uid)
-        .set({
-          roles,
-        })
+        return this.props.firebase.user(authUser.user.uid).set({
+          roles
+        });
       })
       .then(socialAuthUser => {
         this.setState({ error: null });
         this.props.history.push(ROUTES.TENANT_DASHBOARD);
       })
       .catch(error => {
-        if (error.code === ERROR_CODE_ACCOUNT_EXISTS){
+        if (error.code === ERROR_CODE_ACCOUNT_EXISTS) {
           error.message = ERROR_MSG_ACCOUNT_EXISTS;
         }
         this.setState({ error });
@@ -486,26 +484,24 @@ class SignInFacebookBase extends Component {
   }
 
   onSubmit = e => {
-    const {  isTenant } = this.state;
+    const { isTenant } = this.state;
     const roles = {};
 
-    roles[ROLES.TENANT] = ROLES.TENANT
+    roles[ROLES.TENANT] = ROLES.TENANT;
 
     this.props.firebase
       .doSignInWithFacebook()
       .then(authUser => {
-        return this.props.firebase               
-        .user(authUser.user.uid)
-        .set({
-          roles,
-        })
+        return this.props.firebase.user(authUser.user.uid).set({
+          roles
+        });
       })
       .then(socialAuthUser => {
         this.setState({ error: null });
         this.props.history.push(ROUTES.TENANT_DASHBOARD);
       })
       .catch(error => {
-        if (error.code === ERROR_CODE_ACCOUNT_EXISTS){
+        if (error.code === ERROR_CODE_ACCOUNT_EXISTS) {
           error.message = ERROR_MSG_ACCOUNT_EXISTS;
         }
         this.setState({ error });
@@ -572,7 +568,7 @@ class OwnerLoginFormBase extends Component {
       .then(() => {
         this.setState({ ...INITIAL_STATE });
         this.props.history.push(ROUTES.OWNER_DASHBOARD);
-        console.log("right here");
+        // console.log("right here");
       })
       .catch(error => {
         this.setState({ error });
@@ -680,26 +676,24 @@ class OwnerSignInGoogleBase extends Component {
   }
 
   onSubmit = e => {
-    const {  isOwner } = this.state;
+    const { isOwner } = this.state;
     const roles = {};
 
-    roles[ROLES.OWNER] = ROLES.OWNER
+    roles[ROLES.OWNER] = ROLES.OWNER;
 
     this.props.firebase
       .doSignInWithGoogle()
       .then(authUser => {
-        return this.props.firebase               
-        .user(authUser.user.uid)
-        .set({
-          roles,
-        })
+        return this.props.firebase.user(authUser.user.uid).set({
+          roles
+        });
       })
       .then(socialAuthUser => {
         this.setState({ error: null });
         this.props.history.push(ROUTES.OWNER_DASHBOARD);
       })
       .catch(error => {
-        if (error.code === ERROR_CODE_ACCOUNT_EXISTS){
+        if (error.code === ERROR_CODE_ACCOUNT_EXISTS) {
           error.message = ERROR_MSG_ACCOUNT_EXISTS;
         }
         this.setState({ error });
@@ -747,26 +741,24 @@ class OwnerSignInFacebookBase extends Component {
   }
 
   onSubmit = e => {
-    const {  isOwner } = this.state;
+    const { isOwner } = this.state;
     const roles = {};
 
-    roles[ROLES.OWNER] = ROLES.OWNER
+    roles[ROLES.OWNER] = ROLES.OWNER;
 
     this.props.firebase
       .doSignInWithFacebook()
       .then(authUser => {
-        return this.props.firebase               
-        .user(authUser.user.uid)
-        .set({
-          roles,
-        })
+        return this.props.firebase.user(authUser.user.uid).set({
+          roles
+        });
       })
       .then(socialAuthUser => {
         this.setState({ error: null });
         this.props.history.push(ROUTES.OWNER_DASHBOARD);
       })
       .catch(error => {
-        if (error.code === ERROR_CODE_ACCOUNT_EXISTS){
+        if (error.code === ERROR_CODE_ACCOUNT_EXISTS) {
           error.message = ERROR_MSG_ACCOUNT_EXISTS;
         }
         this.setState({ error });
