@@ -144,8 +144,10 @@ class AddVendorForm extends Component {
     };
     this.addVendor(vendor).then(vendors => {
       this.setState({
-        vendors: vendors
+        vendors: vendors,
+        vendor: vendor
       });
+      console.log("Vendor", vendor);
       return this.props.history.push("/vendor-addbook");
     });
   };

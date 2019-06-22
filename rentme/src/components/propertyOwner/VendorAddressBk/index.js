@@ -69,6 +69,8 @@ const styles = theme => ({
 class VendorAddressBk extends Component {
   state = {
     vendors: [],
+    users: [],
+    user: {},
     anchorEl: null,
     clickedButton: null,
     currentRow: []
@@ -91,7 +93,7 @@ class VendorAddressBk extends Component {
           .then(res => {
             const usersData = this.state.user;
             const vendors = res.data;
-            console.log(usersData);
+            console.log("Users", usersData);
             this.setState({
               vendors: vendors.filter(
                 vendor => vendor.owner_id === usersData.uid
