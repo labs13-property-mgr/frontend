@@ -115,7 +115,7 @@ class VendorCard extends Component {
               className={this.props.classes.backButton}
             >
               <Icon fontSize="small">arrow_back_ios</Icon>
-              BACK
+              PREVIOUS PAGE
             </Button>
             <Container>
               <h1>{this.state.vendor.company_name}'s Profile</h1>

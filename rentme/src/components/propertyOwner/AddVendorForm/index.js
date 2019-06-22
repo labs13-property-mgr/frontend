@@ -94,7 +94,8 @@ class AddVendorForm extends Component {
         first_name: "",
         last_name: "",
         phone: "",
-        email: ""
+        email: "",
+        owner_id: JSON.parse(localStorage.getItem("authUser")).uid
       }
     };
   }
@@ -165,7 +166,7 @@ class AddVendorForm extends Component {
               className={this.props.classes.backButton}
             >
               <Icon fontSize="small">arrow_back_ios</Icon>
-              BACK
+              PREVIOUS PAGE
             </Button>
             <Paper className={this.props.classes.formCard}>
               <div className={this.props.classes.pageContainer}>
