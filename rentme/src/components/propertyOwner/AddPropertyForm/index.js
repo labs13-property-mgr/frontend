@@ -90,7 +90,8 @@ class AddPropertyForm extends Component {
       properties: [],
       property: {
         property_name: "",
-        address: ""
+        address: "",
+        owner_id: JSON.parse(localStorage.getItem("authUser")).uid
       },
       user: ""
     };
@@ -115,13 +116,13 @@ class AddPropertyForm extends Component {
     //   .then(res => {
     //     // const tenantsData = this.state.tenant;
     //     const authUserData = JSON.parse(localStorage.getItem("authUser"));
-    //     const authUserUID = JSON.stringify(authUserData.uid);
+    //     const authUserUID = authUserData.uid;
     //     const users = res.data;
-    //     const user = users.find(user => `${user.uid}` === authUserUID);
-    //     console.log("UID", users);
+    //     const user = users.find(user => `${user.uid}` === `${authUserUID}`);
+    //     console.log("UID", user);
     //     this.setState({
-    //       users: users
-    //       // user: users.find(user => user.uid === authUserUID)
+    //       users: users,
+    //       user: user
     //     });
     //   })
     //   .catch(error => {
@@ -129,7 +130,7 @@ class AddPropertyForm extends Component {
     //   });
     // const authUserData = JSON.parse(localStorage.getItem("authUser"));
     // const authUserUID = authUserData.uid;
-    // console.log("AuthUser", authUserUID);
+    // // console.log("AuthUser", authUserUID);
   }
 
   addProperty = newProperty => {
@@ -161,7 +162,8 @@ class AddPropertyForm extends Component {
     };
     this.addProperty(property).then(properties => {
       this.setState({
-        properties: properties
+        properties: properties,
+        property: property
       });
       console.log(this.state.property);
       return this.props.history.push("/owner-dash");
@@ -184,7 +186,7 @@ class AddPropertyForm extends Component {
               className={this.props.classes.backButton}
             >
               <Icon fontSize="small">arrow_back_ios</Icon>
-              BACK
+              PREVIOUS PAGE
             </Button>
             <Paper className={this.props.classes.formCard}>
               <div className={this.props.classes.pageContainer}>

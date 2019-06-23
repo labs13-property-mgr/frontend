@@ -91,6 +91,8 @@ const PropertyDash = props => {
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(0);
   const [cardsPerPage, setCardsPerPage] = useState(6);
+  const [emptyState, setEmptyState] = useState(null);
+  const [showLoading, setShowLoading] = useState(false);
 
   function handleKeyDown(e) {
     setSearchQuery(e.target.value);
@@ -110,16 +112,27 @@ const PropertyDash = props => {
 
   useEffect(() => {
     axios
-      .get("https://rent-me-app.herokuapp.com/api/property")
+      .get(
+        `https://rent-me-app.herokuapp.com/api/user/${
+          JSON.parse(localStorage.getItem("authUser")).uid
+        }/properties`
+      )
       .then(res => {
         setProperties(res.data);
-        console.log(res.data);
+        // console.log(res.data);
+
+        // console.log(res.data);
+        // console.log(props);
       })
       .catch(err => console.log("Crap!", err));
+    let timer1 = setTimeout(() => setShowLoading(true), 60);
+    return () => {
+      clearTimeout(timer1);
+    };
   }, []);
 
   function handleChangePage(event, newPage) {
-    console.log(newPage);
+    // console.log(newPage);
     setPage(newPage);
   }
 
@@ -148,36 +161,46 @@ const PropertyDash = props => {
                 />
               </div>
             </div>
+            <br />
             <Grid container className={classes.propertyCards} spacing={4}>
-              {properties
-                .slice(
-                  searchQuery ? 0 : page * cardsPerPage,
-                  searchQuery
-                    ? properties.length
-                    : page * cardsPerPage + cardsPerPage
-                )
-                .map(property => {
-                  return (
-                    doesMatchSearchQuery(property) && (
-                      <Grid
-                        item
-                        xs={12}
-                        md={6}
-                        lg={4}
-                        key={property && property.id}
-                      >
-                        <Link to={`/property-card/${property.id}`}>
-                          <Card className={classes.cardStyle}>
-                            <CardContent>
-                              <p>Name: {property && property.property_name}</p>
-                              <p>Address: {property && property.address}</p>
-                            </CardContent>
-                          </Card>
-                        </Link>
-                      </Grid>
-                    )
-                  );
-                })}
+              {showLoading && properties.length === 0 && (
+                <div>
+                  Welcome! New to RentMe? Get started by{" "}
+                  <Link to="/add-property">adding your first Property</Link>
+                </div>
+              )}
+              {properties &&
+                properties
+                  .slice(
+                    searchQuery ? 0 : page * cardsPerPage,
+                    searchQuery
+                      ? properties.length
+                      : page * cardsPerPage + cardsPerPage
+                  )
+                  .map(property => {
+                    return (
+                      doesMatchSearchQuery(property) && (
+                        <Grid
+                          item
+                          xs={12}
+                          md={6}
+                          lg={4}
+                          key={property && property.id}
+                        >
+                          <Link to={`/property-card/${property.id}`}>
+                            <Card className={classes.cardStyle}>
+                              <CardContent>
+                                <p>
+                                  Name: {property && property.property_name}
+                                </p>
+                                <p>Address: {property && property.address}</p>
+                              </CardContent>
+                            </Card>
+                          </Link>
+                        </Grid>
+                      )
+                    );
+                  })}
             </Grid>
           </div>
           <TablePagination

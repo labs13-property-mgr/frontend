@@ -136,7 +136,7 @@ class TenantCard extends Component {
               className={this.props.classes.backButton}
             >
               <Icon fontSize="small">arrow_back_ios</Icon>
-              BACK
+              PREVIOUS PAGE
             </Button>
             <Container>
               <h1>{this.state.tenant["firstName"]}'s Profile</h1>

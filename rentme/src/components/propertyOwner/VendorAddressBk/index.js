@@ -69,21 +69,42 @@ const styles = theme => ({
 class VendorAddressBk extends Component {
   state = {
     vendors: [],
+    users: [],
+    user: {},
     anchorEl: null,
     clickedButton: null,
     currentRow: []
   };
 
   componentDidMount() {
-    const endpoint = "https://rent-me-app.herokuapp.com/api/vendor";
+    const endpoint = "https://rent-me-app.herokuapp.com/api/user";
     axios
       .get(endpoint)
       .then(res => {
         this.setState({
-          vendors: res.data
+          users: res.data,
+          user: res.data.find(
+            user =>
+              user.uid === JSON.parse(localStorage.getItem("authUser")).uid
+          )
         });
+        axios
+          .get("https://rent-me-app.herokuapp.com/api/vendor")
+          .then(res => {
+            const usersData = this.state.user;
+            const vendors = res.data;
+            console.log("Users", usersData);
+            this.setState({
+              vendors: vendors.filter(
+                vendor => vendor.owner_id === usersData.uid
+              )
+            });
+          })
+          .catch(err => console.log("Crap!", err));
       })
-      .catch(err => console.log("Crap!", err));
+      .catch(error => {
+        console.error("USERS ERROR", error);
+      });
   }
 
   goBack = e => {
@@ -264,6 +285,5 @@ const condition = authUser => authUser && !!authUser.roles[ROLES.OWNER];
 
 export default compose(
   withStyles(styles),
-  withAuthorization(condition),
+  withAuthorization(condition)
 )(VendorAddressBk);
-

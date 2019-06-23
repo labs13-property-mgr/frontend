@@ -124,7 +124,7 @@ class AddIssueForm extends Component {
         return issues;
       })
       .catch(err => {
-        console.log(err)
+        console.log(err);
       });
   };
 
@@ -145,7 +145,7 @@ class AddIssueForm extends Component {
       ...this.state.issue,
       date_created: today.toLocaleString("en-US"),
       status: "open",
-      tenant_id: 1,
+      tenant_id: 1
     };
 
     this.addIssue(issue).then(issues => {
@@ -172,7 +172,7 @@ class AddIssueForm extends Component {
               className={this.props.classes.backButton}
             >
               <Icon fontSize="small">arrow_back_ios</Icon>
-              BACK
+              PREVIOUS PAGE
             </Button>
             <Paper className={this.props.classes.formCard}>
               <div className={this.props.classes.pageContainer}>

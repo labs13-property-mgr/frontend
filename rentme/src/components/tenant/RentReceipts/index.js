@@ -53,7 +53,7 @@ class RentReceipts extends Component {
               className={this.props.classes.backButton}
             >
               <Icon fontSize="small">arrow_back_ios</Icon>
-              BACK
+              PREVIOUS PAGE
             </Button>
             <ul>
               <li>Receipt 1</li>
@@ -72,5 +72,5 @@ const condition = authUser => authUser && !!authUser.roles[ROLES.TENANT];
 
 export default compose(
   withStyles(styles),
-  withAuthorization(condition),
+  withAuthorization(condition)
 )(RentReceipts);

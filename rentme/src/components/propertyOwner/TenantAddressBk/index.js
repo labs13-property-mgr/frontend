@@ -82,6 +82,7 @@ class TenantAddressBk extends Component {
         this.setState({
           tenants: res.data
         });
+        console.log(res.data);
       })
       .catch(err => console.log("Crap!", err));
   }
@@ -178,7 +179,7 @@ class TenantAddressBk extends Component {
     const data = this.state.tenants.map(tenant => {
       return [
         tenant.id,
-        `${tenant.firstName} ${tenant.lastName}`,
+        `${tenant.First_name} ${tenant.Last_name}`,
         tenant.phone,
         tenant.email,
         tenant.address

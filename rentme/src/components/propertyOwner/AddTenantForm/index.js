@@ -118,12 +118,27 @@ class AddTenantForm extends Component {
         console.error("USERS ERROR", error);
       });
     axios
-      .get("https://rent-me-app.herokuapp.com/api/property")
+      .get("https://rent-me-app.herokuapp.com/api/user")
       .then(res => {
         this.setState({
-          properties: res.data
+          user: res.data.find(
+            user =>
+              user.uid === JSON.parse(localStorage.getItem("authUser")).uid
+          )
         });
-        console.log(res.data);
+        axios
+          .get("https://rent-me-app.herokuapp.com/api/property")
+          .then(res => {
+            const usersData = this.state.user;
+            const properties = res.data;
+            console.log(usersData);
+            this.setState({
+              properties: properties.filter(
+                property => property.owner_id === usersData.uid
+              )
+            });
+          })
+          .catch(err => console.log("Crap!", err));
       })
       .catch(error => {
         console.error("USERS ERROR", error);
@@ -206,7 +221,7 @@ class AddTenantForm extends Component {
               className={this.props.classes.backButton}
             >
               <Icon fontSize="small">arrow_back_ios</Icon>
-              BACK
+              PREVIOUS PAGE
             </Button>
             <Paper className={this.props.classes.formCard}>
               <div className={this.props.classes.pageContainer}>
