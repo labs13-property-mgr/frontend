@@ -12,6 +12,8 @@ import Hidden from "@material-ui/core/Hidden";
 import IconButton from "@material-ui/core/IconButton";
 import Toolbar from "@material-ui/core/Toolbar";
 import MenuIcon from "@material-ui/icons/Menu";
+import Typography from "@material-ui/core/Typography";
+import "typeface-roboto";
 
 const drawerWidth = 240;
 
@@ -77,13 +79,18 @@ const useStyles = makeStyles(theme => ({
 
   menuItem: {
     textDecoration: "none",
-    color: "black",
+    color: "white",
+    opacity: 0.8,
+    transition: "opacity 300ms ease",
     "&:hover": {
       color: "white",
-      backgroundColor: "#008c3a"
+      opacity: 1,
+      fontWeight: "bold"
+      // backgroundColor: "#008c3a"
     },
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
+    marginBottom: "1.5rem"
   },
 
   menuText: {
@@ -123,7 +130,10 @@ const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: ""
+    // backgroundColor: ""
+    backgroundImage:
+      "linear-gradient(to top, #7cba8b, #00aa9d, #0094b8, #0078c7, #3f51b5)",
+    color: "white"
   },
   content: {
     flexGrow: 1,
@@ -131,6 +141,9 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up("sm")]: {
       paddingLeft: drawerWidth
     }
+  },
+  menuSection: {
+    marginTop: "1.5rem"
   }
 }));
 
@@ -152,33 +165,52 @@ const OwnerUserMenu = props => {
     <div>
       <div className={classes.toolbar} />
       <div>
-        <List>
+        <List className={classes.menuSection}>
           <ListItemLink className={classes.menuItem} href="/owner-dash">
             <Icon fontSize="medium">home</Icon>
-            <p className={classes.menuText}>Dashboard</p>
+            <Typography variant="body1" className={classes.menuText}>
+              Dashboard
+            </Typography>
+            {/* <Icon fontSize="medium">home</Icon>
+            <p className={classes.menuText}>Dashboard</p> */}
           </ListItemLink>
           <ListItemLink className={classes.menuItem} href="/vendor-addbook">
             <Icon fontSize="medium">contacts</Icon>
-            <p className={classes.menuText}>Vendor Address Book</p>
+            <Typography variant="body1" className={classes.menuText}>
+              Vendor Address Book
+            </Typography>
+            {/* <p className={classes.menuText}>Vendor Address Book</p> */}
           </ListItemLink>
           <ListItemLink className={classes.menuItem} href="/tenant-addbook">
             <Icon fontSize="medium">contacts</Icon>
-            <p className={classes.menuText}>Tenant Address Book</p>
+            <Typography variant="body1" className={classes.menuText}>
+              Tenant Address Book
+            </Typography>
+            {/* <p className={classes.menuText}>Tenant Address Book</p> */}
           </ListItemLink>
         </List>
         <Divider />
-        <List>
+        <List className={classes.menuSection}>
           <ListItemLink className={classes.menuItem} href="/add-property">
             <Icon fontSize="medium">add_location</Icon>
-            <p className={classes.menuText}>Add Property</p>
+            <Typography variant="body1" className={classes.menuText}>
+              Add Property
+            </Typography>
+            {/* <p className={classes.menuText}>Add Property</p> */}
           </ListItemLink>
           <ListItemLink className={classes.menuItem} href="/add-tenant">
             <Icon fontSize="medium">group_add</Icon>
-            <p className={classes.menuText}>Add Tenants</p>
+            <Typography variant="body1" className={classes.menuText}>
+              Add Tenants
+            </Typography>
+            {/* <p className={classes.menuText}>Add Tenants</p> */}
           </ListItemLink>
           <ListItemLink className={classes.menuItem} href="/add-vendor">
             <Icon fontSize="medium">group_add</Icon>
-            <p className={classes.menuText}>Add Vendors/Service Providers</p>
+            <Typography variant="body1" className={classes.menuText}>
+              Add Vendors
+            </Typography>
+            {/* <p className={classes.menuText}>Add Vendors/Service Providers</p> */}
           </ListItemLink>
         </List>
       </div>
