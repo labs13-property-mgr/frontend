@@ -5,6 +5,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import axios from "axios";
 import { withStyles } from "@material-ui/core/styles";
 import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
+import ServiceRequests from './ServiceRequests'
 import Icon from "@material-ui/core/Icon";
 import { compose } from "recompose";
 import { withAuthorization } from "../../Session";
