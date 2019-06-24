@@ -1,5 +1,6 @@
 import React, {useState } from "react"
 import ServiceRequestModal from './ServiceRequestModal'
+
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent';
 
@@ -21,7 +22,7 @@ const ServiceRequest = () => {
     <>
       <Card className={classes.card}>
         <CardContent>
-          Request
+          <ServiceRequestModal />
         </CardContent>
       </Card>
     </>
