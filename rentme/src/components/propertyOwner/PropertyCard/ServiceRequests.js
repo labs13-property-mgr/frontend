@@ -1,9 +1,29 @@
 import React, {useState, useEffect} from "react"
+import ServiceRequest from './ServiceRequest'
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+  cardContainer: {
+    display: "flex",
+    width: "75%",
+    justifyContent: "space-around",
+    flexWrap: "wrap"
+  }
+})
+
 
 const ServiceRequests = () => {
 
+  const classes = useStyles()
+
   return (
-    <h1>Hello from service requests!</h1>
+    <div className={classes.cardContainer}>
+      <ServiceRequest />
+      <ServiceRequest />
+      <ServiceRequest />
+      <ServiceRequest />
+
+    </div>
   )
 }
 
