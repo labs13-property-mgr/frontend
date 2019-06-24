@@ -167,6 +167,8 @@ class PropertyCard extends Component {
             >
               Add a Tenant
             </Button>
+
+            <ServiceRequests />
           </div>
         </main>
       </div>
