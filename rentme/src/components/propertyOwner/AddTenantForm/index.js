@@ -310,8 +310,8 @@ class AddTenantForm extends Component {
                       variant="outlined"
                       id="additional adult Name"
                       label="Additional Tenant Name"
-                      name="Additional Adult Name"
-                      autoComplete="Additional Adult Name"
+                      name="additional adult name"
+                      autoComplete="additional adult name"
                       margin="normal"
                       autoFocus
                       onChange={this.handleChange}
