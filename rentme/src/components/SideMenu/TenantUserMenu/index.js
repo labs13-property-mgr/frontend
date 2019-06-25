@@ -12,6 +12,8 @@ import Hidden from "@material-ui/core/Hidden";
 import IconButton from "@material-ui/core/IconButton";
 import Toolbar from "@material-ui/core/Toolbar";
 import MenuIcon from "@material-ui/icons/Menu";
+import Typography from "@material-ui/core/Typography";
+import "typeface-roboto";
 
 const drawerWidth = 240;
 
@@ -77,13 +79,19 @@ const useStyles = makeStyles(theme => ({
 
   menuItem: {
     textDecoration: "none",
-    color: "black",
+    color: "white",
+    opacity: 0.8,
+    transition: "opacity 300ms ease",
     "&:hover": {
+      // color: "white",
+      // backgroundColor: "#008c3a"
       color: "white",
-      backgroundColor: "#008c3a"
+      opacity: 1,
+      fontWeight: "bold"
     },
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
+    marginBottom: "1.5rem"
   },
 
   menuText: {
@@ -98,7 +106,10 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: "1rem",
     paddingRight: "1rem",
     paddingTop: "1rem",
-    color: "grey"
+    color: "white",
+    fontSize: "1rem",
+    fontWeight: "bold",
+    marginTop: "1.5rem"
   },
   drawer: {
     [theme.breakpoints.up("sm")]: {
@@ -123,7 +134,9 @@ const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: ""
+    backgroundImage:
+      "linear-gradient(to top, #7cba8b, #00aa9d, #0094b8, #0078c7, #3f51b5)",
+    color: "white"
   },
   content: {
     flexGrow: 1,
@@ -131,6 +144,9 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up("sm")]: {
       paddingLeft: drawerWidth
     }
+  },
+  menuSection: {
+    marginTop: "1.5rem"
   }
 }));
 
@@ -152,31 +168,50 @@ const TenantUserMenu = props => {
     <div>
       <div className={classes.toolbar} />
       <div>
-        <h3 className={classes.resourcesHeader}>Leasing Documents</h3>
+        <Typography variant="h3" className={classes.resourcesHeader}>
+          Leasing Documents
+        </Typography>
         <List>
           <ListItemLink className={classes.menuItem} href="/tenant-dash">
             <Icon fontSize="medium">home</Icon>
-            <p className={classes.menuText}>Dashboard</p>
+            <Typography variant="body1" className={classes.menuText}>
+              Dashboard
+            </Typography>
+            {/* <p className={classes.menuText}>Dashboard</p> */}
           </ListItemLink>
           <ListItemLink className={classes.menuItem} href="/view-receipts">
             <Icon>folder</Icon>
-            <p className={classes.menuText}>Rent Receipts</p>
+            <Typography variant="body1" className={classes.menuText}>
+              Rent Receipts
+            </Typography>
+            {/* <p className={classes.menuText}>Rent Receipts</p> */}
           </ListItemLink>
           <ListItemLink className={classes.menuItem} href="/view-receipts">
             <Icon>folder</Icon>
-            <p className={classes.menuText}>Lease Application</p>
+            <Typography variant="body1" className={classes.menuText}>
+              Lease Application
+            </Typography>
+            {/* <p className={classes.menuText}>Lease Application</p> */}
           </ListItemLink>
           <ListItemLink className={classes.menuItem} href="/view-receipts">
             <Icon>folder</Icon>
-            <p className={classes.menuText}>Lease Agreement Contract</p>
+            <Typography variant="body1" className={classes.menuText}>
+              Lease Agreement Contract
+            </Typography>
+            {/* <p className={classes.menuText}>Lease Agreement Contract</p> */}
           </ListItemLink>
         </List>
         <Divider />
-        <h3 className={classes.resourcesHeader}>Maintenance & Requests</h3>
+        <Typography variant="h3" className={classes.resourcesHeader}>
+          Maintenance & Requests
+        </Typography>
         <List>
           <ListItemLink className={classes.menuItem} href="/add-work-request">
             <Icon>build</Icon>
-            <p className={classes.menuText}>Submit an Issue/Work Request</p>
+            <Typography variant="body1" className={classes.menuText}>
+              Submit an Issue/Work Request
+            </Typography>
+            {/* <p className={classes.menuText}>Submit an Issue/Work Request</p> */}
           </ListItemLink>
         </List>
       </div>

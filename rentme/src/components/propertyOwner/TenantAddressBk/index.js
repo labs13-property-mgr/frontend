@@ -11,6 +11,8 @@ import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import { withAuthorization } from "../../Session";
 import { compose } from "recompose";
+import Typography from "@material-ui/core/Typography";
+import "typeface-roboto";
 
 import * as ROLES from "../../../constants/roles";
 
@@ -63,6 +65,15 @@ const styles = theme => ({
       color: "#008c3a",
       backgroundColor: "transparent"
     }
+  },
+  h1: {
+    fontSize: "2.4rem",
+    marginBottom: "2rem",
+    marginTop: "2rem"
+  },
+  h2: {
+    fontSize: "2rem",
+    fontWeight: 500
   }
 });
 
@@ -200,7 +211,9 @@ class TenantAddressBk extends Component {
                 BACK
               </Button>
               <div className={this.props.classes.headerLayout}>
-                <h1>Tenant Address Book</h1>
+                <Typography variant="h1" className={this.props.classes.h1}>
+                  Tenant Address Book
+                </Typography>
                 <Tooltip title="Add a new tenant" placement="left">
                   <Link to="/add-tenant">
                     <Icon

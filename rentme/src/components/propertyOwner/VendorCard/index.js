@@ -15,6 +15,10 @@ import { withStyles } from "@material-ui/core/styles";
 import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
 import { withAuthorization } from "../../Session";
 import { compose } from "recompose";
+import Paper from "@material-ui/core/Paper";
+import Tooltip from "@material-ui/core/Tooltip";
+import Typography from "@material-ui/core/Typography";
+import "typeface-roboto";
 
 import * as ROLES from "../../../constants/roles";
 
@@ -29,7 +33,9 @@ const styles = theme => ({
     padding: theme.spacing(3),
     [theme.breakpoints.up("sm")]: {
       paddingLeft: drawerWidth
-    }
+    },
+    // border: "2px solid red",
+    height: "100vh"
   },
 
   dashboard: {
@@ -42,6 +48,63 @@ const styles = theme => ({
       color: "#008c3a",
       backgroundColor: "transparent"
     }
+  },
+  vendorCard: {
+    margin: "0 auto",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    width: "80%",
+    marginTop: "2rem",
+    padding: "1.5rem",
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center"
+    },
+    position: "relative",
+    zIndex: 1
+  },
+  buttons: {
+    display: "flex",
+    width: "20%",
+    margin: "0rem auto",
+    justifyContent: "space-evenly",
+    marginTop: "1rem",
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-around",
+      width: "80%"
+    }
+  },
+  buttonsandHeader: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center"
+    }
+  },
+  header: {
+    width: "100%",
+    [theme.breakpoints.down("sm")]: {
+      textAlign: "center"
+    },
+    fontSize: "2.4rem",
+    marginBottom: "2rem"
+  },
+  icon: {
+    "&:hover": {
+      color: "#008c3a"
+    }
+  },
+  h3: {
+    fontSize: "1.8rem",
+    fontWeight: 500
   }
 });
 
@@ -117,10 +180,36 @@ class VendorCard extends Component {
               <Icon fontSize="small">arrow_back_ios</Icon>
               PREVIOUS PAGE
             </Button>
-            <Container>
-              <h1>{this.state.vendor.company_name}'s Profile</h1>
+            <Paper className={this.props.classes.vendorCard}>
+              <div className={this.props.classes.buttonsandHeader}>
+                <Typography variant="h1" className={this.props.classes.header}>
+                  {this.state.vendor.company_name}'s Profile
+                </Typography>
+                <div className={this.props.classes.buttons}>
+                  <Tooltip title="Edit Vendor Info" placement="top">
+                    <Icon
+                      className={this.props.classes.icon}
+                      onClick={this.updateVendor}
+                      fontSize="medium"
+                    >
+                      edit
+                    </Icon>
+                  </Tooltip>
+                  <Tooltip title="Delete Vendor" placement="top">
+                    <Icon
+                      className={this.props.classes.icon}
+                      onClick={this.deleteVendor}
+                      fontSize="medium"
+                    >
+                      delete
+                    </Icon>
+                  </Tooltip>
+                </div>
+              </div>
               <div>
-                <h2>Details & Contact Information</h2>
+                <Typography variant="h3" className={this.props.classes.h3}>
+                  Details & Contact Information
+                </Typography>
                 <Grid container>
                   <Grid item md={6}>
                     <p>
@@ -133,10 +222,7 @@ class VendorCard extends Component {
                   </Grid>
                 </Grid>
               </div>
-              <Button onClick={this.updateVendor}>Edit Vendor</Button>
-              <Button onClick={this.deleteVendor}>Delete Vendor</Button>
-            </Container>
-            <hr />
+            </Paper>
           </div>
         </main>
       </div>
