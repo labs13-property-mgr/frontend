@@ -6,6 +6,7 @@ import axios from "axios";
 import { withStyles, createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
+import ServiceRequests from './ServiceRequests'
 import Icon from "@material-ui/core/Icon";
 import { compose } from "recompose";
 import { withAuthorization } from "../../Session";
@@ -276,7 +277,23 @@ class PropertyCard extends Component {
               <Tooltip title="Add Property Photo" placement="top">
                 <button onClick={this.handleUploadPicture}>Upload</button>
               </Tooltip>
+
+            </div>
+
+            <Button
+              type="submit"
+              size="medium"
+              variant="contained"
+              color="primary"
+              href="/add-tenant"
+            >
+              Add a Tenant
+            </Button>
+
+            <ServiceRequests />
+
             </div> */}
+
           </div>
         </main>
       </div>
