@@ -7,7 +7,8 @@ const useStyles = makeStyles({
     display: "flex",
     width: "75%",
     justifyContent: "space-around",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+    margin: "0 auto"
   }
 })
 
