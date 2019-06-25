@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Tooltip from "@material-ui/core/Tooltip";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Button from "@material-ui/core/Button";
@@ -11,6 +12,9 @@ import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
 import { withAuthorization } from "../../Session";
 import { compose } from "recompose";
+import Input from "@material-ui/core/Input";
+import Typography from "@material-ui/core/Typography";
+import "typeface-roboto";
 
 import * as ROLES from "../../../constants/roles";
 
@@ -47,6 +51,12 @@ const styles = theme => ({
     flexDirection: "column",
     justifyContent: "space-between"
   },
+
+  uploadField: {
+    marginTop: "2rem",
+    marginBottom: "2rem"
+  },
+
   pageContainer: {
     textAlign: "center",
     margin: "0 auto",
@@ -80,6 +90,14 @@ const styles = theme => ({
       color: "#008c3a",
       backgroundColor: "transparent"
     }
+  },
+  h1: {
+    fontSize: "2.4rem",
+    marginBottom: "2rem"
+  },
+  h2: {
+    fontSize: "2rem",
+    fontWeight: 500
   }
 });
 
@@ -147,6 +165,30 @@ class EditPropertyForm extends Component {
     this.updateProperty(this.state.activeProperty);
   };
 
+  handleImageChange = e => {
+    this.setState({
+      selectedFile: e.target.files[0]
+    });
+  };
+
+  handleUploadPicture = () => {
+    const fd = new FormData();
+    fd.append("image", this.state.selectedFile, this.state.selectedFile.name);
+    axios.post(
+      "https://us-central1-rentme-52af4.cloudfunctions.net/uploadFile",
+      fd,
+      {
+        onUploadProgress: progressEvent => {
+          console.log(
+            "Upload Progress: " +
+              Math.round((progressEvent.loaded / progressEvent.total) * 100) +
+              "%"
+          );
+        }
+      }
+    );
+  };
+
   goBack = e => {
     this.props.history.goBack();
   };
@@ -167,7 +209,9 @@ class EditPropertyForm extends Component {
             </Button>
             <Paper className={this.props.classes.formCard}>
               <div className={this.props.classes.pageContainer}>
-                <h1>Edit Property</h1>
+                <Typography variant="h1" className={this.props.classes.h1}>
+                  Edit Property
+                </Typography>
                 <div>
                   <form
                     onSubmit={this.onSubmitEditedProperty}
@@ -199,6 +243,22 @@ class EditPropertyForm extends Component {
                       onChange={this.handleChange}
                       value={this.state.activeProperty.address}
                     />
+                    <div className={this.props.classes.uploadField}>
+                      {this.selectedFile === null ? (
+                        <img src="./" />
+                      ) : (
+                        <img src={this.selectedFile} />
+                      )}
+                      <Tooltip title="Add Property Photo" placement="left">
+                        <Input
+                          type="file"
+                          variant="outlined"
+                          onChange={this.handleImageChange}
+                        />
+                      </Tooltip>
+
+                      <Button onClick={this.handleUploadPicture}>Upload</Button>
+                    </div>
                     <div className={this.props.classes.buttons}>
                       <Grid item xs={12} md={5}>
                         <Button

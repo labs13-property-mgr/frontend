@@ -10,6 +10,8 @@ import Icon from "@material-ui/core/Icon";
 import TablePagination from "@material-ui/core/TablePagination";
 import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
 import Input from "@material-ui/core/Input";
+import Typography from "@material-ui/core/Typography";
+import "typeface-roboto";
 
 import { withAuthorization } from "../../Session";
 import * as ROLES from "../../../constants/roles";
@@ -81,6 +83,14 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up("sm")]: {
       paddingLeft: drawerWidth
     }
+  },
+  h1: {
+    fontSize: "2.4rem",
+    marginBottom: "2rem"
+  },
+  h2: {
+    fontSize: "2rem",
+    fontWeight: 500
   }
 }));
 
@@ -146,10 +156,14 @@ const PropertyDash = props => {
         <OwnerUserMenu />
         <main className={classes.content}>
           <div className={classes.dashboard}>
-            <h1>Property Owner Dashboard</h1>
+            <Typography className={classes.h1} variant="h1">
+              Property Owner Dashboard
+            </Typography>
             {/*Dashboard content */} {/* list of owner's properties */}
             <div className={classes.headerPlusSearch}>
-              <h2>Properties</h2>
+              <Typography className={classes.h2} variant="h2">
+                Properties
+              </Typography>
               <div className={classes.dashboardSearch}>
                 <Icon fontSize="medium">search</Icon>
                 <Input
