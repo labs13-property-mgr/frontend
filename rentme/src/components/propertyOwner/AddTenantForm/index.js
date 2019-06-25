@@ -143,11 +143,13 @@ class AddTenantForm extends Component {
           .then(res => {
             const usersData = this.state.user;
             const properties = res.data;
+            const propertiesData = properties.filter(
+              property => property.owner_id === usersData.uid
+            );
+            propertiesData.push({ id: NaN, property_name: "None" });
             console.log(usersData);
             this.setState({
-              properties: properties.filter(
-                property => property.owner_id === usersData.uid
-              )
+              properties: propertiesData
             });
           })
           .catch(err => console.log("Crap!", err));
@@ -171,38 +173,39 @@ class AddTenantForm extends Component {
 
   // setActiveTenant = e => {};
 
-  // handleChange = e => {
-  //   // e.persist();
-  //   console.log(this.state.tenant);
-  //   if (e.target.name === "property_id" && e.target.value !== null) {
-  //     this.setState({
-  //       tenant: {
-  //         ...this.state.tenant,
-  //         [e.target.name]: e.target.value,
-  //         active_tenant: true
-  //       }
-  //     });
-  //   } else {
-  //     this.setState({
-  //       tenant: {
-  //         ...this.state.tenant,
-  //         [e.target.name]: e.target.value
-  //       }
-  //     });
-  //   }
-  //   console.log(e.target.name);
-  //   console.log(e.target.value);
-  // };
-
   handleChange = e => {
-    e.persist();
-    this.setState({
-      tenant: {
-        ...this.state.tenant,
-        [e.target.name]: e.target.value
-      }
-    });
+    // e.persist();
+    console.log(this.state.tenant);
+    if (e.target.name === "property_id" && e.target.value !== null) {
+      this.setState({
+        tenant: {
+          ...this.state.tenant,
+          [e.target.name]: e.target.value,
+          active_tenant: true
+        }
+      });
+    } else {
+      this.setState({
+        tenant: {
+          ...this.state.tenant,
+          [e.target.name]: e.target.value,
+          active_tenant: false
+        }
+      });
+    }
+    console.log(e.target.name);
+    console.log(e.target.value);
   };
+
+  // handleChange = e => {
+  //   e.persist();
+  //   this.setState({
+  //     tenant: {
+  //       ...this.state.tenant,
+  //       [e.target.name]: e.target.value
+  //     }
+  //   });
+  // };
 
   onSubmitAddTenant = e => {
     e.preventDefault();
@@ -354,7 +357,6 @@ class AddTenantForm extends Component {
                       id="property_id"
                       name="property_id"
                       select
-                      required
                       label="Property associated with tenant"
                       value={this.state.tenant["property_id"]}
                       onChange={this.handleChange}
@@ -367,6 +369,11 @@ class AddTenantForm extends Component {
                           {property.property_name}
                         </MenuItem>
                       ))}
+                      {/* {propertiesData.map(property => (
+                        <MenuItem key={property.id} value={property.id}>
+                          {property.property_name}
+                        </MenuItem>
+                      ))} */}
                     </TextField>
                     <div className={this.props.classes.buttons}>
                       <Grid item xs={12} md={5}>
