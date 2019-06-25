@@ -80,22 +80,70 @@ const styles = theme => ({
 class TenantAddressBk extends Component {
   state = {
     tenants: [],
+    users: [],
+    user: {},
     anchorEl: null,
     clickedButton: null,
     currentRow: []
   };
 
+  // componentDidMount() {
+  //   const endpoint = "https://rent-me-app.herokuapp.com/api/user";
+  //   axios
+  //     .get(endpoint)
+  //     .then(res => {
+  //       this.setState({
+  //         users: res.data,
+  //         user: res.data.find(
+  //           user =>
+  //             user.uid === JSON.parse(localStorage.getItem("authUser")).uid
+  //         )
+  //       });
+  //   axios
+  //     .get("https://rent-me-app.herokuapp.com/api/tenant")
+  //     .then(res => {
+  //       const usersData = this.state.user;
+  //       const tenants = res.data;
+  //       console.log("Users for Tenants", usersData);
+  //       this.setState({
+  //         tenants: tenants.filter(
+  //           tenant => tenant.owner_id === usersData.uid
+  //         )
+  //       });
+  //       console.log(res.data);
+  //     })
+  //     .catch(err => console.log("Crap!", err));
+  // }
+
   componentDidMount() {
-    const endpoint = "https://rent-me-app.herokuapp.com/api/tenant";
+    const endpoint = "https://rent-me-app.herokuapp.com/api/user";
     axios
       .get(endpoint)
       .then(res => {
         this.setState({
-          tenants: res.data
+          users: res.data,
+          user: res.data.find(
+            user =>
+              user.uid === JSON.parse(localStorage.getItem("authUser")).uid
+          )
         });
-        console.log(res.data);
+        axios
+          .get("https://rent-me-app.herokuapp.com/api/tenant")
+          .then(res => {
+            const usersData = this.state.user;
+            const tenants = res.data;
+            console.log("Users", usersData);
+            this.setState({
+              tenants: tenants.filter(
+                tenant => tenant.owner_id === usersData.uid
+              )
+            });
+          })
+          .catch(err => console.log("Crap!", err));
       })
-      .catch(err => console.log("Crap!", err));
+      .catch(error => {
+        console.error("USERS ERROR", error);
+      });
   }
 
   goBack = e => {

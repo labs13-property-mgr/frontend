@@ -211,8 +211,10 @@ class AddTenantForm extends Component {
     };
     this.addTenant(tenant).then(tenants => {
       this.setState({
-        tenants: tenants
+        tenants: tenants,
+        tenant: tenant
       });
+      console.log("New Tenant", this.state.tenant);
       return this.props.history.push("/tenant-addbook");
     });
   };

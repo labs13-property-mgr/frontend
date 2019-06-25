@@ -205,25 +205,25 @@ class EditTenantForm extends Component {
                       required
                       id="firstName"
                       label="First Name"
-                      name="firstName"
-                      autoComplete="firstName"
+                      name="First_name"
+                      autoComplete="First_name"
                       margin="normal"
                       autoFocus
                       onChange={this.handleChange}
-                      value={this.state.activeTenant["firstName"]}
+                      value={this.state.activeTenant["First_name"]}
                     />
                     <TextField
                       variant="outlined"
                       fullWidth
                       required
-                      id="lastName"
+                      id="Last_name"
                       label="Last Name"
-                      name="lastName"
-                      autoComplete="lastName"
+                      name="Last_name"
+                      autoComplete="Last_name"
                       margin="normal"
                       autoFocus
                       onChange={this.handleChange}
-                      value={this.state.activeTenant["lastName"]}
+                      value={this.state.activeTenant["Last_name"]}
                     />
                     <TextField
                       variant="outlined"
