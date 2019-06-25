@@ -306,7 +306,7 @@ class AddTenantForm extends Component {
                       onChange={this.handleChange}
                       value={this.state.tenant["Spouse Name"]}
                     />
-                    <TextField
+                    {/* <TextField
                       variant="outlined"
                       id="additional adult Name"
                       label="Additional Tenant Name"
@@ -316,7 +316,7 @@ class AddTenantForm extends Component {
                       autoFocus
                       onChange={this.handleChange}
                       value={this.state.tenant["additional adult name"]}
-                    />
+                    /> */}
                     <TextField
                       variant="outlined"
                       id="child name"
