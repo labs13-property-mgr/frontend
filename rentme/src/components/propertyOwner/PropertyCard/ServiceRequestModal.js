@@ -8,21 +8,21 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   form: {
-    width: "50%",
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(4),
     textAlign: "center",
-    outline: 'none',
-    margin: "0 auto"
+    margin: "0 auto",
+    width: "100%",
   },
 
   formContainer: {
-    width: "100%",
-    height: "100%",
+    width: "50%",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    margin: "0 auto",
+    marginTop: "80px"
   }
 }));
 
