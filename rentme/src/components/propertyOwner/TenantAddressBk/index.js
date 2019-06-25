@@ -87,34 +87,6 @@ class TenantAddressBk extends Component {
     currentRow: []
   };
 
-  // componentDidMount() {
-  //   const endpoint = "https://rent-me-app.herokuapp.com/api/user";
-  //   axios
-  //     .get(endpoint)
-  //     .then(res => {
-  //       this.setState({
-  //         users: res.data,
-  //         user: res.data.find(
-  //           user =>
-  //             user.uid === JSON.parse(localStorage.getItem("authUser")).uid
-  //         )
-  //       });
-  //   axios
-  //     .get("https://rent-me-app.herokuapp.com/api/tenant")
-  //     .then(res => {
-  //       const usersData = this.state.user;
-  //       const tenants = res.data;
-  //       console.log("Users for Tenants", usersData);
-  //       this.setState({
-  //         tenants: tenants.filter(
-  //           tenant => tenant.owner_id === usersData.uid
-  //         )
-  //       });
-  //       console.log(res.data);
-  //     })
-  //     .catch(err => console.log("Crap!", err));
-  // }
-
   componentDidMount() {
     const endpoint = "https://rent-me-app.herokuapp.com/api/user";
     axios
@@ -145,6 +117,16 @@ class TenantAddressBk extends Component {
         console.error("USERS ERROR", error);
       });
   }
+
+  setActiveTenant = tenant => {
+    this.setState({ activeTenant: tenant });
+  };
+
+  updateTenant = e => {
+    e.preventDefault();
+    this.setActiveTenant(this.state.tenant);
+    this.props.history.push(`/edit-tenant/${this.state.currentRow[0]}`);
+  };
 
   goBack = e => {
     this.props.history.goBack();
@@ -312,13 +294,7 @@ class TenantAddressBk extends Component {
                   >
                     Leasing Documents
                   </MenuItem>
-                  <MenuItem
-                    onClick={e => {
-                      this.props.history.push(
-                        `/edit-tenant/${this.state.currentRow[0]}`
-                      );
-                    }}
-                  >
+                  <MenuItem onClick={this.updateTenant}>
                     Edit Information
                   </MenuItem>
                 </div>

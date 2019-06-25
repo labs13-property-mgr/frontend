@@ -342,7 +342,6 @@ class EditTenantForm extends Component {
                     <TextField
                       variant="outlined"
                       margin="normal"
-                      required
                       fullWidth
                       id="emergency contact"
                       label="emergency contact"

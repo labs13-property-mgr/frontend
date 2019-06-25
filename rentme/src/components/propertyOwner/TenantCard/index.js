@@ -4,17 +4,15 @@ import axios from "axios";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/styles";
-import Grid from "@material-ui/core/Grid";
-import Container from "@material-ui/core/Container";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
 import Icon from "@material-ui/core/Icon";
-import Box from "@material-ui/core/Box";
 import { withStyles } from "@material-ui/core/styles";
 import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
 import { withAuthorization } from "../../Session";
 import { compose } from "recompose";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import Tooltip from "@material-ui/core/Tooltip";
+import "typeface-roboto";
 
 import * as ROLES from "../../../constants/roles";
 
@@ -29,7 +27,8 @@ const styles = theme => ({
     padding: theme.spacing(3),
     [theme.breakpoints.up("sm")]: {
       paddingLeft: drawerWidth
-    }
+    },
+    height: "100vh"
   },
 
   dashboard: {
@@ -37,6 +36,66 @@ const styles = theme => ({
       marginLeft: "1.5rem"
     }
   },
+
+  tenantCard: {
+    margin: "0 auto",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    width: "80%",
+    marginTop: "2rem",
+    padding: "1.5rem",
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center"
+    },
+    position: "relative",
+    zIndex: 1
+  },
+
+  buttons: {
+    display: "flex",
+    width: "20%",
+    margin: "0rem auto",
+    justifyContent: "space-evenly",
+    marginTop: "1rem",
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-around",
+      width: "80%"
+    }
+  },
+  buttonsandHeader: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center"
+    }
+  },
+  header: {
+    width: "100%",
+    [theme.breakpoints.down("sm")]: {
+      textAlign: "center"
+    },
+    fontSize: "2.4rem",
+    marginBottom: "2rem"
+  },
+  icon: {
+    "&:hover": {
+      color: "#008c3a"
+    }
+  },
+  h2: {
+    fontSize: "2rem",
+    fontWeight: 500
+  },
+
   backButton: {
     "&:hover": {
       color: "#008c3a",
@@ -62,11 +121,13 @@ class TenantCard extends Component {
     axios
       .get(endpoint)
       .then(res => {
+        const tenants = res.data;
+        const tenant = res.data.find(
+          tenant => `${tenant.id}` === this.props.match.params.id
+        );
         this.setState({
-          tenants: res.data,
-          tenant: res.data.find(
-            tenant => `${tenant.id}` === this.props.match.params.id
-          )
+          tenants: tenants,
+          tenant: tenant
         });
       })
       .catch(error => {
@@ -138,66 +199,94 @@ class TenantCard extends Component {
               <Icon fontSize="small">arrow_back_ios</Icon>
               PREVIOUS PAGE
             </Button>
-            <Container>
-              <h1>{this.state.tenant["firstName"]}'s Profile</h1>
-              <div>
-                <h2>Personal & Contact Information</h2>
-                <Grid container>
-                  <Grid item md={6}>
-                    <p>
-                      Full Name: {this.state.tenant["firstName"]}{" "}
-                      {this.state.tenant["lastName"]}
-                    </p>
-                    <p>
-                      Spouse's Name:
-                      {` ${
-                        this.state.tenant["Spouse Name"] === ""
-                          ? "N/A"
-                          : `${this.state.tenant["Spouse Name"]}`
-                      }`}
-                    </p>
-                    <p>
-                      Number in Household:
-                      {` ${
-                        this.state.tenant["number in household"] === ""
-                          ? "N/A"
-                          : `${this.state.tenant["number in household"]}`
-                      }`}
-                    </p>
-                    <p>
-                      Contact Info:
-                      {` ${
-                        this.state.tenant["phone"] === ""
-                          ? "N/A"
-                          : `${this.state.tenant["phone"]}`
-                      }`}
-                    </p>
-                    <p>
-                      Emergency Contact:{" "}
-                      {this.state.tenant["emergency contact"]}
-                    </p>
-                    {this.state.property && (
-                      <>
-                        <p>
-                          Property Name:
-                          {` ${
-                            this.state.property.property_name === ""
-                              ? "N/A"
-                              : `${this.state.property.property_name}`
-                          }`}{" "}
-                        </p>
-                        <Link to={`/property-card/${this.state.property.id}`}>
-                          Property Details
-                        </Link>
-                      </>
-                    )}
-                  </Grid>
-                </Grid>
-              </div>
-              <Button onClick={this.updateTenant}>Edit Tenant</Button>
-              <Button onClick={this.deleteTenant}>Delete Tenant</Button>
-            </Container>
-            <hr />
+            <div>
+              <Paper className={this.props.classes.tenantCard}>
+                <div className={this.props.classes.buttonsandHeader}>
+                  <Typography
+                    variant="h1"
+                    className={this.props.classes.header}
+                  >
+                    {this.state.tenant["First_name"]}'s Profile
+                  </Typography>
+                  <div className={this.props.classes.buttons}>
+                    <Tooltip title="Edit Tenant Info" placement="top">
+                      <Icon
+                        className={this.props.classes.icon}
+                        onClick={this.updateTenant}
+                        fontSize="medium"
+                      >
+                        edit
+                      </Icon>
+                    </Tooltip>
+                    <Tooltip title="Delete Tenant" placement="top">
+                      <Icon
+                        className={this.props.classes.icon}
+                        onClick={this.deleteTenant}
+                        fontSize="medium"
+                      >
+                        delete
+                      </Icon>
+                    </Tooltip>
+                  </div>
+                </div>
+                <div>
+                  <Typography variant="h2" className={this.props.classes.h2}>
+                    Personal & Contact Information
+                  </Typography>
+                  <p>
+                    Full Name: {this.state.tenant["First_name"]}{" "}
+                    {this.state.tenant["Last_name"]}
+                  </p>
+                  <p>
+                    Spouse's Name:
+                    {` ${
+                      this.state.tenant["Spouse Name"] === ""
+                        ? "N/A"
+                        : `${this.state.tenant["Spouse Name"]}`
+                    }`}
+                  </p>
+                  <p>
+                    Number in Household:
+                    {` ${
+                      this.state.tenant["number in household"] === ""
+                        ? "N/A"
+                        : `${this.state.tenant["number in household"]}`
+                    }`}
+                  </p>
+                  <p>
+                    Contact Info:
+                    {` ${
+                      this.state.tenant["phone"] === ""
+                        ? "N/A"
+                        : `${this.state.tenant["phone"]}`
+                    }`}
+                  </p>
+                  <p>
+                    Emergency Contact:{" "}
+                    {` ${
+                      this.state.tenant["emergency contact"] === ""
+                        ? "N/A"
+                        : `${this.state.tenant["emergency contact"]}`
+                    }`}
+                  </p>
+                  {this.state.property && (
+                    <>
+                      <p>
+                        Property Name:
+                        {` ${
+                          this.state.property.property_name === ""
+                            ? "N/A"
+                            : `${this.state.property.property_name}`
+                        }`}{" "}
+                      </p>
+                      <Link to={`/property-card/${this.state.property.id}`}>
+                        Property Details
+                      </Link>
+                    </>
+                  )}
+                </div>
+              </Paper>
+            </div>
           </div>
         </main>
       </div>
