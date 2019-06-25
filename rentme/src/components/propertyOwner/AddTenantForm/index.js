@@ -110,6 +110,7 @@ class AddTenantForm extends Component {
         ["number in household"]: "",
         ["child name"]: "",
         ["emergency contact"]: "",
+        ["owner_id"]: JSON.parse(localStorage.getItem("authUser")).uid,
         active_tenant: false
       },
       properties: []
@@ -168,7 +169,7 @@ class AddTenantForm extends Component {
       });
   };
 
-  setActiveTenant = e => {};
+  // setActiveTenant = e => {};
 
   // handleChange = e => {
   //   // e.persist();
