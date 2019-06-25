@@ -10,6 +10,8 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import { compose } from "recompose";
+import Typography from "@material-ui/core/Typography";
+import "typeface-roboto";
 
 import { withAuthorization } from "../../Session";
 import * as ROLES from "../../../constants/roles";
@@ -63,12 +65,23 @@ const styles = theme => ({
       color: "#008c3a",
       backgroundColor: "transparent"
     }
+  },
+  h1: {
+    fontSize: "2.4rem",
+    marginBottom: "2rem",
+    marginTop: "2rem"
+  },
+  h2: {
+    fontSize: "2rem",
+    fontWeight: 500
   }
 });
 
 class VendorAddressBk extends Component {
   state = {
     vendors: [],
+    users: [],
+    user: {},
     anchorEl: null,
     clickedButton: null,
     currentRow: []
@@ -91,7 +104,7 @@ class VendorAddressBk extends Component {
           .then(res => {
             const usersData = this.state.user;
             const vendors = res.data;
-            console.log(usersData);
+            console.log("Users", usersData);
             this.setState({
               vendors: vendors.filter(
                 vendor => vendor.owner_id === usersData.uid
@@ -218,7 +231,9 @@ class VendorAddressBk extends Component {
                 BACK
               </Button>
               <div className={this.props.classes.headerLayout}>
-                <h1>Vendor Address Book</h1>
+                <Typography variant="h1" className={this.props.classes.h1}>
+                  Vendor Address Book
+                </Typography>
                 <Tooltip title="Add a new vendor" placement="left">
                   <Link to="/add-vendor">
                     <Icon

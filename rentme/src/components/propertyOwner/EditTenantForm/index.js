@@ -12,6 +12,8 @@ import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
 import { withAuthorization } from "../../Session";
 import { compose } from "recompose";
+import Typography from "@material-ui/core/Typography";
+import "typeface-roboto";
 
 import * as ROLES from "../../../constants/roles";
 
@@ -81,6 +83,14 @@ const styles = theme => ({
       color: "#008c3a",
       backgroundColor: "transparent"
     }
+  },
+  h1: {
+    fontSize: "2.4rem",
+    marginBottom: "2rem"
+  },
+  h2: {
+    fontSize: "2rem",
+    fontWeight: 500
   }
 });
 
@@ -181,7 +191,9 @@ class EditTenantForm extends Component {
             </Button>
             <Paper className={this.props.classes.formCard}>
               <div className={this.props.classes.pageContainer}>
-                <h1>Edit Tenant</h1>
+                <Typography variant="h1" className={this.props.classes.h1}>
+                  Edit Tenant
+                </Typography>
                 <div>
                   <form
                     onSubmit={this.onSubmitEditedTenant}
