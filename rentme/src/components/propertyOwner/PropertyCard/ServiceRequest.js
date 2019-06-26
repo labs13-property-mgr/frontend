@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   card: {
-    minWidth: "48%",
+    minWidth: "45%",
     margin: "10px 5px",
     textAlign: "center",
   }
