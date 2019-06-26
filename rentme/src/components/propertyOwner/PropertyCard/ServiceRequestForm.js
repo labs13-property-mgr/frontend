@@ -22,7 +22,8 @@ const useStyles = makeStyles({
 
 })
 
-const generateGridValues = (columnStart, columnEnd, rowStart, rowEnd, ...args) => {
+//generates grid column, row and alignments for grid item placements
+const generateGridValues = (columnStart, columnEnd, rowStart, rowEnd) => {
   return {
     gridColumnStart: `${columnStart}`,
     gridColumnEnd: `${columnEnd}`,
