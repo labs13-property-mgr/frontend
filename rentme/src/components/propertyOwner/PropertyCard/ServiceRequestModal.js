@@ -34,10 +34,10 @@ const ServiceRequestModal = props => {
     setModalOpen(!modalOpen)
   }
 
-
+  const { request_name } = props.request
   return (
      <div>
-      <Button onClick={handleClick}>Open Request</Button>
+      <Button onClick={handleClick}>{request_name}</Button>
       <Modal
         aria-labelledby="Edit service request form"
         aria-describedby="Form for editing service request"
