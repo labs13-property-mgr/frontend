@@ -42,11 +42,11 @@ const TrackerBar = props => {
     }
   }, [])
 
-  let { classes, request } = props;
-
+  let { classes, request, } = props;
+  let { request_name, received } = props.request
   return (
     <div className={props.classes.progressBarSection}>
-      <h4>Request Name: {request.request_name}</h4>
+      <h4>Request Name: {request_name}</h4>
 
       <LinearProgress
         className={classes.progressBar}
@@ -121,7 +121,7 @@ const TrackerBar = props => {
             className={isGreaterOrIsEqual(progressWidth, 0, "step-text")}
 
             >
-              <p>{request.received ? "Request received" : "Request sent"}</p>
+              <p>{received ? "Request received" : "Request sent"}</p>
             </div>
 
           </>
