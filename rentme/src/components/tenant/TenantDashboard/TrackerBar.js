@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
 import { CheckProgress, isGreaterOrIsEqual } from './helpers'
 import DeleteButton from './DeleteButton'
+import axios from 'axios'
 
 const TrackerBar = props => {
   const [currentStep, setCurrentStep] = useState(null);
@@ -44,12 +45,21 @@ const TrackerBar = props => {
     }
   }, [])
 
-  let { classes, request, } = props;
-  let { request_name, received, resolved_tenant, resolved_owner } = props.request
+  let { classes, request, handleDeleteRequest } = props;
+  let {
+    request_name,
+    received,
+    resolved_tenant,
+    resolved_owner,
+    id } = props.request
+
   return (
     <div className={props.classes.progressBarSection}>
       <h4 style={{ display: "inline-block"}}>Request Name: {request_name}</h4>
-      <DeleteButton request={request} />
+      <DeleteButton
+       request={request}
+       handleDeleteRequest={handleDeleteRequest}
+      />
       <LinearProgress
         className={classes.progressBar}
         variant="determinate"
