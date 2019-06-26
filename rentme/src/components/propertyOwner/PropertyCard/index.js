@@ -154,23 +154,6 @@ class PropertyCard extends Component {
     open: true
   };
 
-  // componentDidMount() {
-  //   const endpoint = "https://rent-me-app.herokuapp.com/api/property";
-  //   axios
-  //     .get(endpoint)
-  //     .then(res => {
-  //       this.setState({
-  //         properties: res.data,
-  //         property: res.data.find(
-  //           property => `${property.id}` === this.props.match.params.id
-  //         )
-  //       });
-  //     })
-  //     .catch(error => {
-  //       console.error("USERS ERROR", error);
-  //     });
-  // }
-
   componentDidMount() {
     const endpoint = "https://rent-me-app.herokuapp.com/api/property";
     axios
@@ -209,8 +192,6 @@ class PropertyCard extends Component {
         this.setState({ properties });
 
         this.props.history.push("/owner-dash");
-        // console.log(res);
-        // redirect
       })
       .catch(err => {
         console.log(err);
