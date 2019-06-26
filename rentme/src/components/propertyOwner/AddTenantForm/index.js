@@ -100,16 +100,16 @@ class AddTenantForm extends Component {
     this.state = {
       tenants: [],
       tenant: {
-        ["property_id"]: "",
-        ["First_name"]: "",
-        ["Last_name"]: "",
-        ["phone"]: "",
-        ["email"]: "",
-        ["Spouse Name"]: "",
-        ["additional adult name"]: "",
-        ["number in household"]: "",
-        ["child name"]: "",
-        ["emergency contact"]: "",
+        // ["property_id"]: "",
+        // ["First_name"]: "",
+        // ["Last_name"]: "",
+        // ["phone"]: "",
+        // ["email"]: "",
+        // ["Spouse Name"]: "",
+        // ["additional adult name"]: "",
+        // ["number in household"]: "",
+        // ["child name"]: "",
+        // ["emergency contact"]: "",
         ["owner_id"]: JSON.parse(localStorage.getItem("authUser")).uid,
         active_tenant: false
       },
@@ -258,6 +258,7 @@ class AddTenantForm extends Component {
                       name="First_name"
                       autoComplete="First_name"
                       margin="normal"
+                      defaultValue=""
                       autoFocus
                       onChange={this.handleChange}
                       value={this.state.tenant["First_name"]}
@@ -269,6 +270,7 @@ class AddTenantForm extends Component {
                       label="Last Name"
                       name="Last_name"
                       autoComplete="Last_name"
+                      defaultValue=""
                       margin="normal"
                       autoFocus
                       onChange={this.handleChange}
@@ -280,6 +282,7 @@ class AddTenantForm extends Component {
                       required
                       id="phone"
                       label="Phone Number"
+                      defaultValue=""
                       name="phone"
                       autoComplete="phone"
                       autoFocus
@@ -294,6 +297,7 @@ class AddTenantForm extends Component {
                       label="Email"
                       name="email"
                       autoComplete="email"
+                      defaultValue=""
                       autoFocus
                       onChange={this.handleChange}
                       value={this.state.tenant["email"]}
@@ -304,6 +308,7 @@ class AddTenantForm extends Component {
                       label="Spouse's Name"
                       name="Spouse Name"
                       autoComplete="Spouse Name"
+                      defaultValue=""
                       margin="normal"
                       autoFocus
                       onChange={this.handleChange}
@@ -326,6 +331,7 @@ class AddTenantForm extends Component {
                       label="Child Name"
                       name="child name"
                       autoComplete="child name"
+                      defaultValue=""
                       margin="normal"
                       autoFocus
                       onChange={this.handleChange}
@@ -338,6 +344,7 @@ class AddTenantForm extends Component {
                       label="Number of tenants in household"
                       name="number in household"
                       autoComplete="number in household"
+                      defaultValue=""
                       type="number"
                       onChange={this.handleChange}
                       value={this.state.tenant["number in household"]}
@@ -349,6 +356,7 @@ class AddTenantForm extends Component {
                       label="Emergency Contact Number"
                       name="emergency contact"
                       autoComplete="emergency contact"
+                      defaultValue=""
                       autoFocus
                       onChange={this.handleChange}
                       value={this.state.tenant["emergency contact"]}
@@ -362,6 +370,7 @@ class AddTenantForm extends Component {
                       onChange={this.handleChange}
                       helperText="Select which property from your list of properties to tie the tenant to."
                       margin="normal"
+                      defaultValue=""
                       variant="outlined"
                     >
                       {this.state.properties.map(property => (
