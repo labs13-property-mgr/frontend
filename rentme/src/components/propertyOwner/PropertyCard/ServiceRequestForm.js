@@ -33,7 +33,7 @@ const generateGridValues = (columnStart, columnEnd, rowStart, rowEnd, ...args) =
 }
 
 const ServiceRequestForm = props => {
-  const { request_name, notes, date_created, id, appointment } = props.request
+  const { request_name, notes, date_created, id, appointment, received } = props.request
 
   const [ requestStatus, setStatus ] = useState("")
 
@@ -49,9 +49,22 @@ const ServiceRequestForm = props => {
       appointment: appointment
     })
     setStatus(props.request.status)
+    triggerReceived()
   }, [])
 
   const classes = useStyles()
+
+  const triggerReceived = e => {
+    if(!received) {
+      axios.put(`https://rent-me-app.herokuapp.com/api/service/${id}`, { received: true })
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  }
 
   const handleDropdown = e => {
     setStatus(e.target.value)
@@ -72,16 +85,14 @@ const ServiceRequestForm = props => {
     let updatedValues = {...values, status}
     axios.put(`https://rent-me-app.herokuapp.com/api/service/${id}`, updatedValues)
       .then(res => {
-        console.log(res)
+        return res
       })
       .catch(err => console.log(err))
 
   }
   return (
     <>
-
     <form className={classes.formContainer} onSubmit={e => handleSubmit(e)}>
-      {console.log(props.request)}
       <TextField
         variant="outlined"
         label="Name"
