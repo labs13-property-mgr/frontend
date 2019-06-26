@@ -14,15 +14,14 @@ const useStyles = makeStyles({
   }
 })
 
-const ServiceRequest = () => {
-
+const ServiceRequest = props => {
   const classes = useStyles()
 
   return (
     <>
       <Card className={classes.card}>
         <CardContent>
-          <ServiceRequestModal />
+          <ServiceRequestModal request={props.request} />
         </CardContent>
       </Card>
     </>
