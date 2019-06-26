@@ -6,6 +6,8 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
+
 import axios from 'axios'
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -85,6 +87,7 @@ const ServiceRequestForm = props => {
           console.log(err)
         })
     }
+
   }
 
   const handleDropdown = e => {
@@ -166,8 +169,13 @@ const ServiceRequestForm = props => {
         style={generateGridValues(1, 7, 5, 6)}
       />
       <div style={generateGridValues(2, 6, 6, 6)}>
-        <Button type="submit">Submit</Button>
-        <Button onClick={e => triggerResolved(e)}>Resolve</Button>
+        <Tooltip title="Update request">
+          <Button type="submit">Submit</Button>
+        </Tooltip>
+        <Tooltip title="Resolve request">
+          <Button onClick={e => triggerResolved(e)}>Resolve</Button>
+        </Tooltip>
+
       </div>
     </form>
     </>
