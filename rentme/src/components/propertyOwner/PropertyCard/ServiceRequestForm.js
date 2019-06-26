@@ -75,6 +75,18 @@ const ServiceRequestForm = props => {
     }
   }
 
+  const triggerResolved = e => {
+    if(!resolved_owner) {
+      axios.put(`https://rent-me-app.herokuapp.com/api/service/${id}`, { resolved_owner: true })
+        .then(res => {
+          return res
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  }
+
   const handleDropdown = e => {
     setStatus(e.target.value)
   }
