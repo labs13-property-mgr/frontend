@@ -23,6 +23,11 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "center",
     margin: "0 auto",
     marginTop: "80px"
+  },
+  center: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
   }
 }));
 
