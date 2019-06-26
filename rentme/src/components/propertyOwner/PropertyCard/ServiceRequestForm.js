@@ -6,6 +6,7 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import axios from 'axios'
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -32,16 +33,23 @@ const generateGridValues = (columnStart, columnEnd, rowStart, rowEnd, ...args) =
 }
 
 const ServiceRequestForm = props => {
-  const { name, status, vendor, date_submitted, } = props
+  const { request_name, notes, date_created, id, appointment } = props.request
 
-  const [ requestStatus, setStatus ] = useState("open")
+  const [ requestStatus, setStatus ] = useState("")
 
   const [ values, setValues ] = useState({
-    vendor_name: "",
-    vendor_phone: "",
-    scheduled_date: "",
+    appointment: "",
     notes: ""
   })
+
+  useEffect(() => {
+    setValues({
+      ...values,
+      notes: notes,
+      appointment: appointment
+    })
+    setStatus(props.request.status)
+  }, [])
 
   const classes = useStyles()
 
@@ -57,14 +65,27 @@ const ServiceRequestForm = props => {
     })
     console.log(e.target.value)
   }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    let status = requestStatus
+    let updatedValues = {...values, status}
+    axios.put(`https://rent-me-app.herokuapp.com/api/service/${id}`, updatedValues)
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => console.log(err))
+
+  }
   return (
     <>
 
-    <form className={classes.formContainer}>
+    <form className={classes.formContainer} onSubmit={e => handleSubmit(e)}>
+      {console.log(props.request)}
       <TextField
         variant="outlined"
         label="Name"
-        defaultValue="Request Name"
+        defaultValue={request_name}
         InputProps={{
           readOnly:true
         }}
@@ -93,37 +114,13 @@ const ServiceRequestForm = props => {
             </MenuItem>
           </Select>
       </FormControl>
-      <Typography style={generateGridValues(1, 3, 2, 2)}>Date Reported: </Typography>
-      <FormControl style={generateGridValues(1, 7, 3, 3)}>
-        <div >
-          <span>Assigned To: </span>
-          <div>
-            <TextField
-              variant="outlined"
-              label="Vendor Name"
-              name="vendor_name"
-              onChange={e => handleChanges(e)}
-              value={values.vendor_name}
-              style={{margin: "3px"}}
-            />
-            <TextField
-              variant="outlined"
-              label="Vendor Phone"
-              name="vendor_phone"
-              onChange={e => handleChanges(e)}
-              value={values.vendor_phone}
-              style={{margin: "3px"}}
-
-            />
-          </div>
-        </div>
-      </FormControl>
+      <Typography style={generateGridValues(1, 3, 2, 2)}>Date Reported: {date_created}</Typography>
       <TextField
         id="date"
-        label="Scheduled Date"
+        label="Appointment Date"
         type="date"
-        value={values.scheduled_date.length > 0 && values.scheduled_date}
-        name="scheduled_date"
+        value={values.appointment}
+        name="appointment"
         onChange={e => handleChanges(e)}
         style={generateGridValues(2, 6, 4, 4)}
       />
@@ -137,7 +134,7 @@ const ServiceRequestForm = props => {
         onChange={e => handleChanges(e)}
         style={generateGridValues(1, 7, 5, 6)}
       />
-      <Button style={generateGridValues(2, 6, 6, 6)}>Submit</Button>
+      <Button style={generateGridValues(2, 6, 6, 6)} type="submit">Submit</Button>
     </form>
     </>
   )
