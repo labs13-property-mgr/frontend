@@ -58,7 +58,7 @@ const ServiceRequestForm = props => {
     if(!received) {
       axios.put(`https://rent-me-app.herokuapp.com/api/service/${id}`, { received: true })
         .then(res => {
-          console.log(res)
+          return res
         })
         .catch(err => {
           console.log(err)
@@ -68,7 +68,6 @@ const ServiceRequestForm = props => {
 
   const handleDropdown = e => {
     setStatus(e.target.value)
-    console.log(requestStatus)
   }
 
   const handleChanges = e => {
