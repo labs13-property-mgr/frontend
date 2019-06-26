@@ -18,7 +18,8 @@ const TrackerBar = props => {
 
   useEffect(() => {
     if(request.resolved_tenant && request.resolved_owner) {
-      setCurrentStep(4)
+      return triggerBarChange(4)
+
     }
 
 
