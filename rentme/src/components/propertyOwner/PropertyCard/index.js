@@ -6,7 +6,7 @@ import axios from "axios";
 import { withStyles, createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
-import ServiceRequests from './ServiceRequests'
+import ServiceRequests from "./ServiceRequests";
 import Icon from "@material-ui/core/Icon";
 import { compose } from "recompose";
 import { withAuthorization } from "../../Session";
@@ -122,9 +122,27 @@ class PropertyCard extends Component {
   state = {
     selectedFile: null,
     properties: [],
+    tenants: [],
     activeProperty: {},
     property: {}
   };
+
+  // componentDidMount() {
+  //   const endpoint = "https://rent-me-app.herokuapp.com/api/property";
+  //   axios
+  //     .get(endpoint)
+  //     .then(res => {
+  //       this.setState({
+  //         properties: res.data,
+  //         property: res.data.find(
+  //           property => `${property.id}` === this.props.match.params.id
+  //         )
+  //       });
+  //     })
+  //     .catch(error => {
+  //       console.error("USERS ERROR", error);
+  //     });
+  // }
 
   componentDidMount() {
     const endpoint = "https://rent-me-app.herokuapp.com/api/property";
@@ -137,6 +155,19 @@ class PropertyCard extends Component {
             property => `${property.id}` === this.props.match.params.id
           )
         });
+        axios
+          .get("https://rent-me-app.herokuapp.com/api/tenant")
+          .then(res => {
+            const propertiesData = this.state.property;
+            const tenants = res.data;
+            console.log("Properties", propertiesData);
+            this.setState({
+              tenants: tenants.filter(
+                tenant => tenant.property_id === propertiesData.id
+              )
+            });
+          })
+          .catch(err => console.log("Crap!", err));
       })
       .catch(error => {
         console.error("USERS ERROR", error);
@@ -246,6 +277,16 @@ class PropertyCard extends Component {
                   </div>
                 </div>
                 <p>Address: {this.state.property.address}</p>
+                <div>
+                  <p>Tenants:</p>
+                  {this.state.tenants.map(tenant => (
+                    <Link to={`/tenant-card/${tenant.id}`}>
+                      <p key={tenant.id}>
+                        {tenant.First_name} {tenant.Last_name}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
                 <ThemeProvider theme={theme}>
                   <Grid item xs={12} md={2}>
                     <Button
@@ -295,7 +336,6 @@ class PropertyCard extends Component {
             <ServiceRequests />
 
             </div> */}
-
           </div>
         </main>
       </div>
