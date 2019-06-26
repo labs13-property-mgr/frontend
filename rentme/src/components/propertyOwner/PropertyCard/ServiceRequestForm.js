@@ -145,7 +145,10 @@ const ServiceRequestForm = props => {
         onChange={e => handleChanges(e)}
         style={generateGridValues(1, 7, 5, 6)}
       />
-      <Button style={generateGridValues(2, 6, 6, 6)} type="submit">Submit</Button>
+      <div style={generateGridValues(2, 6, 6, 6)}>
+        <Button type="submit">Submit</Button>
+        <Button type="submit">Resolve</Button>
+      </div>
     </form>
     </>
   )
