@@ -39,10 +39,15 @@ const ServiceRequestModal = props => {
     setModalOpen(!modalOpen)
   }
 
-  const { request_name } = props.request
+  const { request_name, resolved_tenant, resolved_owner } = props.request
   return (
-     <div>
+     <div className={classes.center}>
       <Button onClick={handleClick}>{request_name}</Button>
+      {resolved_tenant && resolved_owner ?
+        <i class="material-icons">assignment_turned_in</i>
+        :
+        <i class="material-icons">assignment_late</i>
+}
       <Modal
         aria-labelledby="Edit service request form"
         aria-describedby="Form for editing service request"
