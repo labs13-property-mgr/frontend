@@ -9,7 +9,7 @@ const TrackerBar = props => {
 
   const triggerBarChange = step => {
 
-    if(currentStep >= 4 ) return null
+    if(currentStep >= 5 ) return null
 
     setCurrentStep(step);
     setProgressWidth(step * 25);
@@ -17,7 +17,9 @@ const TrackerBar = props => {
   };
 
   useEffect(() => {
-    // if(request.resolved_tenant && request.resolved_owner) setCurrentStep(5)
+    if(request.resolved_tenant && request.resolved_owner) {
+      setCurrentStep(4)
+    }
 
 
     switch(request.status.toLowerCase()) {

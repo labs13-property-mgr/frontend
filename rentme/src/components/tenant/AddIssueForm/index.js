@@ -141,11 +141,16 @@ class AddIssueForm extends Component {
   onSubmitAddIssue = e => {
     e.preventDefault();
     const today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0')
+    let mm = String(today.getMonth() + 1).padStart(2, '0')
+    let yyyy = today.getFullYear()
+
+    today = `${mm}/${dd}/${yyyy}`
+
     const issue = {
       ...this.state.issue,
-      date_created: today.toLocaleString("en-US"),
+      date_created: today,
       status: "open",
-      tenant_id: 1
     };
 
     this.addIssue(issue).then(issues => {

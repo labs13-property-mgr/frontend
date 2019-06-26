@@ -359,6 +359,8 @@ class PropertyCard extends Component {
                   </Grid>
                 </ThemeProvider>
               </Paper>
+              <ServiceRequests />
+
             </div>
 
             {/* <div>
