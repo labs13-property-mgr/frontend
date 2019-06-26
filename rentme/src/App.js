@@ -59,6 +59,7 @@ const App = () => (
       <Route exact path={ROUTES.PROPERTY_CARD} component={PropertyCard} />
       <Route exact path={ROUTES.ADD_TENANT} component={AddTenantForm} />
       <Route exact path={ROUTES.EDIT_TENANT} component={EditTenantForm} />
+      <Route exact path={ROUTES.TENANT_CARD} component={TenantCard} />
       <Route exact path={ROUTES.ADD_PROPERTY} component={AddPropertyForm} />
       <Route exact path={ROUTES.EDIT_PROPERTY} component={EditPropertyForm} />
       <Route exact path={ROUTES.VENDOR_CARD} component={VendorCard} />

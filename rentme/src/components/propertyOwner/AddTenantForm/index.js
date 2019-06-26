@@ -101,15 +101,15 @@ class AddTenantForm extends Component {
       tenants: [],
       tenant: {
         ["property_id"]: "",
-        ["First_name"]: "",
-        ["Last_name"]: "",
-        ["phone"]: "",
-        ["email"]: "",
-        ["Spouse Name"]: "",
-        ["additional adult name"]: "",
-        ["number in household"]: "",
-        ["child name"]: "",
-        ["emergency contact"]: "",
+        // ["First_name"]: "",
+        // ["Last_name"]: "",
+        // ["phone"]: "",
+        // ["email"]: "",
+        // ["Spouse Name"]: "",
+        // ["additional adult name"]: "",
+        // ["number in household"]: "",
+        // ["child name"]: "",
+        // ["emergency contact"]: "",
         ["owner_id"]: JSON.parse(localStorage.getItem("authUser")).uid,
         active_tenant: false
       },
@@ -143,11 +143,13 @@ class AddTenantForm extends Component {
           .then(res => {
             const usersData = this.state.user;
             const properties = res.data;
+            const propertiesData = properties.filter(
+              property => property.owner_id === usersData.uid
+            );
+            propertiesData.push({ id: NaN, property_name: "None" });
             console.log(usersData);
             this.setState({
-              properties: properties.filter(
-                property => property.owner_id === usersData.uid
-              )
+              properties: propertiesData
             });
           })
           .catch(err => console.log("Crap!", err));
@@ -171,38 +173,39 @@ class AddTenantForm extends Component {
 
   // setActiveTenant = e => {};
 
-  // handleChange = e => {
-  //   // e.persist();
-  //   console.log(this.state.tenant);
-  //   if (e.target.name === "property_id" && e.target.value !== null) {
-  //     this.setState({
-  //       tenant: {
-  //         ...this.state.tenant,
-  //         [e.target.name]: e.target.value,
-  //         active_tenant: true
-  //       }
-  //     });
-  //   } else {
-  //     this.setState({
-  //       tenant: {
-  //         ...this.state.tenant,
-  //         [e.target.name]: e.target.value
-  //       }
-  //     });
-  //   }
-  //   console.log(e.target.name);
-  //   console.log(e.target.value);
-  // };
-
   handleChange = e => {
-    e.persist();
-    this.setState({
-      tenant: {
-        ...this.state.tenant,
-        [e.target.name]: e.target.value
-      }
-    });
+    // e.persist();
+    console.log(this.state.tenant);
+    if (e.target.name === "property_id" && e.target.value !== null) {
+      this.setState({
+        tenant: {
+          ...this.state.tenant,
+          [e.target.name]: e.target.value,
+          active_tenant: true
+        }
+      });
+    } else {
+      this.setState({
+        tenant: {
+          ...this.state.tenant,
+          [e.target.name]: e.target.value,
+          active_tenant: false
+        }
+      });
+    }
+    console.log(e.target.name);
+    console.log(e.target.value);
   };
+
+  // handleChange = e => {
+  //   e.persist();
+  //   this.setState({
+  //     tenant: {
+  //       ...this.state.tenant,
+  //       [e.target.name]: e.target.value
+  //     }
+  //   });
+  // };
 
   onSubmitAddTenant = e => {
     e.preventDefault();
@@ -211,8 +214,10 @@ class AddTenantForm extends Component {
     };
     this.addTenant(tenant).then(tenants => {
       this.setState({
-        tenants: tenants
+        tenants: tenants,
+        tenant: tenant
       });
+      console.log("New Tenant", this.state.tenant);
       return this.props.history.push("/tenant-addbook");
     });
   };
@@ -253,6 +258,7 @@ class AddTenantForm extends Component {
                       name="First_name"
                       autoComplete="First_name"
                       margin="normal"
+                      defaultValue=""
                       autoFocus
                       onChange={this.handleChange}
                       value={this.state.tenant["First_name"]}
@@ -264,6 +270,7 @@ class AddTenantForm extends Component {
                       label="Last Name"
                       name="Last_name"
                       autoComplete="Last_name"
+                      defaultValue=""
                       margin="normal"
                       autoFocus
                       onChange={this.handleChange}
@@ -275,6 +282,7 @@ class AddTenantForm extends Component {
                       required
                       id="phone"
                       label="Phone Number"
+                      defaultValue=""
                       name="phone"
                       autoComplete="phone"
                       autoFocus
@@ -288,7 +296,6 @@ class AddTenantForm extends Component {
                       id="email"
                       label="Email"
                       name="email"
-                      autoComplete="email"
                       autoFocus
                       onChange={this.handleChange}
                       value={this.state.tenant["email"]}
@@ -298,29 +305,29 @@ class AddTenantForm extends Component {
                       id="Spouse Name"
                       label="Spouse's Name"
                       name="Spouse Name"
-                      autoComplete="Spouse Name"
                       margin="normal"
-                      autoFocus
+                      autoComplete="off"
                       onChange={this.handleChange}
                       value={this.state.tenant["Spouse Name"]}
                     />
-                    <TextField
+                    {/* <TextField
                       variant="outlined"
                       id="additional adult Name"
                       label="Additional Tenant Name"
-                      name="Additional Adult Name"
-                      autoComplete="Additional Adult Name"
+                      name="additional adult name"
+                      autoComplete="additional adult name"
                       margin="normal"
                       autoFocus
                       onChange={this.handleChange}
                       value={this.state.tenant["additional adult name"]}
-                    />
+                    /> */}
                     <TextField
                       variant="outlined"
                       id="child name"
                       label="Child Name"
                       name="child name"
                       autoComplete="child name"
+                      defaultValue=""
                       margin="normal"
                       autoFocus
                       onChange={this.handleChange}
@@ -333,6 +340,7 @@ class AddTenantForm extends Component {
                       label="Number of tenants in household"
                       name="number in household"
                       autoComplete="number in household"
+                      defaultValue=""
                       type="number"
                       onChange={this.handleChange}
                       value={this.state.tenant["number in household"]}
@@ -344,6 +352,7 @@ class AddTenantForm extends Component {
                       label="Emergency Contact Number"
                       name="emergency contact"
                       autoComplete="emergency contact"
+                      defaultValue=""
                       autoFocus
                       onChange={this.handleChange}
                       value={this.state.tenant["emergency contact"]}
@@ -352,12 +361,12 @@ class AddTenantForm extends Component {
                       id="property_id"
                       name="property_id"
                       select
-                      required
                       label="Property associated with tenant"
                       value={this.state.tenant["property_id"]}
                       onChange={this.handleChange}
                       helperText="Select which property from your list of properties to tie the tenant to."
                       margin="normal"
+                      defaultValue=""
                       variant="outlined"
                     >
                       {this.state.properties.map(property => (
@@ -365,6 +374,11 @@ class AddTenantForm extends Component {
                           {property.property_name}
                         </MenuItem>
                       ))}
+                      {/* {propertiesData.map(property => (
+                        <MenuItem key={property.id} value={property.id}>
+                          {property.property_name}
+                        </MenuItem>
+                      ))} */}
                     </TextField>
                     <div className={this.props.classes.buttons}>
                       <Grid item xs={12} md={5}>

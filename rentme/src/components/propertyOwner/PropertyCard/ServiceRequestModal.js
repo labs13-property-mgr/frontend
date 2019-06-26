@@ -18,15 +18,15 @@ const useStyles = makeStyles(theme => ({
 
   formContainer: {
     width: "50%",
+    height: "70vh",
     display: "flex",
-    alignItems: "center",
     justifyContent: "center",
     margin: "0 auto",
     marginTop: "80px"
   }
 }));
 
-const ServiceRequestModal = () => {
+const ServiceRequestModal = props => {
   const [modalOpen, setModalOpen] = useState(false)
   const classes = useStyles();
 
@@ -46,7 +46,7 @@ const ServiceRequestModal = () => {
       >
         <div className={`${classes.formContainer}`}>
           <div className={classes.form}>
-            <ServiceRequestForm />
+            <ServiceRequestForm request={props.request}/>
           </div>
         </div>
       </Modal>

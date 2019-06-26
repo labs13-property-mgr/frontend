@@ -121,12 +121,29 @@ class EditTenantForm extends Component {
         console.error("USERS ERROR", error);
       });
     axios
-      .get("https://rent-me-app.herokuapp.com/api/property")
+      .get("https://rent-me-app.herokuapp.com/api/user")
       .then(res => {
         this.setState({
-          properties: res.data
+          user: res.data.find(
+            user =>
+              user.uid === JSON.parse(localStorage.getItem("authUser")).uid
+          )
         });
-        console.log(res.data);
+        axios
+          .get("https://rent-me-app.herokuapp.com/api/property")
+          .then(res => {
+            const usersData = this.state.user;
+            const properties = res.data;
+            const propertiesData = properties.filter(
+              property => property.owner_id === usersData.uid
+            );
+            propertiesData.push({ id: NaN, property_name: "None" });
+            console.log(usersData);
+            this.setState({
+              properties: propertiesData
+            });
+          })
+          .catch(err => console.log("Crap!", err));
       })
       .catch(error => {
         console.error("USERS ERROR", error);
@@ -135,11 +152,11 @@ class EditTenantForm extends Component {
 
   updateTenant = updatedTenant => {
     console.log("New Data", updatedTenant);
-    axios({
-      method: "put",
-      url: `https://rent-me-app.herokuapp.com/api/tenant/${updatedTenant.id}`,
-      data: updatedTenant
-    })
+    axios
+      .put(
+        `https://rent-me-app.herokuapp.com/api/tenant/${updatedTenant.id}`,
+        updatedTenant
+      )
       .then(res => {
         const tenants = res.data;
         this.setState({
@@ -156,14 +173,38 @@ class EditTenantForm extends Component {
   };
 
   handleChange = e => {
-    e.persist();
-    this.setState({
-      activeTenant: {
-        ...this.state.activeTenant,
-        [e.target.name]: e.target.value
-      }
-    });
+    // e.persist();
+    console.log(this.state.tenant);
+    if (e.target.name === "property_id" && e.target.value !== null) {
+      this.setState({
+        activeTenant: {
+          ...this.state.activeTenant,
+          [e.target.name]: e.target.value,
+          active_tenant: true
+        }
+      });
+    } else {
+      this.setState({
+        activeTenant: {
+          ...this.state.activeTenant,
+          [e.target.name]: e.target.value,
+          active_tenant: false
+        }
+      });
+    }
+    // console.log(e.target.name);
+    // console.log(e.target.value);
   };
+
+  // handleChange = e => {
+  //   e.persist();
+  //   this.setState({
+  //     activeTenant: {
+  //       ...this.state.activeTenant,
+  //       [e.target.name]: e.target.value
+  //     }
+  //   });
+  // };
 
   onSubmitEditedTenant = e => {
     e.preventDefault();
@@ -205,25 +246,25 @@ class EditTenantForm extends Component {
                       required
                       id="firstName"
                       label="First Name"
-                      name="firstName"
-                      autoComplete="firstName"
+                      name="First_name"
+                      autoComplete="First_name"
                       margin="normal"
                       autoFocus
                       onChange={this.handleChange}
-                      value={this.state.activeTenant["firstName"]}
+                      value={this.state.activeTenant["First_name"]}
                     />
                     <TextField
                       variant="outlined"
                       fullWidth
                       required
-                      id="lastName"
+                      id="Last_name"
                       label="Last Name"
-                      name="lastName"
-                      autoComplete="lastName"
+                      name="Last_name"
+                      autoComplete="Last_name"
                       margin="normal"
                       autoFocus
                       onChange={this.handleChange}
-                      value={this.state.activeTenant["lastName"]}
+                      value={this.state.activeTenant["Last_name"]}
                     />
                     <TextField
                       variant="outlined"
@@ -263,18 +304,17 @@ class EditTenantForm extends Component {
                       onChange={this.handleChange}
                       value={this.state.activeTenant["Spouse Name"]}
                     />
-                    <TextField
+                    {/* <TextField
                       variant="outlined"
                       fullWidth
                       id="additional adult Name"
                       label="Additional Adult Name"
-                      name="Additional Adult Name"
-                      autoComplete="Additional Adult Name"
+                      name="additional adult name"
                       margin="normal"
                       autoFocus
                       onChange={this.handleChange}
                       value={this.state.activeTenant["additional adult name"]}
-                    />
+                    /> */}
                     <TextField
                       variant="outlined"
                       fullWidth
@@ -302,7 +342,6 @@ class EditTenantForm extends Component {
                     <TextField
                       variant="outlined"
                       margin="normal"
-                      required
                       fullWidth
                       id="emergency contact"
                       label="emergency contact"
