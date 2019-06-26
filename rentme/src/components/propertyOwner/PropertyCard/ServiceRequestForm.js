@@ -34,7 +34,15 @@ const generateGridValues = (columnStart, columnEnd, rowStart, rowEnd) => {
 }
 
 const ServiceRequestForm = props => {
-  const { request_name, notes, date_created, id, appointment, received } = props.request
+  const {
+    request_name,
+    notes,
+    date_created,
+    id,
+    appointment,
+    received,
+    resolved_owner,
+    resolved_tenant } = props.request
 
   const [ requestStatus, setStatus ] = useState("")
 
