@@ -46,7 +46,7 @@ const TrackerBar = props => {
 
   return (
     <div className={props.classes.progressBarSection}>
-      <h4>Name: {request.request_name}</h4>
+      <h4>Request Name: {request.request_name}</h4>
 
       <LinearProgress
         className={classes.progressBar}
@@ -188,9 +188,6 @@ const TrackerBar = props => {
           </>
         </Grid>
       </div>
-      <br />
-      <button onClick={() => triggerBarChange(currentStep + 1)} />
-      Current step: {currentStep}
     </div>
   );
 };
