@@ -167,7 +167,7 @@ const ServiceRequestForm = props => {
       />
       <div style={generateGridValues(2, 6, 6, 6)}>
         <Button type="submit">Submit</Button>
-        <Button type="submit">Resolve</Button>
+        <Button onClick={e => triggerResolved(e)}>Resolve</Button>
       </div>
     </form>
     </>
