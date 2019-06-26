@@ -100,7 +100,7 @@ class AddTenantForm extends Component {
     this.state = {
       tenants: [],
       tenant: {
-        // ["property_id"]: "",
+        ["property_id"]: "",
         // ["First_name"]: "",
         // ["Last_name"]: "",
         // ["phone"]: "",
@@ -296,8 +296,6 @@ class AddTenantForm extends Component {
                       id="email"
                       label="Email"
                       name="email"
-                      autoComplete="email"
-                      defaultValue=""
                       autoFocus
                       onChange={this.handleChange}
                       value={this.state.tenant["email"]}
@@ -307,10 +305,8 @@ class AddTenantForm extends Component {
                       id="Spouse Name"
                       label="Spouse's Name"
                       name="Spouse Name"
-                      autoComplete="Spouse Name"
-                      defaultValue=""
                       margin="normal"
-                      autoFocus
+                      autoComplete="off"
                       onChange={this.handleChange}
                       value={this.state.tenant["Spouse Name"]}
                     />
