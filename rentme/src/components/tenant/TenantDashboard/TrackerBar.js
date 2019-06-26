@@ -3,6 +3,8 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
 import { CheckProgress, isGreaterOrIsEqual } from './helpers'
+import DeleteButton from './DeleteButton'
+
 const TrackerBar = props => {
   const [currentStep, setCurrentStep] = useState(null);
   const [progressWidth, setProgressWidth] = useState(null);
