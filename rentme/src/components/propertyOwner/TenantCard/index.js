@@ -240,32 +240,32 @@ class TenantCard extends Component {
                   <p>
                     Spouse's Name:
                     {` ${
-                      this.state.tenant["Spouse Name"] === ""
-                        ? "N/A"
+                      this.state.tenant["Spouse Name"] === null
+                        ? "No info provided"
                         : `${this.state.tenant["Spouse Name"]}`
                     }`}
                   </p>
                   <p>
                     Number in Household:
                     {` ${
-                      this.state.tenant["number in household"] === ""
-                        ? "N/A"
+                      this.state.tenant["number in household"] === 0
+                        ? "No info provided"
                         : `${this.state.tenant["number in household"]}`
                     }`}
                   </p>
                   <p>
                     Contact Info:
                     {` ${
-                      this.state.tenant["phone"] === ""
-                        ? "N/A"
+                      this.state.tenant["phone"] === null
+                        ? "No info provided"
                         : `${this.state.tenant["phone"]}`
                     }`}
                   </p>
                   <p>
                     Emergency Contact:{" "}
                     {` ${
-                      this.state.tenant["emergency contact"] === ""
-                        ? "N/A"
+                      this.state.tenant["emergency contact"] === null
+                        ? "No info provided"
                         : `${this.state.tenant["emergency contact"]}`
                     }`}
                   </p>
@@ -274,8 +274,8 @@ class TenantCard extends Component {
                       <p>
                         Property Name:
                         {` ${
-                          this.state.property.property_name === ""
-                            ? "N/A"
+                          this.state.property.property_name === null
+                            ? "No info provided"
                             : `${this.state.property.property_name}`
                         }`}{" "}
                       </p>
