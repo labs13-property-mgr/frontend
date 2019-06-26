@@ -46,8 +46,8 @@ const TrackerBar = props => {
   let { request_name, received, resolved_tenant, resolved_owner } = props.request
   return (
     <div className={props.classes.progressBarSection}>
-      <h4>Request Name: {request_name}</h4>
-
+      <h4 style={{ display: "inline-block"}}>Request Name: {request_name}</h4>
+      <DeleteButton request={request} />
       <LinearProgress
         className={classes.progressBar}
         variant="determinate"
