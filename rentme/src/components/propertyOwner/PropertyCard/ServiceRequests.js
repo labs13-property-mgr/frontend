@@ -32,7 +32,7 @@ const ServiceRequests = () => {
   return (
     <div className={classes.cardContainer}>
       {requests && requests.map(request => {
-        return <ServiceRequest request={request} />
+        return <ServiceRequest key={request.id} request={request} />
       })}
 
     </div>
