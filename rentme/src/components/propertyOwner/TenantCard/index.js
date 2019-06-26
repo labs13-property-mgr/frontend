@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -11,45 +11,203 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Icon from "@material-ui/core/Icon";
 import Box from "@material-ui/core/Box";
+import { withStyles } from "@material-ui/core/styles";
+import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
+import { withAuthorization } from "../../Session";
+import { compose } from "recompose";
 
-const TenantCard = props => {
-  const [tenant, setTenant] = useState(null);
+import * as ROLES from "../../../constants/roles";
 
-  useEffect(() => {
+const drawerWidth = 240;
+
+const styles = theme => ({
+  mainContainer: {
+    display: "block"
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    [theme.breakpoints.up("sm")]: {
+      paddingLeft: drawerWidth
+    }
+  },
+
+  dashboard: {
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: "1.5rem"
+    }
+  },
+  backButton: {
+    "&:hover": {
+      color: "#008c3a",
+      backgroundColor: "transparent"
+    }
+  }
+});
+
+class TenantCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tenants: [],
+      properties: [],
+      property: {},
+      activeTenant: {},
+      tenant: {}
+    };
+  }
+
+  componentDidMount() {
+    const endpoint = "https://rent-me-app.herokuapp.com/api/tenant";
     axios
-      .get("https://rent-me-app.herokuapp.com/api/users")
+      .get(endpoint)
       .then(res => {
-        setTenant(
-          res.data
-            .filter(tenant => tenant.role === "tenant")
-            .find(tenant => `${tenant.id}` === props.match.params.id)
-        );
-        // console.log(res.data);
+        this.setState({
+          tenants: res.data,
+          tenant: res.data.find(
+            tenant => `${tenant.id}` === this.props.match.params.id
+          )
+        });
       })
-      .catch(err => console.log("Crap!", err));
-  }, []);
+      .catch(error => {
+        console.error("USERS ERROR", error);
+      });
+    axios
+      .get("https://rent-me-app.herokuapp.com/api/property")
+      .then(res => {
+        const tenantsData = this.state.tenant;
+        const properties = res.data;
+        console.log(tenantsData);
+        this.setState({
+          properties: properties,
+          property: properties.find(
+            property => property.id === tenantsData["property_id"]
+          )
+        });
+      })
+      .catch(error => {
+        console.error("USERS ERROR", error);
+      });
+  }
 
-  return (
-    <div>
-      <Container>
-        <h1>{tenant && tenant.First_name}'s Profile</h1>
-        <div>
-          <h2>Personal & Contact Information</h2>
-          <Grid container>
-            <Grid item md={6}>
-              <p>
-                Name: {tenant && tenant.First_name} {tenant && tenant.Last_name}
-              </p>
-              <p>Email: {tenant && tenant.email}</p>
-              <p>Phone: {tenant && tenant.address}</p>
-              <p>Address: {tenant && tenant.address}</p>
-            </Grid>
-          </Grid>
-        </div>
-      </Container>
-      <hr />
-    </div>
-  );
-};
+  deleteTenants = id => {
+    return axios
+      .delete(`https://rent-me-app.herokuapp.com/api/tenant/${id}`)
+      .then(res => {
+        const tenants = res.data;
+        this.setState({ tenants });
 
-export default TenantCard;
+        this.props.history.push("/tenant-addbook");
+        // console.log(res);
+        // redirect
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  setActiveTenant = tenant => {
+    this.setState({ activeTenant: tenant });
+  };
+
+  updateTenant = e => {
+    e.preventDefault();
+    this.setActiveTenant(this.state.tenant);
+    this.props.history.push(`/edit-tenant/${this.state.tenant.id}`);
+  };
+
+  deleteTenant = e => {
+    e.preventDefault();
+    this.deleteTenants(this.state.tenant.id);
+  };
+
+  goBack = e => {
+    this.props.history.goBack();
+  };
+
+  render() {
+    return (
+      <div className={this.props.classes.mainContainer}>
+        <OwnerUserMenu />
+        <main className={this.props.classes.content}>
+          <div className={this.props.classes.dashboard}>
+            <Button
+              onClick={this.goBack}
+              className={this.props.classes.backButton}
+            >
+              <Icon fontSize="small">arrow_back_ios</Icon>
+              PREVIOUS PAGE
+            </Button>
+            <Container>
+              <h1>{this.state.tenant["firstName"]}'s Profile</h1>
+              <div>
+                <h2>Personal & Contact Information</h2>
+                <Grid container>
+                  <Grid item md={6}>
+                    <p>
+                      Full Name: {this.state.tenant["firstName"]}{" "}
+                      {this.state.tenant["lastName"]}
+                    </p>
+                    <p>
+                      Spouse's Name:
+                      {` ${
+                        this.state.tenant["Spouse Name"] === ""
+                          ? "N/A"
+                          : `${this.state.tenant["Spouse Name"]}`
+                      }`}
+                    </p>
+                    <p>
+                      Number in Household:
+                      {` ${
+                        this.state.tenant["number in household"] === ""
+                          ? "N/A"
+                          : `${this.state.tenant["number in household"]}`
+                      }`}
+                    </p>
+                    <p>
+                      Contact Info:
+                      {` ${
+                        this.state.tenant["phone"] === ""
+                          ? "N/A"
+                          : `${this.state.tenant["phone"]}`
+                      }`}
+                    </p>
+                    <p>
+                      Emergency Contact:{" "}
+                      {this.state.tenant["emergency contact"]}
+                    </p>
+                    {this.state.property && (
+                      <>
+                        <p>
+                          Property Name:
+                          {` ${
+                            this.state.property.property_name === ""
+                              ? "N/A"
+                              : `${this.state.property.property_name}`
+                          }`}{" "}
+                        </p>
+                        <Link to={`/property-card/${this.state.property.id}`}>
+                          Property Details
+                        </Link>
+                      </>
+                    )}
+                  </Grid>
+                </Grid>
+              </div>
+              <Button onClick={this.updateTenant}>Edit Tenant</Button>
+              <Button onClick={this.deleteTenant}>Delete Tenant</Button>
+            </Container>
+            <hr />
+          </div>
+        </main>
+      </div>
+    );
+  }
+}
+
+const condition = authUser => authUser && !!authUser.roles[ROLES.OWNER];
+
+export default compose(
+  withStyles(styles),
+  withAuthorization(condition)
+)(TenantCard);

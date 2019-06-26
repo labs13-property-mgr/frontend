@@ -7,9 +7,9 @@ import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
-import Icon from "@material-ui/core/Icon";
 import Grid from "@material-ui/core/Grid";
-import { withAuthorization, AuthUserContext } from "../../Session";
+import Icon from "@material-ui/core/Icon";
+import { withAuthorization } from "../../Session";
 import { compose } from "recompose";
 
 import * as ROLES from "../../../constants/roles";
@@ -42,21 +42,21 @@ const styles = theme => ({
     marginTop: "2rem",
     padding: "1.5rem"
   },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between"
-  },
   pageContainer: {
     textAlign: "center",
     margin: "0 auto",
-    width: "60%",
+    width: "70%",
     [theme.breakpoints.up("sm")]: {
       display: "flex",
       flexDirection: "column"
     }
   },
 
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between"
+  },
   buttons: {
     display: "flex",
     margin: "0rem auto",
@@ -83,62 +83,44 @@ const styles = theme => ({
   }
 });
 
-class AddPropertyForm extends Component {
+class AddVendorForm extends Component {
   constructor() {
     super();
     this.state = {
-      properties: [],
-      property: {
-        property_name: "",
+      vendors: [],
+      vendor: {
+        company_name: "",
         address: "",
+        first_name: "",
+        last_name: "",
+        phone: "",
+        email: "",
         owner_id: JSON.parse(localStorage.getItem("authUser")).uid
-      },
-      user: ""
+      }
     };
   }
 
   componentDidMount() {
-    const endpoint = "https://rent-me-app.herokuapp.com/api/property";
+    const endpoint = "https://rent-me-app.herokuapp.com/api/vendor";
 
     axios
       .get(endpoint)
       .then(res => {
         this.setState({
-          properties: res.data
+          vendors: res.data
         });
-        // console.log("Properties", res.data);
       })
       .catch(error => {
         console.error("USERS ERROR", error);
       });
-    // axios
-    //   .get("https://rent-me-app.herokuapp.com/api/user")
-    //   .then(res => {
-    //     // const tenantsData = this.state.tenant;
-    //     const authUserData = JSON.parse(localStorage.getItem("authUser"));
-    //     const authUserUID = authUserData.uid;
-    //     const users = res.data;
-    //     const user = users.find(user => `${user.uid}` === `${authUserUID}`);
-    //     console.log("UID", user);
-    //     this.setState({
-    //       users: users,
-    //       user: user
-    //     });
-    //   })
-    //   .catch(error => {
-    //     console.error("USERS ERROR", error);
-    //   });
-    // const authUserData = JSON.parse(localStorage.getItem("authUser"));
-    // const authUserUID = authUserData.uid;
-    // // console.log("AuthUser", authUserUID);
   }
 
-  addProperty = newProperty => {
+  addVendor = newVendor => {
     return axios
-      .post("https://rent-me-app.herokuapp.com/api/property", newProperty)
+      .post("https://rent-me-app.herokuapp.com/api/vendor", newVendor)
       .then(res => {
-        const properties = res.data;
-        return properties;
+        const vendors = res.data;
+        return vendors;
       })
       .catch(err => {
         console.log(err);
@@ -148,25 +130,25 @@ class AddPropertyForm extends Component {
   handleChange = e => {
     e.persist();
     this.setState({
-      property: {
-        ...this.state.property,
+      vendor: {
+        ...this.state.vendor,
         [e.target.name]: e.target.value
       }
     });
   };
 
-  onSubmitAddProperty = e => {
+  onSubmitAddVendor = e => {
     e.preventDefault();
-    const property = {
-      ...this.state.property
+    const vendor = {
+      ...this.state.vendor
     };
-    this.addProperty(property).then(properties => {
+    this.addVendor(vendor).then(vendors => {
       this.setState({
-        properties: properties,
-        property: property
+        vendors: vendors,
+        vendor: vendor
       });
-      console.log(this.state.property);
-      return this.props.history.push("/owner-dash");
+      console.log("Vendor", vendor);
+      return this.props.history.push("/vendor-addbook");
     });
   };
 
@@ -175,7 +157,7 @@ class AddPropertyForm extends Component {
   };
 
   render() {
-    if (!this.state.property) return <h3>Loading data...</h3>;
+    if (!this.state.vendor) return <h3>Loading data...</h3>;
     return (
       <div className={this.props.classes.mainContainer}>
         <OwnerUserMenu />
@@ -190,29 +172,47 @@ class AddPropertyForm extends Component {
             </Button>
             <Paper className={this.props.classes.formCard}>
               <div className={this.props.classes.pageContainer}>
-                <h1>Add a New Property</h1>
+                <h1>Add a New Vendor</h1>
                 <div>
                   <form
-                    onSubmit={this.onSubmitAddProperty}
+                    onSubmit={this.onSubmitAddVendor}
                     className={this.props.classes.form}
                   >
                     <TextField
                       variant="outlined"
-                      required
-                      fullWidth
-                      id="property_name"
-                      label="Property Name"
-                      name="property_name"
-                      autoComplete="property_name"
+                      id="company_name"
+                      label="Company Name"
+                      name="company_name"
+                      autoComplete="company_name"
                       margin="normal"
                       autoFocus
                       onChange={this.handleChange}
-                      value={this.state.property.property_name}
+                      value={this.state.vendor.company_name}
                     />
                     <TextField
                       variant="outlined"
-                      required
-                      fullWidth
+                      id="first_name"
+                      label="First Name"
+                      name="first_name"
+                      autoComplete="first_name"
+                      margin="normal"
+                      autoFocus
+                      onChange={this.handleChange}
+                      value={this.state.vendor.first_name}
+                    />
+                    <TextField
+                      variant="outlined"
+                      id="last_name"
+                      label="Last Name"
+                      name="last_name"
+                      autoComplete="last_name"
+                      margin="normal"
+                      autoFocus
+                      onChange={this.handleChange}
+                      value={this.state.vendor.last_name}
+                    />
+                    <TextField
+                      variant="outlined"
                       id="address"
                       label="Address"
                       name="address"
@@ -220,7 +220,29 @@ class AddPropertyForm extends Component {
                       margin="normal"
                       autoFocus
                       onChange={this.handleChange}
-                      value={this.state.property.address}
+                      value={this.state.vendor.address}
+                    />
+                    <TextField
+                      variant="outlined"
+                      id="phone"
+                      label="Phone Number"
+                      name="phone"
+                      autoComplete="phone"
+                      margin="normal"
+                      autoFocus
+                      onChange={this.handleChange}
+                      value={this.state.vendor.phone}
+                    />
+                    <TextField
+                      variant="outlined"
+                      id="email"
+                      label="Email Address"
+                      name="email"
+                      autoComplete="email"
+                      margin="normal"
+                      autoFocus
+                      onChange={this.handleChange}
+                      value={this.state.vendor.email}
                     />
                     <div className={this.props.classes.buttons}>
                       <Grid item xs={12} md={5}>
@@ -238,8 +260,8 @@ class AddPropertyForm extends Component {
                       <Grid item xs={12} md={5}>
                         <Link to="/owner-dash">
                           <Button
-                            color="secondary"
                             variant="outlined"
+                            color="secondary"
                             size="large"
                             fullWidth
                           >
@@ -264,4 +286,4 @@ const condition = authUser => authUser && !!authUser.roles[ROLES.OWNER];
 export default compose(
   withStyles(styles),
   withAuthorization(condition)
-)(AddPropertyForm);
+)(AddVendorForm);

@@ -10,7 +10,12 @@ export const OWNER_DASHBOARD = "/owner-dash";
 export const PROPERTY_CARD = "/property-card/:id";
 export const TENANT_CARD = "/tenant-card/:id";
 export const ADD_TENANT = "/add-tenant";
+export const EDIT_TENANT = "/edit-tenant/:id";
 export const ADD_PROPERTY = "/add-property";
+export const EDIT_PROPERTY = "/edit-property/:id";
+export const VENDOR_CARD = "/vendor-card/:id";
+export const ADD_VENDOR = "/add-vendor";
+export const EDIT_VENDOR = "/edit-vendor/:id";
 export const TENANT_ADDRESSBK = "/tenant-addbook";
 export const VENDOR_ADDRESSBK = "/vendor-addbook";
 

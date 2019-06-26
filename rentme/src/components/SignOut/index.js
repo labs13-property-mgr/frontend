@@ -1,12 +1,16 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-import { withFirebase } from '../Firebase';
+import { withFirebase } from "../Firebase";
+import * as ROUTES from "../../constants/routes";
+import "./signout.css";
 
 const SignOut = ({ firebase }) => (
-    <>
-        <Link to="/" replace><p onClick={firebase.doSignOut}>Sign Out</p></Link>
-    </>
-)
+  <>
+    <Link to={ROUTES.LOGIN} replace className="signout-text">
+      <p onClick={firebase.doSignOut}>Sign Out</p>
+    </Link>
+  </>
+);
 
-export default withFirebase(SignOut)
+export default withFirebase(SignOut);
