@@ -7,7 +7,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
-
+import DescriptionModal from './DescriptionModal'
 import axios from 'axios'
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -18,20 +18,22 @@ const useStyles = makeStyles({
     height: "100%",
     width: "100%",
     gridTemplateColumns:" 6fr 6fr 6fr 4fr 4fr 4fr",
-    gridTemplateRows: "1fr 1fr 1fr 1fr 3fr 1fr",
+    gridTemplateRows: "1fr 1fr 1fr 1fr 3fr 3fr 1fr",
     gridGap: "10px"
   },
 
 })
 
 //generates grid column, row and alignments for grid item placements
-const generateGridValues = (columnStart, columnEnd, rowStart, rowEnd) => {
+//also takes an object containing any other styles you may want as the last argument
+const generateGridValues = (columnStart, columnEnd, rowStart, rowEnd, styles) => {
   return {
     gridColumnStart: `${columnStart}`,
     gridColumnEnd: `${columnEnd}`,
     gridRowStart: `${rowStart}`,
     gridRowEnd: `${rowEnd}`,
     alignSelf: "center",
+    ...styles
   }
 }
 
@@ -44,9 +46,12 @@ const ServiceRequestForm = props => {
     appointment,
     received,
     resolved_owner,
-    resolved_tenant } = props.request
+    resolved_tenant,
+    request_description } = props.request
 
   const [ requestStatus, setStatus ] = useState("")
+
+  const [ open, setOpen ] = useState(false)
 
   const [ values, setValues ] = useState({
     appointment: "",
@@ -64,6 +69,10 @@ const ServiceRequestForm = props => {
   }, [])
 
   const classes = useStyles()
+
+  const handlePopup = () => {
+    setOpen(!open)
+  }
 
   const triggerReceived = e => {
     if(!received) {
@@ -158,17 +167,23 @@ const ServiceRequestForm = props => {
         onChange={e => handleChanges(e)}
         style={generateGridValues(2, 6, 4, 4)}
       />
+      <Button
+        style={generateGridValues(3, 5, 5, 5, {background: "DeepSkyBlue", color: "white"})}
+        onClick={() => handlePopup()}
+      >
+        Description
+      </Button>
+      <DescriptionModal open={open} request_description={request_description} handleOpen={handlePopup} />
       <TextField
         id="notes"
         label="Notes"
         variant="outlined"
-        fullWidth
         value={values.notes}
         name="notes"
         onChange={e => handleChanges(e)}
-        style={generateGridValues(1, 7, 5, 6)}
+        style={generateGridValues(2, 6, 6, 6)}
       />
-      <div style={generateGridValues(2, 6, 6, 6)}>
+      <div style={generateGridValues(2, 6, 7, 7)}>
         <Tooltip title="Update request">
           <Button type="submit">Submit</Button>
         </Tooltip>
