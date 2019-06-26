@@ -63,9 +63,7 @@ const TenantDashboard = props => {
 
   useEffect(() => {
     axios
-      .get(
-        "https://rent-me-app.herokuapp.com/api/property/propertieswithtenants"
-      )
+      .get("https://rent-me-app.herokuapp.com/api/property/propertieswithtenants")
       .then(res => {
         setTenantProperty(res.data);
       })
