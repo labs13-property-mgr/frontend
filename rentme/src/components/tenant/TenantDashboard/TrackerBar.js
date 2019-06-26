@@ -43,7 +43,7 @@ const TrackerBar = props => {
   }, [])
 
   let { classes, request, } = props;
-  let { request_name, received } = props.request
+  let { request_name, received, resolved_tenant, resolved_owner } = props.request
   return (
     <div className={props.classes.progressBarSection}>
       <h4>Request Name: {request_name}</h4>
