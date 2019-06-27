@@ -65,7 +65,7 @@ class RenterSignUpFormBase extends Component {
     const response = await axios.post('https://rent-me-app.herokuapp.com/api/user', {
       uid: authUser.user.uid,
       email,
-      role: ROLES.OWNER
+      role: ROLES.TENANT
     });
 
     console.log(response);
