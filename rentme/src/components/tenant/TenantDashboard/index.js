@@ -58,19 +58,16 @@ const TenantDashboard = props => {
         );
       })
       .catch(err => console.log('Crap!', err));
-  }, []);
 
-  useEffect(() => {
-    axios
-      .get('https://rent-me-app.herokuapp.com/api/property/propertieswithtenants')
-      .then(res => {
-        setTenantProperty(res.data);
-      })
-      .catch(err => console.log('Crap!', err));
-  }, []);
+      axios
+        .get('https://rent-me-app.herokuapp.com/api/property/propertieswithtenants')
+        .then(res => {
+          setTenantProperty(res.data);
+        })
+        .catch(err => console.log('Crap!', err));
 
-  useEffect(() => {
-    getServicesRequest();
+      getServicesRequest();
+
   }, []);
 
   const getServicesRequest = () => {
