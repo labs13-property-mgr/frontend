@@ -394,7 +394,7 @@ class AddTenantForm extends Component {
                         </Button>
                       </Grid>
                       <Grid item xs={12} md={5}>
-                        <Link to="/">
+                        <Link to="/tenant-addbook">
                           <Button
                             variant="outlined"
                             color="secondary"
