@@ -10,7 +10,6 @@ import ServiceRequests from "./ServiceRequests";
 import Icon from "@material-ui/core/Icon";
 import { compose } from "recompose";
 import { withAuthorization } from "../../Session";
-import cardBackground from "../../img/card-background-image.png";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -154,23 +153,6 @@ class PropertyCard extends Component {
     open: true
   };
 
-  // componentDidMount() {
-  //   const endpoint = "https://rent-me-app.herokuapp.com/api/property";
-  //   axios
-  //     .get(endpoint)
-  //     .then(res => {
-  //       this.setState({
-  //         properties: res.data,
-  //         property: res.data.find(
-  //           property => `${property.id}` === this.props.match.params.id
-  //         )
-  //       });
-  //     })
-  //     .catch(error => {
-  //       console.error("USERS ERROR", error);
-  //     });
-  // }
-
   componentDidMount() {
     const endpoint = "https://rent-me-app.herokuapp.com/api/property";
     axios
@@ -209,8 +191,6 @@ class PropertyCard extends Component {
         this.setState({ properties });
 
         this.props.history.push("/owner-dash");
-        // console.log(res);
-        // redirect
       })
       .catch(err => {
         console.log(err);
@@ -322,7 +302,7 @@ class PropertyCard extends Component {
                     onClick={this.handleExpandClick}
                   >
                     <Typography variant="h6">Tenants</Typography>
-                    {this.state.open ? <ExpandLess /> : <ExpandMore />}
+                    {this.state.open ? <ExpandMore /> : <ExpandLess />}
                   </div>
                   {this.state.tenants.map(tenant => (
                     <Collapse
