@@ -169,9 +169,8 @@ class VendorAddressBk extends Component {
         name: "options",
         label: "MORE",
         options: {
-          filter: true,
+          filter: false,
           sort: false,
-          empty: true,
           customBodyRender: (value, tableMeta, updateValue) => {
             return (
               <div>
