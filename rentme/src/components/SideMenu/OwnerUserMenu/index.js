@@ -15,6 +15,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Typography from "@material-ui/core/Typography";
 import "typeface-roboto";
 
+import ZillowWidget from "../ZillowWidget";
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -214,6 +216,7 @@ const OwnerUserMenu = props => {
           </ListItemLink>
         </List>
       </div>
+      <ZillowWidget />
     </div>
   );
 
