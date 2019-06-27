@@ -4,11 +4,16 @@ import { withAuthorization } from "../../Session";
 import * as ROLES from "../../../constants/roles";
 
 //Material UI imports
-import ListItem from "@material-ui/core/ListItem";
 import { useTheme } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
+import "typeface-roboto";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
+import Collapse from "@material-ui/core/Collapse";
+import Tooltip from "@material-ui/core/Tooltip";
 //Built component imports
 import TrackerBar from "./TrackerBar";
 import { useStyles } from "./helpers";
@@ -17,14 +22,26 @@ import TenantUserMenu from "../../SideMenu/TenantUserMenu";
 import "./tenantDashboard.css";
 
 const TenantDashboard = props => {
-  const [tenant, setTenant] = useState(null);
+  const [tenant, setTenant] = useState([]);
   const [property, setProperty] = useState(null);
+  const [tenantProperty, setTenantProperty] = useState([]);
   const [requests, setRequests] = useState(null);
   const { container } = props;
 
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = useState(false);
   const theme = useTheme();
+  const [open, setOpen] = React.useState({});
+
+  function handleExpandClick(idx) {
+    let state = !open[idx];
+    console.log(idx);
+    setOpen({
+      ...open,
+      [idx]: state
+    });
+    console.log("open", open);
+  }
 
   function handleDrawerToggle() {
     setMobileOpen(!mobileOpen);
@@ -34,17 +51,27 @@ const TenantDashboard = props => {
     axios
       .get("https://rent-me-app.herokuapp.com/api/user")
       .then(res => {
-        setTenant(res.data[0]);
+        setTenant(
+          res.data.find(
+            user =>
+              user.uid === JSON.parse(localStorage.getItem("authUser")).uid
+          )
+        );
       })
       .catch(err => console.log("Crap!", err));
+  }, []);
 
+  useEffect(() => {
     axios
-      .get("https://rent-me-app.herokuapp.com/api/property")
+      .get("https://rent-me-app.herokuapp.com/api/property/propertieswithtenants")
       .then(res => {
-        setProperty(res.data[0]);
+        setTenantProperty(res.data);
       })
       .catch(err => console.log("Crap!", err));
+  }, []);
 
+
+  useEffect(() => {
     getServicesRequest()
 
   }, []);
@@ -65,24 +92,96 @@ const TenantDashboard = props => {
       .catch(err => console.log(err))
   }
 
+  console.log("Tenant", tenant);
+  console.log("TenantProperty", Array.isArray(tenantProperty));
+
+  // const tenantPropertyData = () => {
+  //   return tenantProperty.find(tp => {
+  //     return tp.tenant_email === tenant.email;
+  //   });
+  // };
+
+  // console.log(tenantProperty)
+
+  const tenantPropertyData = tenantProperty.find(tp => {
+    return tp.tenant_email === tenant.email;
+  });
+
+  const otherTenantsInfo = tenantProperty.filter(tp => {
+    return (
+      tp.property_id === tenantPropertyData.property_id &&
+      tp.tenant_email !== tenantPropertyData.tenant_email
+    );
+  });
+
+  // console.log(tenantPropertyData);
+  console.log("Other tenants", otherTenantsInfo);
+
   return (
     <div className={classes.mainContainer}>
       <TenantUserMenu />
       <main className={classes.content}>
         <div className={classes.dashboard}>
-          <h1>Tenant Dashboard</h1>
+          <Typography variant="h1" className={classes.h1}>
+            Tenant Dashboard
+          </Typography>
           {/** Dashboard content list of owner's properties **/}
-          <h2>Property Information</h2>
-          <Grid container spacing={4}>
-            <Grid item xs={12} md={6} lg={4}>
-              <Card>
-                <CardContent>
-                  <p>Name: {property && property.property_name}</p>
-                  <p>Address: {property && property.address}</p>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
+          <Typography variant="h2" className={classes.h2}>
+            Property Information
+          </Typography>
+          <Paper className={classes.paperCard}>
+            <div className={classes.paperContent}>
+              <Typography variant="h6" className={classes.propertyInfo}>
+                Name: {tenantPropertyData && tenantPropertyData.property_name}
+              </Typography>
+              <Typography variant="h6" className={classes.propertyInfo}>
+                Address:{" "}
+                {tenantPropertyData && tenantPropertyData.property_address}
+              </Typography>
+              <Typography variant="h6" className={classes.propertyInfo}>
+                Other Tenants:
+              </Typography>
+              {otherTenantsInfo &&
+                otherTenantsInfo.map((otherTenant, idx) => (
+                  <>
+                    <List>
+                      <ListItem
+                        key={otherTenant.tenant_id}
+                        onClick={e => {
+                          // console.log(idx);
+                          handleExpandClick(idx);
+                        }}
+                      >
+                        <Typography
+                          variant="body1"
+                          className={classes.otherTenantNames}
+                        >
+                          {otherTenant && otherTenant.First_name}{" "}
+                          {otherTenant && otherTenant.Last_name}
+                        </Typography>
+                        <Tooltip title="View more details" placement="right">
+                          {open[idx] ? <ExpandLess /> : <ExpandMore />}
+                        </Tooltip>
+                      </ListItem>
+                      <Collapse in={open[idx]} timeout="auto">
+                        <List>
+                          <ListItem>
+                            <Typography variant="body1">
+                              Email: {otherTenant && otherTenant.tenant_email}
+                            </Typography>
+                          </ListItem>
+                          <ListItem>
+                            <Typography variant="body1">
+                              Phone Number: {otherTenant && otherTenant.phone}
+                            </Typography>
+                          </ListItem>
+                        </List>
+                      </Collapse>
+                    </List>
+                  </>
+                ))}
+            </div>
+          </Paper>
 
           {requests ? (
             requests.map(request => {
