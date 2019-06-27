@@ -3,6 +3,9 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
 import { CheckProgress, isGreaterOrIsEqual } from './helpers'
+import DeleteButton from './DeleteButton'
+import axios from 'axios'
+
 const TrackerBar = props => {
   const [currentStep, setCurrentStep] = useState(null);
   const [progressWidth, setProgressWidth] = useState(null);
@@ -18,7 +21,8 @@ const TrackerBar = props => {
 
   useEffect(() => {
     if(request.resolved_tenant && request.resolved_owner) {
-      setCurrentStep(4)
+      return triggerBarChange(4)
+
     }
 
 
@@ -41,12 +45,21 @@ const TrackerBar = props => {
     }
   }, [])
 
-  let { classes, request } = props;
+  let { classes, request, handleDeleteRequest } = props;
+  let {
+    request_name,
+    received,
+    resolved_tenant,
+    resolved_owner,
+    id } = props.request
 
   return (
     <div className={props.classes.progressBarSection}>
-      <h4>Name: {request.request_name}</h4>
-
+      <h4 style={{ display: "inline-block"}}>Request Name: {request_name}</h4>
+      <DeleteButton
+       request={request}
+       handleDeleteRequest={handleDeleteRequest}
+      />
       <LinearProgress
         className={classes.progressBar}
         variant="determinate"
@@ -120,7 +133,7 @@ const TrackerBar = props => {
             className={isGreaterOrIsEqual(progressWidth, 0, "step-text")}
 
             >
-              <p>{request.received ? "Request received" : "Request sent"}</p>
+              <p>{received ? "Request received" : "Request sent"}</p>
             </div>
 
           </>
@@ -187,9 +200,6 @@ const TrackerBar = props => {
           </>
         </Grid>
       </div>
-      <br />
-      <button onClick={() => triggerBarChange(currentStep + 1)} />
-      Current step: {currentStep}
     </div>
   );
 };

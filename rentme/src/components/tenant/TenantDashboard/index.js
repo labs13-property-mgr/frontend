@@ -70,14 +70,27 @@ const TenantDashboard = props => {
       .catch(err => console.log("Crap!", err));
   }, []);
 
+
   useEffect(() => {
+    getServicesRequest()
+
+  }, []);
+
+  const getServicesRequest = () => {
     axios
       .get("https://rent-me-app.herokuapp.com/api/service")
       .then(res => {
-        setRequests(res.data);
+        return setRequests(res.data)
       })
       .catch(err => console.log(err));
-  }, []);
+  }
+
+  const deleteRequest = id => {
+    console.log("triggered deleteRequest")
+    axios.delete(`https://rent-me-app.herokuapp.com/api/service/${id}`)
+      .then(res => getServicesRequest())
+      .catch(err => console.log(err))
+  }
 
   console.log("Tenant", tenant);
   console.log("TenantProperty", Array.isArray(tenantProperty));
@@ -177,6 +190,7 @@ const TenantDashboard = props => {
                   classes={classes}
                   request={request}
                   key={request.id}
+                  handleDeleteRequest={deleteRequest}
                 />
               );
             })

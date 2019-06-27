@@ -23,6 +23,11 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "center",
     margin: "0 auto",
     marginTop: "80px"
+  },
+  center: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
   }
 }));
 
@@ -34,10 +39,15 @@ const ServiceRequestModal = props => {
     setModalOpen(!modalOpen)
   }
 
-
+  const { request_name, resolved_tenant, resolved_owner } = props.request
   return (
-     <div>
-      <Button onClick={handleClick}>Open Request</Button>
+     <div className={classes.center}>
+      <Button onClick={handleClick}>{request_name}</Button>
+      {resolved_tenant && resolved_owner ?
+        <i class="material-icons">assignment_turned_in</i>
+        :
+        <i class="material-icons">assignment_late</i>
+}
       <Modal
         aria-labelledby="Edit service request form"
         aria-describedby="Form for editing service request"
