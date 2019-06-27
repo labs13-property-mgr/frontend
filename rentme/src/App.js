@@ -30,6 +30,7 @@ import PasswordChange from "./components/PasswordChange";
 import { TenantDashWithFirebase } from "./components/tenant/TenantDashboard";
 import TenantDashboard from "./components/tenant/TenantDashboard";
 import AddIssueForm from "./components/tenant/AddIssueForm";
+import PrivacyPolicy from "./components/PrivacyPolicy";
 import "./App.css";
 
 import * as ROUTES from "./constants/routes";
@@ -71,6 +72,9 @@ const App = () => (
       {/* Tenant Routes */}
       <Route exact path={ROUTES.RENT_RECEIPTS} component={RentReceipts} />
       <Route exact path={ROUTES.ADD_ISSUE_FORM} component={AddIssueForm} />
+
+      {/* Misc */}
+      <Route exact path={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />
 
       {/* Hold for Stretch */}
       <Route path="/manager-login" component={ManagerLogin} />
