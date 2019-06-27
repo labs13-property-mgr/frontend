@@ -45,17 +45,21 @@ class OwnerSignUpFormBase extends Component {
 onSubmitAddOwner = async e => {
   e.preventDefault();
 
-  const { username, email, passwordOne, isOwner } = this.state;
+  const { authUser, username, email, passwordOne, isOwner } = this.state;
   const roles = {};
 
   if (isOwner) {
     roles[ROLES.OWNER] = ROLES.OWNER;
   }
 
-  const authUser = await this.props.firebase.doCreateUserWithEmailAndPassword(
-    email,
-    passwordOne
-  );
+  try {
+    const authUser = await this.props.firebase.doCreateUserWithEmailAndPassword(
+      email,
+      passwordOne
+    );
+   } catch (err) {
+     alert(err)
+   }
 
   await this.props.firebase.user(authUser.user.uid).set({
     username,
@@ -72,7 +76,6 @@ onSubmitAddOwner = async e => {
   console.log(response);
   return this.props.history.push(ROUTES.OWNER_DASHBOARD);
 };
-
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });

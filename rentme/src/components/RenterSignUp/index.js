@@ -44,17 +44,21 @@ class RenterSignUpFormBase extends Component {
   onSubmitAddTenant = async e => {
     e.preventDefault();
   
-    const { username, email, passwordOne, isTenant } = this.state;
+    const { authUser, username, email, passwordOne, isTenant } = this.state;
     const roles = {};
   
     if (isTenant) {
       roles[ROLES.TENANT] = ROLES.TENANT;
     }
   
-    const authUser = await this.props.firebase.doCreateUserWithEmailAndPassword(
-      email,
-      passwordOne
-    );
+    try {
+      const authUser = await this.props.firebase.doCreateUserWithEmailAndPassword(
+        email,
+        passwordOne
+      );
+     } catch (err) {
+       alert(err)
+     }
   
     await this.props.firebase.user(authUser.user.uid).set({
       username,
@@ -65,7 +69,7 @@ class RenterSignUpFormBase extends Component {
     const response = await axios.post('https://rent-me-app.herokuapp.com/api/user', {
       uid: authUser.user.uid,
       email,
-      role: ROLES.OWNER
+      role: ROLES.TENANT
     });
 
     console.log(response);
