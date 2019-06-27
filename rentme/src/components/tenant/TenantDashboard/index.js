@@ -87,6 +87,13 @@ const TenantDashboard = props => {
       .catch(err => console.log(err));
   };
 
+  const setResolvedRequest = id => {
+    return axios
+      .put(`https://rent-me-app.herokuapp.com/api/service/${id}`, { resolved_tenant: true })
+        .then(res => getServicesRequest())
+        .catch(err => console.log(err))
+  }
+
   console.log('Tenant', tenant);
   console.log('TenantProperty', Array.isArray(tenantProperty));
 
@@ -183,6 +190,8 @@ const TenantDashboard = props => {
                   request={request}
                   key={request.id}
                   handleDeleteRequest={deleteRequest}
+                  handleSetResolvedRequest={setResolvedRequest}
+                  handleGetServicesRequest={getServicesRequest}
                 />
               );
             })
