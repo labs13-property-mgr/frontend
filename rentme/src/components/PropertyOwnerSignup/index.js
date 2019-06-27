@@ -108,7 +108,15 @@ class OwnerSignUpFormBase extends Component {
         console.log("new user");
         this.props.history.push(ROUTES.OWNER_DASHBOARD);
       })
-      
+      axios
+        .post("https://rent-me-app.herokuapp.com/api/user")
+        .then(res => {
+          const user = (res.data);
+          console.log("new owner added")
+        })
+        .catch(err => {
+          console.log("adding is not working", err)
+        })
       .catch(error => {
         this.setState({ error });
       });
