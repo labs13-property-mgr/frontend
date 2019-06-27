@@ -168,20 +168,11 @@ class TenantAddressBk extends Component {
         }
       },
       {
-        name: "address",
-        label: "ADDRESS",
-        options: {
-          filter: true,
-          sort: false
-        }
-      },
-      {
         name: "options",
         label: "MORE",
         options: {
-          filter: true,
+          filter: false,
           sort: false,
-          empty: true,
           customBodyRender: (value, tableMeta, updateValue) => {
             return (
               <div>
@@ -222,8 +213,7 @@ class TenantAddressBk extends Component {
         tenant.id,
         `${tenant.First_name} ${tenant.Last_name}`,
         tenant.phone,
-        tenant.email,
-        tenant.address
+        tenant.email
       ];
     });
 
@@ -285,7 +275,7 @@ class TenantAddressBk extends Component {
                   >
                     Full Profile
                   </MenuItem>
-                  <MenuItem
+                  {/* <MenuItem
                     onClick={e => {
                       this.props.history.push(
                         `/tenant-card/${this.state.currentRow[0]}`
@@ -293,7 +283,7 @@ class TenantAddressBk extends Component {
                     }}
                   >
                     Leasing Documents
-                  </MenuItem>
+                  </MenuItem> */}
                   <MenuItem onClick={this.updateTenant}>
                     Edit Information
                   </MenuItem>

@@ -254,7 +254,7 @@ class TenantCard extends Component {
                     }`}
                   </p>
                   <p>
-                    Contact Info:
+                    Phone Number:
                     {` ${
                       this.state.tenant["phone"] === null
                         ? "No info provided"
@@ -268,6 +268,12 @@ class TenantCard extends Component {
                         ? "No info provided"
                         : `${this.state.tenant["emergency contact"]}`
                     }`}
+                  </p>
+                  <p>
+                    Email:{" "}
+                    <Link to={`mailto:${this.state.tenant["email"]}`}>
+                      {this.state.tenant["email"]}
+                    </Link>
                   </p>
                   {this.state.property && (
                     <>

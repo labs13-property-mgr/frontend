@@ -21,3 +21,7 @@ export const VENDOR_ADDRESSBK = "/vendor-addbook";
 
 export const RENT_RECEIPTS = "/view-receipts";
 export const ADD_ISSUE_FORM = "/add-work-request";
+
+
+
+export const PRIVACY_POLICY = "/privacy-policy";

@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { withAuthorization } from '../../Session';
-import * as ROLES from '../../../constants/roles';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { withAuthorization } from "../../Session";
+import * as ROLES from "../../../constants/roles";
 
 //Material UI imports
-import { useTheme } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import 'typeface-roboto';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import Collapse from '@material-ui/core/Collapse';
-import Tooltip from '@material-ui/core/Tooltip';
+import { useTheme } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
+import "typeface-roboto";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
+import Collapse from "@material-ui/core/Collapse";
+import Tooltip from "@material-ui/core/Tooltip";
 //Built component imports
-import TrackerBar from './TrackerBar';
-import { useStyles } from './helpers';
-import TenantUserMenu from '../../SideMenu/TenantUserMenu';
+import TrackerBar from "./TrackerBar";
+import { useStyles } from "./helpers";
+import TenantUserMenu from "../../SideMenu/TenantUserMenu";
 
-import './tenantDashboard.css';
+import "./tenantDashboard.css";
 
 const TenantDashboard = props => {
   const [tenant, setTenant] = useState([]);
@@ -40,7 +40,7 @@ const TenantDashboard = props => {
       ...open,
       [idx]: state
     });
-    console.log('open', open);
+    console.log("open", open);
   }
 
   function handleDrawerToggle() {
@@ -49,11 +49,12 @@ const TenantDashboard = props => {
 
   useEffect(() => {
     axios
-      .get('https://rent-me-app.herokuapp.com/api/user')
+      .get("https://rent-me-app.herokuapp.com/api/user")
       .then(res => {
         setTenant(
           res.data.find(
-            user => user.uid === JSON.parse(localStorage.getItem('authUser')).uid
+            user =>
+              user.uid === JSON.parse(localStorage.getItem("authUser")).uid
           )
         );
       })
@@ -67,12 +68,13 @@ const TenantDashboard = props => {
         .catch(err => console.log('Crap!', err));
 
       getServicesRequest();
+  }, []);
 
   }, []);
 
   const getServicesRequest = () => {
     axios
-      .get('https://rent-me-app.herokuapp.com/api/service')
+      .get("https://rent-me-app.herokuapp.com/api/service")
       .then(res => {
         return setRequests(res.data);
       })
@@ -80,7 +82,7 @@ const TenantDashboard = props => {
   };
 
   const deleteRequest = id => {
-    console.log('triggered deleteRequest');
+    console.log("triggered deleteRequest");
     axios
       .delete(`https://rent-me-app.herokuapp.com/api/service/${id}`)
       .then(res => getServicesRequest())
@@ -107,8 +109,8 @@ const TenantDashboard = props => {
 
   const tenantPropertyData = tenantProperty.filter(tp => {
     return tp.tenant_email === tenant.email;
-  });
-  console.log(tenantProperty);
+  })[0];
+  console.log("Tenant Property Data", tenantPropertyData);
 
   const otherTenantsInfo = tenantProperty.filter(tp => {
     return (
@@ -118,7 +120,7 @@ const TenantDashboard = props => {
   });
 
   // console.log(tenantPropertyData);
-  console.log('Other tenants', otherTenantsInfo);
+  console.log("Other tenants", otherTenantsInfo);
 
   return (
     <div className={classes.mainContainer}>
@@ -138,7 +140,8 @@ const TenantDashboard = props => {
                 Name: {tenantPropertyData && tenantPropertyData.property_name}
               </Typography>
               <Typography variant="h6" className={classes.propertyInfo}>
-                Address: {tenantPropertyData && tenantPropertyData.property_address}
+                Address:{" "}
+                {tenantPropertyData && tenantPropertyData.property_address}
               </Typography>
               <Typography variant="h6" className={classes.propertyInfo}>
                 Other Tenants:
@@ -154,8 +157,11 @@ const TenantDashboard = props => {
                           handleExpandClick(idx);
                         }}
                       >
-                        <Typography variant="body1" className={classes.otherTenantNames}>
-                          {otherTenant && otherTenant.First_name}{' '}
+                        <Typography
+                          variant="body1"
+                          className={classes.otherTenantNames}
+                        >
+                          {otherTenant && otherTenant.First_name}{" "}
                           {otherTenant && otherTenant.Last_name}
                         </Typography>
                         <Tooltip title="View more details" placement="right">
@@ -206,4 +212,6 @@ const TenantDashboard = props => {
 
 const condition = authUser => authUser && !!authUser.roles[ROLES.TENANT];
 
-export const TenantDashWithFirebase = withAuthorization(condition)(TenantDashboard);
+export const TenantDashWithFirebase = withAuthorization(condition)(
+  TenantDashboard
+);
