@@ -77,53 +77,6 @@ onSubmitAddOwner = async e => {
   return this.props.history.push(ROUTES.OWNER_DASHBOARD);
 };
 
-
-/*class OwnerSignUpFormBase extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { ...INITIAL_STATE };
-  }
-
-  onSubmitAddOwner = e => {
-    const { username, email, passwordOne, isOwner } = this.state;
-    const roles = {};
-
-    if (isOwner) {
-      roles[ROLES.OWNER] = ROLES.OWNER
-    }
-
-    this.props.firebase
-      .doCreateUserWithEmailAndPassword(email, passwordOne)
-      .then(authUser => {
-        return this.props.firebase                  // creates user in firebase database
-        .user(authUser.user.uid)
-        .set({
-          username,
-          email,
-          roles,
-        })
-      })
-      .then(() => {
-        this.setState({ ...INITIAL_STATE });
-        console.log("new user");
-        this.props.history.push(ROUTES.OWNER_DASHBOARD);
-      })
-      axios
-        .post("https://rent-me-app.herokuapp.com/api/user")
-        .then(res => {
-          const user = (res.data);
-          console.log("new owner added")
-        })
-        .catch(err => {
-          console.log("adding is not working", err)
-        })
-      .catch(error => {
-        this.setState({ error });
-      });
-    e.preventDefault();
-  };*/
-
-
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
