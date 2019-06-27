@@ -168,14 +168,6 @@ class TenantAddressBk extends Component {
         }
       },
       {
-        name: "address",
-        label: "ADDRESS",
-        options: {
-          filter: true,
-          sort: false
-        }
-      },
-      {
         name: "options",
         label: "MORE",
         options: {
@@ -222,8 +214,7 @@ class TenantAddressBk extends Component {
         tenant.id,
         `${tenant.First_name} ${tenant.Last_name}`,
         tenant.phone,
-        tenant.email,
-        tenant.address
+        tenant.email
       ];
     });
 

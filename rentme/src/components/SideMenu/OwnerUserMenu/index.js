@@ -107,7 +107,10 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: "1rem",
     paddingRight: "1rem",
     paddingTop: "1rem",
-    color: "grey"
+    marginTop: "1rem",
+    fontSize: "1.2rem",
+    paddingBottom: "1rem",
+    fontWeight: 300
   },
   drawer: {
     [theme.breakpoints.up("sm")]: {
@@ -146,6 +149,20 @@ const useStyles = makeStyles(theme => ({
   },
   menuSection: {
     marginTop: "1.5rem"
+  },
+  menuItemZillow: {
+    display: "flex",
+    flexDirection: "column"
+  },
+  titleSection: {
+    display: "flex",
+    flexDirection: "row",
+    marginLeft: "-1.5rem",
+    marginBottom: ".5rem"
+  },
+  widgetTitle: {
+    marginLeft: "1rem",
+    fontSize: "1rem"
   }
 }));
 
@@ -215,8 +232,20 @@ const OwnerUserMenu = props => {
             {/* <p className={classes.menuText}>Add Vendors/Service Providers</p> */}
           </ListItemLink>
         </List>
+        <Divider />
+        <Typography variant="subtitle1" className={classes.resourcesHeader}>
+          Owner Resources
+        </Typography>
+        <ListItem className={classes.menuItemZillow}>
+          <div className={classes.titleSection}>
+            <Icon fontSize="medium">info</Icon>
+            <Typography variant="subtitle2" className={classes.widgetTitle}>
+              Get Property Info
+            </Typography>
+          </div>
+          <ZillowWidget />
+        </ListItem>
       </div>
-      <ZillowWidget />
     </div>
   );
 
