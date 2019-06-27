@@ -275,7 +275,7 @@ class TenantAddressBk extends Component {
                   >
                     Full Profile
                   </MenuItem>
-                  <MenuItem
+                  {/* <MenuItem
                     onClick={e => {
                       this.props.history.push(
                         `/tenant-card/${this.state.currentRow[0]}`
@@ -283,7 +283,7 @@ class TenantAddressBk extends Component {
                     }}
                   >
                     Leasing Documents
-                  </MenuItem>
+                  </MenuItem> */}
                   <MenuItem onClick={this.updateTenant}>
                     Edit Information
                   </MenuItem>
