@@ -38,7 +38,6 @@ const TrackerBar = props => {
   }, [ request ])
 
   const updateTrackerBar = () => {
-    console.log(`Request name: ${request_name} \n Tenant: ${resolved_tenant} \n Owner:${resolved_owner}`)
 
     if(resolved_tenant && resolved_owner) {
       return triggerBarChange(4)
