@@ -33,7 +33,11 @@ const TrackerBar = props => {
     received,
     resolved_tenant,
     resolved_owner,
-    id } = props.request
+    id } = request
+
+  useEffect(() => {
+    updateTrackerBar()
+  }, [ request ])
 
   const updateTrackerBar = () => {
     console.log(`Request name: ${request_name} \n Tenant: ${resolved_tenant} \n Owner:${resolved_owner}`)
