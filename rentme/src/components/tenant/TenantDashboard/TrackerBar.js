@@ -23,9 +23,7 @@ const TrackerBar = props => {
 
   };
 
-  useEffect(() => {
-    updateTrackerBar()
-  }, [ isResolved ])
+
 
   let { classes, request, handleDeleteRequest, handleSetResolvedRequest, handleGetServicesRequest } = props;
   let {
@@ -200,7 +198,7 @@ const TrackerBar = props => {
                 progressWidth === 100 ? " completed" : ""
               }`}
             >
-              {!resolved_tenant ? <Button onClick={() => handleSetResolvedRequest(id).then(() => setIsResolved(true))}>
+              {!resolved_tenant ? <Button onClick={() => handleSetResolvedRequest(id)}>
                 <p className={'step-text'}>Issue resolved?</p>
               </Button> : ""}
             </div>
