@@ -35,7 +35,7 @@ const styles = {
   }
 };
 
-/*class OwnerSignUpFormBase extends Component {
+class OwnerSignUpFormBase extends Component {
   constructor(props) {
     super(props);
 
@@ -45,27 +45,27 @@ const styles = {
 onSubmitAddOwner = async e => {
   e.preventDefault();
 
-  const { username, email, passwordOne, isOwner } = this.state;
+  const { authUser, username, email, passwordOne, isOwner } = this.state;
   const roles = {};
 
   if (isOwner) {
     roles[ROLES.OWNER] = ROLES.OWNER;
   }
 
-  const authUser = await this.props.firebase.doCreateUserWithEmailAndPassword(
-    email,
-    passwordOne
-  );
-
   try {
-    await this.props.firebase.user(authUser.user.uid).set({
-      username,
+    const authUser = await this.props.firebase.doCreateUserWithEmailAndPassword(
       email,
-      roles
-    });
-  } catch (err) {
-    alert(err)
-  }
+      passwordOne
+    );
+   } catch (err) {
+     alert(err)
+   }
+
+  await this.props.firebase.user(authUser.user.uid).set({
+    username,
+    email,
+    roles
+  });
 
   const response = await axios.post('https://rent-me-app.herokuapp.com/api/user', {
     uid: authUser.user.uid,
@@ -75,10 +75,10 @@ onSubmitAddOwner = async e => {
 
   console.log(response);
   return this.props.history.push(ROUTES.OWNER_DASHBOARD);
-};*/
+};
 
 
-class OwnerSignUpFormBase extends Component {
+/*class OwnerSignUpFormBase extends Component {
   constructor(props) {
     super(props);
     this.state = { ...INITIAL_STATE };
@@ -121,7 +121,7 @@ class OwnerSignUpFormBase extends Component {
         this.setState({ error });
       });
     e.preventDefault();
-  };
+  };*/
 
 
   onChange = e => {
