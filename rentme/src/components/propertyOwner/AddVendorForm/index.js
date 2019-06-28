@@ -12,6 +12,7 @@ import Icon from "@material-ui/core/Icon";
 import { withAuthorization } from "../../Session";
 import { compose } from "recompose";
 import Typography from "@material-ui/core/Typography";
+import MaskedInput from "react-text-mask";
 import "typeface-roboto";
 
 import * as ROLES from "../../../constants/roles";
@@ -234,7 +235,10 @@ class AddVendorForm extends Component {
                       onChange={this.handleChange}
                       value={this.state.vendor.address}
                     />
-                    <TextField
+                     <MaskedInput
+                      mask={['(', /[1-9]/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/ ]}
+                      guide={true}
+                      placeholder="Phone Number"
                       variant="outlined"
                       id="phone"
                       label="Phone Number"
