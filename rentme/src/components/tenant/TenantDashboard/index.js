@@ -115,6 +115,7 @@ const TenantDashboard = props => {
   console.log("Tenant Property Data", tenantPropertyData);
 
   const otherTenantsInfo = tenantProperty.filter(tp => {
+    if (!tenantPropertyData) return;
     return (
       tp.property_id === tenantPropertyData.property_id &&
       tp.tenant_email !== tenantPropertyData.tenant_email
