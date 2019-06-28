@@ -59,9 +59,7 @@ const TenantDashboard = props => {
         );
       })
       .catch(err => console.log("Crap!", err));
-  }, []);
 
-  useEffect(() => {
     axios
       .get(
         "https://rent-me-app.herokuapp.com/api/property/propertieswithtenants"
@@ -70,9 +68,7 @@ const TenantDashboard = props => {
         setTenantProperty(res.data);
       })
       .catch(err => console.log("Crap!", err));
-  }, []);
 
-  useEffect(() => {
     getServicesRequest();
   }, []);
 
@@ -93,8 +89,17 @@ const TenantDashboard = props => {
       .catch(err => console.log(err));
   };
 
+  const setResolvedRequest = id => {
+    return axios
+      .put(`https://rent-me-app.herokuapp.com/api/service/${id}`, {
+        resolved_tenant: true
+      })
+      .then(res => getServicesRequest())
+      .catch(err => console.log(err));
+  };
+
   console.log("Tenant", tenant);
-  console.log("TenantProperty", tenantProperty);
+  console.log("TenantProperty", Array.isArray(tenantProperty));
 
   // const tenantPropertyData = () => {
   //   return tenantProperty.find(tp => {
@@ -193,6 +198,8 @@ const TenantDashboard = props => {
                   request={request}
                   key={request.id}
                   handleDeleteRequest={deleteRequest}
+                  handleSetResolvedRequest={setResolvedRequest}
+                  handleGetServicesRequest={getServicesRequest}
                 />
               );
             })

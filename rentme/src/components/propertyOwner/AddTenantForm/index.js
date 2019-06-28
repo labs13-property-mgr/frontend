@@ -9,6 +9,7 @@ import Paper from "@material-ui/core/Paper";
 import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
 import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
+import MaskedInput from "react-text-mask";
 import { withAuthorization } from "../../Session";
 import { compose } from "recompose";
 import Typography from "@material-ui/core/Typography";
@@ -284,13 +285,29 @@ class AddTenantForm extends Component {
                       onChange={this.handleChange}
                       value={this.state.tenant["Last_name"]}
                     />
-                    <TextField
+                    <MaskedInput
+                      mask={[
+                        "(",
+                        /[1-9]/,
+                        /\d/,
+                        /\d/,
+                        ")",
+                        /\d/,
+                        /\d/,
+                        /\d/,
+                        "-",
+                        /\d/,
+                        /\d/,
+                        /\d/,
+                        /\d/
+                      ]}
+                      guide={true}
                       variant="outlined"
                       margin="normal"
                       required
                       id="phone"
                       label="Phone Number"
-                      defaultValue=""
+                      defaultValue="Phone Number"
                       name="phone"
                       autoComplete="phone"
                       autoFocus
@@ -353,7 +370,23 @@ class AddTenantForm extends Component {
                       onChange={this.handleChange}
                       value={this.state.tenant["number in household"]}
                     />
-                    <TextField
+                    <MaskedInput
+                      mask={[
+                        "(",
+                        /[1-9]/,
+                        /\d/,
+                        /\d/,
+                        ")",
+                        /\d/,
+                        /\d/,
+                        /\d/,
+                        "-",
+                        /\d/,
+                        /\d/,
+                        /\d/,
+                        /\d/
+                      ]}
+                      guide={true}
                       variant="outlined"
                       margin="normal"
                       id="emergency contact"
@@ -370,7 +403,7 @@ class AddTenantForm extends Component {
                       name="property_id"
                       select
                       required
-                      label="Property associated with tenant"
+                      label="Property Name"
                       value={this.state.tenant["property_id"]}
                       onChange={this.handleChange}
                       helperText="Select which property from your list of properties to tie the tenant to."
