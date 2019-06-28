@@ -56,9 +56,6 @@ class RenterSignUpFormBase extends Component {
         email,
         passwordOne
       );
-     } catch (err) {
-       alert(err)
-     }
   
     await this.props.firebase.user(authUser.user.uid).set({
       username,
@@ -71,10 +68,12 @@ class RenterSignUpFormBase extends Component {
       email,
       role: ROLES.TENANT
     });
-
-    console.log(response);
-    return this.props.history.push(ROUTES.TENANT_DASHBOARD);
-  };
+  } catch (err) {
+    alert(err)
+  } finally {
+      return this.props.history.push(ROUTES.TENANT_DASHBOARD);
+    };
+  }
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
