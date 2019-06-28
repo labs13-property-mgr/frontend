@@ -148,7 +148,11 @@ class AddTenantForm extends Component {
             const propertiesData = properties.filter(
               property => property.owner_id === usersData.uid
             );
+
+            //propertiesData.push({ id: null, property_name: "None" });
+
             // propertiesData.push({ id: NaN, property_name: "None" });
+
             console.log(usersData);
             this.setState({
               properties: propertiesData
