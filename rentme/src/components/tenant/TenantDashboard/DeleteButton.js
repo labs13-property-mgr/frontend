@@ -9,7 +9,7 @@ const DeleteButton = props => {
     <>
       {resolved_tenant && resolved_owner ?
         <Button color="primary" onClick={() => handleDeleteRequest(id)}>
-          <i class="material-icons">
+          <i className="material-icons">
             delete_forever
           </i>
         </Button>

@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
+import IssueResolvedText from './IssueResolvedText'
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
+import Button from "@material-ui/core/Button";
+
 import { CheckProgress, isGreaterOrIsEqual } from './helpers'
 import DeleteButton from './DeleteButton'
 import axios from 'axios'
@@ -9,6 +12,7 @@ import axios from 'axios'
 const TrackerBar = props => {
   const [currentStep, setCurrentStep] = useState(null);
   const [progressWidth, setProgressWidth] = useState(null);
+  const [ isResolved, setIsResolved ] = useState(false)
 
   const triggerBarChange = step => {
 
@@ -19,12 +23,25 @@ const TrackerBar = props => {
 
   };
 
+
+
+  let { classes, request, handleDeleteRequest, handleSetResolvedRequest, handleGetServicesRequest } = props;
+  let {
+    request_name,
+    received,
+    resolved_tenant,
+    resolved_owner,
+    id } = request
+
   useEffect(() => {
-    if(request.resolved_tenant && request.resolved_owner) {
+    updateTrackerBar()
+  }, [ request ])
+
+  const updateTrackerBar = () => {
+
+    if(resolved_tenant && resolved_owner) {
       return triggerBarChange(4)
-
     }
-
 
     switch(request.status.toLowerCase()) {
       case "open":
@@ -43,15 +60,7 @@ const TrackerBar = props => {
         return null
         break;
     }
-  }, [])
-
-  let { classes, request, handleDeleteRequest } = props;
-  let {
-    request_name,
-    received,
-    resolved_tenant,
-    resolved_owner,
-    id } = props.request
+  }
 
   return (
     <div className={props.classes.progressBarSection}>
@@ -188,17 +197,16 @@ const TrackerBar = props => {
                 progressWidth === 100 ? " completed" : ""
               }`}
             >
-              <p>Issue successfully resolved!</p>
+              {!resolved_tenant ? <Button onClick={() => handleSetResolvedRequest(id)}>
+                <p className={'step-text'}>Issue resolved?</p>
+              </Button> : ""}
             </div>
-            <div
-              className={`check-text${
-                progressWidth === 100 ? " completed" : ""
-              }`}
-            >
-              <p>Issue successfully resolved!</p>
-            </div>
+
           </>
         </Grid>
+        <IssueResolvedText
+          request={request}
+        />
       </div>
     </div>
   );
