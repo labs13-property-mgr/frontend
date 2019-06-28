@@ -84,7 +84,37 @@ class TenantAddressBk extends Component {
     user: {},
     anchorEl: null,
     clickedButton: null,
-    currentRow: []
+    currentRow: [],
+    data: []
+  };
+
+  setupTenants = tenants => {
+    const usersData = this.state.user;
+
+    this.setState({
+      tenants: tenants.filter(tenant => tenant.owner_id === usersData.uid)
+    });
+    this.setState({
+      data: this.state.tenants.map(tenant => {
+        return [
+          tenant.id,
+          `${tenant.First_name} ${tenant.Last_name}`,
+          tenant.phone,
+          tenant.email
+        ];
+      })
+    });
+  };
+
+  getTenants = () => {
+    axios
+      .get("https://rent-me-app.herokuapp.com/api/tenant")
+      .then(res => {
+        const tenants = res.data;
+        this.setupTenants(tenants);
+        this.props.history.push(`/tenant-addbook`);
+      })
+      .catch(err => console.log("Crap!", err));
   };
 
   componentDidMount() {
@@ -99,24 +129,31 @@ class TenantAddressBk extends Component {
               user.uid === JSON.parse(localStorage.getItem("authUser")).uid
           )
         });
-        axios
-          .get("https://rent-me-app.herokuapp.com/api/tenant")
-          .then(res => {
-            const usersData = this.state.user;
-            const tenants = res.data;
-            console.log("Users", usersData);
-            this.setState({
-              tenants: tenants.filter(
-                tenant => tenant.owner_id === usersData.uid
-              )
-            });
-          })
-          .catch(err => console.log("Crap!", err));
+        this.getTenants();
       })
       .catch(error => {
         console.error("USERS ERROR", error);
       });
   }
+
+  deleteTenants = id => {
+    return axios
+      .delete(`https://rent-me-app.herokuapp.com/api/tenant/${id}`)
+      .then(res => {
+        const tenants = res.data;
+        this.setState({ tenants });
+      })
+      .then(() => {
+        window.location.reload();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  deleteTenant = tenantId => {
+    this.deleteTenants(tenantId);
+  };
 
   setActiveTenant = tenant => {
     this.setState({ activeTenant: tenant });
@@ -186,6 +223,7 @@ class TenantAddressBk extends Component {
                         currentRow: tableMeta.rowData,
                         anchorEl: e.currentTarget
                       });
+                      console.log(this.state);
                     }}
                   >
                     more_horiz
@@ -199,7 +237,7 @@ class TenantAddressBk extends Component {
     ];
 
     const options = {
-      filterType: "dropdown",
+      filterType: "textField",
       responsive: "stacked",
       fixedHeader: true,
       print: false,
@@ -207,15 +245,6 @@ class TenantAddressBk extends Component {
       download: false,
       viewColumns: false
     };
-
-    const data = this.state.tenants.map(tenant => {
-      return [
-        tenant.id,
-        `${tenant.First_name} ${tenant.Last_name}`,
-        tenant.phone,
-        tenant.email
-      ];
-    });
 
     return (
       <div className={this.props.classes.mainContainer}>
@@ -245,7 +274,11 @@ class TenantAddressBk extends Component {
                   </Link>
                 </Tooltip>
               </div>
-              <MUIDataTable data={data} columns={columns} options={options} />
+              <MUIDataTable
+                data={this.state.data}
+                columns={columns}
+                options={options}
+              />
               <Menu
                 anchorEl={this.state.anchorEl}
                 keepMounted
@@ -275,15 +308,13 @@ class TenantAddressBk extends Component {
                   >
                     Full Profile
                   </MenuItem>
-                  {/* <MenuItem
+                  <MenuItem
                     onClick={e => {
-                      this.props.history.push(
-                        `/tenant-card/${this.state.currentRow[0]}`
-                      );
+                      this.deleteTenant(this.state.currentRow[0]);
                     }}
                   >
-                    Leasing Documents
-                  </MenuItem> */}
+                    Delete Tenant
+                  </MenuItem>
                   <MenuItem onClick={this.updateTenant}>
                     Edit Information
                   </MenuItem>
