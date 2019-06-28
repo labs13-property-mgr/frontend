@@ -1,0 +1,15 @@
+.masked-input {
+  padding: 17.5px 16px;
+  border: 1.2px solid #cacaca;
+  border-radius: 4px;
+}
+
+.masked-input:focus,
+input:focus {
+  outline: none;
+}
+
+.masked-input,
+input[type="text"] {
+  font-size: 16px;
+}
