@@ -20,14 +20,18 @@ const ServiceRequests = () => {
   const [ requests, setRequests ] = useState("")
   const classes = useStyles()
 
-  useEffect(() => {
-    axios.get("https://rent-me-app.herokuapp.com/api/service")
+  const getRequests = () => {
+    return axios.get("https://rent-me-app.herokuapp.com/api/service")
     .then(res => {
       setRequests(res.data)
     })
     .catch(err => {
       console.log(err)
     })
+  }
+
+  useEffect(() => {
+    getRequests()
   }, [])
 
   return (
@@ -37,7 +41,7 @@ const ServiceRequests = () => {
     <div className={classes.cardContainer}>
 
       {requests && requests.map(request => {
-        return <ServiceRequest key={request.id} request={request} />
+        return <ServiceRequest key={request.id} request={request} handleGetRequests={getRequests} />
       })}
 
     </div>
