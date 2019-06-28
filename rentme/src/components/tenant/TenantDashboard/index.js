@@ -63,6 +63,7 @@ const TenantDashboard = props => {
       axios
         .get('https://rent-me-app.herokuapp.com/api/property/propertieswithtenants')
         .then(res => {
+          console.log(res.data)
           setTenantProperty(res.data);
         })
         .catch(err => console.log('Crap!', err));
@@ -81,7 +82,6 @@ const TenantDashboard = props => {
   };
 
   const deleteRequest = id => {
-    console.log("triggered deleteRequest");
     axios
       .delete(`https://rent-me-app.herokuapp.com/api/service/${id}`)
       .then(res => getServicesRequest())
@@ -95,31 +95,17 @@ const TenantDashboard = props => {
         .catch(err => console.log(err))
   }
 
-  console.log('Tenant', tenant);
-  console.log('TenantProperty', Array.isArray(tenantProperty));
-
-  // const tenantPropertyData = () => {
-  //   return tenantProperty.find(tp => {
-  //     return tp.tenant_email === tenant.email;
-  //   });
-  // };
-
-  // console.log(tenantProperty)
-
   const tenantPropertyData = tenantProperty.filter(tp => {
     return tp.tenant_email === tenant.email;
   })[0];
-  console.log("Tenant Property Data", tenantPropertyData);
 
   const otherTenantsInfo = tenantProperty.filter(tp => {
+    console.log(`TP: ${tp[0]} \n TenantProperty: ${tenantProperty}`)
     return (
-      tp.property_id === tenantPropertyData.property_id &&
+      tp.property_id === tenantPropertyData.property_id  &&
       tp.tenant_email !== tenantPropertyData.tenant_email
     );
   });
-
-  // console.log(tenantPropertyData);
-  console.log("Other tenants", otherTenantsInfo);
 
   return (
     <div className={classes.mainContainer}>
