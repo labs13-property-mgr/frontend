@@ -21,7 +21,7 @@ const ServiceRequest = props => {
     <>
       <Card className={classes.card}>
         <CardContent>
-          <ServiceRequestModal request={props.request} />
+          <ServiceRequestModal request={props.request} handleGetRequests={props.handleGetRequests}/>
         </CardContent>
       </Card>
     </>
