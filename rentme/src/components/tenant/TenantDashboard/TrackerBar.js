@@ -64,8 +64,8 @@ const TrackerBar = props => {
 
   useEffect(() => {
     updateTrackerBar()
-  }, [ request, updateTrackerBar ])
-  
+  }, [ request ])
+
   return (
     <div className={props.classes.progressBarSection}>
       <h4 style={{ display: "inline-block"}}>Request Name: {request_name}</h4>

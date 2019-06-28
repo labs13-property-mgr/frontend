@@ -14,7 +14,6 @@ import "./nav.css";
 import SignOut from "../SignOut";
 import * as ROUTES from "../../constants/routes";
 import { AuthUserContext } from "../Session";
-import { withStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles({
   root: {

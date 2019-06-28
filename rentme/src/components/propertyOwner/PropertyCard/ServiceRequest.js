@@ -1,4 +1,4 @@
-import React, {useState } from "react"
+import React from "react"
 import ServiceRequestModal from './ServiceRequestModal'
 
 import Card from '@material-ui/core/Card'
