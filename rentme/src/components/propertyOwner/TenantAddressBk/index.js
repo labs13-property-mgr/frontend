@@ -102,7 +102,9 @@ class TenantAddressBk extends Component {
           tenant.phone,
           tenant.email,
           `${
-            tenant.active_tenant ? "Active" : "Inactive - No Property Assigned"
+            tenant.active_tenant
+              ? "Active Tenant"
+              : "Inactive - No Property Assigned"
           }`
         ];
       })
