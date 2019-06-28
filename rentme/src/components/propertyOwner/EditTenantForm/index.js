@@ -13,6 +13,7 @@ import Icon from "@material-ui/core/Icon";
 import { withAuthorization } from "../../Session";
 import { compose } from "recompose";
 import Typography from "@material-ui/core/Typography";
+import MaskedInput from "react-text-mask";
 import "typeface-roboto";
 
 import * as ROLES from "../../../constants/roles";
@@ -266,7 +267,9 @@ class EditTenantForm extends Component {
                       onChange={this.handleChange}
                       value={this.state.activeTenant["Last_name"]}
                     />
-                    <TextField
+                    <MaskedInput
+                      mask={['(', /[1-9]/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/ ]}
+                      guide={true}
                       variant="outlined"
                       margin="normal"
                       fullWidth
@@ -339,7 +342,9 @@ class EditTenantForm extends Component {
                       onChange={this.handleChange}
                       value={this.state.activeTenant["number in household"]}
                     />
-                    <TextField
+                    <MaskedInput
+                      mask={['(', /[1-9]/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/ ]}
+                      guide={true}
                       variant="outlined"
                       margin="normal"
                       fullWidth
@@ -347,7 +352,6 @@ class EditTenantForm extends Component {
                       label="emergency contact"
                       name="emergency contact"
                       autoComplete="emergency contact"
-                      type="number"
                       autoFocus
                       onChange={this.handleChange}
                       value={this.state.activeTenant["emergency contact"]}
@@ -360,7 +364,7 @@ class EditTenantForm extends Component {
                       label="Select"
                       value={this.state.activeTenant["property_id"]}
                       onChange={this.handleChange}
-                      helperText="Please select your currency"
+                      helperText="Select which property from your list of properties to tie the tenant to."
                       margin="normal"
                       variant="outlined"
                     >
