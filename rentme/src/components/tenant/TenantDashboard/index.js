@@ -58,19 +58,19 @@ const TenantDashboard = props => {
           )
         );
       })
-      .catch(err => console.log('Crap!', err));
+      .catch(err => console.log("Crap!", err));
 
-      axios
-        .get('https://rent-me-app.herokuapp.com/api/property/propertieswithtenants')
-        .then(res => {
-          console.log(res.data)
-          setTenantProperty(res.data);
-        })
-        .catch(err => console.log('Crap!', err));
+    axios
+      .get(
+        "https://rent-me-app.herokuapp.com/api/property/propertieswithtenants"
+      )
+      .then(res => {
+        setTenantProperty(res.data);
+      })
+      .catch(err => console.log("Crap!", err));
 
-      getServicesRequest();
+    getServicesRequest();
   }, []);
-
 
   const getServicesRequest = () => {
     axios
@@ -91,13 +91,15 @@ const TenantDashboard = props => {
 
   const setResolvedRequest = id => {
     return axios
-      .put(`https://rent-me-app.herokuapp.com/api/service/${id}`, { resolved_tenant: true })
-        .then(res => getServicesRequest())
-        .catch(err => console.log(err))
-  }
+      .put(`https://rent-me-app.herokuapp.com/api/service/${id}`, {
+        resolved_tenant: true
+      })
+      .then(res => getServicesRequest())
+      .catch(err => console.log(err));
+  };
 
-  console.log('Tenant', tenant);
-  console.log('TenantProperty', Array.isArray(tenantProperty));
+  console.log("Tenant", tenant);
+  console.log("TenantProperty", Array.isArray(tenantProperty));
 
   // const tenantPropertyData = () => {
   //   return tenantProperty.find(tp => {
@@ -113,6 +115,7 @@ const TenantDashboard = props => {
   console.log("Tenant Property Data", tenantPropertyData);
 
   const otherTenantsInfo = tenantProperty.filter(tp => {
+    if (!tenantPropertyData) return;
     return (
       tp.property_id === tenantPropertyData.property_id &&
       tp.tenant_email !== tenantPropertyData.tenant_email

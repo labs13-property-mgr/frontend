@@ -15,6 +15,7 @@ import { compose } from "recompose";
 import Typography from "@material-ui/core/Typography";
 import MaskedInput from "react-text-mask";
 import "typeface-roboto";
+import "./editTenantForm.css";
 
 import * as ROLES from "../../../constants/roles";
 
@@ -138,7 +139,7 @@ class EditTenantForm extends Component {
             const propertiesData = properties.filter(
               property => property.owner_id === usersData.uid
             );
-            propertiesData.push({ id: NaN, property_name: "None" });
+            // propertiesData.push({ id: NaN, property_name: "None" });
             console.log(usersData);
             this.setState({
               properties: propertiesData
@@ -267,21 +268,41 @@ class EditTenantForm extends Component {
                       onChange={this.handleChange}
                       value={this.state.activeTenant["Last_name"]}
                     />
-                    <MaskedInput
-                      mask={['(', /[1-9]/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/ ]}
-                      guide={true}
-                      variant="outlined"
-                      margin="normal"
-                      fullWidth
-                      required
-                      id="phone"
-                      label="Phone"
-                      name="phone"
-                      autoComplete="phone"
-                      autoFocus
-                      onChange={this.handleChange}
-                      value={this.state.activeTenant["phone"]}
-                    />
+                    <section className="masked-container">
+                      <MaskedInput
+                        className="masked-input"
+                        mask={[
+                          "(",
+                          /[1-9]/,
+                          /\d/,
+                          /\d/,
+                          ")",
+                          /\d/,
+                          /\d/,
+                          /\d/,
+                          "-",
+                          /\d/,
+                          /\d/,
+                          /\d/,
+                          /\d/
+                        ]}
+                        guide={true}
+                        // variant="outlined"
+                        // margin="normal"
+                        // required
+                        id="phone"
+                        label="Phone Number"
+                        // defaultValue="Phone Number"
+                        name="phone"
+                        // autoComplete="phone"
+                        // autoFocus
+                        type="tel"
+                        placeholder="Phone Number*"
+                        onChange={this.handleChange}
+                        value={this.state.activeTenant["phone"]}
+                      />
+                      <p>Required*</p>
+                    </section>
                     <TextField
                       variant="outlined"
                       margin="normal"
@@ -342,20 +363,40 @@ class EditTenantForm extends Component {
                       onChange={this.handleChange}
                       value={this.state.activeTenant["number in household"]}
                     />
-                    <MaskedInput
-                      mask={['(', /[1-9]/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/ ]}
-                      guide={true}
-                      variant="outlined"
-                      margin="normal"
-                      fullWidth
-                      id="emergency contact"
-                      label="emergency contact"
-                      name="emergency contact"
-                      autoComplete="emergency contact"
-                      autoFocus
-                      onChange={this.handleChange}
-                      value={this.state.activeTenant["emergency contact"]}
-                    />
+                    <section className="masked-container">
+                      <MaskedInput
+                        className="masked-input"
+                        mask={[
+                          "(",
+                          /[1-9]/,
+                          /\d/,
+                          /\d/,
+                          ")",
+                          /\d/,
+                          /\d/,
+                          /\d/,
+                          "-",
+                          /\d/,
+                          /\d/,
+                          /\d/,
+                          /\d/
+                        ]}
+                        guide={true}
+                        // variant="outlined"
+                        // margin="normal"
+                        // required
+                        id="emergency contact"
+                        label="Emergency Contact Number"
+                        // defaultValue="Phone Number"
+                        name="emergency contact"
+                        // autoComplete="phone"
+                        // autoFocus
+                        placeholder="Emergency Contact Number*"
+                        onChange={this.handleChange}
+                        value={this.state.activeTenant["emergency contact"]}
+                      />
+                      <p>Required*</p>
+                    </section>
                     <TextField
                       fullWidth
                       id="property_id"
