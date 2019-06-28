@@ -100,7 +100,10 @@ class TenantAddressBk extends Component {
           tenant.id,
           `${tenant.First_name} ${tenant.Last_name}`,
           tenant.phone,
-          tenant.email
+          tenant.email,
+          `${
+            tenant.active_tenant ? "Active" : "Inactive - No Property Assigned"
+          }`
         ];
       })
     });
@@ -199,6 +202,14 @@ class TenantAddressBk extends Component {
       {
         name: "email",
         label: "EMAIL",
+        options: {
+          filter: true,
+          sort: true
+        }
+      },
+      {
+        name: "active_tenant",
+        label: "TENANT STATUS",
         options: {
           filter: true,
           sort: true
