@@ -7,7 +7,6 @@ import Button from "@material-ui/core/Button";
 
 import { CheckProgress, isGreaterOrIsEqual } from './helpers'
 import DeleteButton from './DeleteButton'
-import axios from 'axios'
 
 const TrackerBar = props => {
   const [currentStep, setCurrentStep] = useState(null);
@@ -25,7 +24,11 @@ const TrackerBar = props => {
 
 
 
-  let { classes, request, handleDeleteRequest, handleSetResolvedRequest, handleGetServicesRequest } = props;
+  let {
+    classes, request,
+    handleDeleteRequest,
+    handleSetResolvedRequest,
+    handleGetServicesRequest } = props;
   let {
     request_name,
     received,
