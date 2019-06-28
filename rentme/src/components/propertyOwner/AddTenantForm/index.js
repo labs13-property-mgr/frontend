@@ -102,7 +102,7 @@ class AddTenantForm extends Component {
     this.state = {
       tenants: [],
       tenant: {
-        ["property_id"]: null,
+        ["property_id"]: NaN,
         // ["First_name"]: "",
         // ["Last_name"]: "",
         // ["phone"]: "",
@@ -148,10 +148,8 @@ class AddTenantForm extends Component {
             const propertiesData = properties.filter(
               property => property.owner_id === usersData.uid
             );
-
-            //propertiesData.push({ id: null, property_name: "None" });
-
             // propertiesData.push({ id: NaN, property_name: "None" });
+            propertiesData.push({ id: NaN, property_name: "None" });
 
             console.log(usersData);
             this.setState({
@@ -182,7 +180,7 @@ class AddTenantForm extends Component {
   handleChange = e => {
     // e.persist();
     console.log(this.state.tenant);
-    if (e.target.name === "property_id" && e.target.value !== null) {
+    if (e.target.name === "property_id" && e.target.value !== "NaN") {
       this.setState({
         tenant: {
           ...this.state.tenant,
@@ -311,7 +309,7 @@ class AddTenantForm extends Component {
                         guide={true}
                         // variant="outlined"
                         // margin="normal"
-                        // required
+                        required
                         id="phone"
                         label="Phone Number"
                         // defaultValue="Phone Number"
@@ -402,7 +400,7 @@ class AddTenantForm extends Component {
                         guide={true}
                         // variant="outlined"
                         // margin="normal"
-                        // required
+                        required
                         id="emergency contact"
                         label="Emergency Contact Number"
                         // defaultValue="Phone Number"

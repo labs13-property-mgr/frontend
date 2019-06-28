@@ -177,7 +177,7 @@ class EditTenantForm extends Component {
   handleChange = e => {
     // e.persist();
     console.log(this.state.tenant);
-    if (e.target.name === "property_id" && e.target.value !== null) {
+    if (e.target.name === "property_id" && e.target.value !== "NaN") {
       this.setState({
         activeTenant: {
           ...this.state.activeTenant,
@@ -289,7 +289,7 @@ class EditTenantForm extends Component {
                         guide={true}
                         // variant="outlined"
                         // margin="normal"
-                        // required
+                        required
                         id="phone"
                         label="Phone Number"
                         // defaultValue="Phone Number"
@@ -384,7 +384,7 @@ class EditTenantForm extends Component {
                         guide={true}
                         // variant="outlined"
                         // margin="normal"
-                        // required
+                        required
                         id="emergency contact"
                         label="Emergency Contact Number"
                         // defaultValue="Phone Number"
