@@ -70,7 +70,6 @@ const TenantDashboard = props => {
       getServicesRequest();
   }, []);
 
-  }, []);
 
   const getServicesRequest = () => {
     axios
