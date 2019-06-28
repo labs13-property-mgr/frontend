@@ -93,6 +93,12 @@ const styles = theme => ({
   h2: {
     fontSize: "2rem",
     fontWeight: 500
+  },
+  selectProperty: {
+    marginTop: "2rem"
+  },
+  numTenants: {
+    marginBottom: "1rem"
   }
 });
 
@@ -177,7 +183,7 @@ class EditTenantForm extends Component {
   handleChange = e => {
     // e.persist();
     console.log(this.state.tenant);
-    if (e.target.name === "property_id" && e.target.value !== "NaN") {
+    if (e.target.name === "property_id" && e.target.value !== null) {
       this.setState({
         activeTenant: {
           ...this.state.activeTenant,
@@ -352,6 +358,7 @@ class EditTenantForm extends Component {
                       value={this.state.activeTenant["child name"]}
                     />
                     <TextField
+                      className={this.props.classes.numTenants}
                       variant="outlined"
                       margin="normal"
                       fullWidth
@@ -384,20 +391,21 @@ class EditTenantForm extends Component {
                         guide={true}
                         // variant="outlined"
                         // margin="normal"
-                        required
+                        // required
                         id="emergency contact"
                         label="Emergency Contact Number"
                         // defaultValue="Phone Number"
                         name="emergency contact"
                         // autoComplete="phone"
                         // autoFocus
-                        placeholder="Emergency Contact Number*"
+                        placeholder="Emergency Contact Number"
                         onChange={this.handleChange}
                         value={this.state.activeTenant["emergency contact"]}
                       />
-                      <p>Required*</p>
+                      {/* <p>Required*</p> */}
                     </section>
                     <TextField
+                      className={this.props.classes.selectProperty}
                       fullWidth
                       id="property_id"
                       name="property_id"

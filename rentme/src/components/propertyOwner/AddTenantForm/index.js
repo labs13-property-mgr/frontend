@@ -93,6 +93,12 @@ const styles = theme => ({
   h2: {
     fontSize: "2rem",
     fontWeight: 500
+  },
+  selectProperty: {
+    marginTop: "2rem"
+  },
+  numTenants: {
+    marginBottom: "1rem"
   }
 });
 
@@ -102,7 +108,7 @@ class AddTenantForm extends Component {
     this.state = {
       tenants: [],
       tenant: {
-        ["property_id"]: NaN,
+        ["property_id"]: null,
         // ["First_name"]: "",
         // ["Last_name"]: "",
         // ["phone"]: "",
@@ -148,8 +154,10 @@ class AddTenantForm extends Component {
             const propertiesData = properties.filter(
               property => property.owner_id === usersData.uid
             );
+
+            //propertiesData.push({ id: null, property_name: "None" });
+
             // propertiesData.push({ id: NaN, property_name: "None" });
-            propertiesData.push({ id: NaN, property_name: "None" });
 
             console.log(usersData);
             this.setState({
@@ -180,7 +188,7 @@ class AddTenantForm extends Component {
   handleChange = e => {
     // e.persist();
     console.log(this.state.tenant);
-    if (e.target.name === "property_id" && e.target.value !== "NaN") {
+    if (e.target.name === "property_id" && e.target.value !== null) {
       this.setState({
         tenant: {
           ...this.state.tenant,
@@ -368,6 +376,7 @@ class AddTenantForm extends Component {
                       value={this.state.tenant["child name"]}
                     />
                     <TextField
+                      className={this.props.classes.numTenants}
                       variant="outlined"
                       margin="normal"
                       id="number in household"
@@ -400,21 +409,22 @@ class AddTenantForm extends Component {
                         guide={true}
                         // variant="outlined"
                         // margin="normal"
-                        required
+                        // required
                         id="emergency contact"
                         label="Emergency Contact Number"
                         // defaultValue="Phone Number"
                         name="emergency contact"
                         // autoComplete="phone"
                         // autoFocus
-                        placeholder="Emergency Contact Number*"
+                        placeholder="Emergency Contact Number"
                         onChange={this.handleChange}
                         value={this.state.tenant["emergency contact"]}
                       />
-                      <p>Required*</p>
+                      {/* <p>Required*</p> */}
                     </section>
 
                     <TextField
+                      className={this.props.classes.selectProperty}
                       id="property_id"
                       name="property_id"
                       select
