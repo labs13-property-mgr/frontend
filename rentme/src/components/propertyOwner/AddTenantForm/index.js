@@ -102,7 +102,7 @@ class AddTenantForm extends Component {
     this.state = {
       tenants: [],
       tenant: {
-        ["property_id"]: "",
+        ["property_id"]: null,
         // ["First_name"]: "",
         // ["Last_name"]: "",
         // ["phone"]: "",
@@ -148,7 +148,7 @@ class AddTenantForm extends Component {
             const propertiesData = properties.filter(
               property => property.owner_id === usersData.uid
             );
-            propertiesData.push({ id: NaN, property_name: "None" });
+            propertiesData.push({ id: null, property_name: "None" });
             console.log(usersData);
             this.setState({
               properties: propertiesData
@@ -211,12 +211,12 @@ class AddTenantForm extends Component {
 
   onSubmitAddTenant = e => {
     e.preventDefault();
-    if (!this.state.tenant["property_id"]) {
-      this.setState({
-        invalid: true
-      });
-      return;
-    }
+    // if (!this.state.tenant["property_id"]) {
+    //   this.setState({
+    //     invalid: true
+    //   });
+    //   return;
+    // }
     const tenant = {
       ...this.state.tenant
     };
@@ -391,7 +391,7 @@ class AddTenantForm extends Component {
                         </MenuItem>
                       ))}
                     </TextField>
-                    {this.state.invalid && <div>hiohiohooho</div>}
+                    {/* {this.state.invalid && <div>hiohiohooho</div>} */}
                     <div className={this.props.classes.buttons}>
                       <Grid item xs={12} md={5}>
                         <Button
