@@ -100,7 +100,7 @@ class AddTenantForm extends Component {
     this.state = {
       tenants: [],
       tenant: {
-        ["property_id"]: "",
+        ["property_id"]: null,
         // ["First_name"]: "",
         // ["Last_name"]: "",
         // ["phone"]: "",
@@ -361,7 +361,7 @@ class AddTenantForm extends Component {
                       id="property_id"
                       name="property_id"
                       select
-                      label="Property associated with tenant"
+                      label="Property Name"
                       value={this.state.tenant["property_id"]}
                       onChange={this.handleChange}
                       helperText="Select which property from your list of properties to tie the tenant to."
@@ -394,7 +394,7 @@ class AddTenantForm extends Component {
                         </Button>
                       </Grid>
                       <Grid item xs={12} md={5}>
-                        <Link to="/">
+                        <Link to="/owner-dash">
                           <Button
                             variant="outlined"
                             color="secondary"

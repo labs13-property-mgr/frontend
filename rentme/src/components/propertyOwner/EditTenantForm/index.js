@@ -360,7 +360,7 @@ class EditTenantForm extends Component {
                       label="Select"
                       value={this.state.activeTenant["property_id"]}
                       onChange={this.handleChange}
-                      helperText="Please select your currency"
+                      helperText="Select which property from your list of properties to tie the tenant to."
                       margin="normal"
                       variant="outlined"
                     >
