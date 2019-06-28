@@ -165,7 +165,7 @@ const PropertyDash = props => {
                 Properties
               </Typography>
               <div className={classes.dashboardSearch}>
-                <Icon fontSize="medium">search</Icon>
+                <Icon>search</Icon>
                 <Input
                   className={classes.searchInput}
                   inputTypeSearch

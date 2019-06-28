@@ -190,7 +190,6 @@ class VendorCard extends Component {
                     <Icon
                       className={this.props.classes.icon}
                       onClick={this.updateVendor}
-                      fontSize="medium"
                     >
                       edit
                     </Icon>
@@ -199,7 +198,6 @@ class VendorCard extends Component {
                     <Icon
                       className={this.props.classes.icon}
                       onClick={this.deleteVendor}
-                      fontSize="medium"
                     >
                       delete
                     </Icon>
