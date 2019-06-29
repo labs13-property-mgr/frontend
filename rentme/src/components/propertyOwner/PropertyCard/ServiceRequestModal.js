@@ -4,6 +4,8 @@ import ServiceRequestForm from './ServiceRequestForm'
 import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
+
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -39,15 +41,19 @@ const ServiceRequestModal = props => {
     setModalOpen(!modalOpen)
   }
 
-  const { request_name, resolved_tenant, resolved_owner } = props.request
+  const { handleGetRequests, request } = props
+  const { request_name, resolved_tenant, resolved_owner, received } = request
+
+  useEffect(() => {
+    handleGetRequests()
+  }, [props.request])
+
   return (
      <div className={classes.center}>
       <Button onClick={handleClick}>{request_name}</Button>
-      {resolved_tenant && resolved_owner ?
-        <i class="material-icons">assignment_turned_in</i>
-        :
-        <i class="material-icons">assignment_late</i>
-}
+      <Tooltip title="Request has not been viewed">
+        <p>{!received ? <i class="material-icons">assignment_late</i> : ""}</p>
+      </Tooltip>
       <Modal
         aria-labelledby="Edit service request form"
         aria-describedby="Form for editing service request"

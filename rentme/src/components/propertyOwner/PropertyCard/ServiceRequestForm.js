@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react"
+import SuccessText from './SuccessText'
 import TextField from "@material-ui/core/TextField";
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -53,6 +54,8 @@ const ServiceRequestForm = props => {
 
   const [ open, setOpen ] = useState(false)
 
+  const [ requestUpdated, setRequestUpdated ] = useState(false)
+
   const [ values, setValues ] = useState({
     appointment: "",
     notes: ""
@@ -90,7 +93,8 @@ const ServiceRequestForm = props => {
     if(!resolved_owner) {
       axios.put(`https://rent-me-app.herokuapp.com/api/service/${id}`, { resolved_owner: true })
         .then(res => {
-          return res
+          setRequestUpdated(true)
+          setTimeout(() => setRequestUpdated(false), 3500)
         })
         .catch(err => {
           console.log(err)
@@ -115,9 +119,10 @@ const ServiceRequestForm = props => {
     e.preventDefault()
     let status = requestStatus
     let updatedValues = {...values, status}
-    axios.put(`https://rent-me-app.herokuapp.com/api/service/${id}`, updatedValues)
+    return axios.put(`https://rent-me-app.herokuapp.com/api/service/${id}`, updatedValues)
       .then(res => {
-        return res
+        setRequestUpdated(true)
+        setTimeout(() => setRequestUpdated(false), 3500)
       })
       .catch(err => console.log(err))
 
@@ -190,7 +195,7 @@ const ServiceRequestForm = props => {
         <Tooltip title="Resolve request">
           <Button onClick={e => triggerResolved(e)}>Resolve</Button>
         </Tooltip>
-
+        <SuccessText isTriggered={requestUpdated} />
       </div>
     </form>
     </>

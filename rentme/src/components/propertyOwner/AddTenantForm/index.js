@@ -14,7 +14,6 @@ import { withAuthorization } from "../../Session";
 import { compose } from "recompose";
 import Typography from "@material-ui/core/Typography";
 import "typeface-roboto";
-import Select from "@material-ui/core/Select";
 import "./addTenantForm.css";
 
 import * as ROLES from "../../../constants/roles";
@@ -103,15 +102,6 @@ class AddTenantForm extends Component {
       tenants: [],
       tenant: {
         ["property_id"]: null,
-        // ["First_name"]: "",
-        // ["Last_name"]: "",
-        // ["phone"]: "",
-        // ["email"]: "",
-        // ["Spouse Name"]: "",
-        // ["additional adult name"]: "",
-        // ["number in household"]: "",
-        // ["child name"]: "",
-        // ["emergency contact"]: "",
         ["owner_id"]: JSON.parse(localStorage.getItem("authUser")).uid,
         active_tenant: false
       },
