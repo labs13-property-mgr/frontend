@@ -35,12 +35,10 @@ const TenantDashboard = props => {
 
   function handleExpandClick(idx) {
     let state = !open[idx];
-    console.log(idx);
     setOpen({
       ...open,
       [idx]: state
     });
-    console.log("open", open);
   }
 
   function handleDrawerToggle() {
@@ -82,7 +80,6 @@ const TenantDashboard = props => {
   };
 
   const deleteRequest = id => {
-    console.log("triggered deleteRequest");
     axios
       .delete(`https://rent-me-app.herokuapp.com/api/service/${id}`)
       .then(res => getServicesRequest())
@@ -98,21 +95,9 @@ const TenantDashboard = props => {
       .catch(err => console.log(err));
   };
 
-  console.log("Tenant", tenant);
-  console.log("TenantProperty", Array.isArray(tenantProperty));
-
-  // const tenantPropertyData = () => {
-  //   return tenantProperty.find(tp => {
-  //     return tp.tenant_email === tenant.email;
-  //   });
-  // };
-
-  // console.log(tenantProperty)
-
   const tenantPropertyData = tenantProperty.filter(tp => {
     return tp.tenant_email === tenant.email;
   })[0];
-  console.log("Tenant Property Data", tenantPropertyData);
 
   const otherTenantsInfo = tenantProperty.filter(tp => {
     if (!tenantPropertyData) return;
@@ -121,9 +106,6 @@ const TenantDashboard = props => {
       tp.tenant_email !== tenantPropertyData.tenant_email
     );
   });
-
-  // console.log(tenantPropertyData);
-  console.log("Other tenants", otherTenantsInfo);
 
   return (
     <div className={classes.mainContainer}>
@@ -156,7 +138,6 @@ const TenantDashboard = props => {
                       <ListItem
                         key={otherTenant.tenant_id}
                         onClick={e => {
-                          // console.log(idx);
                           handleExpandClick(idx);
                         }}
                       >

@@ -1,4 +1,4 @@
-import React, {useState } from "react"
+import React from "react"
 import ServiceRequestModal from './ServiceRequestModal'
 
 import Card from '@material-ui/core/Card'
@@ -21,7 +21,7 @@ const ServiceRequest = props => {
     <>
       <Card className={classes.card}>
         <CardContent>
-          <ServiceRequestModal request={props.request} />
+          <ServiceRequestModal request={props.request} handleGetRequests={props.handleGetRequests}/>
         </CardContent>
       </Card>
     </>
