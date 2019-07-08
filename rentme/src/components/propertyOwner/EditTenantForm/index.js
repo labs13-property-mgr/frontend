@@ -93,12 +93,6 @@ const styles = theme => ({
   h2: {
     fontSize: "2rem",
     fontWeight: 500
-  },
-  selectProperty: {
-    marginTop: "2rem"
-  },
-  numTenants: {
-    marginBottom: "1rem"
   }
 });
 
@@ -358,7 +352,6 @@ class EditTenantForm extends Component {
                       value={this.state.activeTenant["child name"]}
                     />
                     <TextField
-                      className={this.props.classes.numTenants}
                       variant="outlined"
                       margin="normal"
                       fullWidth
@@ -405,7 +398,6 @@ class EditTenantForm extends Component {
                       {/* <p>Required*</p> */}
                     </section>
                     <TextField
-                      className={this.props.classes.selectProperty}
                       fullWidth
                       id="property_id"
                       name="property_id"
@@ -417,12 +409,31 @@ class EditTenantForm extends Component {
                       margin="normal"
                       variant="outlined"
                     >
+                      <MenuItem disabled="disabled" value>
+                        Please select
+                      </MenuItem>
+                      <MenuItem value={null}>None</MenuItem>
                       {this.state.properties.map(property => (
                         <MenuItem key={property.id} value={property.id}>
                           {property.property_name}
                         </MenuItem>
                       ))}
                     </TextField>
+                    <TextField
+                      variant="outlined"
+                      id="notes"
+                      label="Notes"
+                      name="notes"
+                      autoComplete="notes"
+                      defaultValue=""
+                      margin="dense"
+                      multiline
+                      rowsMax="4"
+                      autoFocus
+                      helperText="Add any additional notes you would like on the tenant."
+                      onChange={this.handleChange}
+                      // value={this.state.activeTenant["notes"]}
+                    />
                     <div className={this.props.classes.buttons}>
                       <Grid item xs={12} md={5}>
                         <Button

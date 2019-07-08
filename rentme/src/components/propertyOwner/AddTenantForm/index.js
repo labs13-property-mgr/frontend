@@ -399,11 +399,11 @@ class AddTenantForm extends Component {
                         name="emergency contact"
                         // autoComplete="phone"
                         // autoFocus
-                        placeholder="Emergency Contact Number*"
+                        placeholder="Emergency Contact Number"
                         onChange={this.handleChange}
                         value={this.state.tenant["emergency contact"]}
                       />
-                      <p>Required*</p>
+                      {/* <p>Required*</p> */}
                     </section>
 
                     <TextField
@@ -421,6 +421,7 @@ class AddTenantForm extends Component {
                       <MenuItem disabled="disabled" value>
                         Please select
                       </MenuItem>
+                      <MenuItem value={null}>None</MenuItem>
                       {this.state.properties.map(property => (
                         <MenuItem
                           key={property.id}
@@ -432,6 +433,21 @@ class AddTenantForm extends Component {
                       ))}
                     </TextField>
                     {/* {this.state.invalid && <div>hiohiohooho</div>} */}
+                    <TextField
+                      variant="outlined"
+                      id="notes"
+                      label="Notes"
+                      name="notes"
+                      autoComplete="notes"
+                      defaultValue=""
+                      margin="dense"
+                      multiline
+                      rowsMax="4"
+                      autoFocus
+                      helperText="Add any additional notes you would like on the tenant."
+                      onChange={this.handleChange}
+                      // value={this.state.tenant["notes"]}
+                    />
                     <div className={this.props.classes.buttons}>
                       <Grid item xs={12} md={5}>
                         <Button
