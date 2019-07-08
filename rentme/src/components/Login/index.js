@@ -700,20 +700,29 @@ class OwnerSignInGoogleBase extends Component {
 
     roles[ROLES.OWNER] = ROLES.OWNER;
 
+    try {
     const authUser = await this.props.firebase.doSignInWithGoogle();
     
     await this.props.firebase.user(authUser.user.uid).set({
+      username: authUser.user.displayName,
+      email: authUser.user.email,
       roles
     });
 
+    const isNewUser = authUser.additionalUserInfo.isNewUser;
+    if (isNewUser) {
     const response = await axios.post('https://rent-me-app.herokuapp.com/api/user', {
       uid: authUser.user.uid,
       role: ROLES.OWNER
     });
+  }
 
-    console.log(response)
+  } catch (err) {
+    alert(err)
+  } finally {
     return this.props.history.push(ROUTES.OWNER_DASHBOARD);
-  };
+    }
+  }
 
   render() {
     const { error } = this.state;
