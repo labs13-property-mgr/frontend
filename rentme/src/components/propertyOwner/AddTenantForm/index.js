@@ -14,7 +14,6 @@ import { withAuthorization } from "../../Session";
 import { compose } from "recompose";
 import Typography from "@material-ui/core/Typography";
 import "typeface-roboto";
-import Select from "@material-ui/core/Select";
 import "./addTenantForm.css";
 
 import * as ROLES from "../../../constants/roles";
@@ -93,12 +92,6 @@ const styles = theme => ({
   h2: {
     fontSize: "2rem",
     fontWeight: 500
-  },
-  selectProperty: {
-    marginTop: "2rem"
-  },
-  numTenants: {
-    marginBottom: "1rem"
   }
 });
 
@@ -109,15 +102,6 @@ class AddTenantForm extends Component {
       tenants: [],
       tenant: {
         ["property_id"]: null,
-        // ["First_name"]: "",
-        // ["Last_name"]: "",
-        // ["phone"]: "",
-        // ["email"]: "",
-        // ["Spouse Name"]: "",
-        // ["additional adult name"]: "",
-        // ["number in household"]: "",
-        // ["child name"]: "",
-        // ["emergency contact"]: "",
         ["owner_id"]: JSON.parse(localStorage.getItem("authUser")).uid,
         active_tenant: false
       },
@@ -376,7 +360,6 @@ class AddTenantForm extends Component {
                       value={this.state.tenant["child name"]}
                     />
                     <TextField
-                      className={this.props.classes.numTenants}
                       variant="outlined"
                       margin="normal"
                       id="number in household"
@@ -416,15 +399,14 @@ class AddTenantForm extends Component {
                         name="emergency contact"
                         // autoComplete="phone"
                         // autoFocus
-                        placeholder="Emergency Contact Number"
+                        placeholder="Emergency Contact Number*"
                         onChange={this.handleChange}
                         value={this.state.tenant["emergency contact"]}
                       />
-                      {/* <p>Required*</p> */}
+                      <p>Required*</p>
                     </section>
 
                     <TextField
-                      className={this.props.classes.selectProperty}
                       id="property_id"
                       name="property_id"
                       select
