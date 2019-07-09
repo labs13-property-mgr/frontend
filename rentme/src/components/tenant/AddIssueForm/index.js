@@ -105,12 +105,13 @@ class AddIssueForm extends Component {
   componentDidMount() {
     axios
       .get(
-        "https://rent-me-app.herokuapp.com/api/tenant"
+        "https://rent-me-app.herokuapp.com/api/user"
       )
       .then(res => this.setState({ user: res.data.find(user => user.email
         === JSON.parse(localStorage.getItem("authUser")).email)}))
       .catch(err => console.log(err))
   }
+
 
   addIssue = (newIssue, e) => {
     return axios

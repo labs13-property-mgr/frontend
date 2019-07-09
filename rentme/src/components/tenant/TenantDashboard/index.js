@@ -71,7 +71,7 @@ const TenantDashboard = props => {
       isUserSet()
 
       getServicesRequest()
-  }, [user]);
+  }, [ user ]);
 
   const getServicesRequest = () => {
     if(!user) return
@@ -87,7 +87,7 @@ const TenantDashboard = props => {
     if(user) return null
     axios
       .get(
-        "https://rent-me-app.herokuapp.com/api/tenant"
+        "https://rent-me-app.herokuapp.com/api/user"
       )
       .then(res => setUser(res.data.find(user => user.email
         === JSON.parse(localStorage.getItem("authUser")).email)))
