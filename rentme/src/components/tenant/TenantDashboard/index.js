@@ -71,7 +71,6 @@ const TenantDashboard = props => {
       isUserSet()
 
       getServicesRequest()
-      console.log("useEffect runs")
   }, [user]);
 
   const getServicesRequest = () => {
@@ -93,6 +92,7 @@ const TenantDashboard = props => {
         === JSON.parse(localStorage.getItem("authUser")).email)))
       .catch(err => console.log(err))
   }
+
   const deleteRequest = id => {
     axios
       .delete(`https://rent-me-app.herokuapp.com/api/service/${id}`)

@@ -83,6 +83,7 @@ class AddIssueForm extends Component {
   constructor() {
     super();
     this.state = {
+      user: "",
       issue: {
         date_created: "",
         request_name: "",
@@ -99,6 +100,16 @@ class AddIssueForm extends Component {
         received: false
       }
     };
+  }
+
+  componentDidMount() {
+    axios
+      .get(
+        "https://rent-me-app.herokuapp.com/api/tenant"
+      )
+      .then(res => this.setState({ user: res.data.find(user => user.email
+        === JSON.parse(localStorage.getItem("authUser")).email)}))
+      .catch(err => console.log(err))
   }
 
   addIssue = (newIssue, e) => {
@@ -136,6 +147,7 @@ class AddIssueForm extends Component {
       ...this.state.issue,
       date_created: today,
       status: "open",
+      tenant_id: this.state.user.id
     };
 
     this.addIssue(issue).then(issues => {
@@ -148,6 +160,7 @@ class AddIssueForm extends Component {
   };
 
   render() {
+
     if (!this.state.issue) return <h3>Loading data...</h3>;
     return (
       <div className={this.props.classes.mainContainer}>
