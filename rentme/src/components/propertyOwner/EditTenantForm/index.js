@@ -177,12 +177,12 @@ class EditTenantForm extends Component {
   handleChange = e => {
     // e.persist();
     console.log(this.state.tenant);
-    if (e.target.name === "property_id" && e.target.value !== null) {
+    if (e.target.name === "property_id" && e.target.value === null) {
       this.setState({
         activeTenant: {
           ...this.state.activeTenant,
           [e.target.name]: e.target.value,
-          active_tenant: true
+          active_tenant: false
         }
       });
     } else {
@@ -190,7 +190,7 @@ class EditTenantForm extends Component {
         activeTenant: {
           ...this.state.activeTenant,
           [e.target.name]: e.target.value,
-          active_tenant: false
+          active_tenant: true
         }
       });
     }
