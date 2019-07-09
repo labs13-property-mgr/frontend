@@ -26,6 +26,7 @@ const TenantDashboard = props => {
   const [property, setProperty] = useState(null);
   const [tenantProperty, setTenantProperty] = useState([]);
   const [requests, setRequests] = useState(null);
+  const [user, setUser] = useState(null)
   const { container } = props;
 
   const classes = useStyles();
@@ -73,8 +74,9 @@ const TenantDashboard = props => {
   }, [user]);
 
   const getServicesRequest = () => {
+    if(!user) return
     axios
-      .get("https://rent-me-app.herokuapp.com/api/service")
+      .get(`https://rent-me-app.herokuapp.com/api/tenant/${user.id}/services`)
       .then(res => {
         return setRequests(res.data);
       })
