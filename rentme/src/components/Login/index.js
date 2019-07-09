@@ -425,20 +425,30 @@ class SignInGoogleBase extends Component {
 
     roles[ROLES.TENANT] = ROLES.TENANT;
 
+    try {
     const authUser = await this.props.firebase.doSignInWithGoogle();
     
     await this.props.firebase.user(authUser.user.uid).set({
+      username: authUser.user.displayName,
+      email: authUser.user.email,
       roles
     });
 
+    const isNewUser = authUser.additionalUserInfo.isNewUser;
+    if (isNewUser) {
     const response = await axios.post('https://rent-me-app.herokuapp.com/api/user', {
       uid: authUser.user.uid,
+      email: authUser.user.email,
       role: ROLES.TENANT
     });
+  }
 
-    console.log(response)
+  } catch (error) {
+    alert(error)
+  } finally {
     return this.props.history.push(ROUTES.TENANT_DASHBOARD);
-  };
+    }
+  }
 
   /*onSubmit = e => {
     const { isTenant } = this.state;
@@ -515,18 +525,28 @@ class SignInFacebookBase extends Component {
 
     const authUser = await this.props.firebase.doSignInWithFacebook();
     
+    try {
     await this.props.firebase.user(authUser.user.uid).set({
+      username: authUser.additionalUserInfo.profile.name,
+      email: authUser.additionalUserInfo.profile.email,
       roles
     });
 
+    const isNewUser = authUser.additionalUserInfo.isNewUser;
+    if (isNewUser) {
     const response = await axios.post('https://rent-me-app.herokuapp.com/api/user', {
       uid: authUser.user.uid,
+      email: authUser.user.email,
       role: ROLES.TENANT
     });
+  }
 
-    console.log(response)
+  } catch (err) {
+    alert(err)
+  } finally { 
     return this.props.history.push(ROUTES.TENANT_DASHBOARD);
   };
+}
 
   render() {
     const { error } = this.state;
@@ -700,20 +720,30 @@ class OwnerSignInGoogleBase extends Component {
 
     roles[ROLES.OWNER] = ROLES.OWNER;
 
+    try {
     const authUser = await this.props.firebase.doSignInWithGoogle();
     
     await this.props.firebase.user(authUser.user.uid).set({
+      username: authUser.user.displayName,
+      email: authUser.user.email,
       roles
     });
 
+    const isNewUser = authUser.additionalUserInfo.isNewUser;
+    if (isNewUser) {
     const response = await axios.post('https://rent-me-app.herokuapp.com/api/user', {
       uid: authUser.user.uid,
+      email: authUser.user.email,
       role: ROLES.OWNER
     });
+  }
 
-    console.log(response)
+  } catch (error) {
+    alert(error)
+  } finally {
     return this.props.history.push(ROUTES.OWNER_DASHBOARD);
-  };
+    }
+  }
 
   render() {
     const { error } = this.state;
@@ -762,18 +792,28 @@ class OwnerSignInFacebookBase extends Component {
 
     const authUser = await this.props.firebase.doSignInWithFacebook();
     
+    try {
     await this.props.firebase.user(authUser.user.uid).set({
+      username: authUser.additionalUserInfo.profile.name,
+      email: authUser.additionalUserInfo.profile.email,
       roles
     });
 
+    const isNewUser = authUser.additionalUserInfo.isNewUser;
+    if (isNewUser) {
     const response = await axios.post('https://rent-me-app.herokuapp.com/api/user', {
       uid: authUser.user.uid,
+      email: authUser.user.email,
       role: ROLES.OWNER
     });
+  }
 
-    console.log(response)
+  } catch (error) {
+    alert(error)
+  } finally { 
     return this.props.history.push(ROUTES.OWNER_DASHBOARD);
   };
+}
 
   render() {
     const { error } = this.state;
