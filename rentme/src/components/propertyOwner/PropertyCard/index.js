@@ -34,11 +34,7 @@ const styles = theme => ({
     [theme.breakpoints.up("sm")]: {
       paddingLeft: drawerWidth
     },
-    // border: "2px solid red",
     height: "100vh"
-    // backgroundImage: `url(${cardBackground})`,
-    // backgroundSize: "cover",
-    // overflow: "hidden"
   },
 
   propertyCard: {
