@@ -176,26 +176,33 @@ class EditTenantForm extends Component {
 
   handleChange = e => {
     // e.persist();
-    console.log(this.state.tenant);
-    if (e.target.name === "property_id" && e.target.value === null) {
-      this.setState({
-        activeTenant: {
-          ...this.state.activeTenant,
-          [e.target.name]: e.target.value,
-          active_tenant: false
-        }
-      });
-    } else {
-      this.setState({
-        activeTenant: {
-          ...this.state.activeTenant,
-          [e.target.name]: e.target.value,
-          active_tenant: true
-        }
-      });
-    }
+    // console.log(this.state.tenant);
+    // if (e.target.name === "property_id" && e.target.value === "none") {
+    //   this.setState({
+    //     activeTenant: {
+    //       ...this.state.activeTenant,
+    //       [e.target.name]: e.target.value,
+    //       ["property_id"]: null,
+    //       ["active_tenant"]: false
+    //     }
+    //   });
+    // } else {
+    //   this.setState({
+    //     activeTenant: {
+    //       ...this.state.activeTenant,
+    //       [e.target.name]: e.target.value,
+    //       active_tenant: true
+    //     }
+    //   });
+    // }
     // console.log(e.target.name);
     // console.log(e.target.value);
+    this.setState({
+      activeTenant: {
+        ...this.state.activeTenant,
+        [e.target.name]: e.target.value
+      }
+    });
   };
 
   // handleChange = e => {
@@ -211,7 +218,10 @@ class EditTenantForm extends Component {
   onSubmitEditedTenant = e => {
     e.preventDefault();
     console.log("running");
-    this.updateTenant(this.state.activeTenant);
+    this.updateTenant({
+      ...this.state.activeTenant,
+      active_tenant: !!this.state.activeTenant.property_id
+    });
   };
 
   goBack = e => {
@@ -398,6 +408,21 @@ class EditTenantForm extends Component {
                       {/* <p>Required*</p> */}
                     </section>
                     <TextField
+                      variant="outlined"
+                      id="notes"
+                      label="Notes"
+                      name="notes"
+                      autoComplete="notes"
+                      defaultValue=""
+                      margin="dense"
+                      multiline
+                      rowsMax="4"
+                      autoFocus
+                      helperText="Add any additional notes you would like on the tenant."
+                      onChange={this.handleChange}
+                      value={this.state.activeTenant["notes"]}
+                    />
+                    <TextField
                       fullWidth
                       id="property_id"
                       name="property_id"
@@ -419,21 +444,6 @@ class EditTenantForm extends Component {
                         </MenuItem>
                       ))}
                     </TextField>
-                    <TextField
-                      variant="outlined"
-                      id="notes"
-                      label="Notes"
-                      name="notes"
-                      autoComplete="notes"
-                      defaultValue=""
-                      margin="dense"
-                      multiline
-                      rowsMax="4"
-                      autoFocus
-                      helperText="Add any additional notes you would like on the tenant."
-                      onChange={this.handleChange}
-                      value={this.state.activeTenant["notes"]}
-                    />
                     <div className={this.props.classes.buttons}>
                       <Grid item xs={12} md={5}>
                         <Button

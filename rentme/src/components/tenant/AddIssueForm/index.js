@@ -83,6 +83,7 @@ class AddIssueForm extends Component {
   constructor() {
     super();
     this.state = {
+      user: '',
       issues: [],
       issue: {
         date_created: "",
@@ -111,9 +112,14 @@ class AddIssueForm extends Component {
           issues: res.data
         });
       })
+      .then(axios.get("https://rent-me-app.herokuapp.com/api/user")
+        .then(res => this.setState({ user: res.data.find(user => user.email
+          === JSON.parse(localStorage.getItem("authUser")).email)})
+      ).catch(err => console.log(err.message)))
       .catch(error => {
         console.error("ISSUES ERROR", error);
-      });
+      })
+
   }
 
   addIssue = (newIssue, e) => {
@@ -145,12 +151,13 @@ class AddIssueForm extends Component {
     let mm = String(today.getMonth() + 1).padStart(2, '0')
     let yyyy = today.getFullYear()
 
-    today = `${mm}/${dd}/${yyyy}`
+    today = `${yyyy}/${mm}/${dd}`
 
     const issue = {
       ...this.state.issue,
       date_created: today,
       status: "open",
+      tenant_id: this.state.user.id
     };
 
     this.addIssue(issue).then(issues => {
