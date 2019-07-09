@@ -151,6 +151,9 @@ class AddIssueForm extends Component {
     };
 
     this.addIssue(issue).then(issues => {
+      this.setState({
+        issues: issues
+      });
       return this.props.history.push("/tenant-dash");
     });
   };
