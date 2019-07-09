@@ -26,7 +26,6 @@ const TenantDashboard = props => {
   const [property, setProperty] = useState(null);
   const [tenantProperty, setTenantProperty] = useState([]);
   const [requests, setRequests] = useState(null);
-  const [user, setUser] = useState("")
   const { container } = props;
 
   const classes = useStyles();
@@ -53,7 +52,7 @@ const TenantDashboard = props => {
         setTenant(
           res.data.find(
             user =>
-              user.uid === JSON.parse(localStorage.getItem("authUser")).uid,
+              user.uid === JSON.parse(localStorage.getItem("authUser")).uid
           )
         );
       })
@@ -68,31 +67,18 @@ const TenantDashboard = props => {
       })
       .catch(err => console.log("Crap!", err));
 
-      isUserSet()
-
-      getServicesRequest()
-      console.log("useEffect runs")
-  }, [user]);
+    getServicesRequest();
+  }, []);
 
   const getServicesRequest = () => {
     axios
-    .get(`https://rent-me-app.herokuapp.com/api/tenant/${user.id}/services`)
-    .then(res => {
-      return setRequests(res.data);
-    })
-    .catch(err => console.log(err.message));
+      .get("https://rent-me-app.herokuapp.com/api/service")
+      .then(res => {
+        return setRequests(res.data);
+      })
+      .catch(err => console.log(err));
   };
 
-  const isUserSet = () => {
-    if(user) return null
-    axios
-      .get(
-        "https://rent-me-app.herokuapp.com/api/tenant"
-      )
-      .then(res => setUser(res.data.find(user => user.email
-        === JSON.parse(localStorage.getItem("authUser")).email)))
-      .catch(err => console.log(err))
-  }
   const deleteRequest = id => {
     axios
       .delete(`https://rent-me-app.herokuapp.com/api/service/${id}`)
