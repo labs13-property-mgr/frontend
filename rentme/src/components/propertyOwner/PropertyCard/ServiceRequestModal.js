@@ -52,7 +52,7 @@ const ServiceRequestModal = props => {
      <div className={classes.center}>
       <Button onClick={handleClick}>{request_name}</Button>
       <Tooltip title="Request has not been viewed">
-        <p>{!received ? <i class="material-icons">assignment_late</i> : ""}</p>
+        <p>{!received ? <i className="material-icons">assignment_late</i> : ""}</p>
       </Tooltip>
       <Modal
         aria-labelledby="Edit service request form"
