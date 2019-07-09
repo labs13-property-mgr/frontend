@@ -21,6 +21,7 @@ const ServiceRequests = () => {
   const classes = useStyles()
 
   const getRequests = () => {
+    if(requests) return null
     return axios.get("https://rent-me-app.herokuapp.com/api/service")
     .then(res => {
       setRequests(res.data)
