@@ -438,12 +438,13 @@ class SignInGoogleBase extends Component {
     if (isNewUser) {
     const response = await axios.post('https://rent-me-app.herokuapp.com/api/user', {
       uid: authUser.user.uid,
+      email: authUser.user.email,
       role: ROLES.TENANT
     });
   }
 
-  } catch (err) {
-    alert(err)
+  } catch (error) {
+    alert(error)
   } finally {
     return this.props.history.push(ROUTES.TENANT_DASHBOARD);
     }
@@ -535,6 +536,7 @@ class SignInFacebookBase extends Component {
     if (isNewUser) {
     const response = await axios.post('https://rent-me-app.herokuapp.com/api/user', {
       uid: authUser.user.uid,
+      email: authUser.user.email,
       role: ROLES.TENANT
     });
   }
@@ -731,12 +733,13 @@ class OwnerSignInGoogleBase extends Component {
     if (isNewUser) {
     const response = await axios.post('https://rent-me-app.herokuapp.com/api/user', {
       uid: authUser.user.uid,
+      email: authUser.user.email,
       role: ROLES.OWNER
     });
   }
 
-  } catch (err) {
-    alert(err)
+  } catch (error) {
+    alert(error)
   } finally {
     return this.props.history.push(ROUTES.OWNER_DASHBOARD);
     }
@@ -800,12 +803,13 @@ class OwnerSignInFacebookBase extends Component {
     if (isNewUser) {
     const response = await axios.post('https://rent-me-app.herokuapp.com/api/user', {
       uid: authUser.user.uid,
+      email: authUser.user.email,
       role: ROLES.OWNER
     });
   }
 
-  } catch (err) {
-    alert(err)
+  } catch (error) {
+    alert(error)
   } finally { 
     return this.props.history.push(ROUTES.OWNER_DASHBOARD);
   };
