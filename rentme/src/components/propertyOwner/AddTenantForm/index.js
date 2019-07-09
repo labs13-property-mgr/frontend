@@ -446,7 +446,7 @@ class AddTenantForm extends Component {
                       autoFocus
                       helperText="Add any additional notes you would like on the tenant."
                       onChange={this.handleChange}
-                      // value={this.state.tenant["notes"]}
+                      value={this.state.tenant["notes"]}
                     />
                     <div className={this.props.classes.buttons}>
                       <Grid item xs={12} md={5}>
