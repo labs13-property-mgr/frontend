@@ -185,8 +185,8 @@ class AddTenantForm extends Component {
     this.setState({
       tenant: {
         ...this.state.tenant,
-        [e.target.name]: e.target.value,
-        active_tenant: true
+        [e.target.name]: e.target.value
+        // active_tenant: true
       }
     });
     // }
