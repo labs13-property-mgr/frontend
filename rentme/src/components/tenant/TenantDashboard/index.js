@@ -26,6 +26,7 @@ const TenantDashboard = props => {
   const [property, setProperty] = useState(null);
   const [tenantProperty, setTenantProperty] = useState([]);
   const [requests, setRequests] = useState(null);
+  const [user, setUser] = useState("")
   const { container } = props;
 
   const classes = useStyles();
@@ -35,12 +36,10 @@ const TenantDashboard = props => {
 
   function handleExpandClick(idx) {
     let state = !open[idx];
-    console.log(idx);
     setOpen({
       ...open,
       [idx]: state
     });
-    console.log("open", open);
   }
 
   function handleDrawerToggle() {
@@ -54,7 +53,7 @@ const TenantDashboard = props => {
         setTenant(
           res.data.find(
             user =>
-              user.uid === JSON.parse(localStorage.getItem("authUser")).uid
+              user.uid === JSON.parse(localStorage.getItem("authUser")).uid,
           )
         );
       })
@@ -69,20 +68,32 @@ const TenantDashboard = props => {
       })
       .catch(err => console.log("Crap!", err));
 
-    getServicesRequest();
-  }, []);
+      isUserSet()
+
+      getServicesRequest()
+      console.log("useEffect runs")
+  }, [user]);
 
   const getServicesRequest = () => {
     axios
-      .get("https://rent-me-app.herokuapp.com/api/service")
-      .then(res => {
-        return setRequests(res.data);
-      })
-      .catch(err => console.log(err));
+    .get(`https://rent-me-app.herokuapp.com/api/tenant/${user.id}/services`)
+    .then(res => {
+      return setRequests(res.data);
+    })
+    .catch(err => console.log(err.message));
   };
 
+  const isUserSet = () => {
+    if(user) return null
+    axios
+      .get(
+        "https://rent-me-app.herokuapp.com/api/tenant"
+      )
+      .then(res => setUser(res.data.find(user => user.email
+        === JSON.parse(localStorage.getItem("authUser")).email)))
+      .catch(err => console.log(err))
+  }
   const deleteRequest = id => {
-    console.log("triggered deleteRequest");
     axios
       .delete(`https://rent-me-app.herokuapp.com/api/service/${id}`)
       .then(res => getServicesRequest())
@@ -98,21 +109,9 @@ const TenantDashboard = props => {
       .catch(err => console.log(err));
   };
 
-  console.log("Tenant", tenant);
-  console.log("TenantProperty", Array.isArray(tenantProperty));
-
-  // const tenantPropertyData = () => {
-  //   return tenantProperty.find(tp => {
-  //     return tp.tenant_email === tenant.email;
-  //   });
-  // };
-
-  // console.log(tenantProperty)
-
   const tenantPropertyData = tenantProperty.filter(tp => {
     return tp.tenant_email === tenant.email;
   })[0];
-  console.log("Tenant Property Data", tenantPropertyData);
 
   const otherTenantsInfo = tenantProperty.filter(tp => {
     if (!tenantPropertyData) return;
@@ -121,9 +120,6 @@ const TenantDashboard = props => {
       tp.tenant_email !== tenantPropertyData.tenant_email
     );
   });
-
-  // console.log(tenantPropertyData);
-  console.log("Other tenants", otherTenantsInfo);
 
   return (
     <div className={classes.mainContainer}>
@@ -156,7 +152,6 @@ const TenantDashboard = props => {
                       <ListItem
                         key={otherTenant.tenant_id}
                         onClick={e => {
-                          // console.log(idx);
                           handleExpandClick(idx);
                         }}
                       >

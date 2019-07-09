@@ -83,7 +83,6 @@ class AddIssueForm extends Component {
   constructor() {
     super();
     this.state = {
-      issues: [],
       issue: {
         date_created: "",
         request_name: "",
@@ -100,20 +99,6 @@ class AddIssueForm extends Component {
         received: false
       }
     };
-  }
-
-  componentDidMount() {
-    const endpoint = "https://rent-me-app.herokuapp.com/api/service";
-    axios
-      .get(endpoint)
-      .then(res => {
-        this.setState({
-          issues: res.data
-        });
-      })
-      .catch(error => {
-        console.error("ISSUES ERROR", error);
-      });
   }
 
   addIssue = (newIssue, e) => {
@@ -154,9 +139,6 @@ class AddIssueForm extends Component {
     };
 
     this.addIssue(issue).then(issues => {
-      this.setState({
-        issues: issues
-      });
       return this.props.history.push("/tenant-dash");
     });
   };

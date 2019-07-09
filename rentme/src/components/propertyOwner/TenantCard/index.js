@@ -213,7 +213,6 @@ class TenantCard extends Component {
                       <Icon
                         className={this.props.classes.icon}
                         onClick={this.updateTenant}
-                        fontSize="medium"
                       >
                         edit
                       </Icon>
@@ -222,7 +221,6 @@ class TenantCard extends Component {
                       <Icon
                         className={this.props.classes.icon}
                         onClick={this.deleteTenant}
-                        fontSize="medium"
                       >
                         delete
                       </Icon>

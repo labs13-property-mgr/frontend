@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from "react"
-import Typography from '@material-ui/core/Typography';
+import React from "react"
 import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 

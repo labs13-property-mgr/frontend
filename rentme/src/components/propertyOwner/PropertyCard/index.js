@@ -279,7 +279,6 @@ class PropertyCard extends Component {
                       <Icon
                         className={this.props.classes.icon}
                         onClick={this.updateProperty}
-                        fontSize="medium"
                       >
                         edit
                       </Icon>
@@ -288,7 +287,6 @@ class PropertyCard extends Component {
                       <Icon
                         className={this.props.classes.icon}
                         onClick={this.deleteProperty}
-                        fontSize="medium"
                       >
                         delete
                       </Icon>

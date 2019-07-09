@@ -1,0 +1,30 @@
+.masked-input {
+  padding: 17.5px 14px;
+  border: 1.2px solid #cacaca;
+  border-radius: 4px;
+  width: 95%;
+}
+
+.masked-input:focus,
+input:focus {
+  outline: none;
+}
+
+.masked-input,
+input[type="text"] {
+  font-size: 16px;
+}
+
+.masked-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: -1rem;
+}
+
+.masked-container p {
+  font-size: 12.5px;
+  margin-left: 0.8rem;
+  color: #757575;
+}

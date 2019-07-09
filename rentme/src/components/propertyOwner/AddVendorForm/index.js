@@ -14,6 +14,7 @@ import { compose } from "recompose";
 import Typography from "@material-ui/core/Typography";
 import MaskedInput from "react-text-mask";
 import "typeface-roboto";
+import "./addVendorForm.css";
 
 import * as ROLES from "../../../constants/roles";
 
@@ -91,6 +92,9 @@ const styles = theme => ({
   h2: {
     fontSize: "2rem",
     fontWeight: 500
+  },
+  address: {
+    marginBottom: "1rem"
   }
 });
 
@@ -225,6 +229,7 @@ class AddVendorForm extends Component {
                       value={this.state.vendor.last_name}
                     />
                     <TextField
+                      className={this.props.classes.address}
                       variant="outlined"
                       id="address"
                       label="Address"
@@ -235,17 +240,33 @@ class AddVendorForm extends Component {
                       onChange={this.handleChange}
                       value={this.state.vendor.address}
                     />
-                     <MaskedInput
-                      mask={['(', /[1-9]/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/ ]}
+
+                    <MaskedInput
+                      className="masked-input"
+                      mask={[
+                        "(",
+                        /[1-9]/,
+                        /\d/,
+                        /\d/,
+                        ")",
+                        /\d/,
+                        /\d/,
+                        /\d/,
+                        "-",
+                        /\d/,
+                        /\d/,
+                        /\d/,
+                        /\d/
+                      ]}
                       guide={true}
                       placeholder="Phone Number"
-                      variant="outlined"
+                      // variant="outlined"
                       id="phone"
                       label="Phone Number"
                       name="phone"
-                      autoComplete="phone"
-                      margin="normal"
-                      autoFocus
+                      // autoComplete="phone"
+                      // margin="normal"
+                      // autoFocus
                       onChange={this.handleChange}
                       value={this.state.vendor.phone}
                     />
@@ -274,7 +295,7 @@ class AddVendorForm extends Component {
                         </Button>
                       </Grid>
                       <Grid item xs={12} md={5}>
-                        <Link to="/owner-dash">
+                        <Link to="/vendor-addbook">
                           <Button
                             variant="outlined"
                             color="secondary"
