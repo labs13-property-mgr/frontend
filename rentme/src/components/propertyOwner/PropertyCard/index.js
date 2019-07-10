@@ -34,11 +34,7 @@ const styles = theme => ({
     [theme.breakpoints.up("sm")]: {
       paddingLeft: drawerWidth
     },
-    // border: "2px solid red",
     height: "100vh"
-    // backgroundImage: `url(${cardBackground})`,
-    // backgroundSize: "cover",
-    // overflow: "hidden"
   },
 
   propertyCard: {
@@ -169,7 +165,6 @@ class PropertyCard extends Component {
           .then(res => {
             const propertiesData = this.state.property;
             const tenants = res.data;
-            console.log("Properties", propertiesData);
             this.setState({
               tenants: tenants.filter(
                 tenant => tenant.property_id === propertiesData.id
@@ -338,7 +333,7 @@ class PropertyCard extends Component {
                   </Grid>
                 </ThemeProvider>
               </Paper>
-              <ServiceRequests />
+              <ServiceRequests property_id={this.props.match.params.id} />
 
             </div>
 
