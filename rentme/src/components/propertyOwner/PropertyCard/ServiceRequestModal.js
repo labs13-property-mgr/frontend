@@ -36,15 +36,21 @@ const useStyles = makeStyles(theme => ({
 const ServiceRequestModal = props => {
   const [modalOpen, setModalOpen] = useState(false)
   const classes = useStyles();
+  const [ isReceived, setIsReceived ] = useState(false)
 
   const handleClick = () => {
     setModalOpen(!modalOpen)
+
+    setIsReceived(true)
   }
 
   const { handleGetRequests, request } = props
   const { request_name, resolved_tenant, resolved_owner, received } = request
 
   useEffect(() => {
+
+    setIsReceived(received)
+
     handleGetRequests()
   }, [props.request])
 
@@ -52,7 +58,7 @@ const ServiceRequestModal = props => {
      <div className={classes.center}>
       <Button onClick={handleClick}>{request_name}</Button>
       <Tooltip title="Request has not been viewed">
-        <p>{!received ? <i className="material-icons">assignment_late</i> : ""}</p>
+        <p>{!isReceived ? <i className="material-icons">assignment_late</i> : ""}</p>
       </Tooltip>
       <Modal
         aria-labelledby="Edit service request form"
