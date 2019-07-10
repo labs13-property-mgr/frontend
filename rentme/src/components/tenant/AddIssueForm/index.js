@@ -166,7 +166,8 @@ class AddIssueForm extends Component {
       ...this.state.issue,
       date_created: today,
       status: "open",
-      tenant_id: this.state.tenant.id
+      tenant_id: this.state.tenant.id,
+      property_id: this.state.tenant.property_id
     };
 
     this.addIssue(issue).then(issues => {
