@@ -171,7 +171,6 @@ class AddTenantForm extends Component {
 
   handleChange = e => {
     // e.persist();
-    console.log(this.state.tenant);
     // if (e.target.name === "property_id" && e.target.value === "none") {
     //   this.setState({
     //     tenant: {
@@ -182,13 +181,19 @@ class AddTenantForm extends Component {
     //     }
     //   });
     // } else {
-    this.setState({
-      tenant: {
-        ...this.state.tenant,
-        [e.target.name]: e.target.value
-        // active_tenant: true
+    this.setState(
+      {
+        tenant: {
+          ...this.state.tenant,
+          [e.target.name]: e.target.value
+          // active_tenant: true
+        }
+      },
+      function() {
+        console.log("Tenant", this.state.tenant);
       }
-    });
+    );
+
     // }
     // console.log(e.target.name);
     // console.log(e.target.value);

@@ -86,7 +86,7 @@ const TenantDashboard = props => {
   const isUserSet = () => {
     if (user) return null;
     axios
-      .get("https://rent-me-app.herokuapp.com/api/user")
+      .get("https://rent-me-app.herokuapp.com/api/tenant")
       .then(res =>
         setUser(
           res.data.find(
