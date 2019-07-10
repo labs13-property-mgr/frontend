@@ -145,7 +145,15 @@ const TenantDashboard = props => {
               </Typography>
               <Typography variant="h6" className={classes.propertyInfo}>
                 Address:{" "}
-                {tenantPropertyData && tenantPropertyData.property_address}
+                {tenantPropertyData && tenantPropertyData.property_address}{" "}
+                {tenantPropertyData && tenantPropertyData.property_unit}{" "}
+                {tenantPropertyData && tenantPropertyData.property_city},{" "}
+                {tenantPropertyData && tenantPropertyData.property_state}{" "}
+                {tenantPropertyData && tenantPropertyData.property_zip}
+              </Typography>
+              <Typography variant="h6" className={classes.propertyInfo}>
+                Current Monthly Rent: $
+                {tenantPropertyData && tenantPropertyData.property_rent}
               </Typography>
               <Typography variant="h6" className={classes.propertyInfo}>
                 Other Tenants:
