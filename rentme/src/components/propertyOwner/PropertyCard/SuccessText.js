@@ -7,7 +7,7 @@ const SuccessText = props => {
   if(!isTriggered) return null
   return (
     <div style={{display:"flex", alignItems:"center", justifyContent: "center"}}>
-      <i class="material-icons">
+      <i className="material-icons">
       check_circle_outline
       </i>
       <span>Request Updated</span>
