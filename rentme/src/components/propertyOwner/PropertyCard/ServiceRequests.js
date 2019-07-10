@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 })
 
 
-const ServiceRequests = () => {
+const ServiceRequests = props => {
 
   const [ requests, setRequests ] = useState("")
   const classes = useStyles()
@@ -24,7 +24,8 @@ const ServiceRequests = () => {
     if(requests) return null
     return axios.get("https://rent-me-app.herokuapp.com/api/service")
     .then(res => {
-      setRequests(res.data)
+      setRequests(res.data.filter(serviceRequest => parseInt(props.property_id) === serviceRequest.property_id
+      ))
     })
     .catch(err => {
       console.log(err)
