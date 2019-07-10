@@ -167,7 +167,7 @@ const ServiceRequestForm = props => {
         id="date"
         label="Appointment Date"
         type="date"
-        value={values.appointment ? values.appointment : "10-22-2019" }
+        value={values.appointment ? values.appointment : date_created }
         name="appointment"
         onChange={e => handleChanges(e)}
         style={generateGridValues(2, 6, 4, 4)}
