@@ -129,22 +129,24 @@ class TenantCard extends Component {
           tenants: tenants,
           tenant: tenant
         });
-      })
-      .catch(error => {
-        console.error("USERS ERROR", error);
-      });
-    axios
-      .get("https://rent-me-app.herokuapp.com/api/property")
-      .then(res => {
-        const tenantsData = this.state.tenant;
-        const properties = res.data;
-        console.log(tenantsData);
-        this.setState({
-          properties: properties,
-          property: properties.find(
-            property => property.id === tenantsData["property_id"]
-          )
-        });
+        // })
+        // .catch(error => {
+        //   console.error("USERS ERROR", error);
+        // });
+        axios
+          .get("https://rent-me-app.herokuapp.com/api/property")
+          .then(res => {
+            const tenantsData = this.state.tenant;
+            const properties = res.data;
+            console.log(tenantsData);
+            this.setState({
+              properties: properties,
+              property: properties.find(
+                property => property.id === tenantsData["property_id"]
+              )
+            });
+          })
+          .catch(err => console.log("Crap!", err));
       })
       .catch(error => {
         console.error("USERS ERROR", error);
@@ -273,12 +275,20 @@ class TenantCard extends Component {
                       {this.state.tenant["email"]}
                     </Link>
                   </p>
-                  {this.state.property && (
+                  <p>
+                    Tenant Notes:{" "}
+                    {` ${
+                      this.state.tenant["notes"] === null
+                        ? "No notes"
+                        : `${this.state.tenant["notes"]}`
+                    }`}
+                  </p>
+                  {this.state.tenant && this.state.property && (
                     <>
                       <p>
                         Property Name:
                         {` ${
-                          this.state.property.property_name === null
+                          this.state.tenant.property_id === null
                             ? "No info provided"
                             : `${this.state.property.property_name}`
                         }`}{" "}
