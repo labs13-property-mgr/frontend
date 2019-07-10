@@ -214,7 +214,8 @@ class TenantAddressBk extends Component {
         label: "TENANT STATUS",
         options: {
           filter: true,
-          sort: true
+          sort: true,
+          filterType: "dropdown"
         }
       },
       {

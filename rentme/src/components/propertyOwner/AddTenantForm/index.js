@@ -139,7 +139,7 @@ class AddTenantForm extends Component {
               property => property.owner_id === usersData.uid
             );
 
-            //propertiesData.push({ id: null, property_name: "None" });
+            // propertiesData.push({ id: null, property_name: "None" });
 
             // propertiesData.push({ id: NaN, property_name: "None" });
 
@@ -171,26 +171,32 @@ class AddTenantForm extends Component {
 
   handleChange = e => {
     // e.persist();
-    console.log(this.state.tenant);
-    if (e.target.name === "property_id" && e.target.value !== null) {
-      this.setState({
+    // if (e.target.name === "property_id" && e.target.value === "none") {
+    //   this.setState({
+    //     tenant: {
+    //       ...this.state.tenant,
+    //       [e.target.name]: e.target.value,
+    //       ["property_id"]: null,
+    //       active_tenant: false
+    //     }
+    //   });
+    // } else {
+    this.setState(
+      {
         tenant: {
           ...this.state.tenant,
-          [e.target.name]: e.target.value,
-          active_tenant: true
+          [e.target.name]: e.target.value
+          // active_tenant: true
         }
-      });
-    } else {
-      this.setState({
-        tenant: {
-          ...this.state.tenant,
-          [e.target.name]: e.target.value,
-          active_tenant: false
-        }
-      });
-    }
-    console.log(e.target.name);
-    console.log(e.target.value);
+      },
+      function() {
+        console.log("Tenant", this.state.tenant);
+      }
+    );
+
+    // }
+    // console.log(e.target.name);
+    // console.log(e.target.value);
   };
 
   // handleChange = e => {
@@ -205,14 +211,9 @@ class AddTenantForm extends Component {
 
   onSubmitAddTenant = e => {
     e.preventDefault();
-    // if (!this.state.tenant["property_id"]) {
-    //   this.setState({
-    //     invalid: true
-    //   });
-    //   return;
-    // }
     const tenant = {
-      ...this.state.tenant
+      ...this.state.tenant,
+      active_tenant: !!this.state.tenant.property_id
     };
     this.addTenant(tenant).then(tenants => {
       this.setState({
@@ -301,7 +302,7 @@ class AddTenantForm extends Component {
                         guide={true}
                         // variant="outlined"
                         // margin="normal"
-                        // required
+                        required
                         id="phone"
                         label="Phone Number"
                         // defaultValue="Phone Number"
@@ -399,13 +400,27 @@ class AddTenantForm extends Component {
                         name="emergency contact"
                         // autoComplete="phone"
                         // autoFocus
-                        placeholder="Emergency Contact Number*"
+                        placeholder="Emergency Contact Number"
                         onChange={this.handleChange}
                         value={this.state.tenant["emergency contact"]}
                       />
-                      <p>Required*</p>
+                      {/* <p>Required*</p> */}
                     </section>
-
+                    <TextField
+                      variant="outlined"
+                      id="notes"
+                      label="Notes"
+                      name="notes"
+                      autoComplete="notes"
+                      defaultValue=""
+                      margin="dense"
+                      multiline
+                      rowsMax="4"
+                      autoFocus
+                      helperText="Add any additional notes you would like on the tenant."
+                      onChange={this.handleChange}
+                      value={this.state.tenant["notes"]}
+                    />
                     <TextField
                       id="property_id"
                       name="property_id"
@@ -421,6 +436,7 @@ class AddTenantForm extends Component {
                       <MenuItem disabled="disabled" value>
                         Please select
                       </MenuItem>
+                      <MenuItem value={null}>None</MenuItem>
                       {this.state.properties.map(property => (
                         <MenuItem
                           key={property.id}
