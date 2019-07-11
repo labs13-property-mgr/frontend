@@ -84,7 +84,38 @@ class VendorAddressBk extends Component {
     user: {},
     anchorEl: null,
     clickedButton: null,
-    currentRow: []
+    currentRow: [],
+    data: []
+  };
+
+  setupVendors = vendors => {
+    const usersData = this.state.user;
+
+    this.setState({
+      vendors: vendors.filter(vendor => vendor.owner_id === usersData.uid)
+    });
+    this.setState({
+      data: this.state.vendors.map(vendor => {
+        return [
+          vendor.id,
+          vendor.company_name,
+          vendor.phone,
+          vendor.email,
+          vendor.address
+        ];
+      })
+    });
+  };
+
+  getVendors = () => {
+    axios
+      .get("https://rent-me-app.herokuapp.com/api/vendor")
+      .then(res => {
+        const vendors = res.data;
+        this.setupVendors(vendors);
+        this.props.history.push(`/vendor-addbook`);
+      })
+      .catch(err => console.log("Crap!", err));
   };
 
   componentDidMount() {
@@ -99,24 +130,31 @@ class VendorAddressBk extends Component {
               user.uid === JSON.parse(localStorage.getItem("authUser")).uid
           )
         });
-        axios
-          .get("https://rent-me-app.herokuapp.com/api/vendor")
-          .then(res => {
-            const usersData = this.state.user;
-            const vendors = res.data;
-            console.log("Users", usersData);
-            this.setState({
-              vendors: vendors.filter(
-                vendor => vendor.owner_id === usersData.uid
-              )
-            });
-          })
-          .catch(err => console.log("Crap!", err));
+        this.getVendors();
       })
       .catch(error => {
         console.error("USERS ERROR", error);
       });
   }
+
+  deleteVendors = id => {
+    return axios
+      .delete(`https://rent-me-app.herokuapp.com/api/vendor/${id}`)
+      .then(res => {
+        const vendors = res.data;
+        this.setState({ vendors });
+      })
+      .then(() => {
+        window.location.reload();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  deleteVendor = vendorId => {
+    this.deleteVendors(vendorId);
+  };
 
   goBack = e => {
     this.props.history.goBack();
@@ -169,9 +207,8 @@ class VendorAddressBk extends Component {
         name: "options",
         label: "MORE",
         options: {
-          filter: true,
+          filter: false,
           sort: false,
-          empty: true,
           customBodyRender: (value, tableMeta, updateValue) => {
             return (
               <div>
@@ -198,7 +235,7 @@ class VendorAddressBk extends Component {
     ];
 
     const options = {
-      filterType: "dropdown",
+      filterType: "textField",
       responsive: "stacked",
       fixedHeader: true,
       print: false,
@@ -207,15 +244,15 @@ class VendorAddressBk extends Component {
       viewColumns: false
     };
 
-    const data = this.state.vendors.map(vendor => {
-      return [
-        vendor.id,
-        vendor.company_name,
-        vendor.phone,
-        vendor.email,
-        vendor.address
-      ];
-    });
+    // const data = this.state.vendors.map(vendor => {
+    //   return [
+    //     vendor.id,
+    //     vendor.company_name,
+    //     vendor.phone,
+    //     vendor.email,
+    //     vendor.address
+    //   ];
+    // });
 
     return (
       <div className={this.props.classes.mainContainer}>
@@ -245,7 +282,11 @@ class VendorAddressBk extends Component {
                   </Link>
                 </Tooltip>
               </div>
-              <MUIDataTable data={data} columns={columns} options={options} />
+              <MUIDataTable
+                data={this.state.data}
+                columns={columns}
+                options={options}
+              />
               <Menu
                 anchorEl={this.state.anchorEl}
                 keepMounted
@@ -274,6 +315,13 @@ class VendorAddressBk extends Component {
                     }}
                   >
                     Full Profile
+                  </MenuItem>
+                  <MenuItem
+                    onClick={e => {
+                      this.deleteVendor(this.state.currentRow[0]);
+                    }}
+                  >
+                    Delete Vendor
                   </MenuItem>
                   <MenuItem
                     onClick={e => {

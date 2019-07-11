@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
+import IssueResolvedText from './IssueResolvedText'
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
+import Button from "@material-ui/core/Button";
+
 import { CheckProgress, isGreaterOrIsEqual } from './helpers'
+import DeleteButton from './DeleteButton'
+
 const TrackerBar = props => {
   const [currentStep, setCurrentStep] = useState(null);
   const [progressWidth, setProgressWidth] = useState(null);
+  const [ isResolved, setIsResolved ] = useState(false)
 
   const triggerBarChange = step => {
 
@@ -16,11 +22,26 @@ const TrackerBar = props => {
 
   };
 
-  useEffect(() => {
-    if(request.resolved_tenant && request.resolved_owner) {
-      setCurrentStep(4)
-    }
 
+
+  let {
+    classes, request,
+    handleDeleteRequest,
+    handleSetResolvedRequest,
+    handleGetServicesRequest } = props;
+  let {
+    request_name,
+    received,
+    resolved_tenant,
+    resolved_owner,
+    id } = request
+
+
+  const updateTrackerBar = () => {
+
+    if(resolved_tenant && resolved_owner) {
+      return triggerBarChange(4)
+    }
 
     switch(request.status.toLowerCase()) {
       case "open":
@@ -39,14 +60,19 @@ const TrackerBar = props => {
         return null
         break;
     }
-  }, [])
+  }
 
-  let { classes, request } = props;
+  useEffect(() => {
+    updateTrackerBar()
+  }, [ request ])
 
   return (
     <div className={props.classes.progressBarSection}>
-      <h4>Name: {request.request_name}</h4>
-
+      <h4 style={{ display: "inline-block"}}>Request Name: {request_name}</h4>
+      <DeleteButton
+       request={request}
+       handleDeleteRequest={handleDeleteRequest}
+      />
       <LinearProgress
         className={classes.progressBar}
         variant="determinate"
@@ -120,7 +146,7 @@ const TrackerBar = props => {
             className={isGreaterOrIsEqual(progressWidth, 0, "step-text")}
 
             >
-              <p>{request.received ? "Request received" : "Request sent"}</p>
+              <p>{received ? "Request received" : "Request sent"}</p>
             </div>
 
           </>
@@ -175,21 +201,17 @@ const TrackerBar = props => {
                 progressWidth === 100 ? " completed" : ""
               }`}
             >
-              <p>Issue successfully resolved!</p>
+              {!resolved_tenant ? <Button onClick={() => handleSetResolvedRequest(id)}>
+                <p className={'step-text'}>Issue resolved?</p>
+              </Button> : ""}
             </div>
-            <div
-              className={`check-text${
-                progressWidth === 100 ? " completed" : ""
-              }`}
-            >
-              <p>Issue successfully resolved!</p>
-            </div>
+
           </>
         </Grid>
+        <IssueResolvedText
+          request={request}
+        />
       </div>
-      <br />
-      <button onClick={() => triggerBarChange(currentStep + 1)} />
-      Current step: {currentStep}
     </div>
   );
 };

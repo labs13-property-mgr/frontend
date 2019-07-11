@@ -173,7 +173,7 @@ const TenantUserMenu = props => {
         </Typography>
         <List>
           <ListItemLink className={classes.menuItem} href="/tenant-dash">
-            <Icon fontSize="medium">home</Icon>
+            <Icon >home</Icon>
             <Typography variant="body1" className={classes.menuText}>
               Dashboard
             </Typography>

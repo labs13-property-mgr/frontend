@@ -1,4 +1,4 @@
-import React, {useState } from "react"
+import React from "react"
 import ServiceRequestModal from './ServiceRequestModal'
 
 import Card from '@material-ui/core/Card'
@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   card: {
-    minWidth: "48%",
+    minWidth: "45%",
     margin: "10px 5px",
     textAlign: "center",
   }
@@ -21,7 +21,7 @@ const ServiceRequest = props => {
     <>
       <Card className={classes.card}>
         <CardContent>
-          <ServiceRequestModal request={props.request} />
+          <ServiceRequestModal request={props.request} handleGetRequests={props.handleGetRequests}/>
         </CardContent>
       </Card>
     </>

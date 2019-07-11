@@ -10,7 +10,6 @@ import ServiceRequests from "./ServiceRequests";
 import Icon from "@material-ui/core/Icon";
 import { compose } from "recompose";
 import { withAuthorization } from "../../Session";
-import cardBackground from "../../img/card-background-image.png";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -20,6 +19,7 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 import "typeface-roboto";
+
 
 import * as ROLES from "../../../constants/roles";
 
@@ -35,11 +35,7 @@ const styles = theme => ({
     [theme.breakpoints.up("sm")]: {
       paddingLeft: drawerWidth
     },
-    // border: "2px solid red",
     height: "100vh"
-    // backgroundImage: `url(${cardBackground})`,
-    // backgroundSize: "cover",
-    // overflow: "hidden"
   },
 
   propertyCard: {
@@ -170,7 +166,6 @@ class PropertyCard extends Component {
           .then(res => {
             const propertiesData = this.state.property;
             const tenants = res.data;
-            console.log("Properties", propertiesData);
             this.setState({
               tenants: tenants.filter(
                 tenant => tenant.property_id === propertiesData.id
@@ -192,8 +187,6 @@ class PropertyCard extends Component {
         this.setState({ properties });
 
         this.props.history.push("/owner-dash");
-        // console.log(res);
-        // redirect
       })
       .catch(err => {
         console.log(err);
@@ -295,7 +288,6 @@ class PropertyCard extends Component {
                       <Icon
                         className={this.props.classes.icon}
                         onClick={this.updateProperty}
-                        fontSize="medium"
                       >
                         edit
                       </Icon>
@@ -304,7 +296,6 @@ class PropertyCard extends Component {
                       <Icon
                         className={this.props.classes.icon}
                         onClick={this.deleteProperty}
-                        fontSize="medium"
                       >
                         delete
                       </Icon>
@@ -312,13 +303,39 @@ class PropertyCard extends Component {
                   </div>
                 </div>
                 <p>Address: {this.state.property.address}</p>
+                <p>
+                  Unit/Apartment #:{" "}
+                  {` ${
+                    this.state.property.unit === null
+                      ? "N/A"
+                      : `${this.state.property.unit}`
+                  }`}
+                </p>
+                <p>City: {this.state.property.city}</p>
+                <p>
+                  State:{" "}
+                  {` ${
+                    this.state.property.state === "N/A"
+                      ? "N/A"
+                      : `${this.state.property.state}`
+                  }`}
+                </p>
+                <p>Zip Code: {this.state.property.zip}</p>
+                <p>
+                  Current Rent:
+                  {` ${
+                    this.state.property.rent === null
+                      ? "No info provided"
+                      : `$${this.state.property.rent}/month`
+                  }`}
+                </p>
                 <div>
                   <div
                     className={this.props.classes.tenantListToggle}
                     onClick={this.handleExpandClick}
                   >
                     <Typography variant="h6">Tenants</Typography>
-                    {this.state.open ? <ExpandLess /> : <ExpandMore />}
+                    {this.state.open ? <ExpandMore /> : <ExpandLess />}
                   </div>
                   {this.state.tenants.map(tenant => (
                     <Collapse
@@ -356,8 +373,7 @@ class PropertyCard extends Component {
                   </Grid>
                 </ThemeProvider>
               </Paper>
-              <ServiceRequests />
-
+              <ServiceRequests property_id={this.props.match.params.id} />
             </div>
 
             <div>

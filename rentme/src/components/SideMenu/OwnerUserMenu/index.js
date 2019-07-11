@@ -15,6 +15,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Typography from "@material-ui/core/Typography";
 import "typeface-roboto";
 
+import ZillowWidget from "../ZillowWidget";
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -105,7 +107,10 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: "1rem",
     paddingRight: "1rem",
     paddingTop: "1rem",
-    color: "grey"
+    marginTop: "1rem",
+    fontSize: "1.2rem",
+    paddingBottom: "1rem",
+    fontWeight: 300
   },
   drawer: {
     [theme.breakpoints.up("sm")]: {
@@ -144,6 +149,20 @@ const useStyles = makeStyles(theme => ({
   },
   menuSection: {
     marginTop: "1.5rem"
+  },
+  menuItemZillow: {
+    display: "flex",
+    flexDirection: "column"
+  },
+  titleSection: {
+    display: "flex",
+    flexDirection: "row",
+    marginLeft: "-1.5rem",
+    marginBottom: ".5rem"
+  },
+  widgetTitle: {
+    marginLeft: "1rem",
+    fontSize: "1rem"
   }
 }));
 
@@ -167,24 +186,31 @@ const OwnerUserMenu = props => {
       <div>
         <List className={classes.menuSection}>
           <ListItemLink className={classes.menuItem} href="/owner-dash">
-            <Icon fontSize="medium">home</Icon>
+            <Icon>home</Icon>
             <Typography variant="body1" className={classes.menuText}>
               Dashboard
             </Typography>
-            {/* <Icon fontSize="medium">home</Icon>
+            {/* <Icon >home</Icon>
             <p className={classes.menuText}>Dashboard</p> */}
           </ListItemLink>
           <ListItemLink className={classes.menuItem} href="/vendor-addbook">
-            <Icon fontSize="medium">contacts</Icon>
+            <Icon >contacts</Icon>
             <Typography variant="body1" className={classes.menuText}>
               Vendor Address Book
             </Typography>
             {/* <p className={classes.menuText}>Vendor Address Book</p> */}
           </ListItemLink>
           <ListItemLink className={classes.menuItem} href="/tenant-addbook">
-            <Icon fontSize="medium">contacts</Icon>
+            <Icon >contacts</Icon>
             <Typography variant="body1" className={classes.menuText}>
               Tenant Address Book
+            </Typography>
+            {/* <p className={classes.menuText}>Tenant Address Book</p> */}
+          </ListItemLink>
+          <ListItemLink className={classes.menuItem} href="/">
+            <Icon >build</Icon>
+            <Typography variant="body1" className={classes.menuText}>
+              Service Request
             </Typography>
             {/* <p className={classes.menuText}>Tenant Address Book</p> */}
           </ListItemLink>
@@ -192,27 +218,40 @@ const OwnerUserMenu = props => {
         <Divider />
         <List className={classes.menuSection}>
           <ListItemLink className={classes.menuItem} href="/add-property">
-            <Icon fontSize="medium">add_location</Icon>
+            <Icon >add_location</Icon>
             <Typography variant="body1" className={classes.menuText}>
               Add Property
             </Typography>
             {/* <p className={classes.menuText}>Add Property</p> */}
           </ListItemLink>
           <ListItemLink className={classes.menuItem} href="/add-tenant">
-            <Icon fontSize="medium">group_add</Icon>
+            <Icon >group_add</Icon>
             <Typography variant="body1" className={classes.menuText}>
               Add Tenants
             </Typography>
             {/* <p className={classes.menuText}>Add Tenants</p> */}
           </ListItemLink>
           <ListItemLink className={classes.menuItem} href="/add-vendor">
-            <Icon fontSize="medium">group_add</Icon>
+            <Icon >group_add</Icon>
             <Typography variant="body1" className={classes.menuText}>
               Add Vendors
             </Typography>
             {/* <p className={classes.menuText}>Add Vendors/Service Providers</p> */}
           </ListItemLink>
         </List>
+        <Divider />
+        <Typography variant="subtitle1" className={classes.resourcesHeader}>
+          Owner Resources
+        </Typography>
+        <ListItem className={classes.menuItemZillow}>
+          <div className={classes.titleSection}>
+            <Icon >info</Icon>
+            <Typography variant="subtitle2" className={classes.widgetTitle}>
+              Get Property Info
+            </Typography>
+          </div>
+          <ZillowWidget />
+        </ListItem>
       </div>
     </div>
   );

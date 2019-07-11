@@ -13,7 +13,9 @@ import Icon from "@material-ui/core/Icon";
 import { withAuthorization } from "../../Session";
 import { compose } from "recompose";
 import Typography from "@material-ui/core/Typography";
+import MaskedInput from "react-text-mask";
 import "typeface-roboto";
+import "./editTenantForm.css";
 
 import * as ROLES from "../../../constants/roles";
 
@@ -137,7 +139,7 @@ class EditTenantForm extends Component {
             const propertiesData = properties.filter(
               property => property.owner_id === usersData.uid
             );
-            propertiesData.push({ id: NaN, property_name: "None" });
+            // propertiesData.push({ id: NaN, property_name: "None" });
             console.log(usersData);
             this.setState({
               properties: propertiesData
@@ -174,26 +176,33 @@ class EditTenantForm extends Component {
 
   handleChange = e => {
     // e.persist();
-    console.log(this.state.tenant);
-    if (e.target.name === "property_id" && e.target.value !== null) {
-      this.setState({
-        activeTenant: {
-          ...this.state.activeTenant,
-          [e.target.name]: e.target.value,
-          active_tenant: true
-        }
-      });
-    } else {
-      this.setState({
-        activeTenant: {
-          ...this.state.activeTenant,
-          [e.target.name]: e.target.value,
-          active_tenant: false
-        }
-      });
-    }
+    // console.log(this.state.tenant);
+    // if (e.target.name === "property_id" && e.target.value === "none") {
+    //   this.setState({
+    //     activeTenant: {
+    //       ...this.state.activeTenant,
+    //       [e.target.name]: e.target.value,
+    //       ["property_id"]: null,
+    //       ["active_tenant"]: false
+    //     }
+    //   });
+    // } else {
+    //   this.setState({
+    //     activeTenant: {
+    //       ...this.state.activeTenant,
+    //       [e.target.name]: e.target.value,
+    //       active_tenant: true
+    //     }
+    //   });
+    // }
     // console.log(e.target.name);
     // console.log(e.target.value);
+    this.setState({
+      activeTenant: {
+        ...this.state.activeTenant,
+        [e.target.name]: e.target.value
+      }
+    });
   };
 
   // handleChange = e => {
@@ -209,7 +218,10 @@ class EditTenantForm extends Component {
   onSubmitEditedTenant = e => {
     e.preventDefault();
     console.log("running");
-    this.updateTenant(this.state.activeTenant);
+    this.updateTenant({
+      ...this.state.activeTenant,
+      active_tenant: !!this.state.activeTenant.property_id
+    });
   };
 
   goBack = e => {
@@ -266,19 +278,41 @@ class EditTenantForm extends Component {
                       onChange={this.handleChange}
                       value={this.state.activeTenant["Last_name"]}
                     />
-                    <TextField
-                      variant="outlined"
-                      margin="normal"
-                      fullWidth
-                      required
-                      id="phone"
-                      label="Phone"
-                      name="phone"
-                      autoComplete="phone"
-                      autoFocus
-                      onChange={this.handleChange}
-                      value={this.state.activeTenant["phone"]}
-                    />
+                    <section className="masked-container">
+                      <MaskedInput
+                        className="masked-input"
+                        mask={[
+                          "(",
+                          /[1-9]/,
+                          /\d/,
+                          /\d/,
+                          ")",
+                          /\d/,
+                          /\d/,
+                          /\d/,
+                          "-",
+                          /\d/,
+                          /\d/,
+                          /\d/,
+                          /\d/
+                        ]}
+                        guide={true}
+                        // variant="outlined"
+                        // margin="normal"
+                        required
+                        id="phone"
+                        label="Phone Number"
+                        // defaultValue="Phone Number"
+                        name="phone"
+                        // autoComplete="phone"
+                        // autoFocus
+                        type="tel"
+                        placeholder="Phone Number*"
+                        onChange={this.handleChange}
+                        value={this.state.activeTenant["phone"]}
+                      />
+                      <p>Required*</p>
+                    </section>
                     <TextField
                       variant="outlined"
                       margin="normal"
@@ -339,18 +373,54 @@ class EditTenantForm extends Component {
                       onChange={this.handleChange}
                       value={this.state.activeTenant["number in household"]}
                     />
+                    <section className="masked-container">
+                      <MaskedInput
+                        className="masked-input"
+                        mask={[
+                          "(",
+                          /[1-9]/,
+                          /\d/,
+                          /\d/,
+                          ")",
+                          /\d/,
+                          /\d/,
+                          /\d/,
+                          "-",
+                          /\d/,
+                          /\d/,
+                          /\d/,
+                          /\d/
+                        ]}
+                        guide={true}
+                        // variant="outlined"
+                        // margin="normal"
+                        // required
+                        id="emergency contact"
+                        label="Emergency Contact Number"
+                        // defaultValue="Phone Number"
+                        name="emergency contact"
+                        // autoComplete="phone"
+                        // autoFocus
+                        placeholder="Emergency Contact Number"
+                        onChange={this.handleChange}
+                        value={this.state.activeTenant["emergency contact"]}
+                      />
+                      {/* <p>Required*</p> */}
+                    </section>
                     <TextField
                       variant="outlined"
-                      margin="normal"
-                      fullWidth
-                      id="emergency contact"
-                      label="emergency contact"
-                      name="emergency contact"
-                      autoComplete="emergency contact"
-                      type="number"
+                      id="notes"
+                      label="Notes"
+                      name="notes"
+                      autoComplete="notes"
+                      defaultValue=""
+                      margin="dense"
+                      multiline
+                      rowsMax="4"
                       autoFocus
+                      helperText="Add any additional notes you would like on the tenant."
                       onChange={this.handleChange}
-                      value={this.state.activeTenant["emergency contact"]}
+                      value={this.state.activeTenant["notes"]}
                     />
                     <TextField
                       fullWidth
@@ -360,10 +430,14 @@ class EditTenantForm extends Component {
                       label="Select"
                       value={this.state.activeTenant["property_id"]}
                       onChange={this.handleChange}
-                      helperText="Please select your currency"
+                      helperText="Select which property from your list of properties to tie the tenant to."
                       margin="normal"
                       variant="outlined"
                     >
+                      <MenuItem disabled="disabled" value>
+                        Please select
+                      </MenuItem>
+                      <MenuItem value={null}>None</MenuItem>
                       {this.state.properties.map(property => (
                         <MenuItem key={property.id} value={property.id}>
                           {property.property_name}

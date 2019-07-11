@@ -13,7 +13,9 @@ import Icon from "@material-ui/core/Icon";
 import { withAuthorization } from "../../Session";
 import { compose } from "recompose";
 import Typography from "@material-ui/core/Typography";
+import MaskedInput from "react-text-mask";
 import "typeface-roboto";
+import "./editVendorForm.css";
 
 import * as ROLES from "../../../constants/roles";
 
@@ -91,6 +93,9 @@ const styles = theme => ({
   h2: {
     fontSize: "2rem",
     fontWeight: 500
+  },
+  address: {
+    marginBottom: "1rem"
   }
 });
 
@@ -219,6 +224,7 @@ class EditVendorForm extends Component {
                     value={this.state.activeVendor.last_name}
                   />
                   <TextField
+                    className={this.props.classes.address}
                     variant="outlined"
                     id="address"
                     label="Address"
@@ -229,14 +235,32 @@ class EditVendorForm extends Component {
                     onChange={this.handleChange}
                     value={this.state.activeVendor.address}
                   />
-                  <TextField
+                  <MaskedInput
+                    className="masked-input"
+                    mask={[
+                      "(",
+                      /[1-9]/,
+                      /\d/,
+                      /\d/,
+                      ")",
+                      /\d/,
+                      /\d/,
+                      /\d/,
+                      "-",
+                      /\d/,
+                      /\d/,
+                      /\d/,
+                      /\d/
+                    ]}
+                    guide={true}
                     variant="outlined"
                     id="phone"
                     label="Phone Number"
                     name="phone"
-                    autoComplete="phone"
-                    margin="normal"
-                    autoFocus
+                    placeholder="Phone Number"
+                    // autoComplete="phone"
+                    // margin="normal"
+                    // autoFocus
                     onChange={this.handleChange}
                     value={this.state.activeVendor.phone}
                   />
