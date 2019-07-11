@@ -289,6 +289,32 @@ class PropertyCard extends Component {
                   </div>
                 </div>
                 <p>Address: {this.state.property.address}</p>
+                <p>
+                  Unit/Apartment #:{" "}
+                  {` ${
+                    this.state.property.unit === null
+                      ? "N/A"
+                      : `${this.state.property.unit}`
+                  }`}
+                </p>
+                <p>City: {this.state.property.city}</p>
+                <p>
+                  State:{" "}
+                  {` ${
+                    this.state.property.state === "N/A"
+                      ? "N/A"
+                      : `${this.state.property.state}`
+                  }`}
+                </p>
+                <p>Zip Code: {this.state.property.zip}</p>
+                <p>
+                  Current Rent:
+                  {` ${
+                    this.state.property.rent === null
+                      ? "No info provided"
+                      : `$${this.state.property.rent}/month`
+                  }`}
+                </p>
                 <div>
                   <div
                     className={this.props.classes.tenantListToggle}
@@ -334,7 +360,6 @@ class PropertyCard extends Component {
                 </ThemeProvider>
               </Paper>
               <ServiceRequests property_id={this.props.match.params.id} />
-
             </div>
 
             {/* <div>
