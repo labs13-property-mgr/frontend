@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
 import GoogleButton from "react-google-button";
 import { FacebookLoginButton } from "react-social-login-buttons";
+import axios from "axios";
 
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
@@ -417,7 +418,29 @@ class SignInGoogleBase extends Component {
     this.state = { error: null };
   }
 
-  onSubmit = e => {
+  onSubmit = async e => {
+    e.preventDefault();
+
+    const roles = {};
+
+    roles[ROLES.TENANT] = ROLES.TENANT;
+
+    const authUser = await this.props.firebase.doSignInWithGoogle();
+    
+    await this.props.firebase.user(authUser.user.uid).set({
+      roles
+    });
+
+    const response = await axios.post('https://rent-me-app.herokuapp.com/api/user', {
+      uid: authUser.user.uid,
+      role: ROLES.TENANT
+    });
+
+    console.log(response)
+    return this.props.history.push(ROUTES.TENANT_DASHBOARD);
+  };
+
+  /*onSubmit = e => {
     const { isTenant } = this.state;
     const roles = {};
 
@@ -442,7 +465,7 @@ class SignInGoogleBase extends Component {
       });
 
     e.preventDefault();
-  };
+  };*/
 
   render() {
     const { error } = this.state;
@@ -483,31 +506,26 @@ class SignInFacebookBase extends Component {
     this.state = { error: null };
   }
 
-  onSubmit = e => {
-    const { isTenant } = this.state;
+  onSubmit = async e => {
+    e.preventDefault();
+
     const roles = {};
 
     roles[ROLES.TENANT] = ROLES.TENANT;
 
-    this.props.firebase
-      .doSignInWithFacebook()
-      .then(authUser => {
-        return this.props.firebase.user(authUser.user.uid).set({
-          roles
-        });
-      })
-      .then(socialAuthUser => {
-        this.setState({ error: null });
-        this.props.history.push(ROUTES.TENANT_DASHBOARD);
-      })
-      .catch(error => {
-        if (error.code === ERROR_CODE_ACCOUNT_EXISTS) {
-          error.message = ERROR_MSG_ACCOUNT_EXISTS;
-        }
-        this.setState({ error });
-      });
+    const authUser = await this.props.firebase.doSignInWithFacebook();
+    
+    await this.props.firebase.user(authUser.user.uid).set({
+      roles
+    });
 
-    e.preventDefault();
+    const response = await axios.post('https://rent-me-app.herokuapp.com/api/user', {
+      uid: authUser.user.uid,
+      role: ROLES.TENANT
+    });
+
+    console.log(response)
+    return this.props.history.push(ROUTES.TENANT_DASHBOARD);
   };
 
   render() {
@@ -675,31 +693,26 @@ class OwnerSignInGoogleBase extends Component {
     this.state = { error: null };
   }
 
-  onSubmit = e => {
-    const { isOwner } = this.state;
+  onSubmit = async e => {
+    e.preventDefault();
+
     const roles = {};
 
     roles[ROLES.OWNER] = ROLES.OWNER;
 
-    this.props.firebase
-      .doSignInWithGoogle()
-      .then(authUser => {
-        return this.props.firebase.user(authUser.user.uid).set({
-          roles
-        });
-      })
-      .then(socialAuthUser => {
-        this.setState({ error: null });
-        this.props.history.push(ROUTES.OWNER_DASHBOARD);
-      })
-      .catch(error => {
-        if (error.code === ERROR_CODE_ACCOUNT_EXISTS) {
-          error.message = ERROR_MSG_ACCOUNT_EXISTS;
-        }
-        this.setState({ error });
-      });
+    const authUser = await this.props.firebase.doSignInWithGoogle();
+    
+    await this.props.firebase.user(authUser.user.uid).set({
+      roles
+    });
 
-    e.preventDefault();
+    const response = await axios.post('https://rent-me-app.herokuapp.com/api/user', {
+      uid: authUser.user.uid,
+      role: ROLES.OWNER
+    });
+
+    console.log(response)
+    return this.props.history.push(ROUTES.OWNER_DASHBOARD);
   };
 
   render() {
@@ -740,31 +753,26 @@ class OwnerSignInFacebookBase extends Component {
     this.state = { error: null };
   }
 
-  onSubmit = e => {
-    const { isOwner } = this.state;
+  onSubmit = async e => {
+    e.preventDefault();
+
     const roles = {};
 
     roles[ROLES.OWNER] = ROLES.OWNER;
 
-    this.props.firebase
-      .doSignInWithFacebook()
-      .then(authUser => {
-        return this.props.firebase.user(authUser.user.uid).set({
-          roles
-        });
-      })
-      .then(socialAuthUser => {
-        this.setState({ error: null });
-        this.props.history.push(ROUTES.OWNER_DASHBOARD);
-      })
-      .catch(error => {
-        if (error.code === ERROR_CODE_ACCOUNT_EXISTS) {
-          error.message = ERROR_MSG_ACCOUNT_EXISTS;
-        }
-        this.setState({ error });
-      });
+    const authUser = await this.props.firebase.doSignInWithFacebook();
+    
+    await this.props.firebase.user(authUser.user.uid).set({
+      roles
+    });
 
-    e.preventDefault();
+    const response = await axios.post('https://rent-me-app.herokuapp.com/api/user', {
+      uid: authUser.user.uid,
+      role: ROLES.OWNER
+    });
+
+    console.log(response)
+    return this.props.history.push(ROUTES.OWNER_DASHBOARD);
   };
 
   render() {

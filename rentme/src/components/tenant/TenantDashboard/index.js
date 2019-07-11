@@ -48,7 +48,6 @@ const TenantDashboard = props => {
     axios
       .get("https://rent-me-app.herokuapp.com/api/service")
       .then(res => {
-        console.log("Get from Dashboard", res);
         setRequests(res.data);
       })
       .catch(err => console.log(err));

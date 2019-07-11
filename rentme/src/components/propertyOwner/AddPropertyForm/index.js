@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
+import Tooltip from "@material-ui/core/Tooltip";
+import Input from "@material-ui/core/Input";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
@@ -11,6 +13,8 @@ import Icon from "@material-ui/core/Icon";
 import Grid from "@material-ui/core/Grid";
 import { withAuthorization, AuthUserContext } from "../../Session";
 import { compose } from "recompose";
+import Typography from "@material-ui/core/Typography";
+import "typeface-roboto";
 
 import * as ROLES from "../../../constants/roles";
 
@@ -80,6 +84,14 @@ const styles = theme => ({
       color: "#008c3a",
       backgroundColor: "transparent"
     }
+  },
+  h1: {
+    fontSize: "2.4rem",
+    marginBottom: "2rem"
+  },
+  h2: {
+    fontSize: "2rem",
+    fontWeight: 500
   }
 });
 
@@ -190,7 +202,9 @@ class AddPropertyForm extends Component {
             </Button>
             <Paper className={this.props.classes.formCard}>
               <div className={this.props.classes.pageContainer}>
-                <h1>Add a New Property</h1>
+                <Typography variant="h1" className={this.props.classes.h1}>
+                  Add a New Property
+                </Typography>
                 <div>
                   <form
                     onSubmit={this.onSubmitAddProperty}
@@ -222,6 +236,7 @@ class AddPropertyForm extends Component {
                       onChange={this.handleChange}
                       value={this.state.property.address}
                     />
+                    
                     <div className={this.props.classes.buttons}>
                       <Grid item xs={12} md={5}>
                         <Button
