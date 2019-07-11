@@ -4,6 +4,7 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
 import Button from "@material-ui/core/Button";
+import Tooltip from "@material-ui/core/Tooltip";
 
 import { CheckProgress, isGreaterOrIsEqual } from './helpers'
 import DeleteButton from './DeleteButton'
@@ -34,7 +35,9 @@ const TrackerBar = props => {
     received,
     resolved_tenant,
     resolved_owner,
-    id } = request
+    id,
+    appointment
+  } = request
 
 
   const updateTrackerBar = () => {
@@ -172,11 +175,13 @@ const TrackerBar = props => {
             >
               <p>Scheduling appointment</p>
             </div>
-            <div
-              className={`check-text${progressWidth > 50 ? " completed" : ""}`}
-            >
-              <p>Appointment Scheduled</p>
-            </div>
+            <Tooltip title={`Scheduled Date: ${appointment}`} >
+              <div
+                className={`check-text${progressWidth > 50 ? " completed" : ""}`}
+              >
+                <p>Appointment Scheduled</p>
+              </div>
+            </Tooltip>
           </>
           <>
             {" "}
