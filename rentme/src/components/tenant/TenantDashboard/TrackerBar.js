@@ -26,12 +26,8 @@ const TrackerBar = props => {
     request,
     handleDeleteRequest,
     handleSetResolvedRequest,
-<<<<<<< HEAD
     handleGetServicesRequest
   } = props;
-  let { request_name, received, resolved_tenant, resolved_owner, id } = request;
-=======
-    handleGetServicesRequest } = props;
   let {
     request_name,
     received,
@@ -39,9 +35,7 @@ const TrackerBar = props => {
     resolved_owner,
     id,
     appointment
-  } = request
-
->>>>>>> 39371cdfbc552056967d8b7b952262a54c862a9d
+  } = request;
 
   const updateTrackerBar = () => {
     if (resolved_tenant && resolved_owner) {
@@ -153,32 +147,22 @@ const TrackerBar = props => {
           <>
             {" "}
             {/*Step 3 */}
-<<<<<<< HEAD
-            <div className={isGreaterOrIsEqual(progressWidth, 50, "step-text")}>
-              <p>Scheduling appointment</p>
-            </div>
-            <div
-              className={`check-text${progressWidth > 50 ? " completed" : ""}`}
-            >
-              <p>Appointment Scheduled</p>
-            </div>
-=======
-            <Tooltip title={`Scheduled Date: ${appointment}`} >
+            <Tooltip title={`Scheduled Date: ${appointment}`}>
               <div
                 className={isGreaterOrIsEqual(progressWidth, 50, "step-text")}
               >
                 <p>Scheduling appointment</p>
               </div>
             </Tooltip>
-
-            <Tooltip title={`Scheduled Date: ${appointment}`} >
+            <Tooltip title={`Scheduled Date: ${appointment}`}>
               <div
-                className={`check-text${progressWidth > 50 ? " completed" : ""}`}
+                className={`check-text${
+                  progressWidth > 50 ? " completed" : ""
+                }`}
               >
                 <p>Appointment Scheduled</p>
               </div>
             </Tooltip>
->>>>>>> 39371cdfbc552056967d8b7b952262a54c862a9d
           </>
           <>
             {" "}
