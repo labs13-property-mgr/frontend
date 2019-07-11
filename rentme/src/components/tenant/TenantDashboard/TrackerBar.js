@@ -170,11 +170,14 @@ const TrackerBar = props => {
           <>
             {" "}
             {/*Step 3 */}
-            <div
-              className={isGreaterOrIsEqual(progressWidth, 50, "step-text")}
-            >
-              <p>Scheduling appointment</p>
-            </div>
+            <Tooltip title={`Scheduled Date: ${appointment}`} >
+              <div
+                className={isGreaterOrIsEqual(progressWidth, 50, "step-text")}
+              >
+                <p>Scheduling appointment</p>
+              </div>
+            </Tooltip>
+
             <Tooltip title={`Scheduled Date: ${appointment}`} >
               <div
                 className={`check-text${progressWidth > 50 ? " completed" : ""}`}
