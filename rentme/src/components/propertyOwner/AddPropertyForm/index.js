@@ -12,6 +12,9 @@ import Grid from "@material-ui/core/Grid";
 import { withAuthorization, AuthUserContext } from "../../Session";
 import { compose } from "recompose";
 import Typography from "@material-ui/core/Typography";
+import MenuItem from "@material-ui/core/MenuItem";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Input from "@material-ui/core/Input";
 import "typeface-roboto";
 
 import * as ROLES from "../../../constants/roles";
@@ -90,6 +93,9 @@ const styles = theme => ({
   h2: {
     fontSize: "2rem",
     fontWeight: 500
+  },
+  field: {
+    marginTop: "1rem"
   }
 });
 
@@ -99,8 +105,13 @@ class AddPropertyForm extends Component {
     this.state = {
       properties: [],
       property: {
-        property_name: "",
-        address: "",
+        property_name: null,
+        address: null,
+        unit: null,
+        city: null,
+        zip: null,
+        state: "N/A",
+        rent: null,
         owner_id: JSON.parse(localStorage.getItem("authUser")).uid
       },
       user: ""
@@ -184,8 +195,62 @@ class AddPropertyForm extends Component {
     this.props.history.goBack();
   };
 
+  propstate = [
+    { label: "AK" },
+    { label: "AL" },
+    { label: "AR" },
+    { label: "AZ" },
+    { label: "CA" },
+    { label: "CO" },
+    { label: "CT" },
+    { label: "DE" },
+    { label: "FL" },
+    { label: "GA" },
+    { label: "HI" },
+    { label: "IA" },
+    { label: "ID" },
+    { label: "IL" },
+    { label: "IN" },
+    { label: "KS" },
+    { label: "KY" },
+    { label: "LA" },
+    { label: "MA" },
+    { label: "MD" },
+    { label: "ME" },
+    { label: "MI" },
+    { label: "MN" },
+    { label: "MO" },
+    { label: "MS" },
+    { label: "MT" },
+    { label: "NC" },
+    { label: "ND" },
+    { label: "NE" },
+    { label: "NH" },
+    { label: "NJ" },
+    { label: "NM" },
+    { label: "NV" },
+    { label: "NY" },
+    { label: "OH" },
+    { label: "OK" },
+    { label: "OR" },
+    { label: "PA" },
+    { label: "RI" },
+    { label: "SC" },
+    { label: "SD" },
+    { label: "TN" },
+    { label: "TX" },
+    { label: "UT" },
+    { label: "VA" },
+    { label: "VT" },
+    { label: "WA" },
+    { label: "WI" },
+    { label: "WV" },
+    { label: "WY" }
+  ];
+
   render() {
     if (!this.state.property) return <h3>Loading data...</h3>;
+
     return (
       <div className={this.props.classes.mainContainer}>
         <OwnerUserMenu />
@@ -233,6 +298,82 @@ class AddPropertyForm extends Component {
                       autoFocus
                       onChange={this.handleChange}
                       value={this.state.property.address}
+                    />
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="unit"
+                      label="Unit/Apartment #"
+                      name="unit"
+                      autoComplete="unit"
+                      margin="normal"
+                      autoFocus
+                      onChange={this.handleChange}
+                      value={this.state.property.unit}
+                    />
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="city"
+                      label="City"
+                      name="city"
+                      autoComplete="city"
+                      margin="normal"
+                      autoFocus
+                      onChange={this.handleChange}
+                      value={this.state.property.city}
+                    />
+                    <TextField
+                      id="state"
+                      name="state"
+                      select
+                      label="State*"
+                      value={this.state.property.state}
+                      onChange={this.handleChange}
+                      helperText="Select State"
+                      margin="normal"
+                      variant="outlined"
+                      placeholder="Please select"
+                    >
+                      <MenuItem disabled="disabled" value>
+                        Please select
+                      </MenuItem>
+                      {this.propstate.map(ps => (
+                        <MenuItem key={ps.label} value={ps.label} required>
+                          {ps.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="zip"
+                      label="Zip Code"
+                      name="zip"
+                      autoComplete="zip"
+                      margin="normal"
+                      autoFocus
+                      onChange={this.handleChange}
+                      value={this.state.property.zip}
+                    />
+                    <TextField
+                      variant="outlined"
+                      fullWidth
+                      label="Monthly Rent"
+                      id="rent"
+                      name="rent"
+                      onChange={this.handleChange}
+                      value={this.state.property.rent}
+                      variant="outlined"
+                      className={this.props.classes.field}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">$</InputAdornment>
+                        )
+                      }}
                     />
                     <div className={this.props.classes.buttons}>
                       <Grid item xs={12} md={5}>
