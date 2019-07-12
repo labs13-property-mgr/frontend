@@ -91,6 +91,32 @@ const useStyles = makeStyles(theme => ({
   h2: {
     fontSize: "2rem",
     fontWeight: 500
+  },
+  rentSpan: {
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    marginBottom: "-30px"
+  },
+  cardSpan: {
+    display: "flex",
+    alignItems: "center",
+    marginTop: "-30px",
+    marginLeft: "31px"
+  },
+  cardStyle: {
+    boxShadow: "0px 1px 3px 1px #ccc",
+    webkitTransitionDuration: "0.3s",
+    mozTransitionDuration: "0.3s",
+    oTransitionDduration: "0.3s",
+    transitionDuration: "0.3s",
+    "&:hover": {
+      boxShadow: "1px 2px 4px 2px #00000050",
+      webkitTransitionDuration: "0.2s",
+      mozTransitionDuration: "0.2s",
+      oTransitionDuration: "0.2s",
+      transitionDuration: "0.2s"
+    }
   }
 }));
 
@@ -208,6 +234,8 @@ const PropertyDash = props => {
                                   Name: {property && property.property_name}
                                 </p>
                                 <p>Address: {property && property.address}</p>
+                                <span className={classes.cardSpan}><p>Unit: </p>&nbsp;<Typography color="textSecondary">{property && property.unit}</Typography></span>
+                                <span className={classes.rentSpan}><h4>Rent Rate: </h4>&nbsp;<p>${property && property.rent}</p></span>
                               </CardContent>
                             </Card>
                           </Link>
