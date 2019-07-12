@@ -113,6 +113,7 @@ class AddPropertyForm extends Component {
         zip: null,
         state: "N/A",
         rent: null,
+        image_url: null,
         owner_id: JSON.parse(localStorage.getItem("authUser")).uid
       },
       user: ""
@@ -156,10 +157,12 @@ class AddPropertyForm extends Component {
   }
 
   addProperty = newProperty => {
+    console.log(newProperty);
     return axios
       .post("https://rent-me-app.herokuapp.com/api/property", newProperty)
       .then(res => {
         const properties = res.data;
+        console.log('property' + properties);
         return properties;
       })
       .catch(err => {

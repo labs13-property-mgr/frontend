@@ -19,6 +19,7 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 import "typeface-roboto";
+import placeholer from "../../../placeholderImages/modernHouse.png"
 
 
 import * as ROLES from "../../../constants/roles";
@@ -151,6 +152,7 @@ class PropertyCard extends Component {
   };
 
   componentDidMount() {
+    
     const endpoint = "https://rent-me-app.herokuapp.com/api/property";
     axios
       .get(endpoint)
@@ -177,6 +179,8 @@ class PropertyCard extends Component {
       .catch(error => {
         console.error("USERS ERROR", error);
       });
+
+      
   }
 
   deleteProperties = id => {
@@ -209,22 +213,29 @@ class PropertyCard extends Component {
   };
 
   handleImageChange = e => {
-    this.setState({
-      selectedFile: e.target.files[0]
-    });     
-    // console.log('-------file start--------');
-    // console.log(this.state.selectedFile);
-    // console.log('-------end file--------');
+    const image = e.target.files[0];
 
-    this.handleUploadPicture();
-  };
+    console.log('-------file name--------');
+    console.log(image.name);
+    console.log('-------file name--------');
 
-  handleUploadPicture = () => {
+    console.log(this.state.property.id);
+
     const fd = new FormData();
 
-    let fullFileName = this.state.activeProperty.id + ' ' + 'POST' + ' ' + Date.now() + this.state.selectedFile.name;
+    let fullFileName = this.state.property.id + ' ' + 'POST' + ' ' + Date.now() + image.name;
 
-    fd.append("image", this.state.selectedFile, fullFileName);
+    console.log(fullFileName);
+
+    fd.append("image", image, fullFileName);
+
+    this.handleUploadPicture(fd);
+    
+  };     
+    
+
+  handleUploadPicture = (fd) => {
+    
 
     axios.post(
       "https://us-central1-rentme-52af4.cloudfunctions.net/uploadFile",
@@ -240,6 +251,11 @@ class PropertyCard extends Component {
       }
     );
   };
+
+  handleEditPicture = () => {
+    const fileInput = document.getElementById('imageInput');
+    fileInput.click();
+  }
 
 
   goBack = e => {
@@ -380,23 +396,20 @@ class PropertyCard extends Component {
 
               <input 
                 style={{display: 'none'}}
+                id="imageInput"
                 type="file" 
                 onChange={this.handleImageChange} 
-                ref={fileInput => this.fileInput = fileInput}
               />
 
-              <Tooltip title="Add Property Photo" placement="top">
-                {/* <button onClick={this.handleUploadPicture}>Upload</button> */}
-                {this.state.property.property_image.property_image_name === null ? (
-                  <img src="../../../../public/placeholder-images/modern-house.png" onClick={this.fileInput.click()} />
-                ) : (
-                  <img src={this.state.property.property_name} />
-                )}
-              </Tooltip>
+              {this.state.property.image_url === null ? (
+                <Tooltip title="Add Property Photo" placement="top">
+                  <img src={placeholer} alt="house placeholder" onClick={this.handleEditPicture} />
+                </Tooltip>
+              ) : (
+                <img src={this.state.property.image_url} alt="rental house photo" />
+              )}
 
             </div>
-
-            
           </div>
         </main>
       </div>
