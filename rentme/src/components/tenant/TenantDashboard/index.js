@@ -33,6 +33,7 @@ const TenantDashboard = props => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const theme = useTheme();
   const [open, setOpen] = React.useState({});
+  //const [ishidden, setHidden] = useState(false);
 
   function handleExpandClick(idx) {
     let state = !open[idx];
@@ -44,6 +45,10 @@ const TenantDashboard = props => {
 
   function handleDrawerToggle() {
     setMobileOpen(!mobileOpen);
+  }
+
+  function hideIssue() {
+    return { showTracker: true }
   }
 
   useEffect(() => {
@@ -98,12 +103,12 @@ const TenantDashboard = props => {
       .catch(err => console.log(err));
   };
 
-  const deleteRequest = id => {
-    axios
-      .delete(`https://rent-me-app.herokuapp.com/api/service/${id}`)
-      .then(res => getServicesRequest())
-      .catch(err => console.log(err));
-  };
+  //const deleteRequest = id => {
+    //axios
+      //.delete(`https://rent-me-app.herokuapp.com/api/service/${id}`)
+      //.then(res => getServicesRequest())
+      //.catch(err => console.log(err));
+  //};
 
   const setResolvedRequest = id => {
     return axios
@@ -206,7 +211,8 @@ const TenantDashboard = props => {
                   classes={classes}
                   request={request}
                   key={request.id}
-                  handleDeleteRequest={deleteRequest}
+                  //handleDeleteRequest={deleteRequest}
+                  handleHideRequest={hideIssue}
                   handleSetResolvedRequest={setResolvedRequest}
                   handleGetServicesRequest={getServicesRequest}
                 />
