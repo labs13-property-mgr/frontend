@@ -41,7 +41,13 @@ const useStyles = makeStyles({
 const MenuAppBar = () => (
   <>
     <AuthUserContext.Consumer>
-      {authUser => (authUser ? <MenuAppBarAuth authUser={authUser} /> : <MenuAppBarNonAuth />)}
+      {authUser =>
+        authUser ? (
+          <MenuAppBarAuth authUser={authUser} />
+        ) : (
+          <MenuAppBarNonAuth />
+        )
+      }
     </AuthUserContext.Consumer>
   </>
 );
@@ -117,7 +123,6 @@ const MenuAppBarAuth = ({ authUser }) => {
     </div>
   );
 };
-
 
 const MenuAppBarNonAuth = props => {
   const classes = useStyles();
