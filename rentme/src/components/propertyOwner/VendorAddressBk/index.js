@@ -156,8 +156,8 @@ class VendorAddressBk extends Component {
     this.deleteVendors(vendorId);
   };
 
-  goBack = e => {
-    this.props.history.goBack();
+  goBack = () => {
+    this.props.history.push("/owner-dash");
   };
 
   render() {
@@ -265,7 +265,7 @@ class VendorAddressBk extends Component {
                 className={this.props.classes.backButton}
               >
                 <Icon fontSize="small">arrow_back_ios</Icon>
-                BACK
+                BACK TO DASHBOARD
               </Button>
               <div className={this.props.classes.headerLayout}>
                 <Typography variant="h1" className={this.props.classes.h1}>

@@ -190,30 +190,19 @@ const OwnerUserMenu = props => {
             <Typography variant="body1" className={classes.menuText}>
               Dashboard
             </Typography>
-            {/* <Icon >home</Icon>
-            <p className={classes.menuText}>Dashboard</p> */}
           </ListItemLink>
           <ListItemLink className={classes.menuItem} href="/vendor-addbook">
             <Icon>contacts</Icon>
             <Typography variant="body1" className={classes.menuText}>
               Vendor Address Book
             </Typography>
-            {/* <p className={classes.menuText}>Vendor Address Book</p> */}
           </ListItemLink>
           <ListItemLink className={classes.menuItem} href="/tenant-addbook">
             <Icon>contacts</Icon>
             <Typography variant="body1" className={classes.menuText}>
               Tenant Address Book
             </Typography>
-            {/* <p className={classes.menuText}>Tenant Address Book</p> */}
           </ListItemLink>
-          {/* <ListItemLink className={classes.menuItem} href="/">
-            <Icon >build</Icon>
-            <Typography variant="body1" className={classes.menuText}>
-              Service Request
-            </Typography> */}
-          {/* <p className={classes.menuText}>Tenant Address Book</p> */}
-          {/* </ListItemLink> */}
         </List>
         <Divider />
         <List className={classes.menuSection}>
@@ -222,21 +211,18 @@ const OwnerUserMenu = props => {
             <Typography variant="body1" className={classes.menuText}>
               Add Property
             </Typography>
-            {/* <p className={classes.menuText}>Add Property</p> */}
           </ListItemLink>
           <ListItemLink className={classes.menuItem} href="/add-tenant">
             <Icon>group_add</Icon>
             <Typography variant="body1" className={classes.menuText}>
               Add Tenants
             </Typography>
-            {/* <p className={classes.menuText}>Add Tenants</p> */}
           </ListItemLink>
           <ListItemLink className={classes.menuItem} href="/add-vendor">
             <Icon>group_add</Icon>
             <Typography variant="body1" className={classes.menuText}>
               Add Vendors
             </Typography>
-            {/* <p className={classes.menuText}>Add Vendors/Service Providers</p> */}
           </ListItemLink>
         </List>
         <Divider />
