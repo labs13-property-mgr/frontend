@@ -47,6 +47,7 @@ const ServiceRequestForm = props => {
   const {
     request_name,
     notes,
+    cost,
     date_created,
     id,
     appointment,
@@ -64,12 +65,14 @@ const ServiceRequestForm = props => {
 
   const [values, setValues] = useState({
     appointment: "",
-    notes: ""
+    notes: "",
+    cost: ""
   });
 
   useEffect(() => {
     setValues({
       ...values,
+      cost: cost,
       notes: notes,
       appointment: appointment
     });
@@ -202,6 +205,15 @@ const ServiceRequestForm = props => {
           variant="outlined"
           value={values.notes}
           name="notes"
+          onChange={e => handleChanges(e)}
+          style={generateGridValues(2, 6, 6, 6)}
+        />
+          <TextField
+          id="cost"
+          label="Cost"
+          variant="outlined"
+          value={values.cost}
+          name="cost"
           onChange={e => handleChanges(e)}
           style={generateGridValues(2, 6, 6, 6)}
         />
