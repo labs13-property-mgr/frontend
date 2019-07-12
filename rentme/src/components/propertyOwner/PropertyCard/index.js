@@ -19,7 +19,7 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 import "typeface-roboto";
-import placeholer from "../../../placeholderImages/modernHouse.png"
+import placeholer from "../../../placeholderImages/modernHouse.png";
 
 
 import * as ROLES from "../../../constants/roles";
