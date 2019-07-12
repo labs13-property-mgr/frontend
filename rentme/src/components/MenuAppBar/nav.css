@@ -9,6 +9,10 @@ img.logo {
   align-items: center;
 }
 
+.logo-content:hover {
+  cursor: pointer;
+}
+
 .header-content {
   display: flex;
   flex-direction: row;
