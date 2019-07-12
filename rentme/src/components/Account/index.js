@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { withLastLocation } from "react-router-last-location";
+import { compose } from "recompose";
 import PasswordChangeForm from "../PasswordChange";
 import { withAuthorization, AuthUserContext } from "../Session";
 import { withFirebase } from "../Firebase";
@@ -21,7 +24,9 @@ const LOG_IN_METHODS = [
   }
 ];
 
-const Account = () => (
+const Account = ({ lastLocation }) => (
+  <>
+  {lastLocation && <Link to={lastLocation || "/" }>Back to Previous Page</Link>}
   <AuthUserContext.Consumer>
     {authUser => (
       <>
@@ -32,7 +37,8 @@ const Account = () => (
       </>
     )}
   </AuthUserContext.Consumer>
-);
+  </>
+)
 
 class LoginManagementBase extends Component {
   constructor(props) {
@@ -206,4 +212,7 @@ const LoginManagement = withFirebase(LoginManagementBase);
 
 const condition = authUser => !!authUser;
 
-export default withAuthorization(condition)(Account);
+export default compose(
+  withLastLocation,
+  withAuthorization(condition)
+)(Account);

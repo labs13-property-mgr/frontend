@@ -305,7 +305,6 @@ class AddPropertyForm extends Component {
                     />
                     <TextField
                       variant="outlined"
-                      required
                       fullWidth
                       id="unit"
                       label="Unit/Apartment #"

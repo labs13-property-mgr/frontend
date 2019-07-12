@@ -308,7 +308,6 @@ class EditPropertyForm extends Component {
                     />
                     <TextField
                       variant="outlined"
-                      required
                       fullWidth
                       id="unit"
                       label="Unit/Apartment #"

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import { LastLocationProvider } from "react-router-last-location";
 
 import Login from "./components/Login";
 import ManagerLogin from "./components/ManagerLogin";
@@ -38,6 +39,7 @@ import { withAuthentication } from "./components/Session";
 
 const App = () => (
   <Router>
+    <LastLocationProvider>
     <>
       <MenuAppBar />
 
@@ -82,6 +84,7 @@ const App = () => (
       <Route path="/add-manager" component={addManagerForm} />
       <Route path="/manager-profile/:id" component={ManagerCard} />
     </>
+    </LastLocationProvider>
   </Router>
 );
 
