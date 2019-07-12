@@ -29,7 +29,10 @@ const useStyles = makeStyles(theme => ({
   center: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    "&:hover": {
+      cursor: "pointer"
+    }
   },
   tooltip: {
     fontSize: "2rem"
@@ -93,10 +96,10 @@ const ServiceRequestModal = props => {
   }, [props.request]);
 
   return (
-    <div className={classes.center}>
+    <div className={classes.center} onClick={handleClick}>
       <div className={classes.content}>
         <div className={classes.title}>
-          <Button onClick={handleClick}>{request_name}</Button>
+          <Typography variant="h6">{request_name}</Typography>
           <Tooltip
             // className={classes.tooltip}
             title={

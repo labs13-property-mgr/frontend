@@ -26,19 +26,21 @@ const LOG_IN_METHODS = [
 
 const Account = ({ lastLocation }) => (
   <>
-  {lastLocation && <Link to={lastLocation || "/" }>Back to Previous Page</Link>}
-  <AuthUserContext.Consumer>
-    {authUser => (
-      <>
-        <h4>Account: </h4>
-        <p>{authUser.email}</p>
-        <PasswordChangeForm />
-        <LoginManagement authUser={authUser} />
-      </>
+    {lastLocation && (
+      <Link to={lastLocation || "/"}>Back to Previous Page</Link>
     )}
-  </AuthUserContext.Consumer>
+    <AuthUserContext.Consumer>
+      {authUser => (
+        <>
+          <h4>Account: </h4>
+          <p>{authUser.email}</p>
+          <PasswordChangeForm />
+          <LoginManagement authUser={authUser} />
+        </>
+      )}
+    </AuthUserContext.Consumer>
   </>
-)
+);
 
 class LoginManagementBase extends Component {
   constructor(props) {
