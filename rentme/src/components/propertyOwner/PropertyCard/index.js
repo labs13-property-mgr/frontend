@@ -19,6 +19,8 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 import "typeface-roboto";
+import placeholer from "../../../placeholderImages/modernHouse.png";
+
 
 import * as ROLES from "../../../constants/roles";
 
@@ -150,6 +152,7 @@ class PropertyCard extends Component {
   };
 
   componentDidMount() {
+    
     const endpoint = "https://rent-me-app.herokuapp.com/api/property";
     axios
       .get(endpoint)
@@ -176,6 +179,8 @@ class PropertyCard extends Component {
       .catch(error => {
         console.error("USERS ERROR", error);
       });
+
+      
   }
 
   deleteProperties = id => {
@@ -207,29 +212,51 @@ class PropertyCard extends Component {
     this.deleteProperties(this.state.property.id);
   };
 
-  // handleImageChange = e => {
-  //   this.setState({
-  //     selectedFile: e.target.files[0]
-  //   });
-  // };
+  handleImageChange = e => {
+    const image = e.target.files[0];
 
-  // handleUploadPicture = () => {
-  //   const fd = new FormData();
-  //   fd.append("image", this.state.selectedFile, this.state.selectedFile.name);
-  //   axios.post(
-  //     "https://us-central1-rentme-52af4.cloudfunctions.net/uploadFile",
-  //     fd,
-  //     {
-  //       onUploadProgress: progressEvent => {
-  //         console.log(
-  //           "Upload Progress: " +
-  //             Math.round((progressEvent.loaded / progressEvent.total) * 100) +
-  //             "%"
-  //         );
-  //       }
-  //     }
-  //   );
-  // };
+    console.log('-------file name--------');
+    console.log(image.name);
+    console.log('-------file name--------');
+
+    console.log(this.state.property.id);
+
+    const fd = new FormData();
+
+    let fullFileName = this.state.property.id + ' ' + 'POST' + ' ' + Date.now() + image.name;
+
+    console.log(fullFileName);
+
+    fd.append("image", image, fullFileName);
+
+    this.handleUploadPicture(fd);
+    
+  };     
+    
+
+  handleUploadPicture = (fd) => {
+    
+
+    axios.post(
+      "https://us-central1-rentme-52af4.cloudfunctions.net/uploadFile",
+      fd,
+      {
+        onUploadProgress: progressEvent => {
+          console.log(
+            "Upload Progress: " +
+              Math.round((progressEvent.loaded / progressEvent.total) * 100) +
+              "%"
+          );
+        }
+      }
+    );
+  };
+
+  handleEditPicture = () => {
+    const fileInput = document.getElementById('imageInput');
+    fileInput.click();
+  }
+
 
   goBack = e => {
     this.props.history.goBack();
@@ -248,7 +275,10 @@ class PropertyCard extends Component {
   };
 
   render() {
+
+
     return (
+
       <div className={this.props.classes.mainContainer}>
         <OwnerUserMenu />
         <main className={this.props.classes.content}>
@@ -362,34 +392,24 @@ class PropertyCard extends Component {
               <ServiceRequests property_id={this.props.match.params.id} />
             </div>
 
-            {/* <div>
-              {this.selectedFile === null ? (
-                <img src="./" />
+            <div>
+
+              <input 
+                style={{display: 'none'}}
+                id="imageInput"
+                type="file" 
+                onChange={this.handleImageChange} 
+              />
+
+              {this.state.property.image_url === null ? (
+                <Tooltip title="Add Property Photo" placement="top">
+                  <img src={placeholer} alt="house placeholder" onClick={this.handleEditPicture} />
+                </Tooltip>
               ) : (
-                <img src={this.selectedFile} />
+                <img src={this.state.property.image_url} alt="rental house photo" />
               )}
 
-              <input type="file" onChange={this.handleImageChange} />
-
-              <Tooltip title="Add Property Photo" placement="top">
-                <button onClick={this.handleUploadPicture}>Upload</button>
-              </Tooltip>
-
             </div>
-
-            <Button
-              type="submit"
-              size="medium"
-              variant="contained"
-              color="primary"
-              href="/add-tenant"
-            >
-              Add a Tenant
-            </Button>
-
-            <ServiceRequests />
-
-            </div> */}
           </div>
         </main>
       </div>
