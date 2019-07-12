@@ -94,6 +94,17 @@ export const useStyles = makeStyles(theme => ({
   },
   paperContent: {
     padding: "1rem"
+  },
+  propertyImage: {
+    maxWidth: "500px",
+    "&:hover": {
+      cursor: "pointer"
+    },
+    marginBottom: ".5rem"
+  },
+  propertyImageSection: {
+    display: "flex",
+    justifyContent: "center"
   }
 }));
 

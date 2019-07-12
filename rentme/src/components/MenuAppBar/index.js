@@ -78,7 +78,19 @@ const MenuAppBarAuth = ({ authUser }) => {
           />
           <div className="header-content">
             <div className="logo-content">
-              <img className="logo" src={Logo} alt="rentme logo" />
+              <Link
+                to={
+                  JSON.parse(localStorage.getItem("authUser")).roles.TENANT ===
+                  "TENANT"
+                    ? "/tenant-dash"
+                    : JSON.parse(localStorage.getItem("authUser")).roles
+                        .OWNER === "OWNER"
+                    ? "/owner-dash"
+                    : "/"
+                }
+              >
+                <img className="logo" src={Logo} alt="rentme logo" />
+              </Link>
               <Typography variant="h6">RentMe</Typography>
             </div>
             <div>

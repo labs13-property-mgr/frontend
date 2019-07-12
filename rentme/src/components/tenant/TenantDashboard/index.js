@@ -14,6 +14,7 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 import Tooltip from "@material-ui/core/Tooltip";
+import placeholer from "../../../placeholderImages/modernHouse.png";
 //Built component imports
 import TrackerBar from "./TrackerBar";
 import { useStyles } from "./helpers";
@@ -139,6 +140,25 @@ const TenantDashboard = props => {
             Property Information
           </Typography>
           <Paper className={classes.paperCard}>
+            <div className={classes.propertyImageSection}>
+              {tenantPropertyData &&
+              tenantPropertyData.property_image_url === null ? (
+                <img
+                  className={classes.propertyImage}
+                  src={placeholer}
+                  alt="house placeholder"
+                  // onClick={this.handleEditPicture}
+                />
+              ) : (
+                <img
+                  className={classes.propertyImage}
+                  src={
+                    tenantPropertyData && tenantPropertyData.property_image_url
+                  }
+                  alt="rental house photo"
+                />
+              )}
+            </div>
             <div className={classes.paperContent}>
               <Typography variant="h6" className={classes.propertyInfo}>
                 Name: {tenantPropertyData && tenantPropertyData.property_name}
