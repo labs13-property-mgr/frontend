@@ -7,7 +7,6 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
   cardContainer: {
     display: "flex",
-    width: "75%",
     justifyContent: "space-around",
     flexWrap: "wrap",
     margin: "0 auto"
