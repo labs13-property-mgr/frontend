@@ -72,7 +72,7 @@ const MenuAppBarAuth = ({ authUser }) => {
           />
           <div className="header-content">
             <div className="logo-content">
-              <img className="logo" src={Logo} alt="rentme logo" />
+              <Link to="#"><img className="logo" src={Logo} alt="rentme logo" /> </Link>
               <Typography variant="h6">RentMe</Typography>
             </div>
             <div>

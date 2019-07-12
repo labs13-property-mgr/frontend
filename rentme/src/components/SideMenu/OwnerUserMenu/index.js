@@ -207,13 +207,12 @@ const OwnerUserMenu = props => {
             </Typography>
             {/* <p className={classes.menuText}>Tenant Address Book</p> */}
           </ListItemLink>
-          <ListItemLink className={classes.menuItem} href="/">
+          {/* Stretch: ADD a page that list all service request and cost */}
+          {/* <ListItemLink className={classes.menuItem} href="/">
             <Icon >build</Icon>
             <Typography variant="body1" className={classes.menuText}>
               Service Request
-            </Typography>
-            {/* <p className={classes.menuText}>Tenant Address Book</p> */}
-          </ListItemLink>
+            </Typography> */}
         </List>
         <Divider />
         <List className={classes.menuSection}>
