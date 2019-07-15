@@ -47,9 +47,9 @@ const TenantDashboard = props => {
     setMobileOpen(!mobileOpen);
   }
 
-  function hideIssue() {
-    return { showTracker: true }
-  }
+  //function hideIssue() {
+    //return { showTracker: true }
+  //}
 
   useEffect(() => {
     axios
@@ -103,12 +103,12 @@ const TenantDashboard = props => {
       .catch(err => console.log(err));
   };
 
-  //const deleteRequest = id => {
-    //axios
-      //.delete(`https://rent-me-app.herokuapp.com/api/service/${id}`)
-      //.then(res => getServicesRequest())
-      //.catch(err => console.log(err));
-  //};
+  const deleteRequest = id => {
+    axios
+      .delete(`https://rent-me-app.herokuapp.com/api/service/${id}`)
+      .then(res => getServicesRequest())
+      .catch(err => console.log(err));
+  };
 
   const setResolvedRequest = id => {
     return axios
@@ -211,8 +211,8 @@ const TenantDashboard = props => {
                   classes={classes}
                   request={request}
                   key={request.id}
-                  //handleDeleteRequest={deleteRequest}
-                  handleHideRequest={hideIssue}
+                  handleDeleteRequest={deleteRequest}
+                  //handleHideRequest={hideIssue}
                   handleSetResolvedRequest={setResolvedRequest}
                   handleGetServicesRequest={getServicesRequest}
                 />

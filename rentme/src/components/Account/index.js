@@ -7,7 +7,6 @@ import { withAuthorization, AuthUserContext } from "../Session";
 import { withFirebase } from "../Firebase";
 
 import Button from "@material-ui/core/Button";
-import Icon from "@material-ui/core/Icon";
 
 const LOG_IN_METHODS = [
   {
@@ -138,13 +137,16 @@ const SocialLoginToggle = ({
   onUnlink
 }) =>
   isEnabled ? (
-    <button
+    <Button
       type="button"
+      size="medium"
+      variant="contained"
+      color="primary"
       onClick={() => onUnlink(signInMethod.id)}
       disabled={oneLeft}
     >
       Deactivate {signInMethod.id}
-    </button>
+    </Button>
   ) : (
     <button type="button" onClick={() => onLink(signInMethod.provider)}>
       Link {signInMethod.id}
@@ -200,9 +202,15 @@ class DefaultLoginToggle extends Component {
           type="password"
           placeholder="Confirm New Password"
         />
-        <button disabled={isInvalid} type="submit">
+        <Button 
+          disabled={isInvalid} 
+          type="submit"
+          size="medium"
+          variant="contained"
+          color="primary"
+          >
           Link {signInMethod.id}
-        </button>
+        </Button>
       </form>
     );
   }
