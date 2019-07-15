@@ -208,15 +208,6 @@ const ServiceRequestForm = props => {
           onChange={e => handleChanges(e)}
           style={generateGridValues(2, 6, 6, 6)}
         />
-          <TextField
-          id="cost"
-          label="Cost"
-          variant="outlined"
-          value={values.cost}
-          name="cost"
-          onChange={e => handleChanges(e)}
-          style={generateGridValues(2, 6, 6, 6)}
-        />
         <div style={generateGridValues(2, 6, 7, 7)}>
           <Tooltip title="Update request">
             <Button type="submit">Submit</Button>
