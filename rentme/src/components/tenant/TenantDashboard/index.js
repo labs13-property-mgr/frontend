@@ -34,6 +34,7 @@ const TenantDashboard = props => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const theme = useTheme();
   const [open, setOpen] = React.useState({});
+  //const [ishidden, setHidden] = useState(false);
 
   function handleExpandClick(idx) {
     let state = !open[idx];
@@ -46,6 +47,10 @@ const TenantDashboard = props => {
   function handleDrawerToggle() {
     setMobileOpen(!mobileOpen);
   }
+
+  //function hideIssue() {
+    //return { showTracker: true }
+  //}
 
   useEffect(() => {
     axios
@@ -226,6 +231,7 @@ const TenantDashboard = props => {
                   request={request}
                   key={request.id}
                   handleDeleteRequest={deleteRequest}
+                  //handleHideRequest={hideIssue}
                   handleSetResolvedRequest={setResolvedRequest}
                   handleGetServicesRequest={getServicesRequest}
                 />
