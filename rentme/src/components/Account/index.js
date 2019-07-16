@@ -6,7 +6,11 @@ import PasswordChangeForm from "../PasswordChange";
 import { withAuthorization, AuthUserContext } from "../Session";
 import { withFirebase } from "../Firebase";
 
+import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+
 
 const LOG_IN_METHODS = [
   {
@@ -23,19 +27,36 @@ const LOG_IN_METHODS = [
   }
 ];
 
+const divStyle = {
+  display: "flex",
+  alignItems: "center"
+}
+
+const formCard = {
+  margin: "0 auto",
+  width: "70%",
+  marginTop: "2rem",
+  padding: "1.5rem"
+}
+
 const Account = ({ lastLocation }) => (
   <>
   {lastLocation && <Link to={lastLocation || "/" }>Back to Previous Page</Link>}
+  <Paper style={formCard}>
   <AuthUserContext.Consumer>
     {authUser => (
       <>
-        <h4>Account: </h4>
-        <p>{authUser.email}</p>
+        <div style={divStyle}>
+        <h1>Account: </h1>
+        &nbsp;
+        <h2> &nbsp;{authUser.email}</h2>
+        </div>
         <PasswordChangeForm />
         <LoginManagement authUser={authUser} />
       </>
     )}
   </AuthUserContext.Consumer>
+  </Paper>
   </>
 )
 
@@ -91,17 +112,20 @@ class LoginManagementBase extends Component {
 
   render() {
     const { activeSignInMethods, error } = this.state;
-
+    const signInDiv = {
+      display: "flex"
+    }
     return (
       <>
-        <h4>Sign In Methods: </h4>
+        <div style={signInDiv}>
+        <h3>Link Your Sign In Methods: </h3>
         <ul>
           {LOG_IN_METHODS.map(signInMethod => {
             const oneLeft = activeSignInMethods.length === 1; //avoids getting locked out - only one active method = disable all deactivation buttons
             const isEnabled = activeSignInMethods.includes(signInMethod.id);
 
             return (
-              <li key={signInMethod.id}>
+              <li key={signInMethod.id} style={{listStyleType: "none" }}>
                 {signInMethod.id === "password" ? (
                   <DefaultLoginToggle
                     oneLeft={oneLeft}
@@ -124,9 +148,16 @@ class LoginManagementBase extends Component {
           })}
         </ul>
         {error && error.message}
+        </div>
       </>
     );
   }
+}
+
+const socialButton = {
+  display: "flex",
+  marginBottom: "8px",
+  justifyContent: "space-around"
 }
 
 const SocialLoginToggle = ({
@@ -138,6 +169,7 @@ const SocialLoginToggle = ({
 }) =>
   isEnabled ? (
     <Button
+      style={socialButton}
       type="button"
       size="medium"
       variant="contained"
@@ -148,9 +180,15 @@ const SocialLoginToggle = ({
       Deactivate {signInMethod.id}
     </Button>
   ) : (
-    <button type="button" onClick={() => onLink(signInMethod.provider)}>
+    <Button 
+      style={socialButton}
+      type="button"
+      size="medium"
+      variant="contained"
+      color="primary" 
+      onClick={() => onLink(signInMethod.provider)}>
       Link {signInMethod.id}
-    </button>
+    </Button>
   );
 
 class DefaultLoginToggle extends Component {
@@ -178,32 +216,69 @@ class DefaultLoginToggle extends Component {
 
     const isInvalid = passwordOne !== passwordTwo || passwordOne === "";
 
+    const textField = {
+      width: "300px",
+      marginRight: "10px"
+    }
+
+    const buttonStyle = {
+      width: "300px",
+      marginRight: "10px",
+      height: "36.5px",
+      alignItems: "center",
+      marginTop: "26px"
+    }
+
+    const form = {
+      display: "flex",
+      justifyContent: "center"
+    }
+
+    const socialButton = {
+      display: "flex",
+      marginBottom: "8px",
+      justifyContent: "space-around"
+    }
+
     return isEnabled ? (
-      <button
+      <Button
+        style={socialButton}
         type="button"
+        variant="contained"
+        color="primary"
+        size="medium"
         onClick={() => onUnlink(signInMethod.id)}
         disabled={oneLeft}
       >
         Deactivate {signInMethod.id}
-      </button>
+      </Button>
     ) : (
-      <form onSubmit={this.onSubmit}>
-        <input
+      <form onSubmit={this.onSubmit} style={form}>
+        <TextField
+          style={textField}
+          variant="outlined"
+          margin="normal"
+          autoFocus
           name="passwordOne"
           value={passwordOne}
           onChange={this.onChange}
           type="password"
-          placeholder="New Password"
+          label="New Password"
         />
-        <input
+        <TextField
+          style={textField}
+          variant="outlined"
+          margin="normal"
+          autoFocus
           name="passwordTwo"
           value={passwordTwo}
           onChange={this.onChange}
           type="password"
-          placeholder="Confirm New Password"
+          label="Confirm New Password"
         />
         <Button 
           disabled={isInvalid} 
+          style={buttonStyle}
           type="submit"
           size="medium"
           variant="contained"
