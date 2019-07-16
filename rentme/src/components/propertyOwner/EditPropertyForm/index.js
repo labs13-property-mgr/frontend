@@ -17,6 +17,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Typography from "@material-ui/core/Typography";
 import "typeface-roboto";
+import placeholer from "../../../placeholderImages/modernHouse.png";
 
 import * as ROLES from "../../../constants/roles";
 
@@ -103,6 +104,31 @@ const styles = theme => ({
   },
   field: {
     marginTop: "1rem"
+  },
+  propertyImage: {
+    width: "250px"
+  },
+  editTitle: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    "&:hover": {
+      cursor: "pointer",
+      color: "#303F9F"
+    }
+  },
+  editText: {
+    "&:hover": {
+      fontWeight: 500
+    }
+  },
+  editImageSection: {
+    marginBottom: "1rem",
+    marginTop: "1rem",
+    "&:hover": {
+      cursor: "pointer",
+      color: "#303F9F"
+    }
   }
 });
 
@@ -171,14 +197,32 @@ class EditPropertyForm extends Component {
   };
 
   handleImageChange = e => {
-    this.setState({
-      selectedFile: e.target.files[0]
-    });
+    const image = e.target.files[0];
+
+    console.log("-------file name--------");
+    console.log(image.name);
+    console.log("-------file name--------");
+
+    // console.log(this.state.property.id);
+
+    const fd = new FormData();
+
+    let fullFileName =
+      this.state.activeProperty.id +
+      " " +
+      "POST" +
+      " " +
+      Date.now() +
+      image.name;
+
+    console.log(fullFileName);
+
+    fd.append("image", image, fullFileName);
+
+    this.handleUploadPicture(fd);
   };
 
-  handleUploadPicture = () => {
-    const fd = new FormData();
-    fd.append("image", this.state.selectedFile, this.state.selectedFile.name);
+  handleUploadPicture = fd => {
     axios.post(
       "https://us-central1-rentme-52af4.cloudfunctions.net/uploadFile",
       fd,
@@ -192,6 +236,11 @@ class EditPropertyForm extends Component {
         }
       }
     );
+  };
+
+  handleEditPicture = () => {
+    const fileInput = document.getElementById("imageInput");
+    fileInput.click();
   };
 
   goBack = e => {
@@ -303,7 +352,6 @@ class EditPropertyForm extends Component {
                     />
                     <TextField
                       variant="outlined"
-                      required
                       fullWidth
                       id="unit"
                       label="Unit/Apartment #"
@@ -377,21 +425,60 @@ class EditPropertyForm extends Component {
                         )
                       }}
                     />
-                    <div className={this.props.classes.uploadField}>
-                      {this.selectedFile === null ? (
-                        <img src="./" />
-                      ) : (
-                        <img src={this.selectedFile} />
-                      )}
-                      <Tooltip title="Add Property Photo" placement="left">
-                        <Input
-                          type="file"
-                          variant="outlined"
-                          onChange={this.handleImageChange}
-                        />
-                      </Tooltip>
+                    <div>
+                      <input
+                        style={{ display: "none" }}
+                        id="imageInput"
+                        type="file"
+                        onChange={this.handleImageChange}
+                      />
 
-                      <Button onClick={this.handleUploadPicture}>Upload</Button>
+                      {this.state.activeProperty.image_url === null ? (
+                        <div
+                          onClick={this.handleEditPicture}
+                          className={this.props.classes.editImageSection}
+                        >
+                          {" "}
+                          <Tooltip title="Edit/Upload Photo" placement="left">
+                            <img
+                              className={this.props.classes.propertyImage}
+                              src={placeholer}
+                              alt="house placeholder"
+                            />
+                          </Tooltip>
+                          <div className={this.props.classes.editTitle}>
+                            <Icon fontSize="medium">publish</Icon>
+                            <Typography
+                              className={this.props.classes.editText}
+                              variant="body1"
+                            >
+                              Edit Property Photo
+                            </Typography>
+                          </div>
+                        </div>
+                      ) : (
+                        <div
+                          onClick={this.handleEditPicture}
+                          className={this.props.classes.editImageSection}
+                        >
+                          <Tooltip title="Edit/Upload Photo" placement="left">
+                            <img
+                              className={this.props.classes.propertyImage}
+                              src={this.state.activeProperty.image_url}
+                              alt="rental house photo"
+                            />
+                          </Tooltip>
+                          <div className={this.props.classes.editTitle}>
+                            <Icon fontSize="medium">publish</Icon>
+                            <Typography
+                              className={this.props.classes.editText}
+                              variant="body1"
+                            >
+                              Edit Property Photo
+                            </Typography>
+                          </div>
+                        </div>
+                      )}
                     </div>
                     <div className={this.props.classes.buttons}>
                       <Grid item xs={12} md={5}>

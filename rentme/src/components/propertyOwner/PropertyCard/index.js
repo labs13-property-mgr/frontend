@@ -19,6 +19,7 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 import "typeface-roboto";
+import placeholer from "../../../placeholderImages/modernHouse.png";
 
 import * as ROLES from "../../../constants/roles";
 
@@ -42,7 +43,7 @@ const styles = theme => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    width: "80%",
+    width: "70%",
     marginTop: "2rem",
     padding: "1.5rem",
     [theme.breakpoints.down("sm")]: {
@@ -71,7 +72,7 @@ const styles = theme => ({
     width: "20%",
     margin: "0rem auto",
     justifyContent: "space-evenly",
-    marginTop: "1rem",
+    // marginTop: "1rem",
     [theme.breakpoints.down("sm")]: {
       display: "flex",
       flexDirection: "row",
@@ -83,6 +84,8 @@ const styles = theme => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    alignContent: "center",
+    marginBottom: "2rem",
     [theme.breakpoints.down("sm")]: {
       display: "flex",
       flexDirection: "column",
@@ -94,8 +97,7 @@ const styles = theme => ({
     [theme.breakpoints.down("sm")]: {
       textAlign: "center"
     },
-    fontSize: "2.4rem",
-    marginBottom: "2rem"
+    fontSize: "2.4rem"
   },
   icon: {
     "&:hover": {
@@ -110,7 +112,10 @@ const styles = theme => ({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: "1rem"
+    marginBottom: "1rem",
+    "&:hover": {
+      cursor: "pointer"
+    }
   },
   listItem: {
     textDecoration: "none",
@@ -122,6 +127,21 @@ const styles = theme => ({
       fontWeight: "bold",
       backgroundColor: "white"
     }
+  },
+  propertyContent: {
+    fontSize: "1.4rem",
+    lineHeight: 2
+  },
+  propertyImage: {
+    maxWidth: "500px",
+    "&:hover": {
+      cursor: "pointer"
+    },
+    marginBottom: ".5rem"
+  },
+  propertyImageSection: {
+    display: "flex",
+    justifyContent: "center"
   }
 });
 
@@ -207,29 +227,47 @@ class PropertyCard extends Component {
     this.deleteProperties(this.state.property.id);
   };
 
-  // handleImageChange = e => {
-  //   this.setState({
-  //     selectedFile: e.target.files[0]
-  //   });
-  // };
+  handleImageChange = e => {
+    const image = e.target.files[0];
 
-  // handleUploadPicture = () => {
-  //   const fd = new FormData();
-  //   fd.append("image", this.state.selectedFile, this.state.selectedFile.name);
-  //   axios.post(
-  //     "https://us-central1-rentme-52af4.cloudfunctions.net/uploadFile",
-  //     fd,
-  //     {
-  //       onUploadProgress: progressEvent => {
-  //         console.log(
-  //           "Upload Progress: " +
-  //             Math.round((progressEvent.loaded / progressEvent.total) * 100) +
-  //             "%"
-  //         );
-  //       }
-  //     }
-  //   );
-  // };
+    console.log("-------file name--------");
+    console.log(image.name);
+    console.log("-------file name--------");
+
+    console.log(this.state.property.id);
+
+    const fd = new FormData();
+
+    let fullFileName =
+      this.state.property.id + " " + "POST" + " " + Date.now() + image.name;
+
+    console.log(fullFileName);
+
+    fd.append("image", image, fullFileName);
+
+    this.handleUploadPicture(fd);
+  };
+
+  handleUploadPicture = fd => {
+    axios.post(
+      "https://us-central1-rentme-52af4.cloudfunctions.net/uploadFile",
+      fd,
+      {
+        onUploadProgress: progressEvent => {
+          console.log(
+            "Upload Progress: " +
+              Math.round((progressEvent.loaded / progressEvent.total) * 100) +
+              "%"
+          );
+        }
+      }
+    );
+  };
+
+  handleEditPicture = () => {
+    const fileInput = document.getElementById("imageInput");
+    fileInput.click();
+  };
 
   goBack = e => {
     this.props.history.goBack();
@@ -288,33 +326,62 @@ class PropertyCard extends Component {
                     </Tooltip>
                   </div>
                 </div>
-                <p>Address: {this.state.property.address}</p>
-                <p>
-                  Unit/Apartment #:{" "}
+                <div className={this.props.classes.propertyImageSection}>
+                  <input
+                    style={{ display: "none" }}
+                    id="imageInput"
+                    type="file"
+                    onChange={this.handleImageChange}
+                  />
+
+                  {this.state.property.image_url === null ? (
+                    <Tooltip title="Edit/Upload New Image" placement="right">
+                      <img
+                        className={this.props.classes.propertyImage}
+                        src={placeholer}
+                        alt="house placeholder"
+                        onClick={this.handleEditPicture}
+                      />
+                    </Tooltip>
+                  ) : (
+                    <Tooltip title="Edit/Upload New Image" placement="right">
+                      <img
+                        className={this.props.classes.propertyImage}
+                        src={this.state.property.image_url}
+                        alt="rental house photo"
+                      />
+                    </Tooltip>
+                  )}
+                </div>
+                <Typography
+                  variant="body1"
+                  className={this.props.classes.propertyContent}
+                >
+                  Address: {this.state.property.address}{" "}
                   {` ${
                     this.state.property.unit === null
-                      ? "N/A"
+                      ? ""
                       : `${this.state.property.unit}`
-                  }`}
-                </p>
-                <p>City: {this.state.property.city}</p>
-                <p>
-                  State:{" "}
+                  }`}{" "}
+                  {this.state.property.city}{" "}
                   {` ${
                     this.state.property.state === "N/A"
-                      ? "N/A"
+                      ? ""
                       : `${this.state.property.state}`
-                  }`}
-                </p>
-                <p>Zip Code: {this.state.property.zip}</p>
-                <p>
+                  }`}{" "}
+                  {this.state.property.zip}
+                </Typography>
+                <Typography
+                  variant="body1"
+                  className={this.props.classes.propertyContent}
+                >
                   Current Rent:
                   {` ${
                     this.state.property.rent === null
                       ? "No info provided"
                       : `$${this.state.property.rent}/month`
                   }`}
-                </p>
+                </Typography>
                 <div>
                   <div
                     className={this.props.classes.tenantListToggle}
@@ -361,35 +428,6 @@ class PropertyCard extends Component {
               </Paper>
               <ServiceRequests property_id={this.props.match.params.id} />
             </div>
-
-            {/* <div>
-              {this.selectedFile === null ? (
-                <img src="./" />
-              ) : (
-                <img src={this.selectedFile} />
-              )}
-
-              <input type="file" onChange={this.handleImageChange} />
-
-              <Tooltip title="Add Property Photo" placement="top">
-                <button onClick={this.handleUploadPicture}>Upload</button>
-              </Tooltip>
-
-            </div>
-
-            <Button
-              type="submit"
-              size="medium"
-              variant="contained"
-              color="primary"
-              href="/add-tenant"
-            >
-              Add a Tenant
-            </Button>
-
-            <ServiceRequests />
-
-            </div> */}
           </div>
         </main>
       </div>

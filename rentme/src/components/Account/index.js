@@ -58,7 +58,7 @@ const Account = ({ lastLocation }) => (
   </AuthUserContext.Consumer>
   </Paper>
   </>
-)
+);
 
 class LoginManagementBase extends Component {
   constructor(props) {

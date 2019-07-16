@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
+import Tooltip from "@material-ui/core/Tooltip";
+import Input from "@material-ui/core/Input";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
@@ -14,7 +16,6 @@ import { compose } from "recompose";
 import Typography from "@material-ui/core/Typography";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import Input from "@material-ui/core/Input";
 import "typeface-roboto";
 
 import * as ROLES from "../../../constants/roles";
@@ -112,6 +113,7 @@ class AddPropertyForm extends Component {
         zip: null,
         state: "N/A",
         rent: null,
+        image_url: null,
         owner_id: JSON.parse(localStorage.getItem("authUser")).uid
       },
       user: ""
@@ -155,10 +157,12 @@ class AddPropertyForm extends Component {
   }
 
   addProperty = newProperty => {
+    console.log(newProperty);
     return axios
       .post("https://rent-me-app.herokuapp.com/api/property", newProperty)
       .then(res => {
         const properties = res.data;
+        console.log('property' + properties);
         return properties;
       })
       .catch(err => {
@@ -301,7 +305,6 @@ class AddPropertyForm extends Component {
                     />
                     <TextField
                       variant="outlined"
-                      required
                       fullWidth
                       id="unit"
                       label="Unit/Apartment #"
