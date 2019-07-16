@@ -127,6 +127,8 @@ const TenantDashboard = props => {
     );
   });
 
+  console.log(tenantPropertyData);
+
   return (
     <div className={classes.mainContainer}>
       <TenantUserMenu />
@@ -142,20 +144,17 @@ const TenantDashboard = props => {
           <Paper className={classes.paperCard}>
             <div className={classes.propertyImageSection}>
               {tenantPropertyData &&
-              tenantPropertyData.property_image_url === null ? (
+              tenantPropertyData.property_image_url !== null ? (
                 <img
                   className={classes.propertyImage}
-                  src={placeholer}
-                  alt="house placeholder"
-                  // onClick={this.handleEditPicture}
+                  src={tenantPropertyData && tenantPropertyData.property_image_url}
+                  alt="rental house photo"
                 />
               ) : (
                 <img
                   className={classes.propertyImage}
-                  src={
-                    tenantPropertyData && tenantPropertyData.property_image_url
-                  }
-                  alt="rental house photo"
+                  src={placeholer}
+                  alt="house placeholder"
                 />
               )}
             </div>

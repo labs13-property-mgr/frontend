@@ -121,7 +121,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const RentReceipts = props => {
+const LeaseApplication = props => {
   const { container } = props;
   const [properties, setProperties] = useState([]);
   const classes = useStyles();
@@ -157,7 +157,7 @@ const RentReceipts = props => {
     this.props.history.goBack();
   };
 
-
+  
   return (
     <>
     <div className={classes.mainContainer}>
@@ -165,11 +165,11 @@ const RentReceipts = props => {
       <main className={classes.content}>
         <div className={classes.dashboard}>
           <Typography className={classes.h1} variant="h1">
-            Rent Receipts
+            Lease Application
           </Typography>
           <div className={classes.headerPlusSearch}>
             <Typography className={classes.h2} variant="h2">
-              Receipts
+              Application
             </Typography>
             <div className={classes.dashboardSearch}>
               <Icon>search</Icon>
@@ -268,4 +268,4 @@ const RentReceipts = props => {
 const condition = authUser => authUser && !!authUser.roles[ROLES.TENANT];
 
 export default withAuthorization(condition)
-(RentReceipts);
+(LeaseApplication);

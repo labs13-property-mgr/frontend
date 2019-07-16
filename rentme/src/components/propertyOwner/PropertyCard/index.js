@@ -238,8 +238,7 @@ class PropertyCard extends Component {
 
     const fd = new FormData();
 
-    let fullFileName =
-      this.state.property.id + " " + "POST" + " " + Date.now() + image.name;
+    let fullFileName = this.state.property.id + " " + "PropertyImage" + " " + Date.now() + image.name;
 
     console.log(fullFileName);
 
@@ -344,13 +343,11 @@ class PropertyCard extends Component {
                       />
                     </Tooltip>
                   ) : (
-                    <Tooltip title="Edit/Upload New Image" placement="right">
                       <img
                         className={this.props.classes.propertyImage}
                         src={this.state.property.image_url}
                         alt="rental house photo"
                       />
-                    </Tooltip>
                   )}
                 </div>
                 <Typography
