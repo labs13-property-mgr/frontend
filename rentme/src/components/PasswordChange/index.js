@@ -4,6 +4,11 @@ import { compose } from 'recompose';
 
 import { withFirebase } from '../Firebase';
 
+import { TextField } from '@material-ui/core';
+import Button from "@material-ui/core/Button";
+
+
+
 const INITIAL_STATE = {
     passwordOne: '',
     passwordTwo: '',
@@ -43,26 +48,52 @@ class PasswordChangeFormBase extends Component {
 
         const isInvalid = passwordOne !== passwordTwo || passwordOne === ""
 
+        const formStyle = {
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center"
+        }
+
+        const textField = {
+            width: "300px"
+        }
+
         return (
             <>
-                <form onSubmit={this.onSubmit}>
-                    <input 
+                <form onSubmit={this.onSubmit} style={formStyle}>
+                    <TextField
+                        style={textField}
+                        variant="outlined"
+                        margin="normal"
+                        autoFocus 
                         name="passwordOne"
                         type="password"
-                        placeholder="New Password"
+                        label="New Password"
                         value={passwordOne}
                         onChange={this.onChange}
                     />
-                    <input 
+                    <TextField
+                        style={textField}
+                        variant="outlined"
+                        margin="normal"
+                        autoFocus 
                         name="passwordTwo"
                         type="password"
-                        placeholder="Confirm New Password"
+                        label="Confirm New Password"
                         value={passwordTwo}
                         onChange={this.onChange}
                     />
-                    <button type="submit" disabled={isInvalid}>
+                    <Button 
+                        type="submit" 
+                        style={textField}
+                        disabled={isInvalid}
+                        size="medium"
+                        variant="contained"
+                        color="primary"
+                        >
                         Reset My Password
-                    </button>
+                    </Button>
 
                     {error && <p>{error.message}</p>}
                 </form>

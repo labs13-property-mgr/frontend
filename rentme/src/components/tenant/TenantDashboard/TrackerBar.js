@@ -25,6 +25,7 @@ const TrackerBar = props => {
     classes,
     request,
     handleDeleteRequest,
+    //handleHideRequest,
     handleSetResolvedRequest,
     handleGetServicesRequest
   } = props;
@@ -69,8 +70,9 @@ const TrackerBar = props => {
     <div className={props.classes.progressBarSection}>
       <h4 style={{ display: "inline-block" }}>Request Name: {request_name}</h4>
       <DeleteButton
-        request={request}
-        handleDeleteRequest={handleDeleteRequest}
+       request={request}
+       handleDeleteRequest={handleDeleteRequest}
+       //handleHideRequest={handleHideRequest}
       />
       <LinearProgress
         className={classes.progressBar}
