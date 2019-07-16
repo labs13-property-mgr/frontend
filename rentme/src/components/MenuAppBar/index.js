@@ -154,12 +154,12 @@ const MenuAppBarNonAuth = props => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="Menu"
-          />
+          /> */}
           <div className="header-content">
             <div className="logo-content">
               <img className="logo" src={Logo} alt="rentme logo" />
