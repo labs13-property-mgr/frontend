@@ -28,6 +28,7 @@ const TenantDashboard = props => {
   const [tenantProperty, setTenantProperty] = useState([]);
   const [requests, setRequests] = useState(null);
   const [user, setUser] = useState(null);
+  const [showLoading, setShowLoading] = useState(false);
   const { container } = props;
 
   const classes = useStyles();
@@ -147,41 +148,42 @@ const TenantDashboard = props => {
             Property Information
           </Typography>
           <Paper className={classes.paperCard}>
-            
-            {tenantPropertyData ? (
+          {tenantPropertyData ? (
 
             <div>
-              
-              <div className={classes.propertyImageSection}>
-                {tenantPropertyData &&
-                  tenantPropertyData.property_image_url !== null ? (
-                    <img
-                      className={classes.propertyImage}
-                      src={tenantPropertyData && tenantPropertyData.property_image_url}
-                      alt="rental house photo"
-                    />
-                  ) : (
-                    <img
-                      className={classes.propertyImage}
-                      src={placeholer}
-                      alt="house placeholder"
-                    />
-                  )}
-              </div>
-              <div className={classes.paperContent}>
-                <Typography variant="h6" className={classes.propertyInfo}>
-                  Name: {tenantPropertyData && tenantPropertyData.property_name}
-                </Typography>
-                <Typography variant="h6" className={classes.propertyInfo}>
-                  Address:{" "}
-                  {tenantPropertyData && tenantPropertyData.property_address}{" "}
-                  {tenantPropertyData && tenantPropertyData.property_unit}{" "}
-                  {tenantPropertyData && tenantPropertyData.property_city},{" "}
-                  {tenantPropertyData && tenantPropertyData.property_state}{" "}
-                  {tenantPropertyData && tenantPropertyData.property_zip}
-                </Typography>
-                <Typography variant="h6" className={classes.propertyInfo}>
-                  Current Monthly Rent: $
+            <div className={classes.propertyImageSection}>
+              {tenantPropertyData &&
+              tenantPropertyData.property_image_url === 0 ? (
+                <img
+                  className={classes.propertyImage}
+                  src={placeholer}
+                  alt="house placeholder"
+                  // onClick={this.handleEditPicture}
+                />
+              ) : (
+                <img
+                  className={classes.propertyImage}
+                  src={
+                    tenantPropertyData && tenantPropertyData.property_image_url
+                  }
+                  alt="rental house photo"
+                />
+              )}
+            </div>
+            <div className={classes.paperContent}>
+              <Typography variant="h6" className={classes.propertyInfo}>
+                Name: {tenantPropertyData && tenantPropertyData.property_name}
+              </Typography>
+              <Typography variant="h6" className={classes.propertyInfo}>
+                Address:{" "}
+                {tenantPropertyData && tenantPropertyData.property_address}{" "}
+                {tenantPropertyData && tenantPropertyData.property_unit}{" "}
+                {tenantPropertyData && tenantPropertyData.property_city},{" "}
+                {tenantPropertyData && tenantPropertyData.property_state}{" "}
+                {tenantPropertyData && tenantPropertyData.property_zip}
+              </Typography>
+              <Typography variant="h6" className={classes.propertyInfo}>
+                Current Monthly Rent: $
                 {tenantPropertyData && tenantPropertyData.property_rent}
                 </Typography>
                 <Typography variant="h6" className={classes.propertyInfo}>
@@ -227,8 +229,9 @@ const TenantDashboard = props => {
                   ))}
               </div>
             </div>
-              ) : (
-                <div>Welcome to RentMe! It looks like you don't have an active property. Please contact your Landlord.</div>
+          
+            ) : (
+              <div>Welcome to RentMe! It looks like you don't have an active property. Please contact your Landlord.</div>
             )}
           </Paper>
 
