@@ -1,108 +1,28 @@
-// import React, { Component } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import TenantUserMenu from "../../SideMenu/TenantUserMenu";
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Component } from "react";
 import axios from "axios";
+import MUIDataTable from "mui-datatables";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
 import Icon from "@material-ui/core/Icon";
-import TablePagination from "@material-ui/core/TablePagination";
-import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
-import Input from "@material-ui/core/Input";
+import Tooltip from "@material-ui/core/Tooltip";
+import { withStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
+import { withAuthorization } from "../../Session";
+import { compose } from "recompose";
 import Typography from "@material-ui/core/Typography";
 import "typeface-roboto";
-import { withAuthorization } from "../../Session";
+
 import * as ROLES from "../../../constants/roles";
-import { compose } from "recompose";
+
+import TenantUserMenu from "../../SideMenu/TenantUserMenu";
 
 const drawerWidth = 240;
 
-// const styles = theme => ({
-//   mainContainer: {
-//     display: "block"
-//   },
-//   content: {
-//     flexGrow: 1,
-//     padding: theme.spacing(3),
-//     [theme.breakpoints.up("sm")]: {
-//       paddingLeft: drawerWidth
-//     }
-//   },
-
-//   dashboard: {
-//     [theme.breakpoints.up("sm")]: {
-//       marginLeft: "1.5rem"
-//     }
-//   },
-//   backButton: {
-//     "&:hover": {
-//       color: "#008c3a",
-//       backgroundColor: "transparent"
-//     }
-//   }
-// });
-const useStyles = makeStyles(theme => ({
-  headerPlusSearch: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center"
-  },
-
-  dashboardSearch: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center"
-  },
-
-  searchInput: {
-    border: "none",
-    borderBottom: "1px solid black",
-    fontSize: "1rem",
-    "&:focus": {
-      outline: "none"
-    }
-  },
-
-  hide: {
-    opacity: 0,
-    pointerEvents: "none"
-  },
-  paginationWrapper: {
-    display: "flex",
-    justifyContent: "flex-end"
-  },
+const styles = theme => ({
   mainContainer: {
     display: "block"
-  },
-
-  test: {
-    // border: "1px solid black"
-  },
-  propertyCards: {
-    marginTop: "3rem"
-  },
-  dashboard: {
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: "1.5rem"
-    }
-  },
-  addLayout: {
-    display: "flex",
-    justifyContent: "space-between",
-    width: "55%",
-    alignItems: "center",
-    paddingLeft: ".6rem"
-  },
-  addIcon: {
-    color: "lightgrey",
-    "&:hover": {
-      color: "#008c3a"
-    }
   },
   content: {
     flexGrow: 1,
@@ -111,161 +31,225 @@ const useStyles = makeStyles(theme => ({
       paddingLeft: drawerWidth
     }
   },
+
+  dashboard: {
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: "1.5rem"
+    }
+  },
+
+  tablePageContainer: {
+    margin: "2rem"
+  },
+  optionsIcon: {
+    color: "grey",
+    "&:hover": {
+      color: "#008c3a"
+    }
+  },
+  headerLayout: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "95%"
+  },
+  addIcon: {
+    color: "black",
+    "&:hover": {
+      color: "#008c3a"
+    }
+  },
+  backButton: {
+    "&:hover": {
+      color: "#008c3a",
+      backgroundColor: "transparent"
+    }
+  },
   h1: {
     fontSize: "2.4rem",
-    marginBottom: "2rem"
+    marginBottom: "2rem",
+    marginTop: "2rem"
   },
   h2: {
     fontSize: "2rem",
     fontWeight: 500
   }
-}));
+});
 
-const RentReceipts = props => {
-  const { container } = props;
-  const [properties, setProperties] = useState([]);
-  const classes = useStyles();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [page, setPage] = useState(0);
-  const [cardsPerPage, setCardsPerPage] = useState(6);
-  const [emptyState, setEmptyState] = useState(null);
-  const [showLoading, setShowLoading] = useState(false);
-
-
-  function handleKeyDown(e) {
-    setSearchQuery(e.target.value);
+class RentReceipts extends Component {
+  state = {
+    tenants: [],
+    users: [],
+    user: {},
+    anchorEl: null,
+    clickedButton: null,
+    currentRow: [],
+    data: []
   };
 
-  function doesMatchSearchQuery(property) {
-    if (searchQuery === "") {
-      return true;
-    }
-    const expression = new RegExp(searchQuery, "i");
+
+  setupTenants = tenants => {
+    const usersData = this.state.user;
+
+    this.setState({
+      tenants: tenants.filter(tenant => tenant.owner_id === usersData.uid)
+    });
+    this.setState({
+      data: this.state.tenants.map(tenant => {
+        return [
+          tenant.id,
+          `${tenant.First_name} ${tenant.Last_name}`,
+          tenant.phone,
+          tenant.email,
+          `${
+            tenant.active_tenant
+              ? "Active Tenant"
+              : "Inactive - No Property Assigned"
+          }`
+        ];
+      })
+    });
+  };
+
+  goBack = () => {
+    this.props.history.push("/owner-dash");
+  };
+
+  render() {
+    const columns = [
+      {
+        name: "id",
+        label: "Id",
+        options: {
+          display: false,
+          filter: false,
+          sort: false
+        }
+      },
+      {
+        name: "name",
+        label: "Title",
+        options: {
+          filter: true,
+          sort: true
+        }
+      },
+      {
+        name: "int",
+        label: "Date Created",
+        options: {
+          filter: true,
+          sort: true
+        }
+      },
+      {
+        name: "options",
+        label: "MORE",
+        options: {
+          filter: false,
+          sort: false,
+          customBodyRender: (value, tableMeta, updateValue) => {
+            return (
+              <div>
+                <Tooltip title="View options" placement="left-start">
+                  <Icon
+                    className={this.props.classes.optionsIcon}
+                    fontSize="large"
+                    aria-haspopup={Boolean(this.state.anchorEl)}
+                    onClick={e => {
+                      this.setState({
+                        currentRow: tableMeta.rowData,
+                        anchorEl: e.currentTarget
+                      });
+                      console.log(this.state);
+                    }}
+                  >
+                    more_horiz
+                  </Icon>
+                </Tooltip>
+              </div>
+            );
+          }
+        }
+      }
+    ];
+
+    const options = {
+      filterType: "textField",
+      responsive: "stacked",
+      fixedHeader: true,
+      print: false,
+      selectableRows: false,
+      download: false,
+      viewColumns: false
+    };
+
     return (
-      searchQuery === "" ||
-      property.property_name.match(expression) ||
-      property.address.match(expression)
-    );
-  };
-
-  function handleChangePage(event, newPage) {
-    // console.log(newPage);
-    setPage(newPage);
-  };
-
-  function goBack(e){
-    this.props.history.goBack();
-  };
-
-
-  return (
-    <>
-    <div className={classes.mainContainer}>
-      <TenantUserMenu />
-      <main className={classes.content}>
-        <div className={classes.dashboard}>
-          <Typography className={classes.h1} variant="h1">
-            Rent Receipts
-          </Typography>
-          <div className={classes.headerPlusSearch}>
-            <Typography className={classes.h2} variant="h2">
-              Receipts
-            </Typography>
-            <div className={classes.dashboardSearch}>
-              <Icon>search</Icon>
-              <Input
-                className={classes.searchInput}
-                inputTypeSearch
-                placeholder="Search"
-                variant="outlined"
-                onChange={handleKeyDown}
+      <div className={this.props.classes.mainContainer}>
+        <TenantUserMenu />
+        <main className={this.props.classes.content}>
+          <div className={this.props.classes.dashboard}>
+            <div className={this.props.classes.tablePageContainer}>
+              <Button
+                onClick={this.goBack}
+                className={this.props.classes.backButton}
+              >
+                <Icon fontSize="small">arrow_back_ios</Icon>
+                BACK TO DASHBOARD
+              </Button>
+              <div className={this.props.classes.headerLayout}>
+                <Typography variant="h1" className={this.props.classes.h1}>
+                  Rent Receipts
+                </Typography>
+                <Tooltip title="Add a new tenant" placement="left">
+                  <Link to="/add-tenant">
+                    <Icon
+                      className={this.props.classes.addIcon}
+                      fontSize="large"
+                    >
+                      person_add
+                    </Icon>
+                  </Link>
+                </Tooltip>
+              </div>
+              <MUIDataTable
+                data={this.state.data}
+                columns={columns}
+                options={options}
               />
+              <Menu
+                anchorEl={this.state.anchorEl}
+                keepMounted
+                open={this.state.anchorEl ? true : null}
+                onClose={e => {
+                  this.setState({
+                    anchorEl: null
+                  });
+                }}
+                getContentAnchorEl={null}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left"
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left"
+                }}
+              >
+                
+              </Menu>
             </div>
           </div>
-          <br />
-          <Grid container className={classes.propertyCards} spacing={4}>
-            {showLoading && properties.length === 0 && (
-              <div>
-                Welcome! New to RentMe? Get started by{" "}
-                <Link to="/add-property">adding your first Property</Link>
-              </div>
-            )}
-            {properties &&
-              properties
-                .slice(
-                  searchQuery ? 0 : page * cardsPerPage,
-                  searchQuery
-                    ? properties.length
-                    : page * cardsPerPage + cardsPerPage
-                )
-                .map(property => {
-                  return (
-                    doesMatchSearchQuery(property) && (
-                      <Grid
-                        item
-                        xs={12}
-                        md={6}
-                        lg={4}
-                        key={property && property.id}
-                      >
-                        <Link to={`/property-card/${property.id}`}>
-                          <Card className={classes.cardStyle}>
-                            <CardContent>
-                              <p>
-                                Name: {property && property.property_name}
-                              </p>
-                              <p>Address: {property && property.address}</p>
-                            </CardContent>
-                          </Card>
-                        </Link>
-                      </Grid>
-                    )
-                  );
-                })}
-          </Grid>
-        </div>
-        <TablePagination
-          className={searchQuery ? classes.hide : classes.paginationWrapper}
-          count={properties.length}
-          rowsPerPage={cardsPerPage}
-          rowsPerPageOptions={[]}
-          page={page}
-          backIconButtonProps={{
-            "aria-label": "Previous Page"
-          }}
-          nextIconButtonProps={{
-            "aria-label": "Next Page"
-          }}
-          onChangePage={handleChangePage}
-        />
-      </main>
-      {/* </Container> */}
-    </div>
-  </>
-    // <div className={this.props.classes.mainContainer}>
-    //   <TenantUserMenu />
-    //   <main className={this.props.classes.content}>
-    //     <div className={this.props.classes.dashboard}>
-    //       <Button
-    //         onClick={this.goBack}
-    //         className={this.props.classes.backButton}
-    //       >
-    //         <Icon fontSize="small">arrow_back_ios</Icon>
-    //         PREVIOUS PAGE
-    //       </Button>
-    //       <ul>
-    //         <li>Receipt 1</li>
-    //         <li>Receipt 2</li>
-    //         <li>Receipt 3</li>
-    //         <li>Receipt 4</li>
-    //       </ul>
-    //     </div>
-    //   </main>
-    // </div>
-  )
-};
+        </main>
+      </div>
+    );
+  }
+}
 
 const condition = authUser => authUser && !!authUser.roles[ROLES.TENANT];
 
-export default withAuthorization(condition)
-(RentReceipts);
+export default compose(
+  withStyles(styles),
+  withAuthorization(condition)
+)(RentReceipts);

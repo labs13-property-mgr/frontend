@@ -169,7 +169,7 @@ const TenantUserMenu = props => {
       <div className={classes.toolbar} />
       <div>
         <Typography variant="h3" className={classes.resourcesHeader}>
-          Leasing Documents
+          
         </Typography>
         <List>
           <ListItemLink className={classes.menuItem} href="/tenant-dash">
