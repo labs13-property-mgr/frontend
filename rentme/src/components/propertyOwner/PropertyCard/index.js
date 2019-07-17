@@ -139,6 +139,10 @@ const styles = theme => ({
     },
     marginBottom: ".5rem"
   },
+  propertyImage2: {
+    maxWidth: "500px",
+    marginBottom: ".5rem"
+  },
   propertyImageSection: {
     display: "flex",
     justifyContent: "center"
@@ -238,17 +242,18 @@ class PropertyCard extends Component {
 
     const fd = new FormData();
 
-    let fullFileName =
-      this.state.property.id + " " + "POST" + " " + Date.now() + image.name;
+    let fullFileName = this.state.property.id + " " + "PropertyImage" + " " + Date.now() + image.name;
 
     console.log(fullFileName);
 
     fd.append("image", image, fullFileName);
 
-    this.handleUploadPicture(fd);
+    this.handleUploadPicture(fd, fullFileName);
   };
 
-  handleUploadPicture = fd => {
+
+
+  handleUploadPicture = (fd, fullFileName) => {
     axios.post(
       "https://us-central1-rentme-52af4.cloudfunctions.net/uploadFile",
       fd,
@@ -261,8 +266,50 @@ class PropertyCard extends Component {
           );
         }
       }
-    );
-  };
+    ).then(() => { 
+      setTimeout(() => {
+        axios.get(`https://us-central1-rentme-52af4.cloudfunctions.net/getfile/file/${fullFileName}`)
+      .then(res => {
+
+      console.log(res.data);
+      let newImageUrl = res.data;
+
+      this.setState(prevState => ({
+        property: {
+          ...prevState.property,
+          image_url: newImageUrl
+        } 
+      }));
+
+      this.updatePropertyInfo(this.state.property);
+      // this.componentDidMount();
+    })}, (10 * 1000))})
+
+}
+
+
+updatePropertyInfo = updatedProperty => {
+  console.log(updatedProperty);
+  axios
+    .put(
+      `https://rent-me-app.herokuapp.com/api/property/${updatedProperty.id}`,
+      updatedProperty
+    )
+    .then(res => {
+      console.log(res);
+      const editedProperty = res.data;
+      this.setState({
+        property : editedProperty
+      });
+      console.log("success!");
+
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+    
+  
 
   handleEditPicture = () => {
     const fileInput = document.getElementById("imageInput");
@@ -284,6 +331,10 @@ class PropertyCard extends Component {
       this.setState({ open: true });
     }
   };
+
+  consoleLogs = () => {
+    console.log(this.state.property);
+  }
 
   render() {
     return (
@@ -334,6 +385,8 @@ class PropertyCard extends Component {
                     onChange={this.handleImageChange}
                   />
 
+                  {/* <button onClick={this.consoleLogs}>click</button> */}
+
                   {this.state.property.image_url === null ? (
                     <Tooltip title="Edit/Upload New Image" placement="right">
                       <img
@@ -344,13 +397,11 @@ class PropertyCard extends Component {
                       />
                     </Tooltip>
                   ) : (
-                    <Tooltip title="Edit/Upload New Image" placement="right">
                       <img
-                        className={this.props.classes.propertyImage}
+                        className={this.props.classes.propertyImage2}
                         src={this.state.property.image_url}
                         alt="rental house photo"
                       />
-                    </Tooltip>
                   )}
                 </div>
                 <Typography
