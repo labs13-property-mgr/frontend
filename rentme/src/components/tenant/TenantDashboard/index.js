@@ -14,6 +14,7 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 import Tooltip from "@material-ui/core/Tooltip";
+import Button from "@material-ui/core/Button";
 import placeholer from "../../../placeholderImages/modernHouse.png";
 //Built component imports
 import TrackerBar from "./TrackerBar";
@@ -133,9 +134,21 @@ const TenantDashboard = props => {
     );
   });
 
+  const isInvalid = !tenantPropertyData;
+
   return (
     <div className={classes.mainContainer}>
-      <TenantUserMenu />
+      {tenantPropertyData ? (
+        <div>
+          <TenantUserMenu />
+        </div>
+      ) : (
+        <Tooltip title="You do not have any linked property information" placement="bottom-start">
+          <div className={classes.disabledComponent}>
+            <TenantUserMenu />
+          </div>
+        </Tooltip>
+      )}
       <main className={classes.content}>
         <div className={classes.dashboard}>
           <Typography variant="h1" className={classes.h1}>

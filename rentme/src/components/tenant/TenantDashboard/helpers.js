@@ -19,6 +19,15 @@ export const useStyles = makeStyles(theme => ({
     }
   },
 
+  disabledComponent: {
+    "&:hover": {
+      pointerEvents: "auto"
+    },
+    "&:active": {
+      pointerEvents: "none"
+    }
+  },
+
   dashboard: {
     [theme.breakpoints.up("sm")]: {
       marginLeft: "1.5rem"
