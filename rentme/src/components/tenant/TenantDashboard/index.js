@@ -134,7 +134,6 @@ const TenantDashboard = props => {
     );
   });
 
-  const isInvalid = !tenantPropertyData;
 
   return (
     <div className={classes.mainContainer}>
