@@ -207,13 +207,7 @@ class EditPropertyForm extends Component {
 
     const fd = new FormData();
 
-    let fullFileName =
-      this.state.activeProperty.id +
-      " " +
-      "POST" +
-      " " +
-      Date.now() +
-      image.name;
+    let fullFileName = this.state.activeProperty.id + " " + "property" + " " + Date.now() + image.name;
 
     console.log(fullFileName);
 
@@ -235,7 +229,9 @@ class EditPropertyForm extends Component {
           );
         }
       }
-    );
+    ).then((res) => {
+      console.log(res);
+    })
   };
 
   handleEditPicture = () => {

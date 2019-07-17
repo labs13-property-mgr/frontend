@@ -51,7 +51,7 @@ const TenantDashboard = props => {
   }
 
   //function hideIssue() {
-    //return { showTracker: true }
+  //return { showTracker: true }
   //}
 
   useEffect(() => {
@@ -195,50 +195,51 @@ const TenantDashboard = props => {
               <Typography variant="h6" className={classes.propertyInfo}>
                 Current Monthly Rent: $
                 {tenantPropertyData && tenantPropertyData.property_rent}
+                </Typography>
+                <Typography variant="h6" className={classes.propertyInfo}>
+                  Other Tenants:
               </Typography>
-              <Typography variant="h6" className={classes.propertyInfo}>
-                Other Tenants:
-              </Typography>
-              {otherTenantsInfo &&
-                otherTenantsInfo.map((otherTenant, idx) => (
-                  <>
-                    <List>
-                      <ListItem
-                        key={otherTenant.tenant_id}
-                        onClick={e => {
-                          handleExpandClick(idx);
-                        }}
-                      >
-                        <Typography
-                          variant="body1"
-                          className={classes.otherTenantNames}
+                {otherTenantsInfo &&
+                  otherTenantsInfo.map((otherTenant, idx) => (
+                    <>
+                      <List>
+                        <ListItem
+                          key={otherTenant.tenant_id}
+                          onClick={e => {
+                            handleExpandClick(idx);
+                          }}
                         >
-                          {otherTenant && otherTenant.First_name}{" "}
-                          {otherTenant && otherTenant.Last_name}
-                        </Typography>
-                        <Tooltip title="View more details" placement="right">
-                          {open[idx] ? <ExpandLess /> : <ExpandMore />}
-                        </Tooltip>
-                      </ListItem>
-                      <Collapse in={open[idx]} timeout="auto">
-                        <List>
-                          <ListItem>
-                            <Typography variant="body1">
-                              Email: {otherTenant && otherTenant.tenant_email}
-                            </Typography>
-                          </ListItem>
-                          <ListItem>
-                            <Typography variant="body1">
-                              Phone Number: {otherTenant && otherTenant.phone}
-                            </Typography>
-                          </ListItem>
-                        </List>
-                      </Collapse>
-                    </List>
-                  </>
-                ))}
+                          <Typography
+                            variant="body1"
+                            className={classes.otherTenantNames}
+                          >
+                            {otherTenant && otherTenant.First_name}{" "}
+                            {otherTenant && otherTenant.Last_name}
+                          </Typography>
+                          <Tooltip title="View more details" placement="right">
+                            {open[idx] ? <ExpandLess /> : <ExpandMore />}
+                          </Tooltip>
+                        </ListItem>
+                        <Collapse in={open[idx]} timeout="auto">
+                          <List>
+                            <ListItem>
+                              <Typography variant="body1">
+                                Email: {otherTenant && otherTenant.tenant_email}
+                              </Typography>
+                            </ListItem>
+                            <ListItem>
+                              <Typography variant="body1">
+                                Phone Number: {otherTenant && otherTenant.phone}
+                              </Typography>
+                            </ListItem>
+                          </List>
+                        </Collapse>
+                      </List>
+                    </>
+                  ))}
+              </div>
             </div>
-            </div>
+          
             ) : (
               <div>Welcome to RentMe! It looks like you don't have an active property. Please contact your Landlord.</div>
             )}
@@ -259,8 +260,8 @@ const TenantDashboard = props => {
               );
             })
           ) : (
-            <p>No requests</p>
-          )}
+              <p>No requests</p>
+            )}
         </div>
       </main>
     </div>

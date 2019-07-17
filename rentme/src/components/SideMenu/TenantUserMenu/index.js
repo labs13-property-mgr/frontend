@@ -169,7 +169,7 @@ const TenantUserMenu = props => {
       <div className={classes.toolbar} />
       <div>
         <Typography variant="h3" className={classes.resourcesHeader}>
-          Leasing Documents
+          
         </Typography>
         <List>
           <ListItemLink className={classes.menuItem} href="/tenant-dash">
@@ -186,20 +186,20 @@ const TenantUserMenu = props => {
             </Typography>
             {/* <p className={classes.menuText}>Rent Receipts</p> */}
           </ListItemLink>
-          <ListItemLink className={classes.menuItem} href="/view-receipts">
+          {/* <ListItemLink className={classes.menuItem} href="/view-LeaseApplication">
             <Icon>folder</Icon>
             <Typography variant="body1" className={classes.menuText}>
               Lease Application
             </Typography>
             {/* <p className={classes.menuText}>Lease Application</p> */}
-          </ListItemLink>
-          <ListItemLink className={classes.menuItem} href="/view-receipts">
+          {/* </ListItemLink>
+          <ListItemLink className={classes.menuItem} href="/view-LeaseAgreementContract">
             <Icon>folder</Icon>
             <Typography variant="body1" className={classes.menuText}>
               Lease Agreement Contract
             </Typography>
             {/* <p className={classes.menuText}>Lease Agreement Contract</p> */}
-          </ListItemLink>
+          {/* </ListItemLink> */} 
         </List>
         <Divider />
         <Typography variant="h3" className={classes.resourcesHeader}>
