@@ -207,16 +207,16 @@ class EditPropertyForm extends Component {
 
     const fd = new FormData();
 
-    let fullFileName = this.state.activeProperty.id + " " + "property" + " " + Date.now() + image.name;
+    let fullFileName = this.state.activeProperty.id + " " + Date.now() + image.name;
 
     console.log(fullFileName);
 
     fd.append("image", image, fullFileName);
 
-    this.handleUploadPicture(fd);
+    this.handleUploadPicture(fd, fullFileName);
   };
 
-  handleUploadPicture = fd => {
+  handleUploadPicture = (fd, fullFileName) => {
     axios.post(
       "https://us-central1-rentme-52af4.cloudfunctions.net/uploadFile",
       fd,
@@ -229,10 +229,50 @@ class EditPropertyForm extends Component {
           );
         }
       }
-    ).then((res) => {
-      console.log(res);
-    })
+    ).then(() => { 
+      console.log(fullFileName);
+      setTimeout(() => {
+        axios.get(`https://us-central1-rentme-52af4.cloudfunctions.net/getfile/file/${fullFileName}`)
+      .then(res => {
+
+      console.log(res.data);
+      let newImageUrl = res.data;
+
+      this.setState(prevState => ({
+        activeProperty: {
+          ...prevState.activeProperty,
+          image_url: newImageUrl
+        } 
+      }));
+
+      
+
+      this.updatePropertyInfo();
+      // this.componentDidMount();
+    })}, (3 * 1000))})
+
+}
+  
+
+  updatePropertyInfo = () => {
+
+    let updatedProperty = this.state.activeProperty;
+    console.log(updatedProperty);
+  
+    axios
+      .put(
+        `https://rent-me-app.herokuapp.com/api/property/${updatedProperty.id}`,
+        {"image_url": updatedProperty.image_url}
+      )
+      .then(res => {
+        console.log(res);
+        console.log("success!");
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
+
 
   handleEditPicture = () => {
     const fileInput = document.getElementById("imageInput");

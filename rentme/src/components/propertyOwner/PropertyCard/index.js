@@ -133,7 +133,8 @@ const styles = theme => ({
     lineHeight: 2
   },
   propertyImage: {
-    maxWidth: "500px",
+    Width: "300px",
+    height: "180px",
     "&:hover": {
       cursor: "pointer"
     },
@@ -242,7 +243,7 @@ class PropertyCard extends Component {
 
     const fd = new FormData();
 
-    let fullFileName = this.state.property.id + " " + "PropertyImage" + " " + Date.now() + image.name;
+    let fullFileName = this.state.property.id + " " + Date.now() + image.name;
 
     console.log(fullFileName);
 
@@ -281,28 +282,28 @@ class PropertyCard extends Component {
         } 
       }));
 
-      this.updatePropertyInfo(this.state.property);
+      
+
+      this.updatePropertyInfo();
       // this.componentDidMount();
-    })}, (10 * 1000))})
+    })}, (3 * 1000))})
 
 }
 
 
-updatePropertyInfo = updatedProperty => {
+updatePropertyInfo = () => {
+
+  let updatedProperty = this.state.property;
   console.log(updatedProperty);
+
   axios
     .put(
       `https://rent-me-app.herokuapp.com/api/property/${updatedProperty.id}`,
-      updatedProperty
+      {"image_url": updatedProperty.image_url}
     )
     .then(res => {
       console.log(res);
-      const editedProperty = res.data;
-      this.setState({
-        property : editedProperty
-      });
       console.log("success!");
-
     })
     .catch(err => {
       console.log(err);
