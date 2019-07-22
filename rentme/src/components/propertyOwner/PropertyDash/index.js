@@ -12,6 +12,8 @@ import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
 import Input from "@material-ui/core/Input";
 import Typography from "@material-ui/core/Typography";
 import "typeface-roboto";
+import placeholer from "../../../placeholderImages/modernHouse.png";
+import "../../imageMediaQueries.css";
 
 import { withAuthorization } from "../../Session";
 import * as ROLES from "../../../constants/roles";
@@ -150,7 +152,7 @@ const PropertyDash = props => {
     axios
       .get(
         `https://rent-me-app.herokuapp.com/api/user/${
-          JSON.parse(localStorage.getItem("authUser")).uid
+        JSON.parse(localStorage.getItem("authUser")).uid
         }/properties`
       )
       .then(res => {
@@ -230,6 +232,23 @@ const PropertyDash = props => {
                           <Link to={`/property-card/${property.id}`}>
                             <Card className={classes.cardStyle}>
                               <CardContent>
+                                <div className="propertyDashImageCardHoalder">
+                                  {property.image_url === null ? (
+                                    <img
+                                      // className={this.props.classes.propertyImage}
+                                      id="propertyDashPropertyImage"
+                                      src={placeholer}
+                                      alt="house placeholder"
+                                    />
+                                  ) : (
+                                    <img
+                                      // className={this.props.classes.propertyImage}
+                                      id="propertyDashPropertyImage"
+                                      src={property.image_url}
+                                      alt="rental house photo"
+                                    />
+                                  )}
+                                </div>
                                 <p>
                                   Name: {property && property.property_name}
                                 </p>

@@ -236,17 +236,17 @@ class PropertyCard extends Component {
   handleImageChange = e => {
     const image = e.target.files[0];
 
-    console.log("-------file name--------");
-    console.log(image.name);
-    console.log("-------file name--------");
+    // console.log("-------file name--------");
+    // console.log(image.name);
+    // console.log("-------file name--------");
 
-    console.log(this.state.property.id);
+    // console.log(this.state.property.id);
 
     const fd = new FormData();
 
     let fullFileName = this.state.property.id + " " + Date.now() + " " + image.name;
 
-    console.log(fullFileName);
+    // console.log(fullFileName);
 
     fd.append("image", image, fullFileName);
 
@@ -273,7 +273,7 @@ class PropertyCard extends Component {
         axios.get(`https://us-central1-rentme-52af4.cloudfunctions.net/getfile/file/${fullFileName}`)
       .then(res => {
 
-      console.log(res.data);
+      // console.log(res.data);
       let newImageUrl = res.data;
 
       this.setState(prevState => ({
@@ -295,7 +295,7 @@ class PropertyCard extends Component {
 updatePropertyInfo = () => {
 
   let updatedProperty = this.state.property;
-  console.log(updatedProperty);
+  // console.log(updatedProperty);
 
   axios
     .put(
@@ -303,7 +303,7 @@ updatePropertyInfo = () => {
       {"image_url": updatedProperty.image_url}
     )
     .then(res => {
-      console.log(res);
+      // console.log(res);
       console.log("success!");
     })
     .catch(err => {
@@ -334,9 +334,9 @@ updatePropertyInfo = () => {
     }
   };
 
-  consoleLogs = () => {
-    console.log(this.state.property);
-  }
+  // consoleLogs = () => {
+  //   console.log(this.state.property);
+  // }
 
   render() {
     return (
