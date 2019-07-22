@@ -139,7 +139,8 @@ class EditPropertyForm extends Component {
     super();
     this.state = {
       properties: [],
-      activeProperty: {}
+      activeProperty: {},
+      propertyImageChanging: false
     };
   }
 
@@ -201,9 +202,9 @@ class EditPropertyForm extends Component {
   handleImageChange = e => {
     const image = e.target.files[0];
 
-    console.log("-------file name--------");
-    console.log(image.name);
-    console.log("-------file name--------");
+    // console.log("-------file name--------");
+    // console.log(image.name);
+    // console.log("-------file name--------");
 
     // console.log(this.state.property.id);
 
@@ -211,7 +212,7 @@ class EditPropertyForm extends Component {
 
     let fullFileName = this.state.activeProperty.id + " " + Date.now() + " " + image.name;
 
-    console.log(fullFileName);
+    // console.log(fullFileName);
 
     fd.append("image", image, fullFileName);
 
@@ -219,6 +220,9 @@ class EditPropertyForm extends Component {
   };
 
   handleUploadPicture = (fd, fullFileName) => {
+    
+    this.setState({propertyImageChanging: true});
+  
     axios.post(
       "https://us-central1-rentme-52af4.cloudfunctions.net/uploadFile",
       fd,
@@ -232,12 +236,12 @@ class EditPropertyForm extends Component {
         }
       }
     ).then(() => { 
-      console.log(fullFileName);
+      // console.log(fullFileName);
       setTimeout(() => {
         axios.get(`https://us-central1-rentme-52af4.cloudfunctions.net/getfile/file/${fullFileName}`)
       .then(res => {
 
-      console.log(res.data);
+      // console.log(res.data);
       let newImageUrl = res.data;
 
       this.setState(prevState => ({
@@ -247,7 +251,7 @@ class EditPropertyForm extends Component {
         } 
       }));
 
-      
+      this.setState({propertyImageChanging: false});
 
       this.updatePropertyInfo();
       // this.componentDidMount();
@@ -259,7 +263,7 @@ class EditPropertyForm extends Component {
   updatePropertyInfo = () => {
 
     let updatedProperty = this.state.activeProperty;
-    console.log(updatedProperty);
+    // console.log(updatedProperty);
   
     axios
       .put(
@@ -267,7 +271,7 @@ class EditPropertyForm extends Component {
         {"image_url": updatedProperty.image_url}
       )
       .then(res => {
-        console.log(res);
+        // console.log(res);
         console.log("success!");
       })
       .catch(err => {
@@ -471,53 +475,60 @@ class EditPropertyForm extends Component {
                         onChange={this.handleImageChange}
                       />
 
-                      {this.state.activeProperty.image_url === null ? (
-                        <div
-                          onClick={this.handleEditPicture}
-                          className={this.props.classes.editImageSection}
-                        >
-                          {" "}
-                          <Tooltip title="Edit/Upload Photo" placement="left">
-                            <img
-                              className={this.props.classes.propertyImage}
-                              id="propertyFormPropertyImage"
-                              src={placeholer}
-                              alt="house placeholder"
-                            />
-                          </Tooltip>
-                          <div className={this.props.classes.editTitle}>
-                            <Icon fontSize="medium">publish</Icon>
-                            <Typography
-                              className={this.props.classes.editText}
-                              variant="body1"
-                            >
-                              Edit Property Photo
-                            </Typography>
-                          </div>
-                        </div>
+                      {this.state.propertyImageChanging === true ? (
+                       <div className="loader" id="centerLoader"></div>
                       ) : (
-                        <div
-                          onClick={this.handleEditPicture}
-                          className={this.props.classes.editImageSection}
-                        >
-                          <Tooltip title="Edit/Upload Photo" placement="left">
-                            <img
-                              className={this.props.classes.propertyImage}
-                              id="propertyFormPropertyImage"
-                              src={this.state.activeProperty.image_url}
-                              alt="rental house photo"
-                            />
-                          </Tooltip>
-                          <div className={this.props.classes.editTitle}>
-                            <Icon fontSize="medium">publish</Icon>
-                            <Typography
-                              className={this.props.classes.editText}
-                              variant="body1"
+                        <>
+
+                          {this.state.activeProperty.image_url === null ? (
+                            <div
+                              onClick={this.handleEditPicture}
+                              className={this.props.classes.editImageSection}
                             >
-                              Edit Property Photo
-                            </Typography>
-                          </div>
-                        </div>
+                              {" "}
+                              <Tooltip title="Edit/Upload Photo" placement="left">
+                                <img
+                                  className={this.props.classes.propertyImage}
+                                  id="propertyFormPropertyImage"
+                                  src={placeholer}
+                                  alt="house placeholder"
+                                />
+                              </Tooltip>
+                              <div className={this.props.classes.editTitle}>
+                                <Icon fontSize="medium">publish</Icon>
+                                <Typography
+                                  className={this.props.classes.editText}
+                                  variant="body1"
+                                >
+                                  Edit Property Photo
+                                </Typography>
+                              </div>
+                            </div>
+                          ) : (
+                            <div
+                              onClick={this.handleEditPicture}
+                              className={this.props.classes.editImageSection}
+                            >
+                              <Tooltip title="Edit/Upload Photo" placement="left">
+                                <img
+                                  className={this.props.classes.propertyImage}
+                                  id="propertyFormPropertyImage"
+                                  src={this.state.activeProperty.image_url}
+                                  alt="rental house photo"
+                                />
+                              </Tooltip>
+                              <div className={this.props.classes.editTitle}>
+                                <Icon fontSize="medium">publish</Icon>
+                                <Typography
+                                  className={this.props.classes.editText}
+                                  variant="body1"
+                                >
+                                  Edit Property Photo
+                                </Typography>
+                              </div>
+                            </div>
+                          )}
+                        </>
                       )}
                     </div>
                     <div className={this.props.classes.buttons}>
