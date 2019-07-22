@@ -179,13 +179,13 @@ const TenantUserMenu = props => {
             </Typography>
             {/* <p className={classes.menuText}>Dashboard</p> */}
           </ListItemLink>
-          <ListItemLink className={classes.menuItem} href="/view-receipts">
+          {/* <ListItemLink className={classes.menuItem} href="/view-receipts">
             <Icon>folder</Icon>
             <Typography variant="body1" className={classes.menuText}>
               Rent Receipts
             </Typography>
             {/* <p className={classes.menuText}>Rent Receipts</p> */}
-          </ListItemLink>
+          {/* </ListItemLink> */} 
           {/* <ListItemLink className={classes.menuItem} href="/view-LeaseApplication">
             <Icon>folder</Icon>
             <Typography variant="body1" className={classes.menuText}>

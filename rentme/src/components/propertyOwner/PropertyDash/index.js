@@ -232,6 +232,7 @@ const PropertyDash = props => {
                           <Link to={`/property-card/${property.id}`}>
                             <Card className={classes.cardStyle}>
                               <CardContent>
+                                
                                 <div className="propertyDashImageCardHoalder">
                                   {property.image_url === null ? (
                                     <img
