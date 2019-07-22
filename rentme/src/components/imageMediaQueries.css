@@ -94,3 +94,26 @@
         width: 150px;
     }
 }
+
+.propertyDashImageCardHoalder{
+    display: flex;
+    justify-content: center;
+}
+
+#propertyDashPropertyImage{
+    width: 280px;
+    height: 180px;
+}
+
+@media (max-width: 340px) {
+    #propertyDashPropertyImage {
+        width: 200px;
+    }
+}
+
+@media (max-width: 260px) {
+    #propertyDashPropertyImage {
+        height: 150px;
+        width: 150px;
+    }
+}
