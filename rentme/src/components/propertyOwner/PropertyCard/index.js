@@ -20,6 +20,7 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 import "typeface-roboto";
 import placeholer from "../../../placeholderImages/modernHouse.png";
+import "../../imageMediaQueries.css";
 
 import * as ROLES from "../../../constants/roles";
 
@@ -243,7 +244,7 @@ class PropertyCard extends Component {
 
     const fd = new FormData();
 
-    let fullFileName = this.state.property.id + " " + Date.now() + image.name;
+    let fullFileName = this.state.property.id + " " + Date.now() + " " + image.name;
 
     console.log(fullFileName);
 
@@ -286,7 +287,7 @@ class PropertyCard extends Component {
 
       this.updatePropertyInfo();
       // this.componentDidMount();
-    })}, (3 * 1000))})
+    })}, (0 * 1000))})
 
 }
 
@@ -392,6 +393,7 @@ updatePropertyInfo = () => {
                     <Tooltip title="Edit/Upload New Image" placement="right">
                       <img
                         className={this.props.classes.propertyImage}
+                        id="propertyCardPropertyImage"
                         src={placeholer}
                         alt="house placeholder"
                         onClick={this.handleEditPicture}
@@ -400,6 +402,7 @@ updatePropertyInfo = () => {
                   ) : (
                       <img
                         className={this.props.classes.propertyImage2}
+                        id="propertyCardPropertyImage"
                         src={this.state.property.image_url}
                         alt="rental house photo"
                       />

@@ -20,7 +20,7 @@ import placeholer from "../../../placeholderImages/modernHouse.png";
 import TrackerBar from "./TrackerBar";
 import { useStyles } from "./helpers";
 import TenantUserMenu from "../../SideMenu/TenantUserMenu";
-
+import "../../imageMediaQueries.css";
 import "./tenantDashboard.css";
 
 const TenantDashboard = props => {
@@ -162,10 +162,10 @@ const TenantDashboard = props => {
 
             <div>
             <div className={classes.propertyImageSection}>
-              {tenantPropertyData &&
-              tenantPropertyData.property_image_url === 0 ? (
+              {tenantPropertyData.image_url === null ? (
                 <img
                   className={classes.propertyImage}
+                  id="tenantDashboardPropertyImage"
                   src={placeholer}
                   alt="house placeholder"
                   // onClick={this.handleEditPicture}
@@ -173,9 +173,8 @@ const TenantDashboard = props => {
               ) : (
                 <img
                   className={classes.propertyImage}
-                  src={
-                    tenantPropertyData && tenantPropertyData.property_image_url
-                  }
+                  id="tenantDashboardPropertyImage"
+                  src={tenantPropertyData.image_url}
                   alt="rental house photo"
                 />
               )}

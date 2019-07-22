@@ -1,0 +1,96 @@
+
+@media (max-width: 860px) {
+    #propertyFormPropertyImage {
+        width: 200px;
+    }
+}
+
+@media (max-width: 766px) {
+    #propertyFormPropertyImage {
+        width: 150px;
+    }
+}
+
+@media (max-width: 640px) {
+    #propertyFormPropertyImage {
+        width: 100px;
+    }
+}
+
+@media (max-width: 286px) {
+    #propertyFormPropertyImage {
+        width: 75px;
+    }
+}
+
+@media (max-width: 964px) {
+    #propertyCardPropertyImage {
+        width: 400px;
+    }
+}
+
+@media (max-width: 815px) {
+    #propertyCardPropertyImage {
+        width: 300px;
+    }
+}
+
+@media (max-width: 670px) {
+    #propertyCardPropertyImage {
+        width: 200px;
+    }
+}
+
+@media (max-width: 580px) {
+    #propertyCardPropertyImage {
+        width: 275px;
+    }
+}
+
+@media (max-width: 406px) {
+    #propertyCardPropertyImage {
+        width: 200px;
+    }
+}
+
+@media (max-width: 280px) {
+    #propertyCardPropertyImage {
+        width: 125px;
+    }
+}
+
+@media (max-width: 870px) {
+    #tenantDashboardPropertyImage {
+        width: 400px;
+    }
+}
+
+@media (max-width: 740px) {
+    #tenantDashboardPropertyImage {
+        width: 300px;
+    }
+}
+
+@media (max-width: 600px) {
+    #tenantDashboardPropertyImage {
+        width: 400px;
+    }
+}
+
+@media (max-width: 500px) {
+    #tenantDashboardPropertyImage {
+        width: 300px;
+    }
+}
+
+@media (max-width: 375px) {
+    #tenantDashboardPropertyImage {
+        width: 200px;
+    }
+}
+
+@media (max-width: 250px) {
+    #tenantDashboardPropertyImage {
+        width: 150px;
+    }
+}

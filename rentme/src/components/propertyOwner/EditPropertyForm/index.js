@@ -18,6 +18,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Typography from "@material-ui/core/Typography";
 import "typeface-roboto";
 import placeholer from "../../../placeholderImages/modernHouse.png";
+import "../../imageMediaQueries.css";
 
 import * as ROLES from "../../../constants/roles";
 
@@ -106,7 +107,7 @@ const styles = theme => ({
     marginTop: "1rem"
   },
   propertyImage: {
-    width: "250px"
+    width: "250px",
   },
   editTitle: {
     display: "flex",
@@ -129,7 +130,8 @@ const styles = theme => ({
       cursor: "pointer",
       color: "#303F9F"
     }
-  }
+  },
+  
 });
 
 class EditPropertyForm extends Component {
@@ -207,7 +209,7 @@ class EditPropertyForm extends Component {
 
     const fd = new FormData();
 
-    let fullFileName = this.state.activeProperty.id + " " + Date.now() + image.name;
+    let fullFileName = this.state.activeProperty.id + " " + Date.now() + " " + image.name;
 
     console.log(fullFileName);
 
@@ -249,7 +251,7 @@ class EditPropertyForm extends Component {
 
       this.updatePropertyInfo();
       // this.componentDidMount();
-    })}, (3 * 1000))})
+    })}, (0 * 1000))})
 
 }
   
@@ -478,6 +480,7 @@ class EditPropertyForm extends Component {
                           <Tooltip title="Edit/Upload Photo" placement="left">
                             <img
                               className={this.props.classes.propertyImage}
+                              id="propertyFormPropertyImage"
                               src={placeholer}
                               alt="house placeholder"
                             />
@@ -500,6 +503,7 @@ class EditPropertyForm extends Component {
                           <Tooltip title="Edit/Upload Photo" placement="left">
                             <img
                               className={this.props.classes.propertyImage}
+                              id="propertyFormPropertyImage"
                               src={this.state.activeProperty.image_url}
                               alt="rental house photo"
                             />
