@@ -172,7 +172,8 @@ class PropertyCard extends Component {
     tenants: [],
     activeProperty: {},
     property: {},
-    open: true
+    open: true,
+    propertyImageChanging: false
   };
 
   componentDidMount() {
@@ -256,6 +257,9 @@ class PropertyCard extends Component {
 
 
   handleUploadPicture = (fd, fullFileName) => {
+
+    this.setState({propertyImageChanging: true});
+
     axios.post(
       "https://us-central1-rentme-52af4.cloudfunctions.net/uploadFile",
       fd,
@@ -282,6 +286,8 @@ class PropertyCard extends Component {
           image_url: newImageUrl
         } 
       }));
+
+      this.setState({propertyImageChanging: false});
 
       
 
@@ -310,8 +316,8 @@ updatePropertyInfo = () => {
       console.log(err);
     });
 };
-    
-  
+
+
 
   handleEditPicture = () => {
     const fileInput = document.getElementById("imageInput");
@@ -387,25 +393,29 @@ updatePropertyInfo = () => {
                     onChange={this.handleImageChange}
                   />
 
-                  {/* <button onClick={this.consoleLogs}>click</button> */}
-
-                  {this.state.property.image_url === null ? (
-                    <Tooltip title="Edit/Upload New Image" placement="right">
-                      <img
-                        className={this.props.classes.propertyImage}
-                        id="propertyCardPropertyImage"
-                        src={placeholer}
-                        alt="house placeholder"
-                        onClick={this.handleEditPicture}
-                      />
-                    </Tooltip>
+                  {this.state.propertyImageChanging === true ? (
+                    <div className="loader"></div>
                   ) : (
-                      <img
-                        className={this.props.classes.propertyImage2}
-                        id="propertyCardPropertyImage"
-                        src={this.state.property.image_url}
-                        alt="rental house photo"
-                      />
+                    <>
+                      {this.state.property.image_url === null ? (
+                        <Tooltip title="Edit/Upload New Image" placement="right">
+                          <img
+                          className={this.props.classes.propertyImage}
+                            id="propertyCardPropertyImage"
+                            src={placeholer}
+                            alt="house placeholder"
+                            onClick={this.handleEditPicture}
+                          />
+                        </Tooltip>
+                      ) : (
+                          <img
+                            className={this.props.classes.propertyImage2}
+                            id="propertyCardPropertyImage"
+                            src={this.state.property.image_url}
+                            alt="rental house photo"
+                          />
+                     )}
+                    </>
                   )}
                 </div>
                 <Typography
