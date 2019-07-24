@@ -8,6 +8,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Tooltip from "@material-ui/core/Tooltip";
+import Grid from '@material-ui/core/Grid';
 import DescriptionModal from "./DescriptionModal";
 import axios from "axios";
 
@@ -149,14 +150,14 @@ const ServiceRequestForm = props => {
       <form className={classes.formContainer} onSubmit={e => handleSubmit(e)}>
         <TextField
           variant="outlined"
-          label="Name"
+          label="Issue"
           defaultValue={request_name}
           InputProps={{
             readOnly: true
           }}
-          style={generateGridValues(1, 5, 1, 1)}
+          style={generateGridValues(2, 6, 1, 4)}
         />
-        <FormControl required style={generateGridValues(5, 7, 1, 1)}>
+        <FormControl required style={generateGridValues(2, 6, 5, 6)}>
           <InputLabel>Request Status</InputLabel>
           <Select
             name="status"
@@ -170,7 +171,7 @@ const ServiceRequestForm = props => {
             <MenuItem value="fixing">Fixing</MenuItem>
           </Select>
         </FormControl>
-        <Typography style={generateGridValues(1, 3, 2, 2)}>
+        <Typography style={generateGridValues(1, 1, 1, 1)}>
           Date Reported: {date_created}
         </Typography>
         <TextField
@@ -183,10 +184,7 @@ const ServiceRequestForm = props => {
           style={generateGridValues(2, 6, 4, 4)}
         />
         <Button
-          style={generateGridValues(3, 5, 5, 5, {
-            background: "DeepSkyBlue",
-            color: "white"
-          })}
+          style={generateGridValues(2, 6, 3, 4)}
           onClick={() => handlePopup()}
         >
           Description
@@ -207,10 +205,16 @@ const ServiceRequestForm = props => {
         />
         <div style={generateGridValues(2, 6, 7, 7)}>
           <Tooltip title="Update request">
-            <Button type="submit">Submit</Button>
+            <Button  style={generateGridValues(3, 5, 5, 5, {
+            background: "DeepSkyBlue",
+            color: "white"
+          })}type="submit">Submit</Button>
           </Tooltip>
           <Tooltip title="Resolve request">
-            <Button onClick={e => triggerResolved(e)}>Resolve</Button>
+            <Button  style={generateGridValues(3, 5, 5, 5, {
+            background: "DeepSkyBlue",
+            color: "white"
+          })}onClick={e => triggerResolved(e)}>Resolve</Button>
           </Tooltip>
           <SuccessText isTriggered={requestUpdated} />
         </div>
