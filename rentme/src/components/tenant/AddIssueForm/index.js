@@ -87,7 +87,7 @@ class AddIssueForm extends Component {
       issues: [],
       issue: {
         date_created: "",
-        request_name: "",
+        body: "",
         request_description: "",
         status: "",
         notes: "",
@@ -99,8 +99,16 @@ class AddIssueForm extends Component {
         tenant_id: null,
         owner_id: null,
         received: false
-      }
-    };
+      },
+      message: {
+        to: "",
+        body: ""
+      },
+      submitting: false,
+      error: false
+    }
+    this.handleChange = this.handleChange.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
   }
 
   componentDidMount() {
@@ -144,12 +152,14 @@ class AddIssueForm extends Component {
   };
 
   handleChange = e => {
+    const name = e.target.getAttribute('name');
     e.persist();
     this.setState({
       issue: {
         ...this.state.issue,
-        [e.target.name]: e.target.value
-      }
+        [name]: e.target.value
+      },
+      message: { ...this.state.message, [name]: e.target.value}
     });
   };
 
@@ -174,9 +184,38 @@ class AddIssueForm extends Component {
       this.setState({
         issues: issues
       });
+
       return this.props.history.push("/tenant-dash");
     });
   };
+
+  onSubmit(e) {
+    e.preventDefault()
+    this.setState({ submitting: true })
+    fetch('http://localhost:5000/api/message', { 
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(this.state.message)
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                this.setState({
+                    error: false,
+                    submitting: false,
+                    message: {
+                        to: '',
+                        body: ''
+                    }
+                })
+            } else {
+                this.setState({
+                    error: true,
+                    submitting: false
+                })
+            }
+        })
+  }
 
   goBack = e => {
     this.props.history.goBack();
@@ -203,14 +242,24 @@ class AddIssueForm extends Component {
                   <form
                     onSubmit={this.onSubmitAddIssue}
                     className={this.props.classes.form}
+                    onSubmit={this.onSubmit}
                   >
+                    <label htmlFor="to">To:</label>
+                    <input
+                      type="tel"
+                      name="to"
+                      id="to"
+                      value={this.state.message.to}
+                      onChange={this.handleChange}
+                    />
                     <TextField
                       className={this.props.classes.textField}
+                      value={this.state.message.body}
                       variant="outlined"
                       required
                       id="request_name"
                       label="Request Name"
-                      name="request_name"
+                      name="body"
                       helperText="Please provide a short summary name for your request"
                       margin="normal"
                       autoFocus
@@ -233,6 +282,7 @@ class AddIssueForm extends Component {
                         <Button
                           className={this.props.classes.button}
                           type="submit"
+                          disabled={this.state.submitting}
                           variant="contained"
                           color="primary"
                           size="large"
