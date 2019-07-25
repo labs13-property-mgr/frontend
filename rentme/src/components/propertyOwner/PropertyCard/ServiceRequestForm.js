@@ -8,8 +8,8 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Tooltip from "@material-ui/core/Tooltip";
-import Grid from '@material-ui/core/Grid';
 import DescriptionModal from "./DescriptionModal";
+import { withRouter } from "react-router-dom";
 import axios from "axios";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -148,6 +148,7 @@ const ServiceRequestForm = props => {
   return (
     <>
       <form className={classes.formContainer} onSubmit={e => handleSubmit(e)}>
+        <Button onClick={() => props.history.push(`/property-card/${id}`)}  style={generateGridValues(7, 7, 1, 1)}>X</Button>
         <TextField
           variant="outlined"
           label="Issue"
@@ -210,6 +211,7 @@ const ServiceRequestForm = props => {
             color: "white"
           })}type="submit">Submit</Button>
           </Tooltip>
+          &nbsp;
           <Tooltip title="Resolve request">
             <Button  style={generateGridValues(3, 5, 5, 5, {
             background: "DeepSkyBlue",
@@ -223,4 +225,4 @@ const ServiceRequestForm = props => {
   );
 };
 
-export default ServiceRequestForm;
+export default withRouter(ServiceRequestForm);
