@@ -108,8 +108,10 @@ class AddIssueForm extends Component {
       error: false
     }
     this.handleChange = this.handleChange.bind(this)
-    this.onSubmit = this.onSubmit.bind(this)
+    this.onSubmit = this.onSubmitAddIssue.bind(this)
   }
+
+  abortController = new AbortController()
 
   componentDidMount() {
     const endpoint = "https://rent-me-app.herokuapp.com/api/service";
@@ -139,6 +141,10 @@ class AddIssueForm extends Component {
       });
   }
 
+  componentWillUnmount() {
+    this.abortController.abort()
+  }
+
   addIssue = (newIssue, e) => {
     return axios
       .post("https://rent-me-app.herokuapp.com/api/service", newIssue)
@@ -163,8 +169,10 @@ class AddIssueForm extends Component {
     });
   };
 
-  onSubmitAddIssue = e => {
+  onSubmitAddIssue = async e => {
     e.preventDefault();
+
+    try {
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, "0");
     let mm = String(today.getMonth() + 1).padStart(2, "0");
@@ -180,16 +188,46 @@ class AddIssueForm extends Component {
       property_id: this.state.tenant.property_id
     };
 
-    this.addIssue(issue).then(issues => {
+    await this.addIssue(issue).then(issues => {
       this.setState({
         issues: issues
-      });
+      })
+    })
+
+    await this.setState({ submitting: true })
+    fetch('http://localhost:5000/api/message', { 
+        signal: this.abortController.signal,
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(this.state.message)
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                this.setState({
+                    error: false,
+                    submitting: false,
+                    message: {
+                        to: '',
+                        body: ''
+                    }
+                })
+            } else {
+                this.setState({
+                    error: true,
+                    submitting: false
+                })
+            }
+        })
+    } catch (err) {
+      alert(err)
+    } finally { 
 
       return this.props.history.push("/tenant-dash");
-    });
+    }
   };
 
-  onSubmit(e) {
+  /*onSubmit(e) {
     e.preventDefault()
     this.setState({ submitting: true })
     fetch('http://localhost:5000/api/message', { 
@@ -215,7 +253,7 @@ class AddIssueForm extends Component {
                 })
             }
         })
-  }
+  }*/
 
   goBack = e => {
     this.props.history.goBack();
@@ -242,7 +280,7 @@ class AddIssueForm extends Component {
                   <form
                     onSubmit={this.onSubmitAddIssue}
                     className={this.props.classes.form}
-                    onSubmit={this.onSubmit}
+                    //onSubmit={this.onSubmit}
                   >
                     <label htmlFor="to">To:</label>
                     <input
