@@ -13,7 +13,9 @@ import { withAuthorization } from "../../Session";
 import { compose } from "recompose";
 import Typography from "@material-ui/core/Typography";
 import "typeface-roboto";
-
+import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
+import "./index.css"
 import * as ROLES from "../../../constants/roles";
 
 import OwnerUserMenu from "../../SideMenu/OwnerUserMenu";
@@ -175,6 +177,8 @@ class TenantAddressBk extends Component {
   };
 
   render() {
+    const yo = 'yo';
+
     const columns = [
       {
         name: "id",
@@ -257,8 +261,24 @@ class TenantAddressBk extends Component {
       print: false,
       selectableRows: false,
       download: false,
-      viewColumns: false
+      viewColumns: false,
+      expandableRows: true,
+      expandableRowsOnClick: true,
+      renderExpandableRow: (rowData) => {
+        const colSpan = rowData.length + 1;
+        return (
+          <TableRow>
+            <TableCell colSpan={colSpan}>
+              {this.props.history.push(`/tenant-card/${rowData[0]}`)}
+            </TableCell>
+          </TableRow>
+        )
+      }
     };
+
+    
+
+
 
     return (
       <div className={this.props.classes.mainContainer}>
@@ -293,47 +313,55 @@ class TenantAddressBk extends Component {
                 columns={columns}
                 options={options}
               />
-              <Menu
-                anchorEl={this.state.anchorEl}
-                keepMounted
-                open={this.state.anchorEl ? true : null}
-                onClose={e => {
-                  this.setState({
-                    anchorEl: null
-                  });
-                }}
-                getContentAnchorEl={null}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left"
-                }}
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left"
-                }}
-              >
-                <div>
-                  <MenuItem
-                    onClick={e => {
-                      this.props.history.push(
-                        `/tenant-card/${this.state.currentRow[0]}`
-                      );
+                <div onclick={e => {
+                        this.props.history.push(
+                          `/tenant-card/${this.state.currentRow[0]}`
+                        );
+                      }}>
+                  <Menu
+                    anchorEl={this.state.anchorEl}
+                    keepMounted
+                    open={this.state.anchorEl ? true : null}
+                    onClose={e => {
+                      this.setState({
+                        anchorEl: null
+                      });
+                    }}
+                    
+                    getContentAnchorEl={null}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "left"
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "left"
                     }}
                   >
-                    Full Profile
-                  </MenuItem>
-                  <MenuItem
-                    onClick={e => {
-                      this.deleteTenant(this.state.currentRow[0]);
-                    }}
-                  >
-                    Delete Tenant
-                  </MenuItem>
-                  <MenuItem onClick={this.updateTenant}>
-                    Edit Information
-                  </MenuItem>
-                </div>
-              </Menu>
+                
+                  <div>
+                    <MenuItem
+                      onClick={e => {
+                        this.props.history.push(
+                          `/tenant-card/${this.state.currentRow[0]}`
+                        );
+                      }}
+                    >
+                      Full Profile
+                    </MenuItem>
+                    <MenuItem
+                      onClick={e => {
+                        this.deleteTenant(this.state.currentRow[0]);
+                      }}
+                    >
+                      Delete Tenant
+                    </MenuItem>
+                    <MenuItem onClick={this.updateTenant}>
+                      Edit Information
+                    </MenuItem>
+                  </div>
+                </Menu>
+              </div>
             </div>
           </div>
         </main>

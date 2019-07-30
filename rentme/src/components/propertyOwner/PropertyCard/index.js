@@ -22,6 +22,7 @@ import "typeface-roboto";
 import placeholer from "../../../placeholderImages/modernHouse.png";
 import "../../imageMediaQueries.css";
 
+
 import * as ROLES from "../../../constants/roles";
 
 const drawerWidth = 240;
@@ -148,6 +149,11 @@ const styles = theme => ({
   propertyImageSection: {
     display: "flex",
     justifyContent: "center"
+  },
+  ServiceRequests: {
+    borderBottom: "1px solid #9e9e9e73",
+    paddingBottom: "25px",
+    
   }
 });
 
@@ -358,6 +364,9 @@ updatePropertyInfo = () => {
               PREVIOUS PAGE
             </Button>
             <div>
+              <div className={this.props.classes.ServiceRequests}>
+                <ServiceRequests property_id={this.props.match.params.id}/>
+              </div>
               <Paper className={this.props.classes.propertyCard}>
                 <div className={this.props.classes.buttonsandHeader}>
                   <Typography
@@ -491,7 +500,7 @@ updatePropertyInfo = () => {
                   </Grid>
                 </ThemeProvider>
               </Paper>
-              <ServiceRequests property_id={this.props.match.params.id} />
+              {/* <ServiceRequests property_id={this.props.match.params.id}/> */}
             </div>
           </div>
         </main>

@@ -11,6 +11,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Grid from '@material-ui/core/Grid';
 import DescriptionModal from "./DescriptionModal";
 import axios from "axios";
+import handleClick from "./ServiceRequestModal.js"
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -45,6 +46,7 @@ const generateGridValues = (
 };
 
 const ServiceRequestForm = props => {
+  const [modalOpen, setModalOpen] = useState(false);
   const {
     request_name,
     notes,
@@ -118,6 +120,11 @@ const ServiceRequestForm = props => {
     }
   };
 
+  const myFunk = e => {
+    setModalOpen(!modalOpen);
+    console.log(modalOpen)
+  } 
+
   const handleDropdown = e => {
     setStatus(e.target.value);
   };
@@ -147,6 +154,7 @@ const ServiceRequestForm = props => {
   };
   return (
     <>
+      <button onClick={() => props.handleClick()}>button</button>
       <form className={classes.formContainer} onSubmit={e => handleSubmit(e)}>
         <TextField
           variant="outlined"

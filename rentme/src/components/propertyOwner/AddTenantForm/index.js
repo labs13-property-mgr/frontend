@@ -321,36 +321,26 @@ class AddTenantForm extends Component {
                     />
                     <TextField
                       variant="outlined"
-                      id="Spouse Name"
-                      label="Spouse's Name"
-                      name="Spouse Name"
+                      id="Dependent 1"
+                      label="Dependent 1"
+                      name="Dependent 1"
                       margin="normal"
                       autoComplete="off"
                       onChange={this.handleChange}
-                      value={this.state.tenant["Spouse Name"]}
+                      value={this.state.tenant["Dependent_1"]}
                     />
-                    {/* <TextField
-                      variant="outlined"
-                      id="additional adult Name"
-                      label="Additional Tenant Name"
-                      name="additional adult name"
-                      autoComplete="additional adult name"
-                      margin="normal"
-                      autoFocus
-                      onChange={this.handleChange}
-                      value={this.state.tenant["additional adult name"]}
-                    /> */}
+                    
                     <TextField
                       variant="outlined"
-                      id="child name"
-                      label="Child Name"
-                      name="child name"
-                      autoComplete="child name"
+                      id="Dependent 2"
+                      label="Dependent 2"
+                      name="Dependent 2"
+                      autoComplete="Dependent 2"
                       defaultValue=""
                       margin="normal"
                       autoFocus
                       onChange={this.handleChange}
-                      value={this.state.tenant["child name"]}
+                      value={this.state.tenant["Dependent_2"]}
                     />
                     <TextField
                       variant="outlined"
@@ -364,7 +354,17 @@ class AddTenantForm extends Component {
                       onChange={this.handleChange}
                       value={this.state.tenant["number in household"]}
                     />
-                    
+                    <TextField
+                      variant="outlined"
+                      id="Emergency Contact Name"
+                      label="Emergency Contact Name"
+                      name="emergency contact name"
+                      autoComplete="emergency contact name"
+                      margin="normal"
+                      autoFocus
+                      onChange={this.handleChange}
+                      value={this.state.tenant["Emergency_Contact_Name"]}
+                    />
                     <TextField
                       onInput={function (e) {
                         var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);

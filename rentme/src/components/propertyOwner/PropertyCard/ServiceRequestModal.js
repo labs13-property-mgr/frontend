@@ -74,7 +74,7 @@ const ServiceRequestModal = props => {
 
   const handleClick = () => {
     setModalOpen(!modalOpen);
-
+    
     setIsReceived(true);
   };
 
@@ -158,7 +158,7 @@ const ServiceRequestModal = props => {
       >
         <div className={`${classes.formContainer}`}>
           <div className={classes.form}>
-            <ServiceRequestForm request={props.request} />
+            <ServiceRequestForm request={props.request} handleClick={handleClick}/>
           </div>
         </div>
       </Modal>
