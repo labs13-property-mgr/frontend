@@ -158,7 +158,7 @@ const ServiceRequestModal = props => {
       >
         <div className={`${classes.formContainer}`}>
           <div className={classes.form}>
-            <ServiceRequestForm request={props.request} handleClick={handleClick}/>
+            <ServiceRequestForm request={props.request} handleClick={handleClick} />
           </div>
         </div>
       </Modal>

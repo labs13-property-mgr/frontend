@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
 import SuccessText from "./SuccessText";
 import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
@@ -7,13 +8,14 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import Icon from "@material-ui/core/Icon";
 import Tooltip from "@material-ui/core/Tooltip";
-import Grid from '@material-ui/core/Grid';
 import DescriptionModal from "./DescriptionModal";
 import axios from "axios";
 import handleClick from "./ServiceRequestModal.js"
 
 import { makeStyles } from "@material-ui/core/styles";
+
 
 const useStyles = makeStyles({
   formContainer: {
@@ -23,6 +25,11 @@ const useStyles = makeStyles({
     gridTemplateColumns: " 6fr 6fr 6fr 4fr 4fr 4fr",
     gridTemplateRows: "1fr 1fr 1fr 1fr 3fr 3fr 1fr",
     gridGap: "10px"
+  },
+  icon: {
+    "&:hover": {
+      color: "#008c3a"
+    }
   }
 });
 
@@ -148,14 +155,19 @@ const ServiceRequestForm = props => {
         setTimeout(() => setRequestUpdated(false), 3500);
       })
       .then(() => {
+        e.stopPropagation()
         window.location.reload();
       })
       .catch(err => console.log(err));
   };
+
   return (
     <>
       <button onClick={() => props.handleClick()}>button</button>
       <form className={classes.formContainer} onSubmit={e => handleSubmit(e)}>
+         <Icon className={classes.icon} onClick={() => props.handleClick()} style={generateGridValues(7, 7, 1, 1)}><i className="material-icons">
+           cancel
+         </i></Icon>
         <TextField
           variant="outlined"
           label="Issue"
@@ -218,6 +230,7 @@ const ServiceRequestForm = props => {
             color: "white"
           })}type="submit">Submit</Button>
           </Tooltip>
+          &nbsp;
           <Tooltip title="Resolve request">
             <Button  style={generateGridValues(3, 5, 5, 5, {
             background: "DeepSkyBlue",
@@ -231,4 +244,4 @@ const ServiceRequestForm = props => {
   );
 };
 
-export default ServiceRequestForm;
+export default withRouter(ServiceRequestForm);
