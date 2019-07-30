@@ -41,22 +41,22 @@ const formCard = {
 
 const Account = ({ lastLocation }) => (
   <>
-  {lastLocation && <Link to={lastLocation || "/" }>Back to Previous Page</Link>}
-  <Paper style={formCard}>
-  <AuthUserContext.Consumer>
-    {authUser => (
-      <>
-        <div style={divStyle}>
-        <h1>Account: </h1>
-        &nbsp;
+    {lastLocation && <Link to={lastLocation || "/"}>Back to Previous Page</Link>}
+    <Paper style={formCard}>
+      <AuthUserContext.Consumer>
+        {authUser => (
+          <>
+            <div style={divStyle}>
+              <h1>Account: </h1>
+              &nbsp;
         <h2> &nbsp;{authUser.email}</h2>
-        </div>
-        <PasswordChangeForm />
-        <LoginManagement authUser={authUser} />
-      </>
-    )}
-  </AuthUserContext.Consumer>
-  </Paper>
+            </div>
+            <PasswordChangeForm />
+            <LoginManagement authUser={authUser} />
+          </>
+        )}
+      </AuthUserContext.Consumer>
+    </Paper>
   </>
 );
 
@@ -118,36 +118,36 @@ class LoginManagementBase extends Component {
     return (
       <>
         <div style={signInDiv}>
-        <h3>Link Your Sign In Methods: </h3>
-        <ul>
-          {LOG_IN_METHODS.map(signInMethod => {
-            const oneLeft = activeSignInMethods.length === 1; //avoids getting locked out - only one active method = disable all deactivation buttons
-            const isEnabled = activeSignInMethods.includes(signInMethod.id);
+          <h3>Link Your Sign In Methods: </h3>
+          <ul>
+            {LOG_IN_METHODS.map(signInMethod => {
+              const oneLeft = activeSignInMethods.length === 1; //avoids getting locked out - only one active method = disable all deactivation buttons
+              const isEnabled = activeSignInMethods.includes(signInMethod.id);
 
-            return (
-              <li key={signInMethod.id} style={{listStyleType: "none" }}>
-                {signInMethod.id === "password" ? (
-                  <DefaultLoginToggle
-                    oneLeft={oneLeft}
-                    isEnabled={isEnabled}
-                    signInMethod={signInMethod}
-                    onLink={this.onUnlink}
-                    onUnlink={this.onUnlink}
-                  />
-                ) : (
-                  <SocialLoginToggle
-                    oneLeft={oneLeft}
-                    isEnabled={isEnabled}
-                    signInMethod={signInMethod}
-                    onLink={this.onSocialLoginLink}
-                    onUnlink={this.onUnlink}
-                  />
-                )}
-              </li>
-            );
-          })}
-        </ul>
-        {error && error.message}
+              return (
+                <li key={signInMethod.id} style={{ listStyleType: "none" }}>
+                  {signInMethod.id === "password" ? (
+                    <DefaultLoginToggle
+                      oneLeft={oneLeft}
+                      isEnabled={isEnabled}
+                      signInMethod={signInMethod}
+                      onLink={this.onUnlink}
+                      onUnlink={this.onUnlink}
+                    />
+                  ) : (
+                      <SocialLoginToggle
+                        oneLeft={oneLeft}
+                        isEnabled={isEnabled}
+                        signInMethod={signInMethod}
+                        onLink={this.onSocialLoginLink}
+                        onUnlink={this.onUnlink}
+                      />
+                    )}
+                </li>
+              );
+            })}
+          </ul>
+          {error && error.message}
         </div>
       </>
     );
@@ -180,16 +180,16 @@ const SocialLoginToggle = ({
       Deactivate {signInMethod.id}
     </Button>
   ) : (
-    <Button 
-      style={socialButton}
-      type="button"
-      size="medium"
-      variant="contained"
-      color="primary" 
-      onClick={() => onLink(signInMethod.provider)}>
-      Link {signInMethod.id}
-    </Button>
-  );
+      <Button
+        style={socialButton}
+        type="button"
+        size="medium"
+        variant="contained"
+        color="primary"
+        onClick={() => onLink(signInMethod.provider)}>
+        Link {signInMethod.id}
+      </Button>
+    );
 
 class DefaultLoginToggle extends Component {
   constructor(props) {
@@ -253,41 +253,41 @@ class DefaultLoginToggle extends Component {
         Deactivate {signInMethod.id}
       </Button>
     ) : (
-      <form onSubmit={this.onSubmit} style={form}>
-        <TextField
-          style={textField}
-          variant="outlined"
-          margin="normal"
-          autoFocus
-          name="passwordOne"
-          value={passwordOne}
-          onChange={this.onChange}
-          type="password"
-          label="New Password"
-        />
-        <TextField
-          style={textField}
-          variant="outlined"
-          margin="normal"
-          autoFocus
-          name="passwordTwo"
-          value={passwordTwo}
-          onChange={this.onChange}
-          type="password"
-          label="Confirm New Password"
-        />
-        <Button 
-          disabled={isInvalid} 
-          style={buttonStyle}
-          type="submit"
-          size="medium"
-          variant="contained"
-          color="primary"
+        <form onSubmit={this.onSubmit} style={form}>
+          <TextField
+            style={textField}
+            variant="outlined"
+            margin="normal"
+            autoFocus
+            name="passwordOne"
+            value={passwordOne}
+            onChange={this.onChange}
+            type="password"
+            label="New Password"
+          />
+          <TextField
+            style={textField}
+            variant="outlined"
+            margin="normal"
+            autoFocus
+            name="passwordTwo"
+            value={passwordTwo}
+            onChange={this.onChange}
+            type="password"
+            label="Confirm New Password"
+          />
+          <Button
+            disabled={isInvalid}
+            style={buttonStyle}
+            type="submit"
+            size="medium"
+            variant="contained"
+            color="primary"
           >
-          Link {signInMethod.id}
-        </Button>
-      </form>
-    );
+            Link {signInMethod.id}
+          </Button>
+        </form>
+      );
   }
 }
 
