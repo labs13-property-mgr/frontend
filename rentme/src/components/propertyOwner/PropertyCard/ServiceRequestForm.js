@@ -12,7 +12,7 @@ import Icon from "@material-ui/core/Icon";
 import Tooltip from "@material-ui/core/Tooltip";
 import DescriptionModal from "./DescriptionModal";
 import axios from "axios";
-import handleClick from "./ServiceRequestModal.js"
+
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -127,10 +127,7 @@ const ServiceRequestForm = props => {
     }
   };
 
-  const myFunk = e => {
-    setModalOpen(!modalOpen);
-    console.log(modalOpen)
-  } 
+  
 
   const handleDropdown = e => {
     setStatus(e.target.value);
@@ -163,7 +160,7 @@ const ServiceRequestForm = props => {
 
   return (
     <>
-      <button onClick={() => props.handleClick()}>button</button>
+      
       <form className={classes.formContainer} onSubmit={e => handleSubmit(e)}>
          <Icon className={classes.icon} onClick={() => props.handleClick()} style={generateGridValues(7, 7, 1, 1)}><i className="material-icons">
            cancel
