@@ -352,6 +352,7 @@ class EditTenantForm extends Component {
                       onChange={this.handleChange}
                       value={this.state.activeTenant["number in household"]}
                     />
+
                     <TextField
                       variant="outlined"
                       fullWidth
@@ -363,6 +364,7 @@ class EditTenantForm extends Component {
                       onChange={this.handleChange}
                       value={this.state.activeTenant["Emergency_Contact_Name"]}
                     />
+
                     
                     <TextField
                       onInput={function (e) {
@@ -379,7 +381,9 @@ class EditTenantForm extends Component {
                       name="emergency contact"
                       // autoComplete="phone"
                       autoFocus
-                      placeholder="Emergency Contact Nu mber"
+
+                      placeholder="Emergency Contact Number"
+
                       onChange={this.handleChange}
                       value={this.state.activeTenant["emergency contact"]}
                     />

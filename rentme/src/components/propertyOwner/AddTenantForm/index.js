@@ -354,6 +354,7 @@ class AddTenantForm extends Component {
                       onChange={this.handleChange}
                       value={this.state.tenant["number in household"]}
                     />
+
                     <TextField
                       variant="outlined"
                       id="Emergency Contact Name"
@@ -365,6 +366,7 @@ class AddTenantForm extends Component {
                       onChange={this.handleChange}
                       value={this.state.tenant["Emergency_Contact_Name"]}
                     />
+
                     <TextField
                       onInput={function (e) {
                         var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
