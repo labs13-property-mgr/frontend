@@ -323,7 +323,7 @@ class AddTenantForm extends Component {
                       variant="outlined"
                       id="Dependent 1"
                       label="Dependent 1"
-                      name="Dependent 1"
+                      name="Dependent_1"
                       margin="normal"
                       autoComplete="off"
                       onChange={this.handleChange}
@@ -335,7 +335,7 @@ class AddTenantForm extends Component {
                       id="Dependent 2"
                       label="Dependent 2"
                       name="Dependent 2"
-                      autoComplete="Dependent 2"
+                      autoComplete="Dependent_2"
                       defaultValue=""
                       margin="normal"
                       autoFocus
@@ -358,7 +358,7 @@ class AddTenantForm extends Component {
                       variant="outlined"
                       id="Emergency Contact Name"
                       label="Emergency Contact Name"
-                      name="emergency contact name"
+                      name="Emergency_Contact_Name"
                       autoComplete="emergency contact name"
                       margin="normal"
                       autoFocus
