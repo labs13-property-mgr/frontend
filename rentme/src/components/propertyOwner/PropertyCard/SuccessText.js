@@ -15,4 +15,4 @@ const SuccessText = props => {
   )
 }
 
- export default SuccessText
+export default SuccessText
