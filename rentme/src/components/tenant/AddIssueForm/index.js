@@ -9,6 +9,7 @@ import Paper from "@material-ui/core/Paper";
 import TenantUserMenu from "../../SideMenu/TenantUserMenu";
 import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
+import { Typography } from "@material-ui/core";
 
 const drawerWidth = 240;
 
@@ -98,6 +99,7 @@ class AddIssueForm extends Component {
         property_id: null,
         tenant_id: null,
         owner_id: null,
+        owner_phone: "",
         received: false
       },
       message: {
@@ -185,7 +187,7 @@ class AddIssueForm extends Component {
       date_created: today,
       status: "open",
       tenant_id: this.state.tenant.id,
-      property_id: this.state.tenant.property_id
+      property_id: this.state.tenant.property_id,
     };
 
     await this.addIssue(issue).then(issues => {
@@ -283,13 +285,13 @@ class AddIssueForm extends Component {
                     //onSubmit={this.onSubmit}
                   >
                     <label htmlFor="to">To:</label>
-                    <input
+                    <Typography
                       type="tel"
+                      varient="h3"
                       name="to"
                       id="to"
                       value={this.state.message.to}
-                      onChange={this.handleChange}
-                    />
+                    >{this.props.owner_phone}</Typography>
                     <TextField
                       className={this.props.classes.textField}
                       value={this.state.message.body}
