@@ -230,7 +230,9 @@ class AddTenantForm extends Component {
   };
 
   render() {
+
     if (!this.state.tenant) return <h3>Loading data...</h3>;
+
     return (
       <div className={this.props.classes.mainContainer}>
         <OwnerUserMenu />
@@ -281,41 +283,31 @@ class AddTenantForm extends Component {
                       helperText="Required*"
                     />
 
-                    <section className="masked-container">
-                      <MaskedInput
-                        className="masked-input"
-                        mask={[
-                          "(",
-                          /[1-9]/,
-                          /\d/,
-                          /\d/,
-                          ")",
-                          /\d/,
-                          /\d/,
-                          /\d/,
-                          "-",
-                          /\d/,
-                          /\d/,
-                          /\d/,
-                          /\d/
-                        ]}
-                        guide={true}
-                        // variant="outlined"
-                        // margin="normal"
-                        required
-                        id="phone"
-                        label="Phone Number"
-                        // defaultValue="Phone Number"
-                        name="phone"
-                        // autoComplete="phone"
-                        // autoFocus
-                        type="tel"
-                        placeholder="Phone Number*"
-                        onChange={this.handleChange}
-                        value={this.state.tenant["phone"]}
-                      />
-                      <p>Required*</p>
-                    </section>
+                    <TextField 
+                      variant="outlined"
+                      autoFocus
+                      onInput={function (e) {
+                        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+                        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? ' - ' + x[3] : '');}}
+                      
+                      guide={true}
+                      // variant="outlined"
+                      // margin="normal"
+                      required
+                      id="phone"
+                      label="Phone Number"
+                      // defaultValue="Phone Number"
+                      name="phone"
+                      // autoComplete="phone"
+                      // autoFocus
+                      type="tel"
+                      placeholder="Phone Number*"
+                      onChange={this.handleChange}
+                      value={this.state.tenant["phone"]}
+                      helperText="Required*"
+                    
+                    />
+
                     <TextField
                       variant="outlined"
                       margin="normal"
@@ -372,40 +364,27 @@ class AddTenantForm extends Component {
                       onChange={this.handleChange}
                       value={this.state.tenant["number in household"]}
                     />
-                    <section className="masked-container">
-                      <MaskedInput
-                        className="masked-input"
-                        mask={[
-                          "(",
-                          /[1-9]/,
-                          /\d/,
-                          /\d/,
-                          ")",
-                          /\d/,
-                          /\d/,
-                          /\d/,
-                          "-",
-                          /\d/,
-                          /\d/,
-                          /\d/,
-                          /\d/
-                        ]}
-                        guide={true}
-                        // variant="outlined"
-                        // margin="normal"
-                        // required
-                        id="emergency contact"
-                        label="Emergency Contact Number"
-                        // defaultValue="Phone Number"
-                        name="emergency contact"
-                        // autoComplete="phone"
-                        // autoFocus
-                        placeholder="Emergency Contact Number"
-                        onChange={this.handleChange}
-                        value={this.state.tenant["emergency contact"]}
-                      />
-                      {/* <p>Required*</p> */}
-                    </section>
+                    
+                    <TextField
+                      onInput={function (e) {
+                        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+                        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? ' - ' + x[3] : '');}}
+                      
+                      guide={true}
+                      variant="outlined"
+                      margin="normal"
+                      // required
+                      id="emergency contact"
+                      label="Emergency Contact Number"
+                      // defaultValue="Phone Number"
+                      name="emergency contact"
+                      // autoComplete="phone"
+                      // autoFocus
+                      placeholder="Emergency Contact Number"
+                      onChange={this.handleChange}
+                      value={this.state.tenant["emergency contact"]}
+                    />
+                      
                     <TextField
                       variant="outlined"
                       id="notes"
