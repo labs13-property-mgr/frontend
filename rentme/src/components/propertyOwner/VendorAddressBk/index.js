@@ -11,7 +11,10 @@ import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import { compose } from "recompose";
 import Typography from "@material-ui/core/Typography";
+import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
 import "typeface-roboto";
+import "./index.css"
 
 import { withAuthorization } from "../../Session";
 import * as ROLES from "../../../constants/roles";
@@ -241,7 +244,19 @@ class VendorAddressBk extends Component {
       print: false,
       selectableRows: false,
       download: false,
-      viewColumns: false
+      viewColumns: false,
+      expandableRows: true,
+      expandableRowsOnClick: true,
+      renderExpandableRow: (rowData) => {
+        const colSpan = rowData.length + 1;
+        return (
+          <TableRow>
+            <TableCell colSpan={colSpan}>
+              {this.props.history.push(`/vendor-card/${rowData[0]}`)}
+            </TableCell>
+          </TableRow>
+        )
+      }
     };
 
     // const data = this.state.vendors.map(vendor => {

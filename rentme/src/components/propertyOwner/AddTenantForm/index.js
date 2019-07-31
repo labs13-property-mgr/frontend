@@ -230,7 +230,9 @@ class AddTenantForm extends Component {
   };
 
   render() {
+
     if (!this.state.tenant) return <h3>Loading data...</h3>;
+
     return (
       <div className={this.props.classes.mainContainer}>
         <OwnerUserMenu />
@@ -281,41 +283,31 @@ class AddTenantForm extends Component {
                       helperText="Required*"
                     />
 
-                    <section className="masked-container">
-                      <MaskedInput
-                        className="masked-input"
-                        mask={[
-                          "(",
-                          /[1-9]/,
-                          /\d/,
-                          /\d/,
-                          ")",
-                          /\d/,
-                          /\d/,
-                          /\d/,
-                          "-",
-                          /\d/,
-                          /\d/,
-                          /\d/,
-                          /\d/
-                        ]}
-                        guide={true}
-                        // variant="outlined"
-                        // margin="normal"
-                        required
-                        id="phone"
-                        label="Phone Number"
-                        // defaultValue="Phone Number"
-                        name="phone"
-                        // autoComplete="phone"
-                        // autoFocus
-                        type="tel"
-                        placeholder="Phone Number*"
-                        onChange={this.handleChange}
-                        value={this.state.tenant["phone"]}
-                      />
-                      <p>Required*</p>
-                    </section>
+                    <TextField 
+                      variant="outlined"
+                      autoFocus
+                      onInput={function (e) {
+                        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+                        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? ' - ' + x[3] : '');}}
+                      
+                      guide={true}
+                      // variant="outlined"
+                      // margin="normal"
+                      required
+                      id="phone"
+                      label="Phone Number"
+                      // defaultValue="Phone Number"
+                      name="phone"
+                      // autoComplete="phone"
+                      // autoFocus
+                      type="tel"
+                      placeholder="Phone Number*"
+                      onChange={this.handleChange}
+                      value={this.state.tenant["phone"]}
+                      helperText="Required*"
+                    
+                    />
+
                     <TextField
                       variant="outlined"
                       margin="normal"
@@ -329,36 +321,26 @@ class AddTenantForm extends Component {
                     />
                     <TextField
                       variant="outlined"
-                      id="Spouse Name"
-                      label="Spouse's Name"
-                      name="Spouse Name"
+                      id="Dependent 1"
+                      label="Dependent 1"
+                      name="Dependent_1"
                       margin="normal"
                       autoComplete="off"
                       onChange={this.handleChange}
-                      value={this.state.tenant["Spouse Name"]}
+                      value={this.state.tenant["Dependent_1"]}
                     />
-                    {/* <TextField
-                      variant="outlined"
-                      id="additional adult Name"
-                      label="Additional Tenant Name"
-                      name="additional adult name"
-                      autoComplete="additional adult name"
-                      margin="normal"
-                      autoFocus
-                      onChange={this.handleChange}
-                      value={this.state.tenant["additional adult name"]}
-                    /> */}
+                    
                     <TextField
                       variant="outlined"
-                      id="child name"
-                      label="Child Name"
-                      name="child name"
-                      autoComplete="child name"
+                      id="Dependent 2"
+                      label="Dependent 2"
+                      name="Dependent 2"
+                      autoComplete="Dependent_2"
                       defaultValue=""
                       margin="normal"
                       autoFocus
                       onChange={this.handleChange}
-                      value={this.state.tenant["child name"]}
+                      value={this.state.tenant["Dependent_2"]}
                     />
                     <TextField
                       variant="outlined"
@@ -372,40 +354,39 @@ class AddTenantForm extends Component {
                       onChange={this.handleChange}
                       value={this.state.tenant["number in household"]}
                     />
-                    <section className="masked-container">
-                      <MaskedInput
-                        className="masked-input"
-                        mask={[
-                          "(",
-                          /[1-9]/,
-                          /\d/,
-                          /\d/,
-                          ")",
-                          /\d/,
-                          /\d/,
-                          /\d/,
-                          "-",
-                          /\d/,
-                          /\d/,
-                          /\d/,
-                          /\d/
-                        ]}
-                        guide={true}
-                        // variant="outlined"
-                        // margin="normal"
-                        // required
-                        id="emergency contact"
-                        label="Emergency Contact Number"
-                        // defaultValue="Phone Number"
-                        name="emergency contact"
-                        // autoComplete="phone"
-                        // autoFocus
-                        placeholder="Emergency Contact Number"
-                        onChange={this.handleChange}
-                        value={this.state.tenant["emergency contact"]}
-                      />
-                      {/* <p>Required*</p> */}
-                    </section>
+
+                    <TextField
+                      variant="outlined"
+                      id="Emergency Contact Name"
+                      label="Emergency Contact Name"
+                      name="Emergency_Contact_Name"
+                      autoComplete="emergency contact name"
+                      margin="normal"
+                      autoFocus
+                      onChange={this.handleChange}
+                      value={this.state.tenant["Emergency_Contact_Name"]}
+                    />
+
+                    <TextField
+                      onInput={function (e) {
+                        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+                        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? ' - ' + x[3] : '');}}
+                      
+                      guide={true}
+                      variant="outlined"
+                      margin="normal"
+                      // required
+                      id="emergency contact"
+                      label="Emergency Contact Number"
+                      // defaultValue="Phone Number"
+                      name="emergency contact"
+                      // autoComplete="phone"
+                      // autoFocus
+                      placeholder="Emergency Contact Number"
+                      onChange={this.handleChange}
+                      value={this.state.tenant["emergency contact"]}
+                    />
+                      
                     <TextField
                       variant="outlined"
                       id="notes"

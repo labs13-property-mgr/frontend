@@ -74,7 +74,7 @@ const ServiceRequestModal = props => {
 
   const handleClick = () => {
     setModalOpen(!modalOpen);
-
+    
     setIsReceived(true);
   };
 
