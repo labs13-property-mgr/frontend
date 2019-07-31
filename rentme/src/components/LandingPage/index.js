@@ -45,7 +45,7 @@ class LandingPage extends React.Component {
                                         <li className="nav-item"> <a className="nav-link" href="#gallery">GALLERY</a> </li>
                                         <li className="nav-item"> <a className="nav-link" href="#pricing">PRICING</a> </li>
                                         <li className="nav-item"> <a className="nav-link" href="#contact">CONTACT</a> </li>
-                                        <li className="nav-item"><a href="app.html" className="btn btn-outline-light my-3 my-sm-0 ml-lg-3">Download</a></li>
+                                        <li className="nav-item"><a href="/login" className="btn btn-outline-light my-3 my-sm-0 ml-lg-3">Download</a></li>
                                     </ul>
                                 </div>
                             </nav>
@@ -145,7 +145,7 @@ class LandingPage extends React.Component {
                             <div className="box-icon"><span className="ti-mobile gradient-fill ti-3x"></span></div>
                             <h2>Discover our App</h2>
                             <p className="mb-4">To learn more about the project check it out here</p>
-                            <a href="#" className="btn btn-primary">Sign In</a>
+                            <a href="/login" className="btn btn-primary">Sign In</a>
                         </div>
                     </div>
                     <div className="perspective-phone">
@@ -258,7 +258,7 @@ class LandingPage extends React.Component {
                                 <div className="box-icon"><span className="ti-rocket gradient-fill ti-3x"></span></div>
                                 <h2>Get Started</h2>
                                 <p className="mb-4">A better property managemnt experience is just a click away, and sign-up is simple with Google or Facebook</p>
-                                <a href="#" className="btn btn-primary">Sign Up</a></div>
+                                <a href="/login" className="btn btn-primary">Sign Up</a></div>
                         </div>
                     </div>
 
@@ -380,7 +380,7 @@ class LandingPage extends React.Component {
                                 <div className="list-group-item"><del>Reports and analytics</del></div>
                             </ul>
                             <div className="card-body">
-                                <a href="#" className="btn btn-primary btn-lg btn-block">Sign Up as Tenant</a>
+                                <a href="/login" className="btn btn-primary btn-lg btn-block">Sign Up as Tenant</a>
                             </div>
                         </div>
                         <div className="card pricing popular">
@@ -396,7 +396,7 @@ class LandingPage extends React.Component {
                                 <div className="list-group-item">Reports and analytics</div>
                             </ul>
                             <div className="card-body">
-                                <a href="#" className="btn btn-primary btn-lg btn-block">Sign Up as Owner</a>
+                                <a href="/login" className="btn btn-primary btn-lg btn-block">Sign Up as Owner</a>
                             </div>
                         </div>
                         <div className="card pricing">
@@ -412,7 +412,7 @@ class LandingPage extends React.Component {
                                 <div className="list-group-item">Unlimited Team Member acounts</div>
                             </ul>
                             <div className="card-body">
-                                <a href="#" className="btn btn-primary btn-lg btn-block">Sign Up as owner</a>
+                                <a href="/login" className="btn btn-primary btn-lg btn-block">Sign Up as owner</a>
                             </div>
                         </div>
                     </div>
@@ -461,8 +461,8 @@ class LandingPage extends React.Component {
                         <p className="tagline">Available for all major mobile and desktop platforms. Rapidiously visualize optimal ROI rather than enterprise-wide methods of empowerment. </p>
                         <div className="my-4">
 
-                            <a href="#" className="btn btn-light"><img src={appleicon} alt="icon"/> App Store</a>
-                            <a href="#" className="btn btn-light"><img src={playicon} alt="icon"/> Google play</a>
+                            <a href="/login" className="btn btn-light"><img src={appleicon} alt="icon"/> App Store</a>
+                            <a href="/login" className="btn btn-light"><img src={playicon} alt="icon"/> Google play</a>
                         </div>
                         <p className="text-primary"><small><i>*Works on iOS 10.0.5+, Android Kitkat and above. </i></small></p>
                     </div>
@@ -491,7 +491,7 @@ class LandingPage extends React.Component {
                                 {/* <!-- <a href="#"><span className="ti-facebook"></span></a>
                                 <a href="#"><span className="ti-twitter-alt"></span></a>
                                 <a href="#"><span className="ti-instagram"></span></a> --> */}
-                                <a href="#"><span className="ti-github"></span></a>
+                                <a href="/login"><span className="ti-github"></span></a>
                             </div>
                         </div>
                     </div>
