@@ -46,6 +46,7 @@ const styles = theme => ({
     flexDirection: "column",
     justifyContent: "center",
     width: "70%",
+    marginBottom: "35px",
     marginTop: "2rem",
     padding: "1.5rem",
     [theme.breakpoints.down("sm")]: {
@@ -183,6 +184,7 @@ class PropertyCard extends Component {
   };
 
   componentDidMount() {
+    window.scrollTo(0,0);
     const endpoint = "https://rent-me-app.herokuapp.com/api/property";
     axios
       .get(endpoint)
