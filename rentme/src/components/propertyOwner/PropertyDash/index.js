@@ -152,7 +152,7 @@ const PropertyDash = props => {
     axios
       .get(
         `https://rent-me-app.herokuapp.com/api/user/${
-        JSON.parse(localStorage.getItem("authUser")).uid
+          JSON.parse(localStorage.getItem("authUser")).uid
         }/properties`
       )
       .then(res => {
@@ -213,6 +213,11 @@ const PropertyDash = props => {
               )}
               {properties &&
                 properties
+                  .sort(function(a, b) {
+                    let propA = a.property_name.toUpperCase();
+                    let propB = b.property_name.toUpperCase();
+                    return propA < propB ? -1 : propA > propB ? 1 : 0;
+                  })
                   .slice(
                     searchQuery ? 0 : page * cardsPerPage,
                     searchQuery
@@ -232,7 +237,6 @@ const PropertyDash = props => {
                           <Link to={`/property-card/${property.id}`}>
                             <Card className={classes.cardStyle}>
                               <CardContent>
-                                
                                 <div className="propertyDashImageCardHoalder">
                                   {property.image_url === null ? (
                                     <img
@@ -254,8 +258,16 @@ const PropertyDash = props => {
                                   Name: {property && property.property_name}
                                 </p>
                                 <p>Address: {property && property.address}</p>
-                                <span className={classes.cardSpan}><p>Unit: </p>&nbsp;<Typography color="textSecondary">{property && property.unit}</Typography></span>
-                                <span className={classes.rentSpan}><h4>Rent Rate: </h4>&nbsp;<p>${property && property.rent}</p></span>
+                                <span className={classes.cardSpan}>
+                                  <p>Unit: </p>&nbsp;
+                                  <Typography color="textSecondary">
+                                    {property && property.unit}
+                                  </Typography>
+                                </span>
+                                <span className={classes.rentSpan}>
+                                  <h4>Rent Rate: </h4>&nbsp;
+                                  <p>${property && property.rent}</p>
+                                </span>
                               </CardContent>
                             </Card>
                           </Link>
