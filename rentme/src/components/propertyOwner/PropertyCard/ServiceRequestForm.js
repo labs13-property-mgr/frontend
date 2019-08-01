@@ -159,6 +159,7 @@ const ServiceRequestForm = props => {
 
   return (
     <>
+      
       <form className={classes.formContainer} onSubmit={e => handleSubmit(e)}>
          <Icon className={classes.icon} onClick={() => props.handleClick()} style={generateGridValues(7, 7, 1, 1)}><i className="material-icons">
            cancel
