@@ -34,6 +34,10 @@ Copyright © All rights Reserved
 /* GLOBAL
 ----------------------*/
 
+/* * {
+    box-sizing: content-box;
+} */
+
 body {
     font-family: 'Rubik', sans-serif;
     position: relative;
