@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   center: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center"
   },
   tooltip: {
     fontSize: "2rem"
@@ -44,6 +44,8 @@ const useStyles = makeStyles(theme => ({
   content: {
     display: "flex",
     flexDirection: "column",
+    width: "100%",
+    padding: "15px",
     "&:hover": {
       cursor: "pointer"
     }
@@ -64,6 +66,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: "bold"
   }
 }));
+
 
 const ServiceRequestModal = props => {
   const [modalOpen, setModalOpen] = useState(false);
