@@ -200,7 +200,7 @@ class AddIssueForm extends Component {
     })
 
     await this.setState({ submitting: true })
-    fetch("https://rent-me-app.herokuapp.com/api/message", { 
+    fetch("http://localhost:5000/api/message", { 
         signal: this.abortController.signal,
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
