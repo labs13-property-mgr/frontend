@@ -200,7 +200,7 @@ class AddIssueForm extends Component {
     })
 
     await this.setState({ submitting: true })
-    fetch('http://localhost:5000/api/message', { 
+    fetch("https://rent-me-app.herokuapp.com/api/message", { 
         signal: this.abortController.signal,
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -231,34 +231,6 @@ class AddIssueForm extends Component {
       return this.props.history.push("/tenant-dash");
     }
   };
-
-  /*onSubmit(e) {
-    e.preventDefault()
-    this.setState({ submitting: true })
-    fetch('http://localhost:5000/api/message', { 
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(this.state.message)
-    })
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                this.setState({
-                    error: false,
-                    submitting: false,
-                    message: {
-                        to: '',
-                        body: ''
-                    }
-                })
-            } else {
-                this.setState({
-                    error: true,
-                    submitting: false
-                })
-            }
-        })
-  }*/
 
   goBack = e => {
     this.props.history.goBack();
