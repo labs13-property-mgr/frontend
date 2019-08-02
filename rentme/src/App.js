@@ -4,10 +4,6 @@ import { LastLocationProvider } from "react-router-last-location";
 import Login from "./components/Login";
 import ManagerLogin from "./components/ManagerLogin";
 import { ManagerCard, ManagerDash } from "./components/propertyOwner/manager";
-<<<<<<< HEAD
-=======
-
->>>>>>> 24d97c27c701492ec3978a3875404a66afdc6132
 import MenuAppBar from "./components/MenuAppBar";
 import {
   PropertyDash,
@@ -46,11 +42,6 @@ const App = () => (
     <LastLocationProvider>
     <>
       <MenuAppBar />
-<<<<<<< HEAD
-      
-=======
-
->>>>>>> 24d97c27c701492ec3978a3875404a66afdc6132
       {/* Authentication/Account Related */}
       <Route exact path={ROUTES.LOGIN} component={Login} />
       <Route exact path={ROUTES.RENTER_SIGNUP} component={RenterSignUp} />
