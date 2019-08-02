@@ -1,0 +1,29 @@
+@media (max-width: 600px) {
+    #contentMediaQuery {
+        flex-flow: column;
+    }
+}
+
+@media (max-width: 540px) {
+    #profileTital {
+        font-size: 30px;
+        margin-bottom: 0px;
+    }
+    #accountInfoHoalder {
+        flex-flow: column;
+    }
+    #userAccountEmail {
+        margin-top: 10px;
+        margin-bottom: 30px;
+    }
+    #inputBoxes{
+        padding: 0px;
+    }
+}
+
+@media (max-width: 420px) {
+    .textFields {
+        width: 99% !important;
+        margin-right: 0px;
+    }
+}
