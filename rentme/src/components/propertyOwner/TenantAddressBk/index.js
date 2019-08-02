@@ -237,6 +237,7 @@ class TenantAddressBk extends Component {
                     fontSize="large"
                     aria-haspopup={Boolean(this.state.anchorEl)}
                     onClick={e => {
+                      e.stopPropagation();
                       this.setState({
                         currentRow: tableMeta.rowData,
                         anchorEl: e.currentTarget

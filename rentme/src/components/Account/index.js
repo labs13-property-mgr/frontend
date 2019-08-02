@@ -5,11 +5,13 @@ import { compose } from "recompose";
 import PasswordChangeForm from "../PasswordChange";
 import { withAuthorization, AuthUserContext } from "../Session";
 import { withFirebase } from "../Firebase";
+import "./index.css"
 
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
+import Icon from "@material-ui/core/Icon";
 
 
 const LOG_IN_METHODS = [
@@ -27,6 +29,16 @@ const LOG_IN_METHODS = [
   }
 ];
 
+const backButton = {
+  marginTop: "20px",
+  marginLeft: "3%",
+  "&:hover": {
+    cursor: "pointer",
+    color: "#008c3a",
+    backgroundColor: "transparent"
+  }
+}
+
 const divStyle = {
   display: "flex",
   alignItems: "center"
@@ -41,17 +53,22 @@ const formCard = {
 
 const Account = ({ lastLocation }) => (
   <>
-    {lastLocation && <Link to={lastLocation || "/"}>Back to Previous Page</Link>}
+    {lastLocation && <Link to={lastLocation || "/"}>
+      <Button style={backButton}>
+        <Icon fontSize="small">arrow_back_ios</Icon>
+        PREVIOUS PAGE
+      </Button>
+    </Link>}
     <Paper style={formCard}>
       <AuthUserContext.Consumer>
         {authUser => (
           <>
-            <div style={divStyle}>
-              <h1>Account: </h1>
+            <div style={divStyle} id="accountInfoHoalder">
+              <h1 id="profileTital">Account: </h1>
               &nbsp;
-        <h2> &nbsp;{authUser.email}</h2>
+        <h2 id="userAccountEmail"> &nbsp;{authUser.email}</h2>
             </div>
-            <PasswordChangeForm />
+            {/* <PasswordChangeForm /> */}
             <LoginManagement authUser={authUser} />
           </>
         )}
@@ -111,15 +128,18 @@ class LoginManagementBase extends Component {
   };
 
   render() {
+
     const { activeSignInMethods, error } = this.state;
+
     const signInDiv = {
       display: "flex"
     }
+
     return (
       <>
-        <div style={signInDiv}>
+        <div style={signInDiv} id="contentMediaQuery">
           <h3>Link Your Sign In Methods: </h3>
-          <ul>
+          <ul id="inputBoxes">
             {LOG_IN_METHODS.map(signInMethod => {
               const oneLeft = activeSignInMethods.length === 1; //avoids getting locked out - only one active method = disable all deactivation buttons
               const isEnabled = activeSignInMethods.includes(signInMethod.id);
@@ -226,11 +246,13 @@ class DefaultLoginToggle extends Component {
       marginRight: "10px",
       height: "36.5px",
       alignItems: "center",
-      marginTop: "26px"
+      marginTop: "10px"
     }
 
     const form = {
       display: "flex",
+      flexFlow: "column",
+      marginBottom: "50px",
       justifyContent: "center"
     }
 
@@ -249,6 +271,7 @@ class DefaultLoginToggle extends Component {
         size="medium"
         onClick={() => onUnlink(signInMethod.id)}
         disabled={oneLeft}
+        className="textFields"
       >
         Deactivate {signInMethod.id}
       </Button>
@@ -264,6 +287,7 @@ class DefaultLoginToggle extends Component {
             onChange={this.onChange}
             type="password"
             label="New Password"
+            className="textFields"
           />
           <TextField
             style={textField}
@@ -275,6 +299,7 @@ class DefaultLoginToggle extends Component {
             onChange={this.onChange}
             type="password"
             label="Confirm New Password"
+            className="textFields"
           />
           <Button
             disabled={isInvalid}
@@ -283,6 +308,7 @@ class DefaultLoginToggle extends Component {
             size="medium"
             variant="contained"
             color="primary"
+            className="textFields"
           >
             Link {signInMethod.id}
           </Button>

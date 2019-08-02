@@ -1,3 +1,4 @@
+
 export const LOGIN = "/";
 export const OWNER_SIGNUP = "/owner-signup"; //Admin role?
 export const RENTER_SIGNUP = "/renter-signup";
