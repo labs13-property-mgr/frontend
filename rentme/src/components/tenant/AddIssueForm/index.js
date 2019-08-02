@@ -103,7 +103,7 @@ class AddIssueForm extends Component {
         received: false
       },
       message: {
-        to: "",
+        to: `${this.owner_phone}`,
         body: ""
       },
       submitting: false,
@@ -188,6 +188,7 @@ class AddIssueForm extends Component {
       status: "open",
       tenant_id: this.state.tenant.id,
       property_id: this.state.tenant.property_id,
+      owner_phone: this.state.tenant.owner_phone,
     };
 
     await this.addIssue(issue).then(issues => {
@@ -210,7 +211,7 @@ class AddIssueForm extends Component {
                     error: false,
                     submitting: false,
                     message: {
-                        to: '',
+                        to: `${this.state.tenant.owner_phone}`,
                         body: ''
                     }
                 })
@@ -286,18 +287,17 @@ class AddIssueForm extends Component {
                   >
                     <label htmlFor="to">To:</label>
                     <Typography
-                      type="tel"
-                      varient="h3"
                       name="to"
                       id="to"
                       value={this.state.message.to}
-                    >{this.props.owner_phone}</Typography>
+                      onChange={this.handleChange}
+                    >{this.state.tenant.owner_phone}</Typography>
                     <TextField
                       className={this.props.classes.textField}
                       value={this.state.message.body}
                       variant="outlined"
                       required
-                      id="request_name"
+                      id="body"
                       label="Request Name"
                       name="body"
                       helperText="Please provide a short summary name for your request"

@@ -62,6 +62,7 @@ onSubmitAddOwner = async e => {
   await this.props.firebase.user(authUser.user.uid).set({
     username,
     email,
+    phone,
     roles
   });
 

@@ -103,6 +103,7 @@ class AddTenantForm extends Component {
       tenant: {
         ["property_id"]: null,
         ["owner_id"]: JSON.parse(localStorage.getItem("authUser")).uid,
+        ["owner_phone"]: JSON.parse(localStorage.getItem("authUser")).phone,
         active_tenant: false
       },
       properties: []

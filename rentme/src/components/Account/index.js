@@ -41,7 +41,7 @@ const formCard = {
 
 const Account = ({ lastLocation }) => (
   <>
-  {lastLocation && <Link to={lastLocation || "/" }>Back to Previous Page</Link>}
+  {lastLocation && <Link to={lastLocation || "/login" }>Back to Previous Page</Link>}
   <Paper style={formCard}>
   <AuthUserContext.Consumer>
     {authUser => (
