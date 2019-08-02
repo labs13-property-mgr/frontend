@@ -30,7 +30,6 @@ const styles = theme => ({
       marginLeft: "1.5rem"
     }
   },
-
   formCard: {
     margin: "0 auto",
     display: "flex",
@@ -48,11 +47,13 @@ const styles = theme => ({
       flexDirection: "column"
     }
   },
-
   form: {
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between"
+  },
+  textPhone: {
+    display: "flex"
   },
   buttons: {
     display: "flex",
@@ -167,7 +168,7 @@ class AddIssueForm extends Component {
         ...this.state.issue,
         [name]: e.target.value
       },
-      message: { ...this.state.message, to: `${this.state.tenant.owner_phone}`, [name]: e.target.value},
+      message: { ...this.state.message, to: `1${this.state.tenant.owner_phone}`, [name]: e.target.value},
     });
   };
 
@@ -286,12 +287,16 @@ class AddIssueForm extends Component {
                     className={this.props.classes.form}
                     //onSubmit={this.onSubmit}
                   >
-                    <label htmlFor="to">To:</label>
-                    <Typography>{this.state.tenant.owner_phone}</Typography>
+                    <div className={this.props.classes.textPhone}>
+                      <label htmlFor="to">To:</label>
+                      &nbsp;
+                      <Typography>{this.state.tenant.owner_phone}</Typography>
+                    </div>
                     <TextField
                       className={this.props.classes.textField}
                       value={this.state.message.body}
                       variant="outlined"
+                      maxLength="75"
                       required
                       id="body"
                       label="Request Name"
