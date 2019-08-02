@@ -22,6 +22,7 @@ import "typeface-roboto";
 import placeholer from "../../../placeholderImages/modernHouse.png";
 import "../../imageMediaQueries.css";
 
+
 import * as ROLES from "../../../constants/roles";
 
 const drawerWidth = 240;
@@ -45,6 +46,7 @@ const styles = theme => ({
     flexDirection: "column",
     justifyContent: "center",
     width: "70%",
+    marginBottom: "35px",
     marginTop: "2rem",
     padding: "1.5rem",
     [theme.breakpoints.down("sm")]: {
@@ -148,6 +150,11 @@ const styles = theme => ({
   propertyImageSection: {
     display: "flex",
     justifyContent: "center"
+  },
+  ServiceRequests: {
+    borderBottom: "1px solid #9e9e9e73",
+    paddingBottom: "25px",
+    
   }
 });
 
@@ -172,10 +179,12 @@ class PropertyCard extends Component {
     tenants: [],
     activeProperty: {},
     property: {},
-    open: true
+    open: true,
+    propertyImageChanging: false
   };
 
   componentDidMount() {
+    window.scrollTo(0,0);
     const endpoint = "https://rent-me-app.herokuapp.com/api/property";
     axios
       .get(endpoint)
@@ -256,6 +265,9 @@ class PropertyCard extends Component {
 
 
   handleUploadPicture = (fd, fullFileName) => {
+
+    this.setState({propertyImageChanging: true});
+
     axios.post(
       "https://us-central1-rentme-52af4.cloudfunctions.net/uploadFile",
       fd,
@@ -282,6 +294,8 @@ class PropertyCard extends Component {
           image_url: newImageUrl
         } 
       }));
+
+      this.setState({propertyImageChanging: false});
 
       
 
@@ -310,8 +324,8 @@ updatePropertyInfo = () => {
       console.log(err);
     });
 };
-    
-  
+
+
 
   handleEditPicture = () => {
     const fileInput = document.getElementById("imageInput");
@@ -352,6 +366,9 @@ updatePropertyInfo = () => {
               PREVIOUS PAGE
             </Button>
             <div>
+              <div className={this.props.classes.ServiceRequests}>
+                <ServiceRequests property_id={this.props.match.params.id}/>
+              </div>
               <Paper className={this.props.classes.propertyCard}>
                 <div className={this.props.classes.buttonsandHeader}>
                   <Typography
@@ -387,25 +404,29 @@ updatePropertyInfo = () => {
                     onChange={this.handleImageChange}
                   />
 
-                  {/* <button onClick={this.consoleLogs}>click</button> */}
-
-                  {this.state.property.image_url === null ? (
-                    <Tooltip title="Edit/Upload New Image" placement="right">
-                      <img
-                        className={this.props.classes.propertyImage}
-                        id="propertyCardPropertyImage"
-                        src={placeholer}
-                        alt="house placeholder"
-                        onClick={this.handleEditPicture}
-                      />
-                    </Tooltip>
+                  {this.state.propertyImageChanging === true ? (
+                    <div className="loader"></div>
                   ) : (
-                      <img
-                        className={this.props.classes.propertyImage2}
-                        id="propertyCardPropertyImage"
-                        src={this.state.property.image_url}
-                        alt="rental house photo"
-                      />
+                    <>
+                      {this.state.property.image_url === null ? (
+                        <Tooltip title="Edit/Upload New Image" placement="right">
+                          <img
+                          className={this.props.classes.propertyImage}
+                            id="propertyCardPropertyImage"
+                            src={placeholer}
+                            alt="house placeholder"
+                            onClick={this.handleEditPicture}
+                          />
+                        </Tooltip>
+                      ) : (
+                          <img
+                            className={this.props.classes.propertyImage2}
+                            id="propertyCardPropertyImage"
+                            src={this.state.property.image_url}
+                            alt="rental house photo"
+                          />
+                     )}
+                    </>
                   )}
                 </div>
                 <Typography
@@ -481,7 +502,7 @@ updatePropertyInfo = () => {
                   </Grid>
                 </ThemeProvider>
               </Paper>
-              <ServiceRequests property_id={this.props.match.params.id} />
+              {/* <ServiceRequests property_id={this.props.match.params.id}/> */}
             </div>
           </div>
         </main>

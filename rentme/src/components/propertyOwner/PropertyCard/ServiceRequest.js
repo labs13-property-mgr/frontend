@@ -20,8 +20,9 @@ const ServiceRequest = props => {
   return (
     <>
       <Card className={classes.card}>
-        <CardContent>
+        <CardContent >
           <ServiceRequestModal
+            componentDidMount={props.componentDidMount}
             request={props.request}
             handleGetRequests={props.handleGetRequests}
           />

@@ -29,10 +29,7 @@ const useStyles = makeStyles(theme => ({
   center: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
-    "&:hover": {
-      cursor: "pointer"
-    }
+    alignItems: "center"
   },
   tooltip: {
     fontSize: "2rem"
@@ -46,7 +43,12 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    width: "100%",
+    padding: "15px",
+    "&:hover": {
+      cursor: "pointer"
+    }
   },
   needToView: {
     fontSize: ".9rem",
@@ -65,6 +67,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+
 const ServiceRequestModal = props => {
   const [modalOpen, setModalOpen] = useState(false);
   const classes = useStyles();
@@ -74,7 +77,7 @@ const ServiceRequestModal = props => {
 
   const handleClick = () => {
     setModalOpen(!modalOpen);
-
+    
     setIsReceived(true);
   };
 
@@ -158,7 +161,7 @@ const ServiceRequestModal = props => {
       >
         <div className={`${classes.formContainer}`}>
           <div className={classes.form}>
-            <ServiceRequestForm request={props.request} />
+            <ServiceRequestForm request={props.request} handleClick={handleClick} />
           </div>
         </div>
       </Modal>

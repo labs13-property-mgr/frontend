@@ -14,7 +14,7 @@ import Typography from "@material-ui/core/Typography";
 import "typeface-roboto";
 import placeholer from "../../../placeholderImages/modernHouse.png";
 import "../../imageMediaQueries.css";
-
+import "./index.css";
 import { withAuthorization } from "../../Session";
 import * as ROLES from "../../../constants/roles";
 
@@ -112,6 +112,7 @@ const useStyles = makeStyles(theme => ({
     mozTransitionDuration: "0.3s",
     oTransitionDduration: "0.3s",
     transitionDuration: "0.3s",
+    padding: "16px",
     "&:hover": {
       boxShadow: "1px 2px 4px 2px #00000050",
       webkitTransitionDuration: "0.2s",
@@ -128,7 +129,7 @@ const PropertyDash = props => {
   const classes = useStyles();
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(0);
-  const [cardsPerPage, setCardsPerPage] = useState(6);
+  const [cardsPerPage, setCardsPerPage] = useState(10);
   const [emptyState, setEmptyState] = useState(null);
   const [showLoading, setShowLoading] = useState(false);
 
@@ -152,7 +153,7 @@ const PropertyDash = props => {
     axios
       .get(
         `https://rent-me-app.herokuapp.com/api/user/${
-        JSON.parse(localStorage.getItem("authUser")).uid
+          JSON.parse(localStorage.getItem("authUser")).uid
         }/properties`
       )
       .then(res => {
@@ -213,6 +214,11 @@ const PropertyDash = props => {
               )}
               {properties &&
                 properties
+                  .sort(function(a, b) {
+                    let propA = a.property_name.toUpperCase();
+                    let propB = b.property_name.toUpperCase();
+                    return propA < propB ? -1 : propA > propB ? 1 : 0;
+                  })
                   .slice(
                     searchQuery ? 0 : page * cardsPerPage,
                     searchQuery
@@ -231,7 +237,7 @@ const PropertyDash = props => {
                         >
                           <Link to={`/property-card/${property.id}`}>
                             <Card className={classes.cardStyle}>
-                              <CardContent>
+                              <CardContent className={classes.cardContent}>
                                 <div className="propertyDashImageCardHoalder">
                                   {property.image_url === null ? (
                                     <img
@@ -253,8 +259,16 @@ const PropertyDash = props => {
                                   Name: {property && property.property_name}
                                 </p>
                                 <p>Address: {property && property.address}</p>
-                                <span className={classes.cardSpan}><p>Unit: </p>&nbsp;<Typography color="textSecondary">{property && property.unit}</Typography></span>
-                                <span className={classes.rentSpan}><h4>Rent Rate: </h4>&nbsp;<p>${property && property.rent}</p></span>
+                                <span className={classes.cardSpan}>
+                                  <p>Unit: </p>&nbsp;
+                                  <Typography color="textSecondary">
+                                    {property && property.unit}
+                                  </Typography>
+                                </span>
+                                <span className={classes.rentSpan}>
+                                  <h4>Rent Rate: </h4>&nbsp;
+                                  <p>${property && property.rent}</p>
+                                </span>
                               </CardContent>
                             </Card>
                           </Link>
@@ -268,7 +282,7 @@ const PropertyDash = props => {
             className={searchQuery ? classes.hide : classes.paginationWrapper}
             count={properties.length}
             rowsPerPage={cardsPerPage}
-            rowsPerPageOptions={[]}
+            rowsPerPageOptions={[10, 25, 50, 100]}
             page={page}
             backIconButtonProps={{
               "aria-label": "Previous Page"
@@ -277,6 +291,7 @@ const PropertyDash = props => {
               "aria-label": "Next Page"
             }}
             onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
           />
         </main>
         {/* </Container> */}

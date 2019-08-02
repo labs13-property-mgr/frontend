@@ -27,3 +27,16 @@ input[type="text"] {
   margin-left: 0.8rem;
   color: #757575;
 }
+
+
+.MuiFormControl-marginNormal {
+  margin-bottom: 25px !important;
+  margin-top: 0px !important;
+}
+
+.MuiFormControl-root{
+  margin-bottom: 25px !important;
+} 
+
+
+

@@ -1,4 +1,5 @@
-export const LOGIN = "/";
+export const LANDINGPAGE = "/";
+export const LOGIN = "/login";
 export const OWNER_SIGNUP = "/owner-signup"; //Admin role?
 export const RENTER_SIGNUP = "/renter-signup";
 export const ACCOUNT = "/account";

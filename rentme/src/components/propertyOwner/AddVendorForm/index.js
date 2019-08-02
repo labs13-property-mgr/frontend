@@ -241,32 +241,20 @@ class AddVendorForm extends Component {
                       value={this.state.vendor.address}
                     />
 
-                    <MaskedInput
-                      className="masked-input"
-                      mask={[
-                        "(",
-                        /[1-9]/,
-                        /\d/,
-                        /\d/,
-                        ")",
-                        /\d/,
-                        /\d/,
-                        /\d/,
-                        "-",
-                        /\d/,
-                        /\d/,
-                        /\d/,
-                        /\d/
-                      ]}
+                    <TextField
+                      onInput={function (e) {
+                        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+                        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? ' - ' + x[3] : '');}}
+                      
                       guide={true}
                       placeholder="Phone Number"
-                      // variant="outlined"
+                      variant="outlined"
                       id="phone"
                       label="Phone Number"
                       name="phone"
                       // autoComplete="phone"
-                      // margin="normal"
-                      // autoFocus
+                      margin="normal"
+                      autoFocus
                       onChange={this.handleChange}
                       value={this.state.vendor.phone}
                     />
