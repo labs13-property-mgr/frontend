@@ -31,7 +31,6 @@ import PasswordChange from "./components/PasswordChange";
 import { TenantDashWithFirebase } from "./components/tenant/TenantDashboard";
 import TenantDashboard from "./components/tenant/TenantDashboard";
 import AddIssueForm from "./components/tenant/AddIssueForm";
-import SMSAlertForm from "./components/tenant/AddIssueForm/SMSAlertForm";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import LeaseApplication from "./components/tenant/LeaseApplication/index";
 import LeaseAgreementContract from "./components/tenant/LeaseAgreementContract/index";
@@ -73,7 +72,6 @@ const App = () => (
       {/* Tenant Routes */}
       <Route exact path={ROUTES.RENT_RECEIPTS} component={RentReceipts} />
       <Route exact path={ROUTES.ADD_ISSUE_FORM} component={AddIssueForm} />
-      <Route exact path={ROUTES.SMS_ALERT_FORM} component={SMSAlertForm} />
       {/* <Route exact path={ROUTES.LEASE_APPLICATION} component={LeaseApplication} />
       <Route exact path={ROUTES.LEASE_AGREEMENT_CONTRACT} component={LeaseAgreementContract} /> */}
 
