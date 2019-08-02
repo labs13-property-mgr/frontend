@@ -9,6 +9,7 @@ import Paper from "@material-ui/core/Paper";
 import TenantUserMenu from "../../SideMenu/TenantUserMenu";
 import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
+import { Typography } from "@material-ui/core";
 
 const drawerWidth = 240;
 
@@ -29,7 +30,6 @@ const styles = theme => ({
       marginLeft: "1.5rem"
     }
   },
-
   formCard: {
     margin: "0 auto",
     display: "flex",
@@ -47,11 +47,13 @@ const styles = theme => ({
       flexDirection: "column"
     }
   },
-
   form: {
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between"
+  },
+  textPhone: {
+    display: "flex"
   },
   buttons: {
     display: "flex",
@@ -87,7 +89,7 @@ class AddIssueForm extends Component {
       issues: [],
       issue: {
         date_created: "",
-        request_name: "",
+        body: "",
         request_description: "",
         status: "",
         notes: "",
@@ -98,10 +100,21 @@ class AddIssueForm extends Component {
         property_id: null,
         tenant_id: null,
         owner_id: null,
+        owner_phone: "",
         received: false
-      }
-    };
+      },
+      message: {
+        to: "",
+        body: ""
+      },
+      submitting: false,
+      error: false
+    }
+    this.handleChange = this.handleChange.bind(this)
+    this.onSubmit = this.onSubmitAddIssue.bind(this)
   }
+
+  abortController = new AbortController()
 
   componentDidMount() {
     const endpoint = "https://rent-me-app.herokuapp.com/api/service";
@@ -131,6 +144,10 @@ class AddIssueForm extends Component {
       });
   }
 
+  componentWillUnmount() {
+    this.abortController.abort()
+  }
+
   addIssue = (newIssue, e) => {
     return axios
       .post("https://rent-me-app.herokuapp.com/api/service", newIssue)
@@ -144,17 +161,21 @@ class AddIssueForm extends Component {
   };
 
   handleChange = e => {
+    const name = e.target.getAttribute('name');
     e.persist();
     this.setState({
       issue: {
         ...this.state.issue,
-        [e.target.name]: e.target.value
-      }
+        [name]: e.target.value
+      },
+      message: { ...this.state.message, to: `1${this.state.tenant.owner_phone}`, [name]: e.target.value},
     });
   };
 
-  onSubmitAddIssue = e => {
+  onSubmitAddIssue = async e => {
     e.preventDefault();
+
+    try {
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, "0");
     let mm = String(today.getMonth() + 1).padStart(2, "0");
@@ -167,15 +188,48 @@ class AddIssueForm extends Component {
       date_created: today,
       status: "open",
       tenant_id: this.state.tenant.id,
-      property_id: this.state.tenant.property_id
+      property_id: this.state.tenant.property_id,
+      owner_phone: this.state.tenant.owner_phone,
     };
 
-    this.addIssue(issue).then(issues => {
+
+    await this.addIssue(issue).then(issues => {
       this.setState({
         issues: issues
-      });
+      })
+    })
+
+    await this.setState({ submitting: true })
+    fetch("https://rent-me-app.herokuapp.com/api/message", { 
+        signal: this.abortController.signal,
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(this.state.message)
+    })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                this.setState({
+                    error: false,
+                    submitting: false,
+                    message: {
+                        to: '',
+                        body: ''
+                    }
+                })
+            } else {
+                this.setState({
+                    error: true,
+                    submitting: false
+                })
+            }
+        })
+    } catch (err) {
+      alert(err)
+    } finally { 
+
       return this.props.history.push("/tenant-dash");
-    });
+    }
   };
 
   goBack = e => {
@@ -203,14 +257,22 @@ class AddIssueForm extends Component {
                   <form
                     onSubmit={this.onSubmitAddIssue}
                     className={this.props.classes.form}
+                    //onSubmit={this.onSubmit}
                   >
+                    <div className={this.props.classes.textPhone}>
+                      <label htmlFor="to">To:</label>
+                      &nbsp;
+                      <Typography>{this.state.tenant.owner_phone}</Typography>
+                    </div>
                     <TextField
                       className={this.props.classes.textField}
+                      value={this.state.message.body}
                       variant="outlined"
+                      maxLength="75"
                       required
-                      id="request_name"
+                      id="body"
                       label="Request Name"
-                      name="request_name"
+                      name="body"
                       helperText="Please provide a short summary name for your request"
                       margin="normal"
                       autoFocus
@@ -233,6 +295,7 @@ class AddIssueForm extends Component {
                         <Button
                           className={this.props.classes.button}
                           type="submit"
+                          disabled={this.state.submitting}
                           variant="contained"
                           color="primary"
                           size="large"

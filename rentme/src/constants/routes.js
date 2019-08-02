@@ -21,6 +21,7 @@ export const RENT_RECEIPTS = "/view-receipts";
 export const ADD_ISSUE_FORM = "/add-work-request";
 export const LEASE_APPLICATION = "/view-LeaseApplication";
 export const LEASE_AGREEMENT_CONTRACT = "/view-LeaseAgreementContract";
+export const SMS_ALERT_FORM = "/issue-alert";
 
 
 export const PRIVACY_POLICY = "/privacy-policy";

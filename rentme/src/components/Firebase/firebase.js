@@ -70,6 +70,7 @@ class Firebase {
               // merges auth and db user by matching uid & email
               uid: authUser.uid,
               email: authUser.email,
+              phone: authUser.phone,
               ...dbUser
             };
 

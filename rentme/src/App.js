@@ -53,11 +53,7 @@ const App = () => (
       <Route exact path={ROUTES.ACCOUNT} component={Account} />
 
       {/* Dashboard Views */}
-      <Route
-        exact
-        path={ROUTES.TENANT_DASHBOARD}
-        component={TenantDashWithFirebase}
-      />
+      <Route exact path={ROUTES.TENANT_DASHBOARD} component={TenantDashWithFirebase} />
       <Route exact path={ROUTES.OWNER_DASHBOARD} component={PropertyDash} />
 
       {/* Property Owner Routes */}

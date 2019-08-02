@@ -23,6 +23,7 @@ const PropertyOwnerSignUp = props => (
 const INITIAL_STATE = {
   username: "",
   email: "",
+  phone: "",
   passwordOne: "",
   passwordTwo: "",
   isOwner: false,
@@ -45,7 +46,7 @@ class OwnerSignUpFormBase extends Component {
 onSubmitAddOwner = async e => {
   e.preventDefault();
 
-  const { authUser, username, email, passwordOne, isOwner } = this.state;
+  const { authUser, username, email, phone, passwordOne, isOwner } = this.state;
   const roles = {};
 
   if (isOwner) {
@@ -61,12 +62,14 @@ onSubmitAddOwner = async e => {
   await this.props.firebase.user(authUser.user.uid).set({
     username,
     email,
+    phone,
     roles
   });
 
   const response = await axios.post('https://rent-me-app.herokuapp.com/api/user', {
     uid: authUser.user.uid,
     email,
+    phone,
     role: ROLES.OWNER
   });
 } catch (err) {
@@ -84,11 +87,12 @@ onSubmitAddOwner = async e => {
   }
 
   render() {
-    const { email, username, passwordOne, passwordTwo, isOwner, error } = this.state;
+    const { email, username, phone, passwordOne, passwordTwo, isOwner, error } = this.state;
 
     const isInvalid =
       email === "" ||
       username === "" ||
+      phone === "" ||
       passwordOne !== passwordTwo ||
       passwordOne === "" ||
       isOwner === false;
@@ -131,16 +135,33 @@ onSubmitAddOwner = async e => {
             />
             <TextField
               variant="outlined"
-              type="text"
+              type="tel"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
+              guide={true}
+              id="phone"
+              label="Cell Phone Number"
+              name="phone"
               margin="normal"
-              value={email}
+              value={phone}
               onChange={this.onChange}
+              onInput={function (e) {
+                var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+                e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? ' - ' + x[3] : '');}}
               autoFocus
+            />
+            <TextField
+               variant="outlined"
+               type="text"
+               required
+               fullWidth
+               id="email"
+               label="Email Address"
+               name="email"
+               margin="normal"
+               value={email}
+               onChange={this.onChange}
+               autoFocus 
             />
             <TextField
               variant="outlined"
