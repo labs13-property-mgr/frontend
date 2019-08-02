@@ -103,7 +103,7 @@ class AddIssueForm extends Component {
         received: false
       },
       message: {
-        to: `${this.owner_phone}`,
+        to: "",
         body: ""
       },
       submitting: false,
@@ -167,7 +167,7 @@ class AddIssueForm extends Component {
         ...this.state.issue,
         [name]: e.target.value
       },
-      message: { ...this.state.message, [name]: e.target.value}
+      message: { ...this.state.message, to: `${this.state.tenant.owner_phone}`, [name]: e.target.value},
     });
   };
 
@@ -191,6 +191,7 @@ class AddIssueForm extends Component {
       owner_phone: this.state.tenant.owner_phone,
     };
 
+
     await this.addIssue(issue).then(issues => {
       this.setState({
         issues: issues
@@ -211,7 +212,7 @@ class AddIssueForm extends Component {
                     error: false,
                     submitting: false,
                     message: {
-                        to: `${this.state.tenant.owner_phone}`,
+                        to: '',
                         body: ''
                     }
                 })
@@ -286,12 +287,7 @@ class AddIssueForm extends Component {
                     //onSubmit={this.onSubmit}
                   >
                     <label htmlFor="to">To:</label>
-                    <Typography
-                      name="to"
-                      id="to"
-                      value={this.state.message.to}
-                      onChange={this.handleChange}
-                    >{this.state.tenant.owner_phone}</Typography>
+                    <Typography>{this.state.tenant.owner_phone}</Typography>
                     <TextField
                       className={this.props.classes.textField}
                       value={this.state.message.body}

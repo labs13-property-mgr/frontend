@@ -80,7 +80,7 @@ const ServiceRequestModal = props => {
 
   const { handleGetRequests, request } = props;
   const {
-    request_name,
+    body,
     status,
     resolved_tenant,
     resolved_owner,
@@ -96,10 +96,10 @@ const ServiceRequestModal = props => {
   }, [props.request]);
 
   return (
-    <div className={classes.center} onClick={handleClick}>
-      <div className={classes.content}>
+    <div className={classes.center}>
+      <div className={classes.content} onClick={handleClick}>
         <div className={classes.title}>
-          <Typography variant="h6">{request_name}</Typography>
+          <Typography variant="h6">{body}</Typography>
           <Tooltip
             // className={classes.tooltip}
             title={
