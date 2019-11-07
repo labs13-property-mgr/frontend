@@ -144,9 +144,9 @@ class AddIssueForm extends Component {
       });
   }
 
-  componentWillUnmount() {
-    this.abortController.abort()
-  }
+  //componentWillUnmount() {
+    //this.abortController.abort()
+  //}
 
   addIssue = (newIssue, e) => {
     return axios
@@ -259,11 +259,11 @@ class AddIssueForm extends Component {
                     className={this.props.classes.form}
                     //onSubmit={this.onSubmit}
                   >
-                    <div className={this.props.classes.textPhone}>
+                    {/*<div className={this.props.classes.textPhone}>
                       <label htmlFor="to">To:</label>
                       &nbsp;
                       <Typography>{this.state.tenant.owner_phone}</Typography>
-                    </div>
+                      </div>*/}
                     <TextField
                       className={this.props.classes.textField}
                       value={this.state.message.body}
