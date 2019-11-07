@@ -1,35 +1,21 @@
-🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your portfolio. This is intended to be a guideline, feel free to add your own flare to it.
+# 1️⃣ RentMe Property Management App
 
-🚫 The numbers 1️⃣ through 5️⃣ next to each item represent the week that part of the docs needs to be comepleted by. Make sure to delete the numbers by the end of Labs.
-
-🚫 Each student has a required minimum number of meaningful PRs each week per the rubric. Contributing to docs does NOT count as a PR to meet your weekly requirements.
-
-# 1️⃣ Title of project goes here
-
-1️⃣ You can find the deployed project at [🚫URL NAME GOES HERE](🚫copy and paste URL here).
+1️⃣ You can find the deployed project at https://www.rentme-app.com/.
 
 ## 4️⃣ Contributors
 
-🚫Add contributor info below, make sure add images and edit the social links for each member. Add to or delete these place-holders as needed
-
-|                                                     [Jeffrey Lapp](https://github.com/lappjeff)                                                     |                                                       [Student 2](https://github.com/)                                                        |                                             [Student 3](https://github.com/tca88)                                             |                                                       [Student 4](https://github.com/)                                                        |                                                      [Student 5](https://github.com/)                                                       |
-| :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://imgur.com/a/Bys6tv3" width = "200" />](https://github.com/lappjeff) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/) | [<img src="https://pbs.twimg.com/profile_images/427522704208433152/CDN_XCm4.jpeg" width = "200" />](https://github.com/tca88) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/) |
-|                                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                                |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/honda0306)                             |                      [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/tca88)                       |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/NandoTheessen)                           |                           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/wvandolah)                            |
-|                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/jeffrey-lapp-622298181/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |  [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/trishnaamin)  |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |
+|                                                     [Jeffrey Lapp](https://github.com/lappjeff)                                                     |                                                       [Cori Peck](https://github.com/cori-peck)                                                        |                                             [Trishna Amin](https://github.com/tca88)                                             |                                                       [Ethan Baugher](https://github.com/baugher90)                                                        |                                                      [Brandon Saravia](https://github.com/BrandonSaravia)                                                       |
+|                                                     [Joshua Kaddu](https://github.com/jkaddu)                                                       |                                                     [Larry Simiyu](https://github.com/LarrySimiyu)                                                     | :---------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
+| [<img src="https://imgur.com/a/Bys6tv3" width = "200" />](https://github.com/lappjeff) | [<img src="https://pbs.twimg.com/profile_images/645026628213469185/yzADoLsG_400x400.jpg" width = "200" />](https://github.com/cori-peck) | [<img src="https://pbs.twimg.com/profile_images/427522704208433152/CDN_XCm4.jpeg" width = "200" />](https://github.com/tca88) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/) |
+|                                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                                |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/cori-peck)                             |                      [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/tca88)                       |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                           |                           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                            |
+|                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/jeffrey-lapp-622298181/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/coripeck/)                 |  [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/trishnaamin)  |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |
 
 <br>
 <br>
-
-🚫 4️⃣ Optional examples of using images with links for your tech stack, make sure to change these to fit your project
 
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 
-![React](https://img.shields.io/badge/react-v16.7.0--alpha.2-blue.svg)
-
-![Typescript](https://img.shields.io/npm/types/typescript.svg?style=flat)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b5c4db1c-b10d-42c3-b157-3746edd9e81d/deploy-status)](netlify link goes in these parenthesis)
-🚫 more info on using badges [here](https://github.com/badges/shields)
+![React](https://img.shields.io/badge/react-v16.8.6--alpha.2-blue.svg)
 
 ## Project Overview
 
