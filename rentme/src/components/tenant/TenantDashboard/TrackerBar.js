@@ -187,8 +187,11 @@ const TrackerBar = props => {
               }`}
             >
               {!resolved_tenant ? (
-                <Button onClick={() => handleSetResolvedRequest(id)}>
-                  <p className={"step-text"}>Issue resolved?</p>
+                <Button style={{
+                  background: "DeepSkyBlue",
+                  color: "white"
+                }} onClick={() => handleSetResolvedRequest(id)}>
+                  Issue resolved?
                 </Button>
               ) : (
                 ""
